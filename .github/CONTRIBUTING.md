@@ -20,7 +20,7 @@ Ha még nem használtál Fluttert, mindenképp böngészd át a [YouTube csatorn
 Könnyen tudsz kódot, vagy akár UI-t is tesztelni a [DartPad](https://dartpad.dev/) oldalon.
 
 #### [Segítség a Flutter telepítéséhez és a forráskód futtatásához](/.github/SETUP.md)
-Fontos: **Legyél a flutter beta verzióján!** Írd be: `flutter channel beta`
+Fontos: **Legyél a flutter dev verzióján!** Írd be: `flutter channel dev`
 
 
 
