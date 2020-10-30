@@ -17,8 +17,7 @@
   "exam": {
     "": "Dolgozat",
     "title": "Számonkérések",
-    "past": "Korábbi dolgozatok",
-    "upcoming": "Közelgő dolgozatok"
+    "past": "Korábbi dolgozatok"
   },
   "grade": {
     "": "osztályzat",
@@ -126,8 +125,7 @@
     "subject": "tantárgy",
     "uploadUser": "feltöltő",
     "uploadTime": "feltöltés ideje",
-    "past": "Korábbi házik",
-    "upcoming":"Közelgő házik"
+    "past": "Korábbi házik"
   },
   "planner": {
     "title": "Tervező",
@@ -210,7 +208,7 @@
     "description": "leírás",
     "type": "típus",
     "valueType": "jelleg",
-    "form": "értékelés formája",
+    "form": "értékelés formja",
     "writeDate": "írás ideje",
     "date": "dátum",
     "weight": "súly"
@@ -226,7 +224,6 @@
     "endYear": "Év végi",
     "subjects": "Tárgyak",
     "statistics": "Statisztikák",
-    "subjectsAverage":"Tantárgyaid átlaga",
     "ghost": {
       "": "SZELLEMJEGY",
       "title": "Szellemjegy hozzáadása",
@@ -411,7 +408,5 @@
     "6": "Itt válthatsz bejelentkezett fiókok között.\nEgy fióknak beállíthatsz egyéni nevet, és profilképet.\nFelvehetsz és törölhetsz fiókokat.\nItt találod az app beállításait és néhány további információt is.",
     "7": "Reméljük, elégedett leszel az új appal!\nNem találod a kedvenc régi funkciódat?\nNe aggódj, az app még kezdeti fázisban van, sok funkcióval fog gyarapodni."
   },
-  "unknown": "ismeretlen",
-  "showOthers": "További {count} megjelenítése",
-  "collapseList": "Lista összecsukása"
+  "unknown": "ismeretlen"
 }

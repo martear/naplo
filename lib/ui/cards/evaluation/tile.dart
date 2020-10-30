@@ -17,6 +17,8 @@ class EvaluationTile extends StatelessWidget {
     final bool isTemp = evaluation.id.startsWith("temp_");
 
     return Container(
+      padding: EdgeInsets.all(3),
+      margin: EdgeInsets.all(3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: isTemp ? Theme.of(context).highlightColor : null,
@@ -28,36 +30,21 @@ class EvaluationTile extends StatelessWidget {
           height: 46.0,
           child: Container(
             alignment: Alignment.center,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Column(
-                children: [
-                  Text(
-                    evaluation.value.value != 0
-                        ? evaluation.value.value.toString()
-                        : evaluation.value.shortName ?? "?",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.quicksand(
-                      fontSize: 38.0,
-                      height: 1.2,
-                      fontWeight: FontWeight.w500,
-                      color: isTemp
-                          ? Theme.of(context).accentColor
-                          : evaluation.value.value != 0 &&
-                                  evaluation.evaluationType.name != "Szazalekos"
-                              ? app.theme.evalColors[
-                                  (evaluation.value.value - 1).clamp(0, 4)]
-                              : null,
-                    ),
-                  ),
-                  evaluation.evaluationType.name == "Szazalekos"
-                      ? Text("%",
-                          style: GoogleFonts.quicksand(
-                              fontSize: 20,
-                              height: 0.8,
-                              fontWeight: FontWeight.w700))
-                      : Container()
-                ],
+            child: Text(
+              evaluation.value.value != 0
+                  ? evaluation.value.value.toString()
+                  : I18n.of(context).unknown,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.quicksand(
+                fontSize: 38.0,
+                height: 1.2,
+                fontWeight: FontWeight.w500,
+                color: isTemp
+                    ? Theme.of(context).accentColor
+                    : evaluation.value.value != 0
+                        ? app.theme.evalColors[
+                            (evaluation.value.value - 1).clamp(0, 4)]
+                        : null,
               ),
             ),
           ),

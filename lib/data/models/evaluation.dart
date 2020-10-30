@@ -43,7 +43,7 @@ class Evaluation {
     EvaluationValue value = EvaluationValue(
       json["SzamErtek"] ?? 0,
       json["SzovegesErtek"] ?? "",
-      json["SzovegesErtekelesRovidNev"] ?? "",
+      json["SzovegesErtekRovidNev"] ?? "",
       json["SulySzazalekErteke"] ?? 0,
     );
     String teacher = json["ErtekeloTanarNeve"] ?? "";

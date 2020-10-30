@@ -12,12 +12,7 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Container(
-        width: 46.0,
-        height: 46.0,
-        alignment: Alignment.center,
-        child: ProfileIcon(name: message.sender)
-      ),
+      leading: ProfileIcon(name: message.sender),
       title: Row(
         children: <Widget>[
           Expanded(

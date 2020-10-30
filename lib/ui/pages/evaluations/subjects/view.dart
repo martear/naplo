@@ -56,41 +56,37 @@ class _SubjectViewState extends State<SubjectView> {
       studentAvg += e.value.value * (e.value.weight / 100);
     });
 
-    double weight = subjectEvals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
-
-    if (weight > 0)
-      studentAvg = studentAvg / weight;
+    studentAvg = studentAvg /
+        subjectEvals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
 
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
         title: Text(capital(widget.subject.name)),
         actions: <Widget>[
-          studentAvg.round() != 0
-              ? Container(
-                  padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                      color:
-                          app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
-                    ),
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      app.settings.language == "en"
-                          ? studentAvg.toStringAsFixed(2)
-                          : studentAvg.toStringAsFixed(2).split(".").join(","),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                        color: textColor(
-                          app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
-                        ),
-                      ),
-                    ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(45.0)),
+                color:
+                    app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
+              ),
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                app.settings.language == "en"
+                    ? studentAvg.toStringAsFixed(2)
+                    : studentAvg.toStringAsFixed(2).split(".").join(","),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                  color: textColor(
+                    app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
                   ),
-          )
-          : Container(),
+                ),
+              ),
+            ),
+          ),
           widget.classAvg != null && widget.classAvg.round() != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),

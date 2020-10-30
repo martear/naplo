@@ -17,8 +17,7 @@
   "exam": {
     "": "Prüfung",
     "title": "Prüfungen",
-    "past": "Vorherige Prüfungen",
-    "upcoming": "Kommende Tests"
+    "past": "Vorherige Prüfungen"
   },
   "grade": {
     "": "Note",
@@ -126,8 +125,7 @@
     "subject": "Fach",
     "uploadUser": "Hochgeladen von",
     "uploadTime": "Hochladezeit",
-    "past": "Vorherige Hausaufgaben",
-    "upcoming": "Kommende Hausaufgaben"
+    "past": "Vorherige Hausaufgaben"
   },
   "planner": {
     "title": "Planer",
@@ -410,7 +408,5 @@
     "6": "Hier kannst du die Konten bearbeiten, neue Konten hinzufügen oder anderen löschen. Es gibt auch die Einstellungen und ein Bisschen Info über den app hier.",
     "7": "Wir hoffen, dass dir die neuem App gefallen wird!\nBitte sei nicht stört, wenn du deine Lieblingsfunktion nicht findest. Wir werden viele Funktionen noch addieren."
   },
-  "unknown": "unknown",
-  "showOthers": "Nächste {count} anzeigen",
-  "collapseList": "Liste stauchen"
+  "unknown": "unknown"
 }

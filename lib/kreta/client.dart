@@ -21,7 +21,6 @@ import 'package:filcnaplo/data/models/student.dart';
 import 'package:filcnaplo/data/models/user.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/models/absence.dart';
-import 'package:intl/intl.dart';
 
 class KretaClient {
   var client = http.Client();
@@ -661,11 +660,9 @@ class KretaClient {
         BaseURL.kreta(instituteCode) +
             KretaEndpoints.timetable +
             "?datumTol=" +
-            DateFormat('yyyy-MM-dd').format(from) +
-            //from.toUtc().toIso8601String() +
+            from.toUtc().toIso8601String() +
             "&datumIg=" +
-            //to.toUtc().toIso8601String(),
-            DateFormat('yyyy-MM-dd').format(to),
+            to.toUtc().toIso8601String(),
         headers: {
           "Authorization": "Bearer $accessToken",
           "User-Agent": userAgent
