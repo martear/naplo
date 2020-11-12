@@ -1,10 +1,16 @@
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
-import 'package:filcnaplo/ui/pages/planner/timetable/day.dart';
 import 'package:filcnaplo/modules/now/period.dart';
-
 import 'package:filcnaplo/modules/now/mode.dart';
+
+Lesson getCurrentLesson(List<Lesson> lessonsToday, DateTime now) {
+  for (Lesson lesson in lessonsToday) {
+    bool lessonStarted = lesson.start.isBefore(now);
+    bool lessonEnded = lesson.start.add(Duration(minutes: 45)).isBefore(now);
+    if (lessonStarted && !lessonEnded) return lesson;
+  }
+  return null;
+}
 
 Period getCurrentPeriod(
     List<Lesson> lessonsToday, DateTime now, int eveningStartHour) {
@@ -19,25 +25,26 @@ Period getCurrentPeriod(
     }
   }
 
-  for (Lesson lesson in lessonsToday) {
-    bool lessonStarted = lesson.start.isBefore(now);
-    bool lessonEnded = lesson.start.add(Duration(minutes: 45)).isBefore(now);
-    if (lessonStarted && !lessonEnded) return Period.Class;
-  }
+  Lesson currentLesson = getCurrentLesson(lessonsToday, now);
+  if (currentLesson != null) return Period.Class;
   return Period.Break;
 }
 
-Mode getMode(Week currentWeek) {
-  Set<Period> studyingPeriods = app.settings.studyingPeriods;
-
-  DateTime now = DateTime.now();
-  List<Day> daysToday = currentWeek.days
+List<Lesson> getLessonsToday(List<Lesson> lessonsThisWeek, DateTime now) {
+  return lessonsThisWeek
       .where((e) => (e.date.year == now.year &&
           e.date.month == now.month &&
           e.date.day == now.day))
       .toList();
+}
+
+Mode getMode(List<Lesson> lessonsThisWeek) {
+  Set<Period> studyingPeriods = app.settings.studyingPeriods;
+
+  DateTime now = DateTime.now();
+  List<Lesson> lessonsToday = getLessonsToday(lessonsThisWeek, now);
   Period currentPeriod = getCurrentPeriod(
-      daysToday.length == 0 ? [] : daysToday[0].lessons,
+      lessonsToday.length == 0 ? [] : lessonsToday,
       now,
       app.settings.eveningStartHour);
   if (currentPeriod == Period.Class) return Mode.AtSchool;
