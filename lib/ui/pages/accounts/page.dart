@@ -248,9 +248,15 @@ _launchDKT() async {
   String url =
       "https://dkttanulo.e-kreta.hu/sso?accessToken=${app.user.kreta.accessToken}";
 
-  if (await canLaunch(url)) {
+  //if (await canLaunch(url)) {
+  try {
+    //canLaunch was returning false when the URL was actually launchable... This is not very elegant, to be fixed.
     await launch(url, forceSafariVC: false, forceWebView: false);
-  } else {
-    throw 'Could not launch $url';
+  } catch (e) {
+    print(e.toString());
+    print("Error while launching DKT.");
   }
+  //} else {
+  //throw 'Could not launch $url';
+  //}
 }
