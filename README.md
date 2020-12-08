@@ -1,3 +1,22 @@
+<img src=".github/assets/banhammer.png" width="10%">
+
+### A Filc Napló és minden más jelentős alternatív Kréta kliens **letiltásra került Google Play-en**, copyright indokkal.
+
+A tiltás (legalábbis ebben a formában mindenképpen) szerintünk jogtalan, dolgozunk a megoldáson.\
+Ez annyit jelent, hogy a Playen keresztül nem tudunk nektek frissítéseket kiadni, de a már telepített appok továbbra is működnek, ahogy a GitHub-on elérhető apk-k is. További részletek hamarosan.
+
+### Amiben segíthettek: Írjatok emailt a Krétának (support@ekreta.hu).
+NE ideges hangnemben, NE szidva őket, hanem egyszerűen leírva a következők közül a **saját szavaiddal**, amit szeretnél:
+ - Miért találtad hasznosnak a Filcet (vagy más klienst)
+ - Miért szeretnéd, hogy fennmaradjon a Play áruházban
+ - Hogy a projekt életben fog maradni, és a felhasználóknak külső oldalról kell letöltenie az appot, ami kevésbé biztonságos
+ - Hogy a fejlesztők szívesen együttműködnek a krétával egy számukra is megfelelő app létrehozásában, és elkötelezettek az adatok védelme mellett
+ - Hogy egy egész országra kiterjedő rendszer esetén szükség van annak nyitottságára és közellenőrizhetőségére
+ - Hogy örülsz az új, modernebb Kréta appoknak, de ezek minősége nem indokolja más kliensek tiltását
+ - És ami még eszedbe jut.
+
+Ha egyszerre sok-sok emailt kapnak, megenyhülhetnek. **Ha tudod, vond be az üzenetküldésbe minél felsőbb iskolai pozícióban lévő tanárodat,** szülődet!
+
 <img src=".github/assets/banner.png" width="100%">
 
 [![discord](https://img.shields.io/discord/712698455193157643?label=Discord)](http://filcnaplo.hu/discord)
