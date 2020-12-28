@@ -60,7 +60,6 @@ class _AccountPageState extends State<AccountPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-
                   ),
                 ),
               ],
@@ -226,7 +225,7 @@ class _AccountTileState extends State<AccountTile> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DKTPage(widget.user)));
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(I18n.of(context).loginError),
                         duration: Duration(seconds: 5),
                       ));
