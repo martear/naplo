@@ -81,17 +81,19 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: IconButton(
-                    icon: Icon(FeatherIcons.x),
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      if (_searchController.text != "")
-                        setState(() => _searchController.text = "");
-                      else
-                        Navigator.pop(context);
-                    },
+                ClipOval(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: IconButton(
+                      icon: Icon(FeatherIcons.x),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        if (_searchController.text != "")
+                          setState(() => _searchController.text = "");
+                        else
+                          Navigator.pop(context);
+                      },
+                    ),
                   ),
                 )
               ],

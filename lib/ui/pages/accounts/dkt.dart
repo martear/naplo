@@ -11,13 +11,14 @@ class DKTPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CookieManager().clearCookies();
-
+    
     return Scaffold(
-        body: SafeArea(
-            child: WebView(
-              javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: "https://dkttanulo.e-kreta.hu/sso?accessToken=${app
-                  .kretaApi.users[user.id].accessToken}",
-    )));
+      body: SafeArea(
+        child: WebView(
+          javascriptMode: JavascriptMode.unrestricted,
+          initialUrl: "https://dkttanulo.e-kreta.hu/",
+        ),
+      ),
+    );
   }
 }
