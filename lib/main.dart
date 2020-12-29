@@ -1,5 +1,5 @@
-import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/ui/pages/welcome.dart';
+import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -72,32 +72,12 @@ class _AppState extends State<App> {
     super.initState();
     I18n.onLocaleChanged = onLocaleChange;
 
-    if (app.settings.theme.brightness == Brightness.light) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.grey[200],
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ));
-    }
-
-    if (app.settings.theme.backgroundColor.value ==
-        ThemeContext().tinted().backgroundColor.value) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Color(0xFF101C19),
-        systemNavigationBarIconBrightness: Brightness.light,
-      ));
-    } else if (app.settings.theme.brightness == Brightness.dark) {
-      if (app.settings.backgroundColor == 1) {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          systemNavigationBarColor: Color(0xff18191c),
-          systemNavigationBarIconBrightness: Brightness.light,
-        ));
-      } else {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.black,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ));
-      }
-    }
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          app.settings.theme.bottomNavigationBarTheme.backgroundColor,
+      systemNavigationBarIconBrightness:
+          invertBrightness(app.settings.theme.brightness),
+    ));
   }
 
   void onLocaleChange(Locale locale) {
@@ -142,7 +122,9 @@ class _AppState extends State<App> {
           theme: theme,
           home: app.firstStart
               ? WelcomePage()
-              : app.users.length > 0 ? PageFrame() : LoginPage(),
+              : app.users.length > 0
+                  ? PageFrame()
+                  : LoginPage(),
         );
       },
     );

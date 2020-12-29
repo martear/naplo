@@ -30,9 +30,8 @@ class LessonTile extends StatelessWidget {
 
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
         decoration: BoxDecoration(
-          color: app.settings.theme.backgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(14.0)),
           boxShadow: app.settings.theme.brightness == Brightness.light
               ? [
