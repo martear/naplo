@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/sync/config.dart';
 import 'package:filcnaplo/data/sync/evaluation.dart';
 import 'package:filcnaplo/data/sync/message.dart';
 import 'package:filcnaplo/data/sync/note.dart';
@@ -11,6 +12,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
 import 'dart:async';
+
 class SyncController {
   // Users
   Map<String, SyncUser> users = {};
@@ -130,6 +132,7 @@ class SyncController {
       sync.exam.delete();
       sync.homework.delete();
       sync.timetable.delete();
+      sync.config.delete();
     });
   }
 }
@@ -145,6 +148,7 @@ class SyncUser {
   ExamSync exam = ExamSync();
   HomeworkSync homework = HomeworkSync();
   TimetableSync timetable = TimetableSync();
+  ConfigSync config = ConfigSync();
   SyncUser() {
     TimetableBuilder builder = TimetableBuilder();
     Week currentWeek = builder.getWeek(builder.getCurrentWeek());
