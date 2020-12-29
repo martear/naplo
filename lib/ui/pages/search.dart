@@ -140,11 +140,14 @@ class SearchBar extends StatelessWidget {
               },
             ),
           ),
-          ClipOval(
-            child: Material(
-              color: Colors.transparent,
-              child: AccountButton(
-                padding: EdgeInsets.only(right: 4.0),
+          Padding(
+            padding: EdgeInsets.only(right: 4.0),
+            child: ClipOval(
+              child: Material(
+                color: Colors.transparent,
+                child: AccountButton(
+                  padding: EdgeInsets.zero
+                ),
               ),
             ),
           )
