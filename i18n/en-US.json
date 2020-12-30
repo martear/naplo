@@ -160,11 +160,18 @@
     "subject": "subject",
     "recipients": "recipients",
     "attachments": "attachments",
+    "attachment": {
+      "failed": "Failed to download attachment!"
+    },
+    "restore": "restore",
+    "archive": "archive",
     "send": "send",
     "reply": "reply",
     "share": "share",
     "shareFooter": "{sender}, {date}",
-    "deleted": "Message archived",
+    "archived": "Message archived",
+    "delete": "Delete permanently",
+    "deleted": "Message deleted",
     "drawer": {
       "inbox": "inbox",
       "sent": "sent",

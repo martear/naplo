@@ -272,6 +272,12 @@ class I18n implements WidgetsLocalizations {
   String get messageRecipients => "címzettek";
   /// "csatolmányok"
   String get messageAttachments => "csatolmányok";
+  /// "Sikertelen letöltés!"
+  String get messageAttachmentFailed => "Sikertelen letöltés!";
+  /// "visszaállítás"
+  String get messageRestore => "visszaállítás";
+  /// "archiválás"
+  String get messageArchive => "archiválás";
   /// "küldés"
   String get messageSend => "küldés";
   /// "válasz"
@@ -281,7 +287,11 @@ class I18n implements WidgetsLocalizations {
   /// "${sender}, ${date}"
   String messageShareFooter(String sender, String date) => "${sender}, ${date}";
   /// "Üzenet archiválva"
-  String get messageDeleted => "Üzenet archiválva";
+  String get messageArchived => "Üzenet archiválva";
+  /// "Törlés véglegesen"
+  String get messageDelete => "Törlés véglegesen";
+  /// "Üzenet törölve"
+  String get messageDeleted => "Üzenet törölve";
   /// "beérkezett"
   String get messageDrawerInbox => "beérkezett";
   /// "elküldött"
@@ -1016,6 +1026,15 @@ class _I18n_en_US extends I18n {
   /// "attachments"
   @override
   String get messageAttachments => "attachments";
+  /// "Failed to download attachment!"
+  @override
+  String get messageAttachmentFailed => "Failed to download attachment!";
+  /// "restore"
+  @override
+  String get messageRestore => "restore";
+  /// "archive"
+  @override
+  String get messageArchive => "archive";
   /// "send"
   @override
   String get messageSend => "send";
@@ -1030,7 +1049,13 @@ class _I18n_en_US extends I18n {
   String messageShareFooter(String sender, String date) => "${sender}, ${date}";
   /// "Message archived"
   @override
-  String get messageDeleted => "Message archived";
+  String get messageArchived => "Message archived";
+  /// "Delete permanently"
+  @override
+  String get messageDelete => "Delete permanently";
+  /// "Message deleted"
+  @override
+  String get messageDeleted => "Message deleted";
   /// "inbox"
   @override
   String get messageDrawerInbox => "inbox";
@@ -1942,6 +1967,15 @@ class _I18n_de_DE extends I18n {
   /// "Anhänge"
   @override
   String get messageAttachments => "Anhänge";
+  /// "Anhang konnte nicht heruntergeladen werden!"
+  @override
+  String get messageAttachmentFailed => "Anhang konnte nicht heruntergeladen werden!";
+  /// "wiederherstellen"
+  @override
+  String get messageRestore => "wiederherstellen";
+  /// "archivieren"
+  @override
+  String get messageArchive => "archivieren";
   /// "schicken"
   @override
   String get messageSend => "schicken";
@@ -1954,6 +1988,9 @@ class _I18n_de_DE extends I18n {
   /// "${sender}, ${date}"
   @override
   String messageShareFooter(String sender, String date) => "${sender}, ${date}";
+  /// "Dauerhaft löschen"
+  @override
+  String get messageDelete => "Dauerhaft löschen";
   /// "Mitteilung archiviert"
   @override
   String get messageDeleted => "Mitteilung archiviert";

@@ -15,11 +15,23 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:filcnaplo/helpers/archiveMessage.dart';
 
 class MessageView extends StatefulWidget {
   final List<Message> messages;
+  final updateCallback;
 
-  MessageView(this.messages);
+  archiveMessages(context, bool archiving) {
+    messages.forEach((msg) => MessageArchiveHelper()
+        .archiveMessage(context, msg, archiving, updateCallback));
+  }
+
+  deleteMessages(context) {
+    messages.forEach((msg) =>
+        MessageArchiveHelper().deleteMessage(context, msg, updateCallback));
+  }
+
+  MessageView(this.messages, this.updateCallback);
 
   @override
   _MessageViewState createState() => _MessageViewState();
@@ -40,28 +52,14 @@ class _MessageViewState extends State<MessageView> {
                 .map((message) => MessageViewTile(
                     message,
                     message == widget.messages.first,
-                    message == widget.messages.last))
+                    message == widget.messages.last,
+                    widget.archiveMessages,
+                    widget.deleteMessages))
                 .toList(),
           ),
         ),
       ),
     );
-  }
-
-  Future archiveMessage(Message message) async {
-    app.user.sync.messages.data[app.selectedMessagePage]
-        .removeWhere((msg) => msg.id == message.id);
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(I18n.of(context).messageDeleted),
-      duration: Duration(seconds: 5),
-      action: SnackBarAction(
-        label: I18n.of(context).dialogUndo,
-        onPressed: () {
-          // magic
-        },
-      ),
-    ));
   }
 }
 
@@ -69,8 +67,11 @@ class MessageViewTile extends StatefulWidget {
   final Message message;
   final bool isFirst;
   final bool isLast;
+  final archiveCallback;
+  final deleteCallback;
 
-  MessageViewTile(this.message, this.isFirst, this.isLast);
+  MessageViewTile(this.message, this.isFirst, this.isLast, this.archiveCallback,
+      this.deleteCallback);
 
   @override
   _MessageViewTileState createState() => _MessageViewTileState();
@@ -102,11 +103,44 @@ class _MessageViewTileState extends State<MessageViewTile> {
         children: <Widget>[
           (widget.isFirst)
               ? AppBar(
-                  centerTitle: true,
-                  leading: BackButton(),
-                  title: Text(widget.message.subject),
                   shadowColor: Colors.transparent,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  actions: <Widget>[
+                      Tooltip(
+                        message: capital(widget.message.deleted
+                            ? I18n.of(context).messageRestore
+                            : I18n.of(context).messageArchive),
+                        child: IconButton(
+                            icon: Icon(widget.message.deleted
+                                ? FeatherIcons.arrowUp
+                                : FeatherIcons.archive),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              widget.archiveCallback(
+                                  context, !widget.message.deleted);
+                            }),
+                      ),
+                      widget.message.deleted
+                          ? Tooltip(
+                              message: capital(I18n.of(context).messageDelete),
+                              child: IconButton(
+                                icon: Icon(FeatherIcons.trash2),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  widget.deleteCallback(context);
+                                },
+                              ))
+                          : Container()
+                    ])
+              : Container(),
+          widget.isFirst
+              ? Padding(
+                  padding:
+                      EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
+                  child: Text(
+                    widget.message.subject,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
                 )
               : Container(),
           RawMaterialButton(
@@ -173,39 +207,45 @@ class _MessageViewTileState extends State<MessageViewTile> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(FeatherIcons.cornerUpLeft),
-                      constraints: BoxConstraints.tight(Size(32.0, 32.0)),
-                      onPressed: () {
-                        messageContext = MessageContext();
-                        messageContext.subject =
-                            "RE: " + widget.message.subject;
-                        messageContext.recipients.add(
-                          Recipient.fromJson(
-                              {"nev": widget.message.sender, "tipus": {}}),
-                        );
-                        messageContext.replyId = widget.message.messageId;
+                    Tooltip(
+                      message: capital(I18n.of(context).messageReply),
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: Icon(FeatherIcons.cornerUpLeft),
+                        constraints: BoxConstraints.tight(Size(32.0, 32.0)),
+                        onPressed: () {
+                          messageContext = MessageContext();
+                          messageContext.subject =
+                              "RE: " + widget.message.subject;
+                          messageContext.recipients.add(
+                            Recipient.fromJson(
+                                {"nev": widget.message.sender, "tipus": {}}),
+                          );
+                          messageContext.replyId = widget.message.messageId;
 
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => NewMessagePage()));
-                      },
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => NewMessagePage()));
+                        },
+                      ),
                     ),
                     SizedBox(width: 8.0),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(FeatherIcons.share2),
-                      constraints: BoxConstraints.tight(Size(32.0, 32.0)),
-                      onPressed: () {
-                        Share.share(
-                          escapeHtml(widget.message.content) +
-                              "\n\n" +
-                              I18n.of(context).messageShareFooter(
-                                  widget.message.sender,
-                                  DateFormat("yyyy. MM. dd.")
-                                      .format(widget.message.date)),
-                        );
-                      },
+                    Tooltip(
+                      message: capital(I18n.of(context).messageShare),
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: Icon(FeatherIcons.share2),
+                        constraints: BoxConstraints.tight(Size(32.0, 32.0)),
+                        onPressed: () {
+                          Share.share(
+                            escapeHtml(widget.message.content) +
+                                "\n\n" +
+                                I18n.of(context).messageShareFooter(
+                                    widget.message.sender,
+                                    DateFormat("yyyy. MM. dd.")
+                                        .format(widget.message.date)),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -300,4 +340,3 @@ class _MessageViewTileState extends State<MessageViewTile> {
     );
   }
 }
-

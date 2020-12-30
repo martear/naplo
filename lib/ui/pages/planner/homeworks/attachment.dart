@@ -1,20 +1,23 @@
-import 'dart:typed_data';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/controllers/storage.dart';
-import 'package:filcnaplo/data/models/attachment.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:filcnaplo/data/models/homework.dart';
+import 'package:filcnaplo/generated/i18n.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:filcnaplo/ui/pages/messages/message/image_viewer.dart';
-import 'package:open_file/open_file.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:filcnaplo/ui/pages/messages/message/image_viewer.dart';
 import 'package:share/share.dart';
 
+// Copied from message/view, rewritten to work with homework attachments.
 class AttachmentTile extends StatefulWidget {
   AttachmentTile(this.attachment, {Key key}) : super(key: key);
 
-  final Attachment attachment;
+  final HomeworkAttachment attachment;
 
   @override
   _AttachmentTileState createState() => new _AttachmentTileState();
@@ -23,10 +26,8 @@ class AttachmentTile extends StatefulWidget {
 class _AttachmentTileState extends State<AttachmentTile> {
   Uint8List data;
 
-  isImage(Attachment attachment) {
-    return attachment.name.endsWith(".jpg") ||
-        attachment.name.endsWith(".png") ||
-        attachment.name.endsWith(".jpeg");
+  isImage(HomeworkAttachment attachment) {
+    return attachment.name.endsWith(".jpg") || attachment.name.endsWith(".png");
     /* todo: check if it's an image by mime type */
   }
 
@@ -35,7 +36,9 @@ class _AttachmentTileState extends State<AttachmentTile> {
     var attachment = widget.attachment;
     super.initState();
     if (isImage(attachment)) {
-      app.user.kreta.downloadAttachment(this.widget.attachment).then((var d) {
+      app.user.kreta
+          .downloadHomeworkAttachment(this.widget.attachment)
+          .then((var d) {
         setState(() {
           data = d;
         });
@@ -60,33 +63,22 @@ class _AttachmentTileState extends State<AttachmentTile> {
       saveAttachment(attachment, data).then((String f) => OpenFile.open(f));
     }
 
-    openImage() {
-      Navigator.of(context).push(MaterialPageRoute(
+    tapImage() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
           builder: (context) => ImageViewer(
-              imageProvider: MemoryImage(data),
-              shareHandler: handleShare,
-              downloadHandler: handleSave)));
+            imageProvider: MemoryImage(data),
+            shareHandler: handleShare,
+            downloadHandler: handleSave,
+          ),
+        ),
+      );
     }
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 12.0),
-      child: FlatButton(
-        color: Theme.of(context).backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        padding: EdgeInsets.only(
-          bottom: 12.0,
-          top: isImage(attachment) ? 0 : 12.0,
-        ),
-        onPressed: () {
-          if (data != null) {
-            saveAttachment(attachment, data)
-                .then((String f) => OpenFile.open(f));
-          } else {
-            downloadAttachment(attachment);
-          }
-        },
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
+      child: Container(
         child: Column(
           children: [
             isImage(attachment)
@@ -94,22 +86,13 @@ class _AttachmentTileState extends State<AttachmentTile> {
                     children: [
                       Expanded(
                         child: Container(
-                          height: 132,
-                          margin: EdgeInsets.only(bottom: 12.0),
+                          height: 120,
                           child: data != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  child: Material(
-                                    child: InkWell(
-                                      child: Ink.image(
-                                        image: MemoryImage(data),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      onTap: openImage,
-                                    ),
-                                    color: Colors.transparent,
-                                  ),
+                              ? Ink.image(
+                                  image: MemoryImage(data),
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover,
+                                  child: InkWell(onTap: tapImage),
                                 )
                               : Center(
                                   child: Container(
@@ -136,7 +119,17 @@ class _AttachmentTileState extends State<AttachmentTile> {
                       ),
                     ),
                   ),
-                  Icon(FeatherIcons.download),
+                  IconButton(
+                    icon: Icon(FeatherIcons.download),
+                    onPressed: () {
+                      if (data != null) {
+                        saveAttachment(attachment, data)
+                            .then((String f) => OpenFile.open(f));
+                      } else {
+                        downloadAttachment(attachment, context: context);
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
@@ -147,23 +140,17 @@ class _AttachmentTileState extends State<AttachmentTile> {
   }
 }
 
-// todo: error handling (snackbar)
 Future<String> saveAttachment(
-  Attachment attachment,
-  Uint8List data,
-) async {
+  HomeworkAttachment attachment,
+  Uint8List data, {
+  BuildContext context,
+}) async {
   try {
-    String downloads;
-
-    if (Platform.isAndroid) {
-      downloads = "/storage/self/primary/Download";
-    } else {
-      downloads = (await getTemporaryDirectory()).path;
-    }
+    String downloads = (await DownloadsPathProvider.downloadsDirectory).path;
 
     if (data != null) {
       var filePath = downloads + "/" + attachment.name;
-      if (app.debugMode) print("INFO: Saved file: " + filePath);
+      print("File: " + filePath);
       if (await StorageController.writeFile(filePath, data)) {
         print("Downloaded " + attachment.name);
         return filePath;
@@ -175,11 +162,26 @@ Future<String> saveAttachment(
     }
   } catch (error) {
     print("ERROR: downloadAttachment: " + error.toString());
+    if (context != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            I18n.of(context).messageAttachmentFailed,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
     return null;
   }
 }
 
-Future downloadAttachment(Attachment attachment) async {
-  var data = await app.user.kreta.downloadAttachment(attachment);
-  saveAttachment(attachment, data).then((String f) => OpenFile.open(f));
+Future downloadAttachment(
+  HomeworkAttachment attachment, {
+  @required BuildContext context,
+}) async {
+  var data = await app.user.kreta.downloadHomeworkAttachment(attachment);
+  saveAttachment(attachment, data, context: context)
+      .then((String f) => OpenFile.open(f));
 }

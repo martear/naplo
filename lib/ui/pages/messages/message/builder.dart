@@ -2,82 +2,133 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/ui/pages/messages/message/tile.dart';
-import 'package:filcnaplo/generated/i18n.dart';
 
 class MessageBuilder {
-  final _scaffoldKey;
+  final Function updateCallback;
+  MessageBuilder(this.updateCallback);
 
-  MessageBuilder(this._scaffoldKey);
-
-  List<List<MessageTile>> messageTiles = [[], [], [], []];
+  MessageTiles messageTiles = MessageTiles();
 
   void build() {
-    for (var i = 1; i < 3; i++) {
-      messageTiles[i] = [];
-      app.user.sync.messages.data[i].reversed.forEach((Message message) {
-        messageTiles[i].add(
-          MessageTile(message, [message], archiveMessage,
-              key: Key(message.id.toString())),
-        );
+    messageTiles.clear();
+    // We have to clear our tiles every time before rebuilding them to avoid duplicates
+
+    app.user.sync.messages.sent.reversed.forEach((Message message) {
+      messageTiles.sent.add(
+        MessageTile(
+          message,
+          [message],
+          updateCallback,
+          key: Key(message.id.toString()),
+        ),
+      );
+    });
+    // We don't care about conversations for sent messages, so we display every one of them.
+    // The following part groups received (+ archived) messages into conversations, and only displays the newest one in every category
+    List<Message> received = app.user.sync.messages.received;
+    List<Message> archived = app.user.sync.messages.archived;
+    Map<int, List<Message>> conversations = {};
+
+    void buildConversations(
+        // If the message is a reply to something,add it to a conversation. If not, treat it as a single message and display it like sent messages
+        List<Message> messages,
+        List<MessageTile> messageTileList) {
+      messages.sort(
+        (a, b) => -a.date.compareTo(b.date),
+      );
+
+      messages.forEach((Message message) {
+        if (message.conversationId == null) {
+          messageTileList.add(MessageTile(
+            message,
+            [message],
+            updateCallback,
+            key: Key(message.id.toString()),
+          ));
+        } else {
+          if (conversations[message.conversationId] == null)
+            conversations[message.conversationId] = [];
+          conversations[message.conversationId].add(message);
+        }
       });
     }
 
-    messageTiles[0] = [];
-    List<Message> messages = app.user.sync.messages.data[0];
-    Map<int, List<Message>> conversations = {};
-
-    messages.sort(
-      (a, b) => -a.date.compareTo(b.date),
-    );
-
-    messages.forEach((Message message) {
-      if (message.conversationId == null) {
-        messageTiles[0].add(MessageTile(message, [message], archiveMessage,
-            key: Key(message.id.toString())));
-      } else {
-        if (conversations[message.conversationId] == null)
-          conversations[message.conversationId] = [];
-        conversations[message.conversationId].add(message);
-      }
-    });
+    buildConversations(received, messageTiles.received);
+    buildConversations(archived, messageTiles.archived);
 
     conversations.keys.forEach((conversationId) {
-      Message firstMessage = messages.firstWhere(
+      Message firstMessage = received.firstWhere(
           (message) => message.messageId == conversationId,
           orElse: () => null);
 
       if (firstMessage == null)
-        firstMessage = app.user.sync.messages.data[1].firstWhere(
+        firstMessage = archived.firstWhere(
+            (message) => message.messageId == conversationId,
+            orElse: () => null);
+
+      if (firstMessage == null)
+        firstMessage = app.user.sync.messages.sent.firstWhere(
             (message) => message.messageId == conversationId,
             orElse: () => null);
 
       if (firstMessage != null) conversations[conversationId].add(firstMessage);
-      messageTiles[0].add(MessageTile(
+      List<MessageTile> messageTileListOfFirst = () {
+        // Returns the list of messageTiles for the specific type
+        if (conversations[conversationId].first.deleted) {
+          return messageTiles.archived;
+        } else if (conversations[conversationId].first.type ==
+            MessageType.received) {
+          return messageTiles.received;
+        }
+      }();
+
+      // Display the newest message of the conversation
+      messageTileListOfFirst.add(MessageTile(
         conversations[conversationId].first,
         conversations[conversationId],
-        archiveMessage,
+        updateCallback,
         key: Key(conversations[conversationId][0].id.toString()),
       ));
+
+      // The oldest message is not replying to anything, so it was displayed like a single message. Now we remove it from the list to make sure that only the newest message is displayed from every conversation.
+      messageTileListOfFirst.removeWhere((messageTile) =>
+          messageTile.message.id == conversations[conversationId].last.id);
     });
 
-    messageTiles[0].sort((a, b) => -a.message.date.compareTo(b.message.date));
+    messageTiles.received
+        .sort((a, b) => -a.message.date.compareTo(b.message.date));
+
+    messageTiles.archived
+        .sort((a, b) => -a.message.date.compareTo(b.message.date));
+  }
+}
+
+class MessageTiles {
+  List<MessageTile> received = [];
+  List<MessageTile> sent = [];
+  List<MessageTile> archived = [];
+  List<MessageTile> drafted = [];
+
+  List<MessageTile> getSelectedMessages(int i) {
+    // The DropDown() widget that selects the specific message types only gives back an integer, so we have to include a function that returns the needed messageTiles from a numeric index.
+    switch (i) {
+      case 0:
+        return received;
+      case 1:
+        return sent;
+      case 2:
+        return archived;
+      case 3:
+        return drafted;
+      default:
+        return null;
+    }
   }
 
-  Future archiveMessage(BuildContext context, Message message) async {
-    app.user.kreta.trashMessage(true, message.id);
-
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(I18n.of(context).messageDeleted),
-      duration: Duration(seconds: 5),
-      action: SnackBarAction(
-        label: I18n.of(context).dialogUndo,
-        onPressed: () {
-          app.kretaApi.client.trashMessage(false, message.id);
-        },
-      ),
-    ));
-
-    app.user.sync.messages.data[app.selectedMessagePage]
-        .removeWhere((msg) => msg.id == message.id);
+  void clear() {
+    received = [];
+    sent = [];
+    archived = [];
+    drafted = [];
   }
 }

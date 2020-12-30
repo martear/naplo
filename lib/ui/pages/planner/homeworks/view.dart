@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'attachment.dart';
 
 class HomeworkView extends StatefulWidget {
   final Homework homework;
@@ -87,6 +88,13 @@ class _HomeworkViewState extends State<HomeworkView> {
                     ),
             ),
           ),
+          widget.homework.attachments == [] 
+                        ? Container()
+                        : Column(
+                            children: widget.homework.attachments
+                              .map((attachment) => AttachmentTile(attachment))
+                              .toList()
+                          )
         ],
       ),
     );

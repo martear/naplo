@@ -117,7 +117,7 @@
     "subject": "Fach",
     "tomorrow": "Morgen gibt es",
     "tomorrowTitle": "Stunden morgen",
-    "empty":"Freistunde"
+    "empty": "Freistunde"
   },
   "homework": {
     "": "Hausaufgabe",
@@ -160,11 +160,18 @@
     "subject": "Gegenstand",
     "recipients": "Empfänger",
     "attachments": "Anhänge",
+    "attachment": {
+      "failed": "Anhang konnte nicht heruntergeladen werden!"
+    },
+    "restore": "wiederherstellen",
+    "archive": "archivieren",
     "send": "schicken",
     "reply": "antworten",
     "share": "mitteilen",
     "shareFooter": "{sender}, {date}",
-    "deleted": "Mitteilung archiviert",
+    "archived": "Mitteilung archiviert",
+    "delete": "Dauerhaft löschen",
+    "deleted": "Nachricht gelöscht",
     "drawer": {
       "inbox": "eingang",
       "sent": "gesendet",

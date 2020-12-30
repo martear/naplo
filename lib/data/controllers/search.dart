@@ -90,25 +90,26 @@ class SearchController {
     return results;
   }
 
-  List<Searchable> getSearchables(BuildContext context) {
+  List<Searchable> getSearchables(BuildContext context, updateCallback) {
     List<Searchable> searchables = [];
 
+    // Messages
     List<Message> messages = <List<Message>>[
-      app.user.sync.messages.data[0],
-      app.user.sync.messages.data[1],
-      app.user.sync.messages.data[2],
+      app.user.sync.messages.received,
+      app.user.sync.messages.sent,
+      app.user.sync.messages.archived,
     ].expand((x) => x).toList();
 
     messages.forEach((message) => searchables.add(Searchable(
-          text: searchString([escapeHtml(message.content), message.subject]),
-          child: GestureDetector(
-            child: MessageTile(message),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MessageView([message])));
-            },
-          ),
-        )));
+        text: searchString([escapeHtml(message.content), message.subject]),
+        child: GestureDetector(
+          child: MessageTile(message),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MessageView([message], updateCallback)));
+          },
+        ),  
+    )));
 
     // Notes
     app.user.sync.note.data.forEach((note) => searchables.add(Searchable(
