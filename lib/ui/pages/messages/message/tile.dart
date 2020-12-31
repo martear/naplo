@@ -80,7 +80,7 @@ class MessageTile extends StatelessWidget {
             ]),
           ]),
           subtitle: Text(
-            message.subject + "\n" + escapeHtml(message.content),
+            message.subject + "\n" + escapeHtml(message.content.replaceAll("\n", " ")),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
