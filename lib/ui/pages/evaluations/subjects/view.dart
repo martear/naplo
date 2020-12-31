@@ -11,6 +11,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/average_calc.dart';
+import 'package:tinycolor/tinycolor.dart';
 import '../grades/tile.dart';
 
 //ignore: must_be_immutable
@@ -46,55 +47,68 @@ class _SubjectViewState extends State<SubjectView> {
       if (evaluation.date != null &&
           evaluation.value.value !=
               null) if (evaluation.id.startsWith("temp_")) {
-        evaluationTiles.add(
-            GradeTile(evaluation, deleteCallback: _deleteCallbackFunction));
-      } else
-        evaluationTiles.add(GradeTile(evaluation));
+        evaluationTiles.add(GradeTile(
+          evaluation,
+          padding: EdgeInsets.only(bottom: 6.0),
+          deleteCallback: _deleteCallback,
+        ));
+      } else {
+        evaluationTiles.add(GradeTile(
+          evaluation,
+          padding: EdgeInsets.only(bottom: 6.0),
+        ));
+      }
     });
 
     subjectEvals.forEach((e) {
       studentAvg += e.value.value * (e.value.weight / 100);
     });
 
-    double weight = subjectEvals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
+    double weight =
+        subjectEvals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
 
-    if (weight > 0)
-      studentAvg = studentAvg / weight;
+    if (weight > 0) studentAvg = studentAvg / weight;
 
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
         title: Text(capital(widget.subject.name)),
+        shadowColor: Colors.transparent,
+        backgroundColor: app.settings.theme.scaffoldBackgroundColor,
         actions: <Widget>[
           studentAvg.round() != 0
-              ? Container(
+              ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
                   child: Container(
+                    width: 55,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                      color:
-                          app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
+                      color: app.theme
+                          .evalColors[(studentAvg.round() - 1).clamp(0, 4)],
                     ),
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       app.settings.language == "en"
                           ? studentAvg.toStringAsFixed(2)
                           : studentAvg.toStringAsFixed(2).split(".").join(","),
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         height: 1.2,
                         color: textColor(
-                          app.theme.evalColors[(studentAvg.round() - 1).clamp(0, 4)],
+                          app.theme
+                              .evalColors[(studentAvg.round() - 1).clamp(0, 4)],
                         ),
                       ),
                     ),
                   ),
-          )
-          : Container(),
+                )
+              : Container(),
           widget.classAvg != null && widget.classAvg.round() != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
                   child: Container(
+                    width: 55,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(45.0)),
                       border: Border.all(
@@ -111,6 +125,7 @@ class _SubjectViewState extends State<SubjectView> {
                               .toStringAsFixed(2)
                               .split(".")
                               .join(","),
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         height: 1.2,
@@ -128,11 +143,11 @@ class _SubjectViewState extends State<SubjectView> {
             children: <Widget>[
               Container(
                 height: 200.0,
-                padding: EdgeInsets.all(4.0),
-                margin: EdgeInsets.all(4.0),
-                child: SubjectGraph.fromData(
-                  data: subjectEvals,
+                margin: EdgeInsets.fromLTRB(12.0, 14.0, 24.0, 6.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
+                child: SubjectGraph(subjectEvals),
               ),
               Container(
                 padding:
@@ -163,7 +178,7 @@ class _SubjectViewState extends State<SubjectView> {
           );
           if (tempEval != null) {
             setState(() {
-              widget.tempEvals.add(tempEval);
+              widget.tempEvals.insert(0, tempEval);
             });
           }
         },
@@ -171,7 +186,7 @@ class _SubjectViewState extends State<SubjectView> {
     );
   }
 
-  _deleteCallbackFunction(Evaluation toRemove) {
+  _deleteCallback(Evaluation toRemove) {
     setState(() {
       widget.tempEvals.removeWhere((e) => e.id == toRemove.id);
     });

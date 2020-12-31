@@ -42,6 +42,9 @@ class _PageFrameState extends State<PageFrame> {
 
   SyncState syncState = SyncState();
 
+  bool showSyncProgress = false;
+  bool animateSyncProgress = false;
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -59,9 +62,10 @@ class _PageFrameState extends State<PageFrame> {
         };
 
         setState(() {
-          if (task != null)
+          if (task != null) {
             syncState =
                 SyncState(text: tasks[task] ?? "", current: current, max: max);
+          }
         });
       };
 
@@ -108,6 +112,17 @@ class _PageFrameState extends State<PageFrame> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {});
 
+    if (syncState.current != null && app.sync.tasks.length > 0) {
+      showSyncProgress = true;
+      animateSyncProgress = true;
+    } else {
+      animateSyncProgress = false;
+      Future.delayed(
+        Duration(milliseconds: 200),
+        () => setState(() => showSyncProgress = false),
+      );
+    }
+
     return Scaffold(
       key: _homeKey,
       body: Container(
@@ -117,13 +132,17 @@ class _PageFrameState extends State<PageFrame> {
             pageContent,
 
             // Sync Progress Indicator
-            (syncState.current != null && app.sync.tasks.length > 0)
-                ? Container(
-                    alignment: Alignment.bottomCenter,
-                    child: SyncProgressIndicator(
-                      text: syncState.text,
-                      current: syncState.current.toString(),
-                      max: syncState.max.toString(),
+            showSyncProgress
+                ? AnimatedOpacity(
+                    opacity: animateSyncProgress ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 100),
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: SyncProgressIndicator(
+                        text: syncState.text,
+                        current: syncState.current.toString(),
+                        max: syncState.max.toString(),
+                      ),
                     ),
                   )
                 : Container(),

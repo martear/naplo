@@ -4,6 +4,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class SearchPage extends StatefulWidget {
   final callback;
@@ -31,9 +32,19 @@ class _SearchPageState extends State<SearchPage> {
               padding: EdgeInsets.fromLTRB(12.0, 100.0, 12.0, 0),
               itemCount: results.length,
               // results.length == 0 ? search history
-              itemBuilder: (BuildContext context, int i) {
-                Searchable item = results[i];
-                return item.child;
+              itemBuilder: (context, index) {
+                if (index < 6) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: Duration(milliseconds: 500),
+                    child: SlideAnimation(
+                      verticalOffset: 150,
+                      child: FadeInAnimation(child: results[index].child),
+                    ),
+                  );
+                } else {
+                  return results[index].child;
+                }
               },
             ),
           ),
@@ -91,10 +102,14 @@ class _SearchPageState extends State<SearchPage> {
                       icon: Icon(FeatherIcons.x),
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        if (_searchController.text != "")
-                          setState(() => _searchController.text = "");
-                        else
+                        if (_searchController.text != "") {
+                          setState(() {
+                            _searchController.text = "";
+                            results = [];
+                          });
+                        } else {
                           Navigator.pop(context);
+                        }
                       },
                     ),
                   ),

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class EvaluationTabs extends StatefulWidget {
   final Function callback;
@@ -165,11 +166,28 @@ class _EvaluationTabsState extends State<EvaluationTabs>
               },
               child: widget._gradeTiles.length > 0
                   ? CupertinoScrollbar(
-                      child: ListView(
-                          padding: EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 64.0),
-                          physics: BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          children: widget._gradeTiles),
+                      child: ListView.builder(
+                        padding: EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 64.0),
+                        physics: BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        itemCount: widget._gradeTiles.length,
+                        itemBuilder: (context, index) {
+                          if (index < 8) {
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: Duration(milliseconds: 500),
+                              child: SlideAnimation(
+                                verticalOffset: 150,
+                                child: FadeInAnimation(
+                                  child: widget._gradeTiles[index],
+                                ),
+                              ),
+                            );
+                          } else {
+                            return widget._gradeTiles[index];
+                          }
+                        },
+                      ),
                     )
                   : Empty(title: I18n.of(context).emptyGrades),
             ),

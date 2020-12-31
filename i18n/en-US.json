@@ -81,7 +81,19 @@
     "month": "month",
     "month2": "two months",
     "weekPrev": "last week",
-    "weekNext": "next week"
+    "weekNext": "next week",
+    "jan": "jan",
+    "feb": "feb",
+    "mar": "mar",
+    "apr": "apr",
+    "may": "may",
+    "jun": "jun",
+    "jul": "jul",
+    "aug": "aug",
+    "sep": "sep",
+    "oct": "oct",
+    "nov": "nov",
+    "dec": "dec"
   },
   "delay": {
     "": "delay",

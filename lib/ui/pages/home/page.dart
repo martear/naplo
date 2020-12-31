@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/search/page.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomePage extends StatefulWidget {
   final Function jumpToPage;
@@ -23,6 +24,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> feedCards = buildFeed();
+    
     return Container(
       child: Stack(
         children: <Widget>[
@@ -35,11 +38,27 @@ class _HomePageState extends State<HomePage> {
                 await app.sync.fullSync();
               },
               child: CupertinoScrollbar(
-                child: ListView(
+                child: ListView.builder(
                   physics: BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   padding: EdgeInsets.only(top: 100.0),
-                  children: buildFeed(),
+                  itemCount: feedCards.length,
+                  itemBuilder: (context, index) {
+                    if (index < 9) {
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: Duration(milliseconds: 500),
+                        child: SlideAnimation(
+                          verticalOffset: 150,
+                          child: FadeInAnimation(
+                            child: feedCards[index],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return feedCards[index];
+                    }
+                  },
                 ),
               ),
             ),

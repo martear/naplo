@@ -164,6 +164,30 @@ class I18n implements WidgetsLocalizations {
   String get dateWeekPrev => "előző hét";
   /// "következő hét"
   String get dateWeekNext => "következő hét";
+  /// "jan"
+  String get dateJan => "jan";
+  /// "feb"
+  String get dateFeb => "feb";
+  /// "már"
+  String get dateMar => "már";
+  /// "ápr"
+  String get dateApr => "ápr";
+  /// "máj"
+  String get dateMay => "máj";
+  /// "jún"
+  String get dateJun => "jún";
+  /// "júl"
+  String get dateJul => "júl";
+  /// "aug"
+  String get dateAug => "aug";
+  /// "szep"
+  String get dateSep => "szep";
+  /// "okt"
+  String get dateOct => "okt";
+  /// "nov"
+  String get dateNov => "nov";
+  /// "dec"
+  String get dateDec => "dec";
   /// "késés"
   String get delay => "késés";
   /// "késés mértéke"
@@ -864,6 +888,42 @@ class _I18n_en_US extends I18n {
   /// "next week"
   @override
   String get dateWeekNext => "next week";
+  /// "jan"
+  @override
+  String get dateJan => "jan";
+  /// "feb"
+  @override
+  String get dateFeb => "feb";
+  /// "mar"
+  @override
+  String get dateMar => "mar";
+  /// "apr"
+  @override
+  String get dateApr => "apr";
+  /// "may"
+  @override
+  String get dateMay => "may";
+  /// "jun"
+  @override
+  String get dateJun => "jun";
+  /// "jul"
+  @override
+  String get dateJul => "jul";
+  /// "aug"
+  @override
+  String get dateAug => "aug";
+  /// "sep"
+  @override
+  String get dateSep => "sep";
+  /// "oct"
+  @override
+  String get dateOct => "oct";
+  /// "nov"
+  @override
+  String get dateNov => "nov";
+  /// "dec"
+  @override
+  String get dateDec => "dec";
   /// "delay"
   @override
   String get delay => "delay";
@@ -1805,6 +1865,42 @@ class _I18n_de_DE extends I18n {
   /// "nächste Woche"
   @override
   String get dateWeekNext => "nächste Woche";
+  /// "jan"
+  @override
+  String get dateJan => "jan";
+  /// "feb"
+  @override
+  String get dateFeb => "feb";
+  /// "mar"
+  @override
+  String get dateMar => "mar";
+  /// "apr"
+  @override
+  String get dateApr => "apr";
+  /// "may"
+  @override
+  String get dateMay => "may";
+  /// "jun"
+  @override
+  String get dateJun => "jun";
+  /// "jul"
+  @override
+  String get dateJul => "jul";
+  /// "aug"
+  @override
+  String get dateAug => "aug";
+  /// "sep"
+  @override
+  String get dateSep => "sep";
+  /// "oct"
+  @override
+  String get dateOct => "oct";
+  /// "nov"
+  @override
+  String get dateNov => "nov";
+  /// "dec"
+  @override
+  String get dateDec => "dec";
   /// "Verspätung"
   @override
   String get delay => "Verspätung";
@@ -1988,12 +2084,15 @@ class _I18n_de_DE extends I18n {
   /// "${sender}, ${date}"
   @override
   String messageShareFooter(String sender, String date) => "${sender}, ${date}";
+  /// "Mitteilung archiviert"
+  @override
+  String get messageArchived => "Mitteilung archiviert";
   /// "Dauerhaft löschen"
   @override
   String get messageDelete => "Dauerhaft löschen";
-  /// "Mitteilung archiviert"
+  /// "Nachricht gelöscht"
   @override
-  String get messageDeleted => "Mitteilung archiviert";
+  String get messageDeleted => "Nachricht gelöscht";
   /// "eingang"
   @override
   String get messageDrawerInbox => "eingang";

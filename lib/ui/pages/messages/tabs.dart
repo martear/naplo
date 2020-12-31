@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class MessageTabs extends StatefulWidget {
   final _scaffoldKey;
@@ -57,6 +58,11 @@ class _MessageTabsState extends State<MessageTabs>
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> messageTiles = [];
+    messageTiles.addAll(
+        widget.messageTiles.getSelectedMessages(app.selectedMessagePage));
+    messageTiles.add(SizedBox(height: 100.0));
+
     return Scaffold(
       floatingActionButton: _tabController.index == 0
           ? FloatingActionButton(
@@ -141,28 +147,31 @@ class _MessageTabsState extends State<MessageTabs>
 
               // Message Tiles
               child: CupertinoScrollbar(
-                child: ListView(
+                child: ListView.builder(
                   physics: BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   padding: EdgeInsets.only(top: 12.0),
-                  children: [
-                    Column(
-                      children: widget.messageTiles
-                                  .getSelectedMessages(app.selectedMessagePage)
-                                  .length >
-                              0
-                          ? widget.messageTiles
-                              .getSelectedMessages(app.selectedMessagePage)
-                          : <Widget>[
-                              Empty(
-                                title: app.selectedMessagePage == 3
-                                    ? I18n.of(context).notImplemented
-                                    : I18n.of(context).emptyMessages,
-                              ),
-                            ],
-                    ),
-                    SizedBox(height: 100.0),
-                  ],
+                  itemCount: messageTiles.length != 0 ? messageTiles.length : 1,
+                  itemBuilder: (context, index) {
+                    if (messageTiles.length > 0 && index < 9) {
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: Duration(milliseconds: 400),
+                        child: SlideAnimation(
+                          verticalOffset: 150,
+                          child: FadeInAnimation(child: messageTiles[index]),
+                        ),
+                      );
+                    } else if (messageTiles.length > 0) {
+                      return messageTiles[index];
+                    } else {
+                      return Empty(
+                        title: app.selectedMessagePage == 3
+                            ? I18n.of(context).notImplemented
+                            : I18n.of(context).emptyMessages,
+                      );
+                    }
+                  },
                 ),
               ),
             ),
@@ -184,16 +193,30 @@ class _MessageTabsState extends State<MessageTabs>
                 }
               },
               child: CupertinoScrollbar(
-                child: ListView(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                  physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  children: widget.noteTiles.length > 0
-                      ? widget.noteTiles
-                      : <Widget>[
-                          Empty(title: I18n.of(context).emptyNotes),
-                        ],
-                ),
+                child: ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: widget.noteTiles.length != 0
+                        ? widget.noteTiles.length
+                        : 1,
+                    itemBuilder: (context, index) {
+                      if (widget.noteTiles.length > 0 && index < 9) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: Duration(milliseconds: 400),
+                          child: SlideAnimation(
+                            verticalOffset: 150,
+                            child:
+                                FadeInAnimation(child: widget.noteTiles[index]),
+                          ),
+                        );
+                      } else if (widget.noteTiles.length > 0) {
+                        return widget.noteTiles[index];
+                      } else {
+                        return Empty(title: I18n.of(context).emptyNotes);
+                      }
+                    }),
               ),
             ),
 
@@ -213,15 +236,32 @@ class _MessageTabsState extends State<MessageTabs>
                   widget.callback();
                 }
               },
-              child: widget.eventTiles.length > 0
-                  ? CupertinoScrollbar(
-                      child: ListView(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
-                          physics: BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          children: widget.eventTiles),
-                    )
-                  : Empty(title: I18n.of(context).emptyEvents),
+              child: CupertinoScrollbar(
+                child: ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount: widget.eventTiles.length != 0
+                        ? widget.eventTiles.length
+                        : 1,
+                    itemBuilder: (context, index) {
+                      if (widget.eventTiles.length > 0 && index < 9) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: Duration(milliseconds: 400),
+                          child: SlideAnimation(
+                            verticalOffset: 150,
+                            child: FadeInAnimation(
+                                child: widget.eventTiles[index]),
+                          ),
+                        );
+                      } else if (widget.eventTiles.length > 0) {
+                        return widget.eventTiles[index];
+                      } else {
+                        return Empty(title: I18n.of(context).emptyEvents);
+                      }
+                    }),
+              ),
             ),
           ],
         ),

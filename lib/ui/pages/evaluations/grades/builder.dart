@@ -1,6 +1,7 @@
 import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/tile.dart';
+import 'package:flutter/cupertino.dart';
 
 class GradeBuilder {
   List<GradeTile> gradeTiles = [];
@@ -74,7 +75,10 @@ class GradeBuilder {
     }
 
     evaluations.forEach(
-      (evaluation) => gradeTiles.add(GradeTile(evaluation)),
+      (evaluation) => gradeTiles.add(GradeTile(
+        evaluation,
+        padding: EdgeInsets.only(bottom: 4.0),
+      )),
     );
   }
 }

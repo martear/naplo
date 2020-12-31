@@ -81,7 +81,19 @@
     "month": "hónap",
     "month2": "két hónap",
     "weekPrev": "előző hét",
-    "weekNext": "következő hét"
+    "weekNext": "következő hét",
+    "jan": "jan",
+    "feb": "feb",
+    "mar": "már",
+    "apr": "ápr",
+    "may": "máj",
+    "jun": "jún",
+    "jul": "júl",
+    "aug": "aug",
+    "sep": "szep",
+    "oct": "okt",
+    "nov": "nov",
+    "dec": "dec"
   },
   "delay": {
     "": "késés",

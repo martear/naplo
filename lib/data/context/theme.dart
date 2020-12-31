@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeContext {
   static final Map<String, Color> colors = {
     "blue": Color(0xFF44c0f0),
-    "default": Color(0xFF00bc9d),
+    "default": Color(0xFF0FA089),
     "green": Color(0xFF4aad0f),
     "lime": Color(0xFF7fd21e),
     "yellow": Color(0xFFffe934),
@@ -52,6 +52,7 @@ class ThemeContext {
         brightness: Brightness.light,
         accentColor: appColor,
         backgroundColor: lightBackground,
+        scaffoldBackgroundColor: Colors.white,
         textTheme: lightText,
         primaryTextTheme: lightText,
         iconTheme: IconThemeData(color: lightTextColor),
