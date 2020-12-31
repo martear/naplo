@@ -33,14 +33,6 @@ class LessonTile extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(14.0)),
-          boxShadow: app.settings.theme.brightness == Brightness.light
-              ? [
-                  BoxShadow(
-                      blurRadius: 6.0,
-                      spreadRadius: -2.0,
-                      color: Colors.black26),
-                ]
-              : [],
           border: accentColor != null
               ? Border.all(color: accentColor, width: 2.5)
               : null,
@@ -183,16 +175,7 @@ class SpecialDateTile extends LessonTile {
               //haxx
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 24),
           decoration: BoxDecoration(
-            color: app.settings.theme.backgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(45.0)),
-            boxShadow: app.settings.theme.brightness == Brightness.light
-                ? [
-                    BoxShadow(
-                        blurRadius: 6.0,
-                        spreadRadius: -2.0,
-                        color: Colors.black26),
-                  ]
-                : [],
           ),
           child: Text(
             lesson.name,

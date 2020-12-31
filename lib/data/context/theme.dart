@@ -99,7 +99,7 @@ class ThemeContext {
       bodyText1: TextStyle(fontFamily: "GoogleSans", color: darkTextColor),
       bodyText2: TextStyle(fontFamily: "GoogleSans", color: darkTextColor));
 
-  static Color darkBackground = Color(0xff36393f);
+  static Color darkBackground = Color(0xff2f3136);
   static Color blackBackground = Color(0xff18191c);
 
   ThemeData dark(Color appColor, int backgroundColor) => ThemeData(

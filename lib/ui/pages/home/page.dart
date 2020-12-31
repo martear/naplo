@@ -5,10 +5,11 @@ import 'package:filcnaplo/ui/cards/message/card.dart';
 import 'package:filcnaplo/ui/cards/note/card.dart';
 import 'package:filcnaplo/ui/cards/homework/card.dart';
 import 'package:filcnaplo/ui/cards/exam/card.dart';
+import 'package:filcnaplo/ui/pages/search/bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/pages/search.dart';
+import 'package:filcnaplo/ui/pages/search/page.dart';
 
 class HomePage extends StatefulWidget {
   final Function jumpToPage;
@@ -46,21 +47,13 @@ class _HomePageState extends State<HomePage> {
 
           // Search bar
           SearchBar(
-            openSearch: () =>
-                Navigator.of(context).push(_searchRoute(() => setState(() {}))),
+            openSearch: () => showDialog(
+              context: context,
+              builder: (context) => SearchPage(() => setState(() {})),
+            ),
           )
         ],
       ),
-    );
-  }
-
-  Route _searchRoute(callback) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          SearchPage(callback),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
-      },
     );
   }
 

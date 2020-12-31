@@ -31,13 +31,13 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
 
     switch (theme) {
       case "light":
-        systemNavigationBarColor = Colors.grey[200];
+        systemNavigationBarColor = Colors.white;
         systemNavigationBarIconBrightness = Brightness.dark;
         settings = <String, dynamic>{"theme": "light"};
         themeData = ThemeContext().light(app.settings.appColor);
         break;
       case "tinted":
-        systemNavigationBarColor = Color(0xFF101C19);
+        systemNavigationBarColor = Color(0xFF1c2d2a);
         systemNavigationBarIconBrightness = Brightness.light;
         settings = <String, dynamic>{
           "theme": "tinted",
@@ -47,7 +47,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
         themeData = ThemeContext().tinted();
         break;
       case "dark":
-        systemNavigationBarColor = Color(0xFF18191c);
+        systemNavigationBarColor = Color(0xff202225);
         systemNavigationBarIconBrightness = Brightness.light;
         settings = <String, dynamic>{
           "theme": "dark",
@@ -127,7 +127,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                               width: 42.0,
                               margin: EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
-                                color: Colors.grey[300],
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
@@ -221,7 +221,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                               width: 42.0,
                               margin: EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
-                                color: Colors.grey[900],
+                                color: Colors.black,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
