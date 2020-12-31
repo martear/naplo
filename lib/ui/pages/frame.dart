@@ -36,7 +36,7 @@ class _PageFrameState extends State<PageFrame> {
       if (app.settings.enableNews && !app.firstStart) {
         Future.delayed(Duration(seconds: 1), () {
           Future.forEach(
-            app.user.sync.news.data.reversed,
+            app.user.sync.news.fresh.reversed,
             (news) async => await showDialog(
               useSafeArea: true,
               context: context,
