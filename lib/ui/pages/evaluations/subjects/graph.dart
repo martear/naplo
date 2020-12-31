@@ -1,36 +1,38 @@
 import 'package:filcnaplo/data/models/evaluation.dart';
-import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class SubjectGraph extends StatefulWidget {
-  final List<Evaluation> data;
+  final List<charts.Series> seriesList;
 
-  SubjectGraph(this.data);
+  SubjectGraph(this.seriesList);
+
+  factory SubjectGraph.fromData({List<Evaluation> data}) {
+    return SubjectGraph(_createData(data));
+  }
 
   @override
   _SubjectGraphState createState() => _SubjectGraphState();
-}
 
-class _SubjectGraphState extends State<SubjectGraph> {
-  @override
-  Widget build(BuildContext context) {
-    List<FlSpot> subjectData = [];
+  static List<charts.Series<TimeSeries, DateTime>> _createData(
+      List<Evaluation> data) {
+    List<TimeSeries> series = [];
     List<List<Evaluation>> sortedData = [[]];
 
-    widget.data.forEach((element) {
+    data.forEach((element) {
       if (sortedData.last.length != 0 &&
           (sortedData.last.last.date ?? sortedData.last.last.date)
                   .difference(element.date ?? element.date)
                   .inDays >
-              7) sortedData.add([]);
+              14) sortedData.add([]);
       sortedData.forEach((dataList) {
         dataList.add(element);
       });
     });
+
+    sortedData = sortedData.reversed.toList();
 
     sortedData.forEach((dataList) {
       double average = 0;
@@ -42,152 +44,76 @@ class _SubjectGraphState extends State<SubjectGraph> {
       average = average /
           dataList.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
 
-      subjectData.add(FlSpot(
-        dataList[0].date.month +
-            (dataList[0].date.day / 31) +
-            ((DateTime.now().year - widget.data.first.date.year) * 100),
-        double.parse(average.toStringAsFixed(2)),
-      ));
+      series
+          .add(TimeSeries(dataList[0].date ?? dataList[0].date, average));
     });
 
-    return Container(
-      child: LineChart(
-        LineChartData(
-          lineBarsData: [
-            LineChartBarData(
-              spots: subjectData,
-              isCurved: true,
-              colors: [app.settings.theme.accentColor],
-              barWidth: 8,
-              isStrokeCapRound: true,
-              dotData: FlDotData(show: false),
-              belowBarData: BarAreaData(
-                show: false,
-              ),
-            ),
-          ],
-          minY: 1,
-          maxY: 5,
-          gridData: FlGridData(
-            drawVerticalLine: false,
-            getDrawingHorizontalLine: (_) => FlLine(
-              color: Colors.black12,
-              strokeWidth: 2.5,
-            ),
-          ),
-          lineTouchData: LineTouchData(
-            touchTooltipData: LineTouchTooltipData(
-              tooltipBgColor: Colors.black26,
-            ),
-            touchCallback: (LineTouchResponse touchResponse) {},
-            handleBuiltInTouches: true,
-            touchSpotThreshold: 50.0,
-            getTouchedSpotIndicator: (_, spots) => List.generate(
-              spots.length,
-              (index) => TouchedSpotIndicatorData(
-                FlLine(color: Colors.transparent),
-                FlDotData(
-                  getDotPainter: (a, b, c, d) => FlDotCirclePainter(
-                    strokeWidth: 0,
-                    color: app.settings.theme.backgroundColor,
-                    radius: 10.0,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          borderData: FlBorderData(
-            show: true,
-            border: Border(
-              bottom: BorderSide(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.grey[400]
-                    : app.settings.theme.backgroundColor,
-                width: 4,
-              ),
-              left: BorderSide(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.grey[400]
-                    : app.settings.theme.backgroundColor,
-                width: 4,
-              ),
-              right: BorderSide(
-                color: Colors.transparent,
-              ),
-              top: BorderSide(
-                color: Colors.transparent,
-              ),
-            ),
-          ),
-          titlesData: FlTitlesData(
-            bottomTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 22,
-              getTextStyles: (value) => TextStyle(
-                color: textColor(app.settings.theme.backgroundColor),
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-              margin: 12,
-              getTitles: (value) {
-                String ret = "";
+    Color c = app.settings.appColor;
 
-                switch (value.floor() % 100) {
-                  case 1:
-                    ret = I18n.of(context).dateJan;
-                    break;
-                  case 2:
-                    ret = I18n.of(context).dateFeb;
-                    break;
-                  case 3:
-                    ret = I18n.of(context).dateMar;
-                    break;
-                  case 4:
-                    ret = I18n.of(context).dateApr;
-                    break;
-                  case 5:
-                    ret = I18n.of(context).dateMay;
-                    break;
-                  case 6:
-                    ret = I18n.of(context).dateJun;
-                    break;
-                  case 7:
-                    ret = I18n.of(context).dateJul;
-                    break;
-                  case 8:
-                    ret = I18n.of(context).dateAug;
-                    break;
-                  case 9:
-                    ret = I18n.of(context).dateSep;
-                    break;
-                  case 10:
-                    ret = I18n.of(context).dateOct;
-                    break;
-                  case 11:
-                    ret = I18n.of(context).dateNov;
-                    break;
-                  case 12:
-                    ret = I18n.of(context).dateDec;
-                    break;
-                  default:
-                    ret = '?';
-                    break;
-                }
-                return ret.toUpperCase();
-              },
-            ),
-            leftTitles: SideTitles(
-              showTitles: true,
-              getTextStyles: (value) => TextStyle(
-                color: textColor(app.settings.theme.backgroundColor),
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              margin: 16,
-            ),
-          ),
+    return [
+      charts.Series<TimeSeries, DateTime>(
+        id: 'average_graph',
+        colorFn: (_, __) => charts.Color(r: c.red, g: c.green, b: c.blue),
+        domainFn: (TimeSeries average, _) => average.time,
+        measureFn: (TimeSeries average, _) => average.avg,
+        data: series,
+      )
+    ];
+  }
+}
+
+class _SubjectGraphState extends State<SubjectGraph> {
+  @override
+  Widget build(BuildContext context) {
+    return charts.TimeSeriesChart(
+      widget.seriesList,
+      dateTimeFactory: const charts.LocalDateTimeFactory(),
+      defaultRenderer: charts.LineRendererConfig(includePoints: true),
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        tickProviderSpec: charts.StaticNumericTickProviderSpec([
+          charts.TickSpec(5),
+          charts.TickSpec(4),
+          charts.TickSpec(3),
+          charts.TickSpec(2),
+          charts.TickSpec(1)
+        ]),
+        renderSpec: charts.GridlineRendererSpec(
+          labelStyle: charts.TextStyleSpec(
+              fontSize: 14,
+              color: app.settings.theme.brightness == Brightness.light
+                  ? charts.MaterialPalette.black
+                  : charts.MaterialPalette.white),
+          lineStyle: charts.LineStyleSpec(
+              color: charts.MaterialPalette.gray.shadeDefault),
         ),
       ),
+      domainAxis: charts.DateTimeAxisSpec(
+        renderSpec: charts.SmallTickRendererSpec(
+          labelStyle: charts.TextStyleSpec(
+              fontSize: 14,
+              color: app.settings.theme.brightness == Brightness.light
+                  ? charts.MaterialPalette.black
+                  : charts.MaterialPalette.white),
+          lineStyle: charts.LineStyleSpec(
+              color: charts.MaterialPalette.gray.shadeDefault),
+        ),
+      ),
+      behaviors: [
+        charts.LinePointHighlighter(
+          showHorizontalFollowLine:
+              charts.LinePointHighlighterFollowLineType.none,
+          showVerticalFollowLine:
+              charts.LinePointHighlighterFollowLineType.nearest,
+        ),
+        charts.SelectNearest(eventTrigger: charts.SelectionTrigger.tapAndDrag)
+      ],
     );
   }
+}
+
+class TimeSeries {
+  final DateTime time;
+  final double avg;
+
+  TimeSeries(this.time, this.avg);
 }

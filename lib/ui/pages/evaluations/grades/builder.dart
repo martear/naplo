@@ -1,7 +1,7 @@
 import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/tile.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class GradeBuilder {
   List<GradeTile> gradeTiles = [];

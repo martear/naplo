@@ -108,6 +108,8 @@ class I18n implements WidgetsLocalizations {
   String get dialogNext => "TOVÁBB";
   /// "Hozzáadás"
   String get dialogAdd => "Hozzáadás";
+  /// "megnyitás"
+  String get dialogOpen => "megnyitás";
   /// "idő"
   String get time => "idő";
   /// "óra"
@@ -164,7 +166,7 @@ class I18n implements WidgetsLocalizations {
   String get dateWeekPrev => "előző hét";
   /// "következő hét"
   String get dateWeekNext => "következő hét";
-  /// "jan"
+    /// "jan"
   String get dateJan => "jan";
   /// "feb"
   String get dateFeb => "feb";
@@ -526,6 +528,8 @@ class I18n implements WidgetsLocalizations {
   String get settingsPrivacySeen => "\"Láttam\" küldése";
   /// "Értesítések"
   String get settingsNotificationsTitle => "Értesítések";
+  /// "Hírlevél mutatása"
+  String get settingsNotificationsNews => "Hírlevél mutatása";
   /// "Működés"
   String get settingsBehaviorTitle => "Működés";
   /// "Tartalom renderelése HTML-ben"
@@ -596,6 +600,8 @@ class I18n implements WidgetsLocalizations {
   String get syncHomework => "Házi feladatok szinkronizálása...";
   /// "Órarend szinkronizálása..."
   String get syncTimetable => "Órarend szinkronizálása...";
+  /// "Hírek szinkronizálása..."
+  String get syncNews => "Hírek szinkronizálása...";
   /// "információk"
   String get about => "információk";
   /// "Információk"
@@ -608,6 +614,8 @@ class I18n implements WidgetsLocalizations {
   String get aboutSupporters => "Támogatók";
   /// "Linkek"
   String get aboutLinks => "Linkek";
+  /// "Hírek"
+  String get aboutNews => "Hírek";
   /// "Micsoda üresség!"
   String get empty => "Micsoda üresség!";
   /// "Nincsenek üzeneteid"
@@ -804,6 +812,9 @@ class _I18n_en_US extends I18n {
   /// "Add"
   @override
   String get dialogAdd => "Add";
+  /// "open"
+  @override
+  String get dialogOpen => "open";
   /// "time"
   @override
   String get time => "time";
@@ -1431,6 +1442,9 @@ class _I18n_en_US extends I18n {
   /// "Notifications"
   @override
   String get settingsNotificationsTitle => "Notifications";
+  /// "Show Newsletter"
+  @override
+  String get settingsNotificationsNews => "Show Newsletter";
   /// "Behavior"
   @override
   String get settingsBehaviorTitle => "Behavior";
@@ -1536,6 +1550,9 @@ class _I18n_en_US extends I18n {
   /// "Syncing timetable..."
   @override
   String get syncTimetable => "Syncing timetable...";
+  /// "Syncing news..."
+  @override
+  String get syncNews => "Syncing news...";
   /// "about"
   @override
   String get about => "about";
@@ -1554,6 +1571,9 @@ class _I18n_en_US extends I18n {
   /// "Links"
   @override
   String get aboutLinks => "Links";
+  /// "news"
+  @override
+  String get aboutNews => "news";
   /// "Wow, such empty!"
   @override
   String get empty => "Wow, such empty!";
@@ -1781,6 +1801,9 @@ class _I18n_de_DE extends I18n {
   /// "Addieren"
   @override
   String get dialogAdd => "Addieren";
+  /// "öffnen"
+  @override
+  String get dialogOpen => "öffnen";
   /// "zeit"
   @override
   String get time => "zeit";
@@ -1865,7 +1888,7 @@ class _I18n_de_DE extends I18n {
   /// "nächste Woche"
   @override
   String get dateWeekNext => "nächste Woche";
-  /// "jan"
+   /// "jan"
   @override
   String get dateJan => "jan";
   /// "feb"
@@ -2405,6 +2428,9 @@ class _I18n_de_DE extends I18n {
   /// "Benachrichtigungen"
   @override
   String get settingsNotificationsTitle => "Benachrichtigungen";
+  /// "Newsletter anzeigen"
+  @override
+  String get settingsNotificationsNews => "Newsletter anzeigen";
   /// "Optionen"
   @override
   String get settingsBehaviorTitle => "Optionen";
@@ -2510,6 +2536,9 @@ class _I18n_de_DE extends I18n {
   /// "Stundenplan wird abgerufen..."
   @override
   String get syncTimetable => "Stundenplan wird abgerufen...";
+  /// "Nachrichten werden abgerufen..."
+  @override
+  String get syncNews => "Nachrichten werden abgerufen...";
   /// "Info"
   @override
   String get about => "Info";
@@ -2528,6 +2557,9 @@ class _I18n_de_DE extends I18n {
   /// "Linken"
   @override
   String get aboutLinks => "Linken";
+  /// "Nachrichten"
+  @override
+  String get aboutNews => "Nachrichten";
   /// "Wow, so leer!"
   @override
   String get empty => "Wow, so leer!";

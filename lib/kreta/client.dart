@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:filcnaplo/data/models/config.dart';
+import 'package:filcnaplo/data/models/new.dart';
 import 'package:http/http.dart' as http;
 import 'package:filcnaplo/kreta/api.dart';
 import 'package:filcnaplo/utils/parse_jwt.dart';
@@ -134,6 +135,23 @@ class KretaClient {
     } catch (error) {
       print("ERROR: KretaAPI.getConfig: " + error.toString());
       return Config.defaults;
+    }
+  }
+
+  Future<List<News>> getNews() async {
+    try {
+      var response = await http.get(BaseURL.FILC + FilcEndpoints.news,
+          headers: {"Content-Type": "application/json"});
+      List<News> news = [];
+
+      List responseJson = json.decode(response.body);
+
+      responseJson.forEach((newJson) => news.add(News.fromJson(newJson)));
+
+      return news;
+    } catch (error) {
+      print("ERROR: KretaAPI.getNews: " + error.toString());
+      return [];
     }
   }
 

@@ -49,7 +49,8 @@
     "cancel": "MÉGSEM",
     "skip": "ÁTUGRÁS",
     "next": "TOVÁBB",
-    "add": "Hozzáadás"
+    "add": "Hozzáadás",
+    "open": "megnyitás"
   },
   "time": {
     "": "idő",
@@ -325,7 +326,8 @@
       "seen": "\"Láttam\" küldése"
     },
     "notifications": {
-      "title": "Értesítések"
+      "title": "Értesítések",
+      "news": "Hírlevél mutatása"
     },
     "behavior": {
       "title": "Működés",
@@ -379,7 +381,8 @@
     "absence": "Hiányok szinkronizálása...",
     "exam": "Dolgozatok szinkronizálása...",
     "homework": "Házi feladatok szinkronizálása...",
-    "timetable": "Órarend szinkronizálása..."
+    "timetable": "Órarend szinkronizálása...",
+    "news": "Hírek szinkronizálása..."
   },
   "about": {
     "": "információk",
@@ -387,7 +390,8 @@
     "privacy": "Adatvédelmi irányelvek",
     "licenses": "Licenszek",
     "supporters": "Támogatók",
-    "links": "Linkek"
+    "links": "Linkek",
+    "news": "Hírek"
   },
   "empty": {
     "": "Micsoda üresség!",

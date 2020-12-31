@@ -49,7 +49,8 @@
     "cancel": "CANCEL",
     "skip": "SKIP",
     "next": "NEXT",
-    "add": "Add"
+    "add": "Add",
+    "open": "open"
   },
   "time": {
     "": "time",
@@ -325,7 +326,8 @@
       "seen": "Send seen state"
     },
     "notifications": {
-      "title": "Notifications"
+      "title": "Notifications",
+      "news": "Show Newsletter"
     },
     "behavior": {
       "title": "Behavior",
@@ -379,7 +381,8 @@
     "absence": "Syncing absences...",
     "exam": "Syncing exams...",
     "homework": "Syncing homework...",
-    "timetable": "Syncing timetable..."
+    "timetable": "Syncing timetable...",
+    "news": "Syncing news..."
   },
   "about": {
     "": "about",
@@ -387,7 +390,8 @@
     "privacy": "Privacy Policy",
     "licenses": "Licenses",
     "supporters": "Supporters",
-    "links": "Links"
+    "links": "Links",
+    "news": "news"
   },
   "empty": {
     "": "Wow, such empty!",

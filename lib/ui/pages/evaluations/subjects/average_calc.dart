@@ -96,8 +96,9 @@ class AverageCalculatorState extends State<AverageCalculator> {
   }
 
   void addEvalToAverage() {
+    int randId;
     var rand = Random();
-    int randId = rand.nextInt(1000);
+    randId = rand.nextInt(1000);
 
     Evaluation tempEval = Evaluation(
       "temp_" + randId.toString(), //id
