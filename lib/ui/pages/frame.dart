@@ -33,16 +33,17 @@ class _PageFrameState extends State<PageFrame> {
     });
 
     app.user.sync.news.sync().then((_) {
-      if (app.settings.enableNews) {
-        app.user.sync.news.fresh.reversed.forEach(
-          (news) async {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) => NewsView(news),
-              ),
-            );
-          },
-        );
+      if (app.settings.enableNews && !app.firstStart) {
+        Future.delayed(Duration(seconds: 1), () {
+          Future.forEach(
+            app.user.sync.news.data.reversed,
+            (news) async => await showDialog(
+              useSafeArea: true,
+              context: context,
+              builder: (context) => NewsView(news),
+            ),
+          );
+        });
       }
     });
   }

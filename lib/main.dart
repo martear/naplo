@@ -32,14 +32,24 @@ void main() async {
 
   try {
     settings = (await app.storage.storage.query("settings"))[0];
-    List<String> addedDBKeys = ["default_page", "config"];
+    List<String> addedDBKeys = [
+      "default_page",
+      "config",
+      "news_show",
+      "news_len"
+    ];
     migrationRequired = addedDBKeys.any((item) => !settings.containsKey(item));
 
     if (migrationRequired) {
       // settings is immutable, see https://github.com/tekartik/sqflite/issues/140
       settingsCopy = Map<String, dynamic>.from(settings);
       settingsCopy["default_page"] = settingsCopy["default_page"] ?? 0;
-      settingsCopy["config"] = jsonEncode(Config.defaults.json);
+      settingsCopy["config"] =
+          settingsCopy["config"] ?? jsonEncode(Config.defaults.json);
+      settingsCopy["news_len"] =
+          settingsCopy["news_len"] ?? settingsCopy["news_len"];
+      settingsCopy["news_show"] =
+          settingsCopy["news_show"] ?? settingsCopy["news_show"];
       await app.storage.storage.execute("drop table settings");
       try {
         await app.storage.storage.execute("drop table tabs");

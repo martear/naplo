@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_html/style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../data/context/app.dart';
+
 class NewsView extends StatefulWidget {
   final News news;
 
@@ -16,75 +18,75 @@ class NewsView extends StatefulWidget {
 }
 
 class _NewsViewState extends State<NewsView> {
-  Widget image;
-  _NewsViewState();
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          margin: EdgeInsets.fromLTRB(20, 30, 20, 20),
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height - 150,
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 64),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          color: app.settings.theme.backgroundColor,
+        ),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            Text(
+              widget.news.title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: FontSize.large.size,
+              ),
             ),
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: ListView(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      widget.news.title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: FontSize.large.size),
+            widget.news.content != null
+                ? Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 20),
+                    child: SelectableText("widget.news.content"),
+                  )
+                : Container(),
+            // TODO: Spacer()
+            widget.news.image != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    child: Image.network(
+                      widget.news.image,
                     ),
-                  ],
-                ),
-                widget.news.content != null
-                    ? Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 20),
-                        child: SelectableText(widget.news.content),
-                      )
-                    : Container(),
-                widget.news.image != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                        child: Image.network(
-                          widget.news.image,
-                        ),
-                      )
-                    : Container(),
+                  )
+                : Container(),
+            Row(
+              children: [
                 widget.news.link != null
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          TextButton(
-                            child:
-                                Text(I18n.of(context).dialogOpen.toUpperCase(),
-                                    style: TextStyle(
-                                      color: Theme.of(context).accentColor,
-                                    )),
-                            onPressed: () async {
-                              if (await (canLaunch(widget.news.link)))
-                                await launch(widget.news.link);
-                              else
-                                throw "Cannot open url ${widget.news.link}";
-                            },
+                    ? TextButton(
+                        child: Text(
+                          I18n.of(context).dialogOpen.toUpperCase(),
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
                           ),
-                        ],
+                        ),
+                        onPressed: () async {
+                          if (await canLaunch(widget.news.link))
+                            await launch(widget.news.link);
+                          else
+                            throw "Cannot open url ${widget.news.link}";
+                        },
                       )
                     : Container(),
+                Spacer(),
+                TextButton(
+                  child: Text(
+                    I18n.of(context).dialogDone.toUpperCase(),
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
