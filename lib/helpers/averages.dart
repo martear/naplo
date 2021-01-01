@@ -18,7 +18,7 @@ int roundSubjectAverage(Subject subject, double average) {
       "|" +
       subject.category.id); */
 
-  // todo: ability to change rounding point of each subject
+  // TODO: ability to change rounding point of each subject
   return average.round();
 }
 

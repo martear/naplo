@@ -30,6 +30,7 @@
   },
   "account": {
     "title": "Konten",
+    "info": "Info",
     "add": "Konto hinzufügen",
     "delete": "Konto löschen",
     "deleteConfirm": "Möchtest du {name} wirklich löschen?",
@@ -38,7 +39,8 @@
   "action": {
     "delete": "löschen",
     "change": "wechseln",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "reset": "zurücksetzen"
   },
   "dialog": {
     "ok": "OK",
@@ -50,7 +52,8 @@
     "skip": "SKIP",
     "next": "NEXT",
     "add": "Addieren",
-    "open": "öffnen"
+    "open": "öffnen",
+    "back": "zurück"
   },
   "time": {
     "": "zeit",
