@@ -251,6 +251,7 @@
     "subjects": "subjects",
     "statistics": "statistics",
     "subjectsAverage":"Your subjects",
+    "yearlyGraph":"Average troughout the year",
     "ghost": {
       "": "GHOST GRADE",
       "title": "Add new Ghost Grade",
