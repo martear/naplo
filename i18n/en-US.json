@@ -254,8 +254,7 @@
     "yearlyGraph":"Average troughout the year",
     "ghost": {
       "": "GHOST GRADE",
-      "title": "Add new Ghost Grade",
-      "tooltip": "Remove this Ghost Grade"
+      "title": "Add new Ghost Grade"
     }
   },
   "student": {
@@ -441,5 +440,13 @@
   },
   "unknown": "unknown",
   "showOthers": "Show {count} more",
-  "collapseList": "Collapse list"
+  "collapseList": "Collapse list",
+  "tooltip": {
+    "ghostRemove": "Remove this Ghost Grade",
+    "statistics": {
+      "evalsAvg": "Average of all your grades",
+      "subjects": "If your grades would be finalized now, your subjects would be finalized like this.",
+      "subjectsAvg": "If your grades would be finalized now, this would be the average of them."
+    }
+  }
 }

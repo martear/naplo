@@ -254,8 +254,7 @@
     "yearlyGraph":"Éves átlagod",
     "ghost": {
       "": "SZELLEMJEGY",
-      "title": "Szellemjegy hozzáadása",
-      "tooltip": "Szellemjegy eltávolítása"
+      "title": "Szellemjegy hozzáadása"
     }
   },
   "student": {
@@ -441,5 +440,13 @@
   },
   "unknown": "ismeretlen",
   "showOthers": "További {count} megjelenítése",
-  "collapseList": "Lista összecsukása"
+  "collapseList": "Lista összecsukása",
+  "tooltip": {
+    "ghostRemove": "Szellemjegy eltávolítása",
+    "statistics": {
+      "evalsAvg": "Összes jegyed átlaga",
+      "subjects": "Ha most zárnának le, a tárgyaidból ilyen jegyeket szereznél.",
+      "subjectsAvg": "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne."
+    }
+  }
 }

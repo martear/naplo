@@ -254,8 +254,7 @@
     "yearlyGraph":"Durchschnitt im Jahr",
     "ghost": {
       "": "SCHATTENNOTE",
-      "title": "Schattennote addieren",
-      "tooltip": "Schattennote löschen"
+      "title": "Schattennote addieren"
     }
   },
   "student": {
@@ -441,5 +440,13 @@
   },
   "unknown": "unknown",
   "showOthers": "Nächste {count} anzeigen",
-  "collapseList": "Liste stauchen"
+  "collapseList": "Liste stauchen",
+  "tooltip": {
+    "ghostRemove": "Schattennote löschen",
+    "statistics": {
+      "evalsAvg": "Durchschnitt alle deiner Noten",
+      "subjects": "Wenn deine Noten jetzt abgeschlossen wären, würden deine Fächer so abgeschlossen.",
+      "subjectsAvg": "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen."
+    }
+  }
 }

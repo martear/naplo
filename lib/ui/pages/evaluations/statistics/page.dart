@@ -10,32 +10,17 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/graph.dart';
 
 class StatsBlock extends StatelessWidget {
-  StatsBlock(this.values, this.average, this.title, this.rowIcon);
+  StatsBlock(this.values, this.average, this.titleTooltip, this.lastBoxTooltip);
 
   final List<String> values;
   final double average;
-  final String title;
-  final IconData rowIcon;
+  final String titleTooltip;
+  final String lastBoxTooltip;
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25.0),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 14.0, bottom: 4.0),
-            child: Row(
-              children: [
-                Icon(rowIcon),
-                Container(
-                  padding: EdgeInsets.only(left: 12),
-                  child: Text(title,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-          ),
           FittedBox(
             fit: BoxFit.fitWidth,
             child: Row(
@@ -74,12 +59,39 @@ class StatsBlock extends StatelessWidget {
                     value: values[0],
                     color: app.theme.evalColors[0],
                   ),
-                  EvaluationBlock(
-                    value: average.toStringAsFixed(2),
-                    color:
-                        app.theme.evalColors[(average.round() - 1).clamp(0, 4)],
+                  Tooltip(
+                    message: lastBoxTooltip,
+                    child: EvaluationBlock(
+                      value: average.toStringAsFixed(2),
+                      color: app
+                          .theme.evalColors[(average.round() - 1).clamp(0, 4)],
+                    ),
                   ),
                 ]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StatisticsTitle extends StatelessWidget {
+  StatisticsTitle(this.icon, this.title);
+  final IconData icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 14.0, bottom: 4.0),
+      child: Row(
+        children: [
+          Icon(icon),
+          Container(
+            padding: EdgeInsets.only(left: 12),
+            child: Text(title,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -146,33 +158,30 @@ class StatisticsPage extends StatelessWidget {
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: <Widget>[
+            //Grades
+            StatisticsTitle(
+                FeatherIcons.bookmark, I18n.of(context).evaluations),
             StatsBlock(grades, allAvg, I18n.of(context).evaluations,
-                FeatherIcons.bookmark),
-            Padding(
-              padding: EdgeInsets.only(left: 14.0, bottom: 20.0),
-              child: Row(
-                children: [
-                  Icon(FeatherIcons.trendingUp),
-                  Container(
-                    padding: EdgeInsets.only(left: 12),
-                    child: Text(I18n.of(context).evaluationsYearlyGraph,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold)),
-                  ),
-                ],
-              ),
-            ),
+                I18n.of(context).tooltipStatisticsEvalsAvg),
+            //Grades graph
+            StatisticsTitle(FeatherIcons.trendingUp,
+                I18n.of(context).evaluationsYearlyGraph),
             Container(
                 padding: EdgeInsets.only(left: 10, right: 25),
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(top: 15, bottom: 30),
                 height: 200,
                 child: SubjectGraph(evaluations)),
+            //Subjects
+            Tooltip(
+              message: I18n.of(context).tooltipStatisticsSubjects,
+              child: StatisticsTitle(FeatherIcons.book,
+                  I18n.of(context).evaluationsSubjectsAverage),
+            ),
             StatsBlock(
                 subjectGrades.map((e) => e.toString()).toList(),
                 subjectsAvg,
                 I18n.of(context).evaluationsSubjectsAverage,
-                FeatherIcons.book),
+                I18n.of(context).tooltipStatisticsSubjectsAvg),
           ],
         ),
       ),
