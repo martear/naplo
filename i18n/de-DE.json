@@ -250,6 +250,8 @@
     "endYear": "Zeugnis",
     "subjects": "Fächer",
     "statistics": "Statistiken",
+    "subjectsAverage": "Deine Fächer",
+    "yearlyGraph":"Durchschnitt im Jahr",
     "ghost": {
       "": "SCHATTENNOTE",
       "title": "Schattennote addieren",

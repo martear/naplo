@@ -6,27 +6,32 @@ import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tinycolor/tinycolor.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:filcnaplo/ui/pages/evaluations/subjects/graph.dart';
 
 class StatsBlock extends StatelessWidget {
-  StatsBlock(this.values, this.average, this.title);
+  StatsBlock(this.values, this.average, this.title, this.rowIcon);
 
   final List<String> values;
   final double average;
   final String title;
+  final IconData rowIcon;
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: 25.0),
       child: Column(
         children: [
           Padding(
             padding: EdgeInsets.only(left: 14.0, bottom: 4.0),
             child: Row(
               children: [
+                Icon(rowIcon),
                 Container(
-                  /* color: Colors.red, */
+                  padding: EdgeInsets.only(left: 12),
                   child: Text(title,
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0)),
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -96,9 +101,9 @@ class StatisticsPage extends StatelessWidget {
       evaluations.where((e) => e.value.value == 4).length.toString(),
       evaluations.where((e) => e.value.value == 5).length.toString(),
     ];
-    var subjects = calculateSubjectsAverage().where((e) =>
-        !e.subject.category.id.contains("Magatartas") &&
-        !e.subject.category.id.contains("Szorgalom"));
+    var subjects = calculateSubjectsAverage().where((e) => true);
+    /*!e.subject.category.id.contains("Magatartas") &&
+        !e.subject.category.id.contains("Szorgalom"));*/
 
     count(int grade) {
       return subjects
@@ -141,9 +146,33 @@ class StatisticsPage extends StatelessWidget {
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: <Widget>[
-            StatsBlock(grades, allAvg, I18n.of(context).evaluations),
-            StatsBlock(subjectGrades.map((e) => e.toString()).toList(),
-                subjectsAvg, I18n.of(context).evaluationsSubjectsAverage),
+            StatsBlock(grades, allAvg, I18n.of(context).evaluations,
+                FeatherIcons.bookmark),
+            Padding(
+              padding: EdgeInsets.only(left: 14.0, bottom: 20.0),
+              child: Row(
+                children: [
+                  Icon(FeatherIcons.trendingUp),
+                  Container(
+                    padding: EdgeInsets.only(left: 12),
+                    child: Text(I18n.of(context).evaluationsYearlyGraph,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.only(left: 10, right: 25),
+                margin: EdgeInsets.only(bottom: 30),
+                height: 200,
+                child: SubjectGraph(evaluations)),
+            StatsBlock(
+                subjectGrades.map((e) => e.toString()).toList(),
+                subjectsAvg,
+                I18n.of(context).evaluationsSubjectsAverage,
+                FeatherIcons.book),
           ],
         ),
       ),

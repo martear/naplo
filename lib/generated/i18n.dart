@@ -420,8 +420,10 @@ class I18n implements WidgetsLocalizations {
   String get evaluationsSubjects => "Tárgyak";
   /// "Statisztikák"
   String get evaluationsStatistics => "Statisztikák";
-  /// "Tantárgyaid átlaga"
-  String get evaluationsSubjectsAverage => "Tantárgyaid átlaga";
+  /// "Tantárgyaid"
+  String get evaluationsSubjectsAverage => "Tantárgyaid";
+  /// "Éves átlagod"
+  String get evaluationsYearlyGraph => "Éves átlagod";
   /// "SZELLEMJEGY"
   String get evaluationsGhost => "SZELLEMJEGY";
   /// "Szellemjegy hozzáadása"
@@ -1289,6 +1291,9 @@ class _I18n_en_US extends I18n {
   /// "Your subjects"
   @override
   String get evaluationsSubjectsAverage => "Your subjects";
+  /// "Average troughout the year"
+  @override
+  String get evaluationsYearlyGraph => "Average troughout the year";
   /// "GHOST GRADE"
   @override
   String get evaluationsGhost => "GHOST GRADE";
@@ -2284,6 +2289,12 @@ class _I18n_de_DE extends I18n {
   /// "Statistiken"
   @override
   String get evaluationsStatistics => "Statistiken";
+  /// "Deine Fächer"
+  @override
+  String get evaluationsSubjectsAverage => "Deine Fächer";
+  /// "Durchschnitt im Jahr"
+  @override
+  String get evaluationsYearlyGraph => "Durchschnitt im Jahr";
   /// "SCHATTENNOTE"
   @override
   String get evaluationsGhost => "SCHATTENNOTE";

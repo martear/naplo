@@ -250,7 +250,8 @@
     "endYear": "Év végi",
     "subjects": "Tárgyak",
     "statistics": "Statisztikák",
-    "subjectsAverage":"Tantárgyaid átlaga",
+    "subjectsAverage":"Tantárgyaid",
+    "yearlyGraph":"Éves átlagod",
     "ghost": {
       "": "SZELLEMJEGY",
       "title": "Szellemjegy hozzáadása",
