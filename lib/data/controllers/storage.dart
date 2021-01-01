@@ -48,7 +48,7 @@ class StorageController {
           "background_color": 1,
           "notifications": 1,
           "selected_user": 0,
-          "render_html": 1,
+          "render_html": 0,
           "debug_mode": 0,
           "default_page": 0,
           "news_show": 1,
