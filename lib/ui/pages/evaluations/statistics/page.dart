@@ -118,9 +118,7 @@ class StatisticsPage extends StatelessWidget {
         !e.subject.category.id.contains("Szorgalom"));*/
 
     count(int grade) {
-      return subjects
-          .where((e) => roundSubjectAverage(e.subject, e.average) == grade)
-          .length;
+      return subjects.where((e) => roundSubjAvg(e.average) == grade).length;
     }
 
     List<int> subjectGrades = [

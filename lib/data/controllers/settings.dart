@@ -31,6 +31,7 @@ class SettingsController {
   int eveningStartHour;
   bool enableNews;
   ConfigSync config = ConfigSync();
+  int roundUp;
 
   get locale {
     List<String> lang = (language == "auto"
@@ -76,7 +77,9 @@ class SettingsController {
     enableNews = settings["news_show"] == 1;
     renderHtml = settings["render_html"] == 1;
 
-    config.data = Config.fromJson(jsonDecode(settings["config"])); //why null why
+    config.data = Config.fromJson(jsonDecode(settings["config"]));
+
+    roundUp = settings["round_up"];
 
     List usersInstance = await app.storage.storage.query("users");
 
