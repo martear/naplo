@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/context/message.dart';
 import 'package:filcnaplo/data/state/sync.dart';
-import 'package:filcnaplo/data/sync/ui/indicator.dart';
+import 'package:filcnaplo/ui/sync/indicator.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/absences/page.dart';
 import 'package:filcnaplo/ui/pages/messages/compose.dart';

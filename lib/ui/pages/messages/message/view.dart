@@ -80,7 +80,7 @@ class _MessageViewState extends State<MessageView> {
     app.user.sync.messages.data[app.selectedMessagePage]
         .removeWhere((msg) => msg.id == message.id);
 
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(I18n.of(context).messageDeleted),
       duration: Duration(seconds: 5),
       action: SnackBarAction(

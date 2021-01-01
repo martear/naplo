@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                   onDoubleTap: () {
                     setState(() => app.debugMode = true);
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
                         "Debug mode enabled",
                         style: TextStyle(color: Colors.white),

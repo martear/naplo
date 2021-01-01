@@ -190,7 +190,7 @@ class _AccountViewState extends State<AccountView> {
                       onTap: () {
                         showDialog(
                           context: context,
-                          child: Center(
+                          builder: (context) => Center(
                             child: ProfileIcon(
                                 name: widget.user.name,
                                 size: 4.2,
