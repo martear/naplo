@@ -76,6 +76,8 @@ class I18n implements WidgetsLocalizations {
   String get grade => "osztályzat";
   /// "Fiókok"
   String get accountTitle => "Fiókok";
+  /// "infó"
+  String get accountInfo => "infó";
   /// "fiók hozzáadása"
   String get accountAdd => "fiók hozzáadása";
   /// "Felhasználó törlése"
@@ -90,6 +92,8 @@ class I18n implements WidgetsLocalizations {
   String get actionChange => "szerkesztés";
   /// "szerkesztés"
   String get actionEdit => "szerkesztés";
+  /// "visszaállítás"
+  String get actionReset => "visszaállítás";
   /// "OK"
   String get dialogOk => "OK";
   /// "IGEN"
@@ -110,6 +114,8 @@ class I18n implements WidgetsLocalizations {
   String get dialogAdd => "Hozzáadás";
   /// "megnyitás"
   String get dialogOpen => "megnyitás";
+  /// "VISSZA"
+  String get dialogBack => "VISSZA";
   /// "idő"
   String get time => "idő";
   /// "óra"
@@ -166,7 +172,7 @@ class I18n implements WidgetsLocalizations {
   String get dateWeekPrev => "előző hét";
   /// "következő hét"
   String get dateWeekNext => "következő hét";
-    /// "jan"
+  /// "jan"
   String get dateJan => "jan";
   /// "feb"
   String get dateFeb => "feb";
@@ -764,6 +770,9 @@ class _I18n_en_US extends I18n {
   /// "Accounts"
   @override
   String get accountTitle => "Accounts";
+  /// "info"
+  @override
+  String get accountInfo => "info";
   /// "add account"
   @override
   String get accountAdd => "add account";
@@ -785,6 +794,9 @@ class _I18n_en_US extends I18n {
   /// "edit"
   @override
   String get actionEdit => "edit";
+  /// "reset"
+  @override
+  String get actionReset => "reset";
   /// "OK"
   @override
   String get dialogOk => "OK";
@@ -815,6 +827,9 @@ class _I18n_en_US extends I18n {
   /// "open"
   @override
   String get dialogOpen => "open";
+  /// "BACK"
+  @override
+  String get dialogBack => "BACK";
   /// "time"
   @override
   String get time => "time";
@@ -1753,6 +1768,9 @@ class _I18n_de_DE extends I18n {
   /// "Konten"
   @override
   String get accountTitle => "Konten";
+  /// "Info"
+  @override
+  String get accountInfo => "Info";
   /// "Konto hinzufügen"
   @override
   String get accountAdd => "Konto hinzufügen";
@@ -1774,6 +1792,9 @@ class _I18n_de_DE extends I18n {
   /// "Bearbeiten"
   @override
   String get actionEdit => "Bearbeiten";
+  /// "zurücksetzen"
+  @override
+  String get actionReset => "zurücksetzen";
   /// "OK"
   @override
   String get dialogOk => "OK";
@@ -1804,6 +1825,9 @@ class _I18n_de_DE extends I18n {
   /// "öffnen"
   @override
   String get dialogOpen => "öffnen";
+  /// "zurück"
+  @override
+  String get dialogBack => "zurück";
   /// "zeit"
   @override
   String get time => "zeit";
@@ -1888,7 +1912,7 @@ class _I18n_de_DE extends I18n {
   /// "nächste Woche"
   @override
   String get dateWeekNext => "nächste Woche";
-   /// "jan"
+  /// "jan"
   @override
   String get dateJan => "jan";
   /// "feb"

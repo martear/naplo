@@ -30,6 +30,7 @@
   },
   "account": {
     "title": "Fiókok",
+    "info": "infó",
     "add": "fiók hozzáadása",
     "delete": "Felhasználó törlése",
     "deleteConfirm": "Biztosan törölni szeretnéd {name} felhasználót?",
@@ -38,7 +39,8 @@
   "action": {
     "delete": "törlés",
     "change": "szerkesztés",
-    "edit": "szerkesztés"
+    "edit": "szerkesztés",
+    "reset": "visszaállítás"
   },
   "dialog": {
     "ok": "OK",
@@ -50,7 +52,8 @@
     "skip": "ÁTUGRÁS",
     "next": "TOVÁBB",
     "add": "Hozzáadás",
-    "open": "megnyitás"
+    "open": "megnyitás",
+    "back": "VISSZA"
   },
   "time": {
     "": "idő",

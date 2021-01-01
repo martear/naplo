@@ -30,6 +30,7 @@
   },
   "account": {
     "title": "Accounts",
+    "info": "info",
     "add": "add account",
     "delete": "Delete user",
     "deleteConfirm": "Are you sure you want to delete {name}?",
@@ -38,7 +39,8 @@
   "action": {
     "delete": "delete",
     "change": "change",
-    "edit": "edit"
+    "edit": "edit",
+    "reset": "reset"
   },
   "dialog": {
     "ok": "OK",
@@ -50,7 +52,8 @@
     "skip": "SKIP",
     "next": "NEXT",
     "add": "Add",
-    "open": "open"
+    "open": "open",
+    "back": "BACK"
   },
   "time": {
     "": "time",
