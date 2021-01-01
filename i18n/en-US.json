@@ -322,7 +322,8 @@
     "general": {
       "title": "General",
       "language": "Language",
-      "startPage": "Start page"
+      "startPage": "Start page",
+      "round": "Rounding"
     },
     "privacy": {
       "title": "Privacy",

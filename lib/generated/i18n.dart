@@ -528,6 +528,8 @@ class I18n implements WidgetsLocalizations {
   String get settingsGeneralLanguage => "Nyelv";
   /// "Kezdőoldal"
   String get settingsGeneralStartPage => "Kezdőoldal";
+  /// "Kerekítés"
+  String get settingsGeneralRound => "Kerekítés";
   /// "Adatvédelem"
   String get settingsPrivacyTitle => "Adatvédelem";
   /// "\"Láttam\" küldése"
@@ -1448,6 +1450,9 @@ class _I18n_en_US extends I18n {
   /// "Start page"
   @override
   String get settingsGeneralStartPage => "Start page";
+  /// "Rounding"
+  @override
+  String get settingsGeneralRound => "Rounding";
   /// "Privacy"
   @override
   String get settingsPrivacyTitle => "Privacy";
@@ -2443,6 +2448,9 @@ class _I18n_de_DE extends I18n {
   /// "Startseite"
   @override
   String get settingsGeneralStartPage => "Startseite";
+  /// "abzurunden"
+  @override
+  String get settingsGeneralRound => "abzurunden";
   /// "Datenschutz"
   @override
   String get settingsPrivacyTitle => "Datenschutz";

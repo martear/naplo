@@ -1,5 +1,6 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/subject.dart';
+import 'package:filcnaplo/helpers/averages.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/view.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -28,20 +29,19 @@ class SubjectTile extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              classAvg != null && classAvg.round() != 0
+              classAvg != null && roundSubjAvg(classAvg) != 0
                   ? Container(
                       width: 55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(45.0)),
                         border: Border.all(
                           width: 3.0,
-                          color: app.theme
-                              .evalColors[(classAvg.round() - 1).clamp(0, 4)],
+                          color: getAverageColor(classAvg),
                         ),
                       ),
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                        app.settings.language == "en"
+                        app.settings.language.split("_")[0] == "en"
                             ? classAvg.toStringAsFixed(2)
                             : classAvg.toStringAsFixed(2).split(".").join(","),
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -54,13 +54,12 @@ class SubjectTile extends StatelessWidget {
                       width: 55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                        color: app.theme
-                            .evalColors[(studentAvg.round() - 1).clamp(0, 4)],
+                        color: getAverageColor(studentAvg),
                       ),
                       padding: EdgeInsets.all(8.0),
                       margin: EdgeInsets.only(left: 8.0),
                       child: Text(
-                        app.settings.language == "en"
+                        app.settings.language.split("_")[0] == "en"
                             ? studentAvg.toStringAsFixed(2)
                             : studentAvg
                                 .toStringAsFixed(2)
@@ -69,8 +68,7 @@ class SubjectTile extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: textColor(
-                            app.theme.evalColors[
-                                (studentAvg.round() - 1).clamp(0, 4)],
+                            getAverageColor(studentAvg),
                           ),
                         ),
                         textAlign: TextAlign.center,

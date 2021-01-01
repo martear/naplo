@@ -16,7 +16,7 @@ class StorageController {
   Map<String, Database> users = {};
   Future createSettingsTable(Database db) async {
     await db.execute(
-        "create table settings (language TEXT, app_color TEXT, theme TEXT, background_color INTIGER, notifications INTIGER, selected_user INTIGER, render_html INTIGER, debug_mode INTIGER, default_page INTIGER, news_show INTIGER, news_len INTIGER, config TEXT)");
+        "create table settings (language TEXT, app_color TEXT, theme TEXT, background_color INTIGER, notifications INTIGER, selected_user INTIGER, render_html INTIGER, debug_mode INTIGER, default_page INTIGER, news_show INTIGER, news_len INTIGER, config TEXT, round_up INTIGER)");
   }
 
   Future init() async {
@@ -54,6 +54,7 @@ class StorageController {
           "news_show": 1,
           "news_len": 0,
           "config": jsonEncode(Config.defaults.json),
+          "round_up": 5,
         });
 
         // Create Eval Colors

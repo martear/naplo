@@ -72,7 +72,7 @@ class StatsBlock extends StatelessWidget {
                   EvaluationBlock(
                     value: average.toStringAsFixed(2),
                     color:
-                        app.theme.evalColors[(average.round() - 1).clamp(0, 4)],
+                        getAverageColor(average),
                   ),
                 ]),
           ),
@@ -102,7 +102,7 @@ class StatisticsPage extends StatelessWidget {
 
     count(int grade) {
       return subjects
-          .where((e) => roundSubjectAverage(e.subject, e.average) == grade)
+          .where((e) => roundSubjAvg(e.average) == grade)
           .length;
     }
 
