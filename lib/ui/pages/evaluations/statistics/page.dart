@@ -63,8 +63,7 @@ class StatsBlock extends StatelessWidget {
                     message: lastBoxTooltip,
                     child: EvaluationBlock(
                       value: average.toStringAsFixed(2),
-                      color: app
-                          .theme.evalColors[(average.round() - 1).clamp(0, 4)],
+                      color: getAverageColor(average),
                     ),
                   ),
                 ]),
@@ -117,9 +116,8 @@ class StatisticsPage extends StatelessWidget {
     /*!e.subject.category.id.contains("Magatartas") &&
         !e.subject.category.id.contains("Szorgalom"));*/
 
-    count(int grade) {
-      return subjects.where((e) => roundSubjAvg(e.average) == grade).length;
-    }
+    count(int grade) =>
+        subjects.where((e) => roundSubjAvg(e.average) == grade).length;
 
     List<int> subjectGrades = [
       count(1),
@@ -168,7 +166,7 @@ class StatisticsPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10, right: 25),
                 margin: EdgeInsets.only(top: 15, bottom: 30),
                 height: 200,
-                child: SubjectGraph(evaluations)),
+                child: SubjectGraph(evaluations, dayThreshold: 2)),
             //Subjects
             Tooltip(
               message: I18n.of(context).tooltipStatisticsSubjects,

@@ -92,9 +92,7 @@ class _SubjectViewState extends State<SubjectView> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         height: 1.2,
-                        color: textColor(
-                          getAverageColor(studentAvg)
-                        ),
+                        color: textColor(getAverageColor(studentAvg)),
                       ),
                     ),
                   ),
@@ -142,7 +140,7 @@ class _SubjectViewState extends State<SubjectView> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: SubjectGraph(subjectEvals),
+                child: SubjectGraph(subjectEvals, dayThreshold: 5),
               ),
               Container(
                 padding:
