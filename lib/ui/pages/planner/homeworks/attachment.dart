@@ -150,7 +150,7 @@ Future<String> saveAttachment(
 
     if (data != null) {
       var filePath = downloads + "/" + attachment.name;
-      print("INFO: Download path: " + filePath);
+      if (app.debugMode) print("INFO: Saved file: " + filePath);
       if (await StorageController.writeFile(filePath, data)) {
         print("INFO: Downloaded " + attachment.name);
         return filePath;

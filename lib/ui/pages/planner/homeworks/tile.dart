@@ -44,6 +44,7 @@ class HomeworkTile extends StatelessWidget {
         onTap: () => showModalBottomSheet(
           context: context,
           backgroundColor: Colors.transparent,
+          isScrollControlled: true,
           builder: (context) => HomeworkView(homework),
         ),
       ),

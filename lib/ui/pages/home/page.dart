@@ -102,21 +102,26 @@ class _HomePageState extends State<HomePage> {
           key: Key(absence.id.toString()),
           compare: absence.submitDate,
         )));
-    app.user.sync.homework.data.forEach((homework) => cards.add(HomeworkCard(
-          homework,
-          key: Key(homework.id.toString()),
-          compare: homework.date,
-        )));
-    app.user.sync.exam.data.forEach((exam) => cards.add(ExamCard(
-          exam,
-          key: Key(exam.id.toString()),
-          compare: exam.date,
-        )));
+    app.user.sync.homework.data
+        .where((homework) => homework.deadline.isAfter(DateTime.now()))
+        .forEach((homework) => cards.add(HomeworkCard(
+              homework,
+              key: Key(homework.id.toString()),
+              compare: homework.date,
+            )));
+    app.user.sync.exam.data
+        .where((exam) => exam.writeDate.isAfter(DateTime.now()))
+        .forEach((exam) => cards.add(ExamCard(
+              exam,
+              key: Key(exam.id.toString()),
+              compare: exam.date,
+            )));
 
     cards.sort((a, b) => -a.compare.compareTo(b.compare));
 
-    elements.addAll(cards);
-    
+    elements.addAll(cards.where((card) =>
+        card.compare.isAfter(DateTime.now().subtract(Duration(days: 30)))));
+
     return elements;
   }
 }

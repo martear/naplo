@@ -24,78 +24,80 @@ class HomeworkView extends StatefulWidget {
 class _HomeworkViewState extends State<HomeworkView> {
   @override
   Widget build(BuildContext context) {
-    return BottomCard(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: ProfileIcon(name: widget.homework.teacher),
-                  title: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          widget.homework.teacher != null
-                              ? capitalize(widget.homework.teacher)
-                              : I18n.of(context).unknown,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+    return Padding(
+      padding: EdgeInsets.only(top: 42.0),
+      child: BottomCard(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: ProfileIcon(name: widget.homework.teacher),
+                    title: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            widget.homework.teacher != null
+                                ? capitalize(widget.homework.teacher)
+                                : I18n.of(context).unknown,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
-                      ),
-                      Text(formatDate(context, widget.homework.date))
-                    ],
-                  ),
-                  subtitle: Text(capital(widget.homework.subjectName)),
-                ),
-              ),
-            ],
-          ),
-
-          // Homework details
-
-          HomeworkDetail(
-            I18n.of(context).homeworkDeadline,
-            formatDate(context, widget.homework.deadline),
-          ),
-
-          SizedBox(height: 12.0),
-
-          // Message content
-          Expanded(
-            child: SingleChildScrollView(
-              child: app.settings.renderHtml
-                  ? Html(
-                      data: widget.homework.content,
-                      onLinkTap: (url) async {
-                        if (await canLaunch(url))
-                          await launch(url);
-                        else
-                          throw '[ERROR] HomeworkView.build: Invalid URL';
-                      },
-                    )
-                  : SelectableLinkify(
-                      text: escapeHtml(widget.homework.content),
-                      onOpen: (url) async {
-                        if (await canLaunch(url.url))
-                          await launch(url.url);
-                        else
-                          throw '[ERROR] HomeworkView.build: Invalid URL';
-                      },
+                        Text(formatDate(context, widget.homework.date))
+                      ],
                     ),
+                    subtitle: Text(capital(widget.homework.subjectName)),
+                  ),
+                ),
+              ],
             ),
-          ),
-          widget.homework.attachments == [] 
-                        ? Container()
-                        : Column(
-                            children: widget.homework.attachments
-                              .map((attachment) => AttachmentTile(attachment))
-                              .toList()
-                          )
-        ],
+
+            // Homework details
+
+            HomeworkDetail(
+              I18n.of(context).homeworkDeadline,
+              formatDate(context, widget.homework.deadline),
+            ),
+
+            SizedBox(height: 12.0),
+
+            // Message content
+            Expanded(
+              child: ListView(children: [
+                app.settings.renderHtml
+                    ? Html(
+                        data: widget.homework.content,
+                        onLinkTap: (url) async {
+                          if (await canLaunch(url))
+                            await launch(url);
+                          else
+                            throw '[ERROR] HomeworkView.build: Invalid URL';
+                        },
+                      )
+                    : SelectableLinkify(
+                        text: escapeHtml(widget.homework.content),
+                        onOpen: (url) async {
+                          if (await canLaunch(url.url))
+                            await launch(url.url);
+                          else
+                            throw '[ERROR] HomeworkView.build: Invalid URL';
+                        },
+                      ),
+                widget.homework.attachments == []
+                    ? Container()
+                    : Column(
+                        children: widget.homework.attachments
+                            .map((attachment) => AttachmentTile(attachment))
+                            .toList())
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

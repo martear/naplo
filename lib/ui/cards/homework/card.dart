@@ -24,6 +24,7 @@ class HomeworkCard extends BaseCard {
           showModalBottomSheet(
             context: context,
             backgroundColor: Colors.transparent,
+            isScrollControlled: true,
             builder: (BuildContext context) => HomeworkView(homework),
           );
         },

@@ -3,6 +3,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/controllers/storage.dart';
 import 'package:filcnaplo/data/models/attachment.dart';
+import 'package:filcnaplo/generated/i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -57,7 +58,8 @@ class _AttachmentTileState extends State<AttachmentTile> {
     }
 
     handleSave() async {
-      saveAttachment(attachment, data).then((String f) => OpenFile.open(f));
+      saveAttachment(attachment, data, context: context)
+          .then((String f) => OpenFile.open(f));
     }
 
     openImage() {
@@ -80,10 +82,10 @@ class _AttachmentTileState extends State<AttachmentTile> {
         ),
         onPressed: () {
           if (data != null) {
-            saveAttachment(attachment, data)
+            saveAttachment(attachment, data, context: context)
                 .then((String f) => OpenFile.open(f));
           } else {
-            downloadAttachment(attachment);
+            downloadAttachment(attachment, context: context);
           }
         },
         child: Column(
@@ -149,8 +151,9 @@ class _AttachmentTileState extends State<AttachmentTile> {
 // todo: error handling (snackbar)
 Future<String> saveAttachment(
   Attachment attachment,
-  Uint8List data,
-) async {
+  Uint8List data, {
+  @required BuildContext context,
+}) async {
   try {
     String downloads;
 
@@ -174,11 +177,26 @@ Future<String> saveAttachment(
     }
   } catch (error) {
     print("ERROR: downloadAttachment: " + error.toString());
+    if (context != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            I18n.of(context).messageAttachmentFailed,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
     return null;
   }
 }
 
-Future downloadAttachment(Attachment attachment) async {
+Future downloadAttachment(
+  Attachment attachment, {
+  @required BuildContext context,
+}) async {
   var data = await app.user.kreta.downloadAttachment(attachment);
-  saveAttachment(attachment, data).then((String f) => OpenFile.open(f));
+  saveAttachment(attachment, data, context: context)
+      .then((String f) => OpenFile.open(f));
 }
