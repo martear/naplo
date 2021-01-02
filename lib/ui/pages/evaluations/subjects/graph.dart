@@ -41,8 +41,6 @@ class _SubjectGraphState extends State<SubjectGraph> {
       average = average /
           dataList.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
 
-      print(average);
-
       subjectData.add(FlSpot(
         dataList[0].date.month +
             (dataList[0].date.day / 31) +
@@ -50,7 +48,6 @@ class _SubjectGraphState extends State<SubjectGraph> {
         double.parse(average.toStringAsFixed(2)),
       ));
     });
-    // print(subjectData);
 
     return Container(
       child: LineChart(
