@@ -29,7 +29,6 @@ class _MessagesPageState extends State<MessagesPage> {
     buildPage();
 
     return MessageTabs(
-      widget._scaffoldKey,
       _messageBuilder.messageTiles,
       _noteBuilder.noteTiles,
       _eventBuilder.eventTiles,

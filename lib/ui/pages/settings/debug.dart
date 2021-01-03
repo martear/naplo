@@ -1,6 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/helpers/debug.dart';
 import 'package:filcnaplo/modules/printing/main.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/pages/login.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
@@ -57,12 +58,9 @@ class _DebugSettingsState extends State<DebugSettings> {
             ),
             onTap: app.debugMode
                 ? () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        I18n.of(context).settingsDebugDeleteSuccess,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.red,
+                    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      message: I18n.of(context).settingsDebugDeleteSuccess,
+                      color: Colors.red,
                     ));
 
                     DebugHelper().eraseData(context).then((_) {

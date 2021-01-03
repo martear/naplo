@@ -1,5 +1,5 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/account_button.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/custom_tabs.dart';
 import 'package:filcnaplo/ui/empty.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
@@ -17,10 +17,8 @@ class EvaluationTabs extends StatefulWidget {
   final Function callback;
   final _gradeTiles;
   final _subjectTiles;
-  final _scaffoldKey;
 
-  EvaluationTabs(
-      this._scaffoldKey, this._gradeTiles, this._subjectTiles, this.callback);
+  EvaluationTabs(this._gradeTiles, this._subjectTiles, this.callback);
 
   @override
   _EvaluationTabsState createState() => _EvaluationTabsState();
@@ -153,12 +151,9 @@ class _EvaluationTabsState extends State<EvaluationTabs>
               key: _refreshKeyGrades,
               onRefresh: () async {
                 if (!await app.user.sync.evaluation.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorEvaluations,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorEvaluations,
+                    color: Colors.red,
                   ));
                 } else {
                   if (mounted) setState(() {});
@@ -197,12 +192,9 @@ class _EvaluationTabsState extends State<EvaluationTabs>
               key: _refreshKeySubjects,
               onRefresh: () async {
                 if (!await app.user.sync.evaluation.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorEvaluations,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorEvaluations,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();

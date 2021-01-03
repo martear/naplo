@@ -20,7 +20,7 @@ class SyncProgressIndicator extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0)
       ),
       child: Row(
-        children: <Widget>[
+        children: [
           Container(
             width: 16.0,
             height: 16.0,
@@ -35,7 +35,7 @@ class SyncProgressIndicator extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.0),
-              child: Row(children: <Widget>[
+              child: Row(children: [
                 Text(text),
                 Spacer(),
                 app.debugMode ? Text("$current/$max") : Container(),

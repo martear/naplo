@@ -37,7 +37,6 @@ class _EvaluationsPageState extends State<EvaluationsPage> {
     buildPage();
 
     return EvaluationTabs(
-      widget._scaffoldKey,
       _gradeBuilder.gradeTiles,
       _subjectBuilder.subjectTiles,
       updateCallback,

@@ -1,6 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/day.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/modules/printing/printerDebugScreen.dart';
@@ -110,12 +111,8 @@ class TimetablePrinter {
       pw.Document pdf = pw.Document(theme: myTheme);
 
       // sync indicator
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(
-          I18n.of(context).syncTimetable,
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.grey,
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+        message: I18n.of(context).syncTimetable,
       ));
 
       // get a builder and build current week
@@ -145,12 +142,8 @@ class TimetablePrinter {
       if (kReleaseMode) {
         Printing.layoutPdf(onLayout: (format) => pdf.save()).then((success) {
           if (success)
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
-              content: Text(
-                I18n.of(context).settingsExportExportTimetableSuccess,
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green[700],
+            ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+              message: I18n.of(context).settingsExportExportTimetableSuccess,
             ));
         });
       } else {

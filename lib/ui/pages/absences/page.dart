@@ -40,7 +40,6 @@ class _AbsencesPageState extends State<AbsencesPage>
     buildPage();
 
     return AbsenceTabs(
-      widget._scaffoldKey,
       _absenceBuilder.absenceTiles,
       _delayBuilder.delayTiles,
       _missBuilder.missTiles,

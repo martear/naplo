@@ -363,7 +363,8 @@
     "readAccount": "Konto konnte nicht abgerufen werden",
     "messages": "Mitteilungen konnten nicht abgerufen werden",
     "messageSend": "Mitteilung wurde nicht geschickt",
-    "evaluations": "Noten konnten nicht abgerufen werden"
+    "evaluations": "Noten konnten nicht abgerufen werden",
+    "internet": "Keine Internetverbindung."
   },
   "download": {
     "": "Herunterladen",

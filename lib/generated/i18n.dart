@@ -580,6 +580,8 @@ class I18n implements WidgetsLocalizations {
   String get errorMessageSend => "Nem sikerült elküldeni az üzenetet";
   /// "Nem sikerült lekérni a jegyeket"
   String get errorEvaluations => "Nem sikerült lekérni a jegyeket";
+  /// "Nincs internetkapcsolat."
+  String get errorInternet => "Nincs internetkapcsolat.";
   /// "letöltés"
   String get download => "letöltés";
   /// "Töltsd le most a legújabb verziót"
@@ -1536,6 +1538,9 @@ class _I18n_en_US extends I18n {
   /// "Failed to get evaluations"
   @override
   String get errorEvaluations => "Failed to get evaluations";
+  /// "No internet connection."
+  @override
+  String get errorInternet => "No internet connection.";
   /// "download"
   @override
   String get download => "download";
@@ -2549,6 +2554,9 @@ class _I18n_de_DE extends I18n {
   /// "Noten konnten nicht abgerufen werden"
   @override
   String get errorEvaluations => "Noten konnten nicht abgerufen werden";
+  /// "Keine Internetverbindung."
+  @override
+  String get errorInternet => "Keine Internetverbindung.";
   /// "Herunterladen"
   @override
   String get download => "Herunterladen";

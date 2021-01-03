@@ -363,7 +363,8 @@
     "readAccount": "Error while reading user",
     "messages": "Failed to get messages",
     "messageSend": "Failed to send message",
-    "evaluations": "Failed to get evaluations"
+    "evaluations": "Failed to get evaluations",
+    "internet": "No internet connection."
   },
   "download": {
     "": "download",

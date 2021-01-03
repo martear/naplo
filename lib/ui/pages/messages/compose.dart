@@ -1,6 +1,7 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/cupertino.dart';
@@ -157,13 +158,10 @@ class _NewMessagePageState extends State<NewMessagePage> {
         if (result != null) {
           recipientsAll = result;
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              I18n.of(context).error,
-              style: TextStyle(color: Colors.white),
-            ),
+          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+            message: I18n.of(context).error,
             duration: Duration(seconds: 3),
-            backgroundColor: Colors.red,
+            color: Colors.red,
           ));
         }
       });
@@ -217,13 +215,11 @@ class _NewMessagePageState extends State<NewMessagePage> {
                         } catch (error) {
                           print("ERROR: NewMessagePage.build: " +
                               error.toString());
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                              I18n.of(context).error,
-                              style: TextStyle(color: Colors.white),
-                            ),
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(CustomSnackBar(
+                            message: I18n.of(context).error,
                             duration: Duration(seconds: 3),
-                            backgroundColor: Colors.red,
+                            color: Colors.red,
                           ));
                         }
                       },
@@ -239,13 +235,11 @@ class _NewMessagePageState extends State<NewMessagePage> {
                           if (success) {
                             Navigator.pop(context);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                I18n.of(context).errorMessageSend,
-                                style: TextStyle(color: Colors.white),
-                              ),
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(CustomSnackBar(
+                              message: I18n.of(context).errorMessageSend,
                               duration: Duration(seconds: 3),
-                              backgroundColor: Colors.red,
+                              color: Colors.red,
                             ));
                           }
                         });

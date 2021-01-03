@@ -363,7 +363,8 @@
     "readAccount": "Hiba a felhasználó olvasása közben",
     "messages": "Nem sikerült lekérni az üzeneteket",
     "messageSend": "Nem sikerült elküldeni az üzenetet",
-    "evaluations": "Nem sikerült lekérni a jegyeket"
+    "evaluations": "Nem sikerült lekérni a jegyeket",
+    "internet": "Nincs internetkapcsolat."
   },
   "download": {
     "": "letöltés",

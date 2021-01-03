@@ -1,4 +1,5 @@
 import 'package:filcnaplo/ui/account_button.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/custom_tabs.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
 import 'package:filcnaplo/ui/pages/debug/view.dart';
@@ -14,10 +15,8 @@ class AbsenceTabs extends StatefulWidget {
   final _absenceTiles;
   final _delayTiles;
   final _missTiles;
-  final _scaffoldKey;
 
   AbsenceTabs(
-    this._scaffoldKey,
     this._absenceTiles,
     this._delayTiles,
     this._missTiles,
@@ -97,12 +96,9 @@ class _AbsenceTabsState extends State<AbsenceTabs>
               key: _refreshKeyAbsences,
               onRefresh: () async {
                 if (!await app.user.sync.absence.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -124,12 +120,9 @@ class _AbsenceTabsState extends State<AbsenceTabs>
               key: _refreshKeyDelays,
               onRefresh: () async {
                 if (!await app.user.sync.absence.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -151,12 +144,9 @@ class _AbsenceTabsState extends State<AbsenceTabs>
                 key: _refreshKeyMisses,
                 onRefresh: () async {
                   if (!await app.user.sync.note.sync()) {
-                    widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                      content: Text(
-                        I18n.of(context).errorMessages,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.red,
+                    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      message: I18n.of(context).errorMessages,
+                      color: Colors.red,
                     ));
                   } else {
                     widget.callback();

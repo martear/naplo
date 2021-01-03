@@ -1,5 +1,6 @@
 import 'package:filcnaplo/data/context/message.dart';
 import 'package:filcnaplo/ui/account_button.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/custom_tabs.dart';
 import 'package:filcnaplo/ui/empty.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
@@ -13,14 +14,12 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class MessageTabs extends StatefulWidget {
-  final _scaffoldKey;
   final messageTiles;
   final noteTiles;
   final eventTiles;
   final Function callback;
 
   MessageTabs(
-    this._scaffoldKey,
     this.messageTiles,
     this.noteTiles,
     this.eventTiles, {
@@ -133,12 +132,9 @@ class _MessageTabsState extends State<MessageTabs>
               key: _refreshKeyMessages,
               onRefresh: () async {
                 if (!await app.user.sync.messages.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -181,12 +177,9 @@ class _MessageTabsState extends State<MessageTabs>
               key: _refreshKeyNotes,
               onRefresh: () async {
                 if (!await app.user.sync.note.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -225,12 +218,9 @@ class _MessageTabsState extends State<MessageTabs>
               key: _refreshKeyEvents,
               onRefresh: () async {
                 if (!await app.user.sync.event.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();

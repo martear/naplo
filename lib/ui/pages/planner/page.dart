@@ -4,9 +4,7 @@ import 'package:filcnaplo/ui/pages/planner/exams/builder.dart';
 import 'package:flutter/material.dart';
 
 class PlannerPage extends StatefulWidget {
-  final _scaffoldKey;
-
-  PlannerPage(this._scaffoldKey);
+  PlannerPage();
 
   @override
   _PlannerPageState createState() => _PlannerPageState();
@@ -29,7 +27,6 @@ class _PlannerPageState extends State<PlannerPage> {
     buildPage();
 
     return PlannerTabs(
-      widget._scaffoldKey,
       homeworkBuilder.homeworkTiles,
       examBuilder.examTiles,
       callback: updateCallback,

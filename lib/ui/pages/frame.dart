@@ -1,4 +1,5 @@
 import 'package:filcnaplo/data/state/sync.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
 import 'package:filcnaplo/ui/sync/indicator.dart';
 import 'package:filcnaplo/generated/i18n.dart';
@@ -8,6 +9,7 @@ import 'package:filcnaplo/ui/pages/home/page.dart';
 import 'package:filcnaplo/ui/pages/messages/page.dart';
 import 'package:filcnaplo/ui/pages/planner/page.dart';
 import 'package:filcnaplo/ui/pages/tutorial.dart';
+import 'package:filcnaplo/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/bottom_navbar.dart';
@@ -23,6 +25,15 @@ class _PageFrameState extends State<PageFrame> {
   @override
   void initState() {
     super.initState();
+
+    NetworkUtils.checkConnectivity().then((networkAvailable) {
+      if (!networkAvailable) {
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+          message: I18n.of(context).errorInternet,
+          color: Colors.red,
+        ));
+      }
+    });
 
     // Sync at startup
     app.settings.update().then((_) {
@@ -117,7 +128,7 @@ class _PageFrameState extends State<PageFrame> {
         pageContent = EvaluationsPage(_homeKey);
         break;
       case 2:
-        pageContent = PlannerPage(_homeKey);
+        pageContent = PlannerPage();
         break;
       case 3:
         pageContent = MessagesPage(_homeKey);

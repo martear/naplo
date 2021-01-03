@@ -1,3 +1,4 @@
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/message.dart';
@@ -10,8 +11,8 @@ class MessageArchiveHelper {
     app.user.sync.messages.archived.removeWhere((msg) => msg.id == message.id);
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(I18n.of(context).messageDeleted),
+    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+      message: I18n.of(context).messageDeleted,
       duration: Duration(seconds: 5),
     ));
     updateCallback();
@@ -41,8 +42,8 @@ class MessageArchiveHelper {
 
     if (archiving) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(I18n.of(context).messageArchived),
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+        message: I18n.of(context).messageArchived,
         duration: Duration(seconds: 5),
         action: SnackBarAction(
           label: I18n.of(context).dialogUndo,

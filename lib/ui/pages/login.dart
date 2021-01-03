@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/login.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
@@ -109,13 +110,10 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                   onDoubleTap: () {
                     setState(() => app.debugMode = true);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        "Debug mode enabled",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      message: "Debug mode enabled",
                       duration: Duration(seconds: 3),
-                      backgroundColor: Colors.grey[900],
+                      color: Colors.grey[900],
                     ));
                   },
                   child: Container(

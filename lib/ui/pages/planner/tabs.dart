@@ -1,5 +1,6 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/account_button.dart';
+import 'package:filcnaplo/ui/customSnackBar.dart';
 import 'package:filcnaplo/ui/custom_tabs.dart';
 import 'package:filcnaplo/ui/empty.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
@@ -12,13 +13,11 @@ import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/data/context/app.dart';
 
 class PlannerTabs extends StatefulWidget {
-  final _scaffoldKey;
   final homeworkTiles;
   final examTiles;
   final Function callback;
 
   PlannerTabs(
-    this._scaffoldKey,
     this.homeworkTiles,
     this.examTiles, {
     this.callback,
@@ -103,12 +102,9 @@ class _PlannerTabsState extends State<PlannerTabs>
               key: _refreshKeyTimetable,
               onRefresh: () async {
                 if (!await app.user.sync.timetable.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -122,12 +118,9 @@ class _PlannerTabsState extends State<PlannerTabs>
               key: _refreshKeyHomeworks,
               onRefresh: () async {
                 if (!await app.user.sync.homework.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
@@ -191,12 +184,9 @@ class _PlannerTabsState extends State<PlannerTabs>
               key: _refreshKeyExams,
               onRefresh: () async {
                 if (!await app.user.sync.exam.sync()) {
-                  widget._scaffoldKey.currentState.showSnackBar(SnackBar(
-                    content: Text(
-                      I18n.of(context).errorMessages,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: Colors.red,
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                    message: I18n.of(context).errorMessages,
+                    color: Colors.red,
                   ));
                 } else {
                   widget.callback();
