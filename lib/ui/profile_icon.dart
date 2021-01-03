@@ -53,7 +53,7 @@ class ProfileIcon extends StatelessWidget {
               : Icon(FeatherIcons.user, color: Colors.grey)
           : null,
       foregroundColor: textColor(color),
-      backgroundColor: name != null && text != "" ? color : Colors.transparent,
+      backgroundColor: (image == null || image == "") && name != null && text != "" ? color : Colors.transparent,
       backgroundImage: image != null && image != ""
           ? FileImage(
               File(

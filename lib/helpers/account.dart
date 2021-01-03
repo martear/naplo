@@ -96,7 +96,7 @@ class AccountHelper {
 
       user.name = newName;
 
-      callback(() {});
+      if (callback != null) callback();
       app.sync.updateCallback();
     });
   }
@@ -162,7 +162,7 @@ class AccountHelper {
     app.users.firstWhere((search) => search.id == user.id).customProfileIcon =
         profileId;
 
-    callback(() {});
+    if (callback != null) callback();
     app.sync.updateCallback();
 
     return ProfileIcon(name: user.name, size: 3.0, image: profileId);
@@ -226,7 +226,7 @@ class AccountHelper {
       {"custom_profile_icon": ""},
     );
 
-    callback(() {});
+    if (callback != null) callback();
     app.sync.updateCallback();
   }
 }

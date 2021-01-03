@@ -102,7 +102,10 @@ class _AccountTileState extends State<AccountTile> {
     } else {
       return EditAccountTile(
         user: widget.user,
-        updateCallback: widget.onDelete,
+        updateCallback: () {
+          setState(() {});
+          widget.onDelete();
+        },
         callback: () => setState(() => editMode = false),
       );
     }
@@ -189,7 +192,7 @@ class _EditAccountTileState extends State<EditAccountTile> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        // color: Colors.black,
                         shape: BoxShape.circle,
                       ),
                       child: Opacity(
@@ -262,7 +265,7 @@ class _EditAccountTileState extends State<EditAccountTile> {
                             onPressed: () {
                               AccountHelper(
                                       user: widget.user,
-                                      callback: widget.callback)
+                                      callback: widget.updateCallback)
                                   .changeProfileI(context);
                             },
                           ),
