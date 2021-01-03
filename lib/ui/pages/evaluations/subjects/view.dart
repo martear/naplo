@@ -89,7 +89,7 @@ class _SubjectViewState extends State<SubjectView> {
                           color: getAverageColor(studentAvg),
                         ),
                         padding: EdgeInsets.all(8.0),
-                        margin: EdgeInsets.only(left: 4.0),
+                        margin: EdgeInsets.only(left: 5.0),
                         child: Text(
                           app.settings.language.split("_")[0] == "en"
                               ? studentAvg.toStringAsFixed(2)
@@ -109,7 +109,7 @@ class _SubjectViewState extends State<SubjectView> {
                   ),
                 )
               : Container(),
-          true//widget.classAvg != null && roundSubjAvg(widget.classAvg) != 0
+          widget.classAvg != null && roundSubjAvg(widget.classAvg) != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
                   child: Row(
@@ -128,7 +128,7 @@ class _SubjectViewState extends State<SubjectView> {
                           ),
                         ),
                         padding: EdgeInsets.all(5.0),
-                        margin: EdgeInsets.only(left: 4.0),
+                        margin: EdgeInsets.only(left: 5.0),
                         child: Text(
                           app.settings.language.split("_")[0] == "en"
                               ? widget.classAvg.toStringAsFixed(2)
@@ -160,7 +160,7 @@ class _SubjectViewState extends State<SubjectView> {
                   capital(widget.subject.name),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                   ),
                 ),
               ),
