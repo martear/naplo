@@ -2246,12 +2246,12 @@ class _I18n_de_DE extends I18n {
   /// "Noten"
   @override
   String get evaluationTitle => "Noten";
-  /// "durchschnitt"
+  /// "durschnitt"
   @override
-  String get evaluationAverage => "durchschnitt";
-  /// "klassendurchschnitt"
+  String get evaluationAverage => "durschnitt";
+  /// "klassendurschnitt"
   @override
-  String get evaluationAverageClass => "klassendurchschnitt";
+  String get evaluationAverageClass => "klassendurschnitt";
   /// "Notenwert"
   @override
   String get evaluationValue => "Notenwert";

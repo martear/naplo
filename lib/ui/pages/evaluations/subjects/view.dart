@@ -70,60 +70,80 @@ class _SubjectViewState extends State<SubjectView> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
-        title: Text(capital(widget.subject.name)),
         shadowColor: Colors.transparent,
         backgroundColor: app.settings.theme.scaffoldBackgroundColor,
         actions: <Widget>[
           roundSubjAvg(studentAvg) != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
-                  child: Container(
-                    width: 55,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                      color: getAverageColor(studentAvg),
-                    ),
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      app.settings.language.split("_")[0] == "en"
-                          ? studentAvg.toStringAsFixed(2)
-                          : studentAvg.toStringAsFixed(2).split(".").join(","),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                        color: textColor(getAverageColor(studentAvg)),
+                  child: Row(
+                    children: [
+                      Text(
+                        capitalize(I18n.of(context).evaluationAverage),
+                        style: TextStyle(fontWeight: FontWeight.w600),
                       ),
-                    ),
+                      Container(
+                        width: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(45.0)),
+                          color: getAverageColor(studentAvg),
+                        ),
+                        padding: EdgeInsets.all(8.0),
+                        margin: EdgeInsets.only(left: 4.0),
+                        child: Text(
+                          app.settings.language.split("_")[0] == "en"
+                              ? studentAvg.toStringAsFixed(2)
+                              : studentAvg
+                                  .toStringAsFixed(2)
+                                  .split(".")
+                                  .join(","),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.2,
+                            color: textColor(getAverageColor(studentAvg)),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : Container(),
-          widget.classAvg != null && roundSubjAvg(widget.classAvg) != 0
+          true//widget.classAvg != null && roundSubjAvg(widget.classAvg) != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),
-                  child: Container(
-                    width: 55,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                      border: Border.all(
-                        width: 3.0,
-                        color: getAverageColor(widget.classAvg),
+                  child: Row(
+                    children: [
+                      Text(
+                        capitalize(I18n.of(context).evaluationAverageClass),
+                        style: TextStyle(fontWeight: FontWeight.w600),
                       ),
-                    ),
-                    padding: EdgeInsets.all(5.0),
-                    child: Text(
-                      app.settings.language.split("_")[0] == "en"
-                          ? widget.classAvg.toStringAsFixed(2)
-                          : widget.classAvg
-                              .toStringAsFixed(2)
-                              .split(".")
-                              .join(","),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
+                      Container(
+                        width: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(45.0)),
+                          border: Border.all(
+                            width: 3.0,
+                            color: getAverageColor(widget.classAvg),
+                          ),
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.only(left: 4.0),
+                        child: Text(
+                          app.settings.language.split("_")[0] == "en"
+                              ? widget.classAvg.toStringAsFixed(2)
+                              : widget.classAvg
+                                  .toStringAsFixed(2)
+                                  .split(".")
+                                  .join(","),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.2,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 )
               : Container(),
@@ -135,6 +155,16 @@ class _SubjectViewState extends State<SubjectView> {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               Container(
+                padding: EdgeInsets.all(12.0),
+                child: Text(
+                  capital(widget.subject.name),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              Container(
                 height: 200.0,
                 margin: EdgeInsets.fromLTRB(12.0, 14.0, 24.0, 6.0),
                 decoration: BoxDecoration(
@@ -142,9 +172,19 @@ class _SubjectViewState extends State<SubjectView> {
                 ),
                 child: SubjectGraph(subjectEvals, dayThreshold: 5),
               ),
+              Padding(
+                padding: EdgeInsets.only(left: 14.0, top: 18.0, bottom: 8.0),
+                child: Text(
+                  I18n.of(context).evaluationTitle.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    letterSpacing: .7,
+                  ),
+                ),
+              ),
               Container(
-                padding:
-                    EdgeInsets.only(right: 12, top: 12, left: 12, bottom: 75),
+                padding: EdgeInsets.only(
+                    right: 12.0, top: 0, left: 12.0, bottom: 75.0),
                 child: Column(
                   children: evaluationTiles.isNotEmpty
                       ? evaluationTiles

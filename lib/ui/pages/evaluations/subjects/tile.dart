@@ -25,21 +25,29 @@ class SubjectTile extends StatelessWidget {
           title: Text(
             capital(subject.name),
             style: TextStyle(fontSize: 18.0),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              studentAvg < 2.0
-                  ? Container(
-                      child: Icon(
-                        FeatherIcons.alertCircle,
-                        color: app.theme.evalColors[0],
-                      ),
-                      margin: EdgeInsets.only(right: 8),
-                    )
-                  : Container(),
+              if (studentAvg < 2.0)
+                Container(
+                  child: Icon(
+                    FeatherIcons.alertCircle,
+                    color: app.theme.evalColors[0],
+                  ),
+                  margin: EdgeInsets.only(right: 8),
+                )
+              else if (roundSubjAvg(studentAvg) < 3.0)
+                Container(
+                  child: Icon(
+                    FeatherIcons.alertCircle,
+                    color: app.theme.evalColors[1],
+                  ),
+                  margin: EdgeInsets.only(right: 8),
+                ),
               classAvg != null && roundSubjAvg(classAvg) != 0
                   ? Container(
                       width: 55,

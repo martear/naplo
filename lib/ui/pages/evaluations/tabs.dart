@@ -209,37 +209,13 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                   setState(() {});
                 }
               },
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 25.0),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(FeatherIcons.book),
-                        Spacer(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Icon(FeatherIcons.users),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Icon(FeatherIcons.trendingUp),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: CupertinoScrollbar(
-                      child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        physics: BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        children: widget._subjectTiles,
-                      ),
-                    ),
-                  ),
-                ],
+              child: CupertinoScrollbar(
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 4.0),
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  children: widget._subjectTiles,
+                ),
               ),
             ),
 

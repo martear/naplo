@@ -227,8 +227,8 @@
   },
   "evaluation": {
     "title": "Noten",
-    "average": "durchschnitt",
-    "averageClass": "klassendurchschnitt",
+    "average": "durschnitt",
+    "averageClass": "klassendurschnitt",
     "value": "Notenwert",
     "subject": "fach",
     "description": "bezeichnung",
