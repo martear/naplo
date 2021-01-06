@@ -116,6 +116,7 @@ class TimetableView extends StatelessWidget {
       onPressed: () => showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
+        isScrollControlled: true,
         builder: (context) => HomeworkView(homework),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
