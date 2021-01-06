@@ -13,11 +13,10 @@ class MessageTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Container(
-        width: 46.0,
-        height: 46.0,
-        alignment: Alignment.center,
-        child: ProfileIcon(name: message.sender)
-      ),
+          width: 46.0,
+          height: 46.0,
+          alignment: Alignment.center,
+          child: ProfileIcon(name: message.sender)),
       title: Row(
         children: <Widget>[
           Expanded(
@@ -33,7 +32,9 @@ class MessageTile extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        message.subject + "\n" + escapeHtml(message.content),
+        message.subject +
+            "\n" +
+            escapeHtml(message.content).replaceAll("\n", " "),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),

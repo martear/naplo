@@ -33,7 +33,7 @@ class HomeworkTile extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        escapeHtml(homework.content),
+        escapeHtml(homework.content).replaceAll("\n", " "),
         softWrap: true,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
