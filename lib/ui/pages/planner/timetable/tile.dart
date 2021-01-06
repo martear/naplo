@@ -4,6 +4,8 @@ import 'package:filcnaplo/data/models/homework.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/ui/pages/planner/exams/view.dart';
+import 'package:filcnaplo/ui/pages/planner/homeworks/view.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/view.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +25,16 @@ class LessonTile extends StatelessWidget {
           .firstWhere((h) => h.id == lesson.homeworkId, orElse: () => null);
     }
 
-    lesson.exams.forEach((exam) => exams.add(
-          app.user.sync.exam.data
-              .firstWhere((t) => t.id == exam, orElse: () => null),
-        ));
+    lesson.exams.forEach(
+      (exam) => exams.add(
+        app.user.sync.exam.data
+            .firstWhere((t) => t.id == exam, orElse: () => null),
+      ),
+    );
 
     return GestureDetector(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
+        margin: EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(14.0)),
           border: accentColor != null
@@ -40,29 +44,39 @@ class LessonTile extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ListTile(
-              leading: Text(
-                lesson.lessonIndex,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                  height: 1.15,
-                  color: accentColor,
-                ),
+              dense: true,
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    lesson.lessonIndex,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      height: 1.35,
+                      color: accentColor,
+                    ),
+                  ),
+                ],
               ),
               title: Row(
                 children: <Widget>[
                   Expanded(
                     flex: 2,
                     child: Text(
-                      capital(lesson.subject != null
-                          ? lesson.subject.name
-                          : lesson.isEmpty
-                              ? I18n.of(context).lessonEmpty
-                              : I18n.of(context).unknown),
+                      capital(
+                        lesson.subject != null
+                            ? lesson.subject.name
+                            : lesson.isEmpty
+                                ? I18n.of(context).lessonEmpty
+                                : I18n.of(context).unknown,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style:
-                          lesson.isEmpty ? TextStyle(color: Colors.grey) : null,
+                      style: TextStyle(
+                        color: lesson.isEmpty ? Colors.grey : Colors.white,
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -77,6 +91,14 @@ class LessonTile extends StatelessWidget {
                   ),
                 ],
               ),
+              subtitle: lesson.description != ""
+                  ? Text(
+                      lesson.description,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14.0),
+                    )
+                  : null,
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -85,54 +107,44 @@ class LessonTile extends StatelessWidget {
                 ],
               ),
             ),
-            homework != null
-                ? Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 12.0),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(FeatherIcons.home),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              homework.content != ""
-                                  ? escapeHtml(homework.content)
-                                  : homework.teacher,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+            Container(
+              padding: EdgeInsets.only(left: 70.0),
+              margin: EdgeInsets.only(bottom: 5.0),
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                runSpacing: 1.0,
+                children: <Widget>[
+                      homework != null
+                          ? chip(
+                              icon: Icon(FeatherIcons.home, size: 14.0),
+                              textString: escapeHtml(homework.content)
+                                  .replaceAll("\n", " "),
+                              onTap: () => showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => HomeworkView(homework),
+                              ),
+                            )
+                          : Container(),
+                      Container(), // DON'T DELETE, IT BREAKS ALIGNMENT SOMEHOW
+                    ] +
+                    exams
+                        .map(
+                          (exam) => chip(
+                            icon: Icon(FeatherIcons.edit2, size: 14.0),
+                            textString: exam.description != null
+                                ? exam.description.replaceAll("\n", " ")
+                                : exam.mode.description,
+                            onTap: () => showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => ExamView(exam),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Container(),
-            exams.length > 0
-                ? Column(
-                    children: exams
-                        .map((exam) => Padding(
-                              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 12.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(FeatherIcons.edit),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        exam.description != ""
-                                            ? exam.description
-                                            : exam.mode.description,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
+                        )
                         .toList(),
-                  )
-                : Container()
+              ),
+            ),
           ],
         ),
       ),
@@ -141,7 +153,7 @@ class LessonTile extends StatelessWidget {
           : showModalBottomSheet(
               backgroundColor: Colors.transparent,
               context: context,
-              builder: (context) => TimetableView(lesson, homework, exams),
+              builder: (context) => TimetableView(lesson),
             ),
     );
   }
@@ -156,6 +168,37 @@ class LessonTile extends StatelessWidget {
   String formatTime(DateTime time) => time != null
       ? time.hour.toString() + ":" + time.minute.toString().padLeft(2, "0")
       : '';
+
+  Widget chip({Icon icon, String textString, Function onTap}) {
+    return InkWell(
+      child: Container(
+        decoration: ShapeDecoration(
+          shape: StadiumBorder(
+            side: BorderSide(color: Colors.white, width: 1.2),
+          ),
+        ),
+        margin: EdgeInsets.only(right: 5.0),
+        padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            icon,
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(
+                  textString,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      onTap: onTap,
+    );
+  }
 }
 
 class SpecialDateTile extends LessonTile {
