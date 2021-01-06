@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/models/dummy.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 //import 'package:filcnaplo/data/models/dummy.dart';
 
@@ -33,6 +34,7 @@ class ExamSync {
 
       return exams != null;
     } else {
+      data = Dummy.exams;
       return true;
     }
   }

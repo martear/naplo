@@ -109,7 +109,8 @@ class Dummy {
       "Test 3",
       Type("", "", "evkozi_jegy_ertekeles"),
       "",
-      Subject("123", null, "Matematika kompetencianövelő masterclass okosoknak"),
+      Subject(
+          "123", null, "Matematika kompetencianövelő masterclass okosoknak"),
       null,
       Type("0", "Test 3", "Test 3"),
       DateTime.now(),
@@ -180,6 +181,19 @@ class Dummy {
     Recipient(2, "", "Test User 3", 0, null),
   ];
 
+  static List<Exam> exams = [
+    Exam(
+        DateTime.now(),
+        DateTime.now().add(Duration(minutes: 120)),
+        Type("123", "Gyakorlati feladat", "Gyakorlati feladat"),
+        6,
+        "Alváselmélet",
+        "Marika nénje",
+        "Javítási lehetőség",
+        null,
+        "555"),
+  ];
+
   static List<Lesson> lessons = [
     Lesson(
       Type("122455", "", ""),
@@ -224,6 +238,30 @@ class Dummy {
       "9. C",
       "Matekmatika - mi ez mi?",
     ),
+    Lesson(
+      Type("122455", "", ""),
+      DateTime.now(),
+      Subject("1234", null, "Alváselmélet"),
+      "0",
+      12,
+      "",
+      "Marika Nénje",
+      true,
+      DateTime.now().add(Duration(minutes: 2 * 45)),
+      DateTime.now().add(Duration(minutes: 3 * 45)),
+      Type("51654537", "student presence type desc",
+          "student presence type name"),
+      "333",
+      [
+        "555",
+      ],
+      "6153133",
+      Type("51561", "lesson type desc", "lesson type name"),
+      "Bevezetés a tudatos álmodásba",
+      "Hálószóbád",
+      "9. C",
+      "Név.",
+    ),
   ];
 
   static Week week = Week([
@@ -245,6 +283,18 @@ class Dummy {
         "",
         [],
         "24672456"),
+    Homework(
+        DateTime.now(),
+        DateTime.now(),
+        DateTime.now().add(Duration(days: 1)),
+        true,
+        false,
+        "Marika Nénje",
+        "Fordítsd meg a párnádat a hideg oldalára.",
+        "Alváselmélet",
+        "",
+        [],
+        "333"),
     Homework(
         DateTime.now().subtract(Duration(days: 1)),
         DateTime.now().subtract(Duration(days: 1)),
