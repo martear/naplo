@@ -614,8 +614,8 @@ class I18n implements WidgetsLocalizations {
   String get syncNews => "Hírek szinkronizálása...";
   /// "információk"
   String get about => "információk";
-  /// "Információk"
-  String get aboutTitle => "Információk";
+  /// "Névjegy"
+  String get aboutTitle => "Névjegy";
   /// "Adatvédelmi irányelvek"
   String get aboutPrivacy => "Adatvédelmi irányelvek";
   /// "Licenszek"

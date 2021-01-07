@@ -63,7 +63,9 @@ class SettingsPage extends StatelessWidget {
             SettingTile(
                 color: Colors.indigo[400],
                 description:
-                    capital(I18n.of(context).settingsNotificationsTitle),
+                    capital(I18n.of(context).settingsNotificationsTitle) +
+                        ", " +
+                        I18n.of(context).settingsNotificationsNews,
                 title: I18n.of(context).settingsNotificationsTitle,
                 icon: FeatherIcons.bell,
                 page: NotificationSettings()),
@@ -73,16 +75,6 @@ class SettingsPage extends StatelessWidget {
                 title: I18n.of(context).settingsDebugTitle,
                 icon: FeatherIcons.terminal,
                 page: DebugSettings()),
-            SettingTile(
-                color: Colors.yellow,
-                description: capital(I18n.of(context).aboutLinks) +
-                    ", " +
-                    capital(I18n.of(context).aboutLicenses) +
-                    ", " +
-                    capital(I18n.of(context).aboutSupporters),
-                title: I18n.of(context).aboutTitle,
-                icon: FeatherIcons.info,
-                page: AboutPage()),
           ],
         ),
       ),
