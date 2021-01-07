@@ -13,11 +13,10 @@ class NoteTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Container(
-        width: 46.0,
-        height: 46.0,
-        alignment: Alignment.center,
-        child: ProfileIcon(name: note.teacher)
-      ),
+          width: 46.0,
+          height: 46.0,
+          alignment: Alignment.center,
+          child: ProfileIcon(name: note.teacher)),
       title: Row(
         children: <Widget>[
           Expanded(
@@ -33,7 +32,7 @@ class NoteTile extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        note.title + "\n" + escapeHtml(note.content),
+        note.title + "\n" + escapeHtml(note.content).replaceAll("\n", " "),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
