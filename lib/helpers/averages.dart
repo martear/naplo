@@ -19,7 +19,7 @@ int roundSubjAvg(double average) {
 }
 
 Color getAverageColor(double average) {
-  return app.theme.evalColors[roundSubjAvg(average) - 1];
+  return app.theme.evalColors[(roundSubjAvg(average) - 1).clamp(0,4)];
 }
 
 List<SubjectAverage> calculateSubjectsAverage() {
