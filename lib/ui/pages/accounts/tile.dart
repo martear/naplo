@@ -121,8 +121,8 @@ class AccountTileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 64.0,
+    return Container(
+      //width: 100.0,
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
