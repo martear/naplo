@@ -75,6 +75,16 @@ class SettingsPage extends StatelessWidget {
                 title: I18n.of(context).settingsDebugTitle,
                 icon: FeatherIcons.terminal,
                 page: DebugSettings()),
+            SettingTile(
+                color: Colors.yellow,
+                description: capital(I18n.of(context).aboutLinks) +
+                    ", " +
+                    capital(I18n.of(context).aboutLicenses) +
+                    ", " +
+                    capital(I18n.of(context).aboutSupporters),
+                title: I18n.of(context).aboutTitle,
+                icon: FeatherIcons.info,
+                page: AboutPage()),
           ],
         ),
       ),

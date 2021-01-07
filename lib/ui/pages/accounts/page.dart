@@ -140,33 +140,22 @@ class _AccountPageState extends State<AccountPage> {
               ),
 
               Padding(
-                padding: EdgeInsets.all(14),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FloatingActionButton(
-                        heroTag: "settings",
-                        foregroundColor:
-                            Theme.of(context).textTheme.bodyText1.color,
-                        child: Icon(FeatherIcons.settings),
-                        backgroundColor: app.settings.theme.backgroundColor,
-                        tooltip: I18n.of(context).settingsTitle,
-                        onPressed: () {
-                          Navigator.of(context).push(CupertinoPageRoute(
-                              builder: (context) => SettingsPage()));
-                        }),
-                    FloatingActionButton(
-                        heroTag: "about",
-                        child: ClipOval(
-                            child: Image.asset(
-                                "assets/logo.png")), //Image(image: ),
-                        tooltip: I18n.of(context).aboutTitle,
-                        onPressed: () {
-                          Navigator.of(context).push(CupertinoPageRoute(
-                              builder: (context) => AboutPage()));
-                        }),
-                  ],
+                padding: EdgeInsets.only(bottom: 14.0),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Icon(FeatherIcons.settings),
+                      title: Text(I18n.of(context).settingsTitle),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => SettingsPage()));
+                    },
+                  ),
                 ),
               ),
             ],
