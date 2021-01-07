@@ -449,6 +449,10 @@
       "evalsAvg": "Average of all your grades",
       "subjects": "If your grades would be finalized now, your subjects would be finalized like this.",
       "subjectsAvg": "If your grades would be finalized now, this would be the average of them."
+    },
+    "subjects": {
+      "failWarning": "You're going to fail this subject!",
+      "almostFailWarning": "You're close to failing this subject!"
     }
   }
 }

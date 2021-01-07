@@ -34,12 +34,17 @@ class SubjectTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               roundSubjAvg(studentAvg) < 3.0
-                  ? Container(
-                      child: Icon(
-                        FeatherIcons.alertCircle,
-                        color: getAverageColor(studentAvg),
+                  ? Tooltip(
+                      message: roundSubjAvg(studentAvg) < 2.0
+                          ? I18n.of(context).tooltipSubjectsFailWarning
+                          : I18n.of(context).tooltipSubjectsAlmostFailWarning,
+                      child: Container(
+                        child: Icon(
+                          FeatherIcons.alertCircle,
+                          color: getAverageColor(studentAvg),
+                        ),
+                        margin: EdgeInsets.only(right: 8),
                       ),
-                      margin: EdgeInsets.only(right: 8),
                     )
                   : Container(),
               classAvg != null && roundSubjAvg(classAvg) != 0

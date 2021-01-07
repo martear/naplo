@@ -449,6 +449,10 @@
       "evalsAvg": "Összes jegyed átlaga",
       "subjects": "Ha most zárnának le, a tárgyaidból ilyen jegyeket szereznél.",
       "subjectsAvg": "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne."
+    },
+    "subjects": {
+      "failWarning": "Bukásra állsz!",
+      "almostFailWarning": "Majdnem bukásra állsz!"
     }
   }
 }

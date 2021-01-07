@@ -323,7 +323,7 @@
       "title": "Allgemein",
       "language": "Sprache",
       "startPage": "Startseite",
-      "round": "abzurunden"
+      "round": "Rundung"
     },
     "privacy": {
       "title": "Datenschutz",
@@ -449,6 +449,10 @@
       "evalsAvg": "Durchschnitt alle deiner Noten",
       "subjects": "Wenn deine Noten jetzt abgeschlossen wären, würden deine Fächer so abgeschlossen.",
       "subjectsAvg": "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen."
+    },
+    "subjects": {
+      "failWarning": "Du wirst dieses Fach nicht bestehen!",
+      "almostFailWarning": "Du bist kurz davor, dieses Fach nicht zu bestehen!"
     }
   }
 }

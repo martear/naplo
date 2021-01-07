@@ -704,6 +704,10 @@ class I18n implements WidgetsLocalizations {
   String get tooltipStatisticsSubjects => "Ha most zárnának le, a tárgyaidból ilyen jegyeket szereznél.";
   /// "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne."
   String get tooltipStatisticsSubjectsAvg => "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne.";
+  /// "Bukásra állsz!"
+  String get tooltipSubjectsFailWarning => "Bukásra állsz!";
+  /// "Majdnem bukásra állsz!"
+  String get tooltipSubjectsAlmostFailWarning => "Majdnem bukásra állsz!";
 }
 
 class _I18n_hu_HU extends I18n {
@@ -1724,6 +1728,12 @@ class _I18n_en_US extends I18n {
   /// "If your grades would be finalized now, this would be the average of them."
   @override
   String get tooltipStatisticsSubjectsAvg => "If your grades would be finalized now, this would be the average of them.";
+  /// "You're going to fail this subject!"
+  @override
+  String get tooltipSubjectsFailWarning => "You're going to fail this subject!";
+  /// "You're close to failing this subject!"
+  @override
+  String get tooltipSubjectsAlmostFailWarning => "You're close to failing this subject!";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;
@@ -2476,9 +2486,9 @@ class _I18n_de_DE extends I18n {
   /// "Startseite"
   @override
   String get settingsGeneralStartPage => "Startseite";
-  /// "abzurunden"
+  /// "Rundung"
   @override
-  String get settingsGeneralRound => "abzurunden";
+  String get settingsGeneralRound => "Rundung";
   /// "Datenschutz"
   @override
   String get settingsPrivacyTitle => "Datenschutz";
@@ -2740,6 +2750,12 @@ class _I18n_de_DE extends I18n {
   /// "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen."
   @override
   String get tooltipStatisticsSubjectsAvg => "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen.";
+  /// "Du wirst dieses Fach nicht bestehen!"
+  @override
+  String get tooltipSubjectsFailWarning => "Du wirst dieses Fach nicht bestehen!";
+  /// "Du bist kurz davor, dieses Fach nicht zu bestehen!"
+  @override
+  String get tooltipSubjectsAlmostFailWarning => "Du bist kurz davor, dieses Fach nicht zu bestehen!";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;
