@@ -200,10 +200,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   width: 999,
+                  height: 45,
                   child: FlatButton(
                     color: Colors.black12,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0)),
+                        borderRadius: BorderRadius.circular(7.5)),
                     padding:
                         EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
                     child: Text(
@@ -236,6 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                 // Login Button
                 Container(
                   width: 200,
+                  height: 45,
                   child: FlatButton(
                     onPressed: () {
                       setState(() => loading = true);
@@ -269,8 +271,8 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.fromLTRB(0, 12.0, 0, 12.0),
                       child: (loading)
                           ? Container(
-                              height: 24.0,
-                              width: 24.0,
+                              width: 20,
+                              height: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 3.0,
                                 valueColor:
