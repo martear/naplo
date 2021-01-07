@@ -33,22 +33,15 @@ class SubjectTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if (studentAvg < 2.0)
-                Container(
-                  child: Icon(
-                    FeatherIcons.alertCircle,
-                    color: app.theme.evalColors[0],
-                  ),
-                  margin: EdgeInsets.only(right: 8),
-                )
-              else if (roundSubjAvg(studentAvg) < 3.0)
-                Container(
-                  child: Icon(
-                    FeatherIcons.alertCircle,
-                    color: app.theme.evalColors[1],
-                  ),
-                  margin: EdgeInsets.only(right: 8),
-                ),
+              roundSubjAvg(studentAvg) < 3.0
+                  ? Container(
+                      child: Icon(
+                        FeatherIcons.alertCircle,
+                        color: getAverageColor(studentAvg),
+                      ),
+                      margin: EdgeInsets.only(right: 8),
+                    )
+                  : Container(),
               classAvg != null && roundSubjAvg(classAvg) != 0
                   ? Tooltip(
                       message:
