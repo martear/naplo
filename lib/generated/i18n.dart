@@ -664,8 +664,8 @@ class I18n implements WidgetsLocalizations {
   String get supportersAll => "Összes";
   /// "Kiemelt"
   String get supportersTop => "Kiemelt";
-  /// "Üdvözöl az új"
-  String get welcome => "Üdvözöl az új";
+  /// "Üdvözöl a "
+  String get welcome => "Üdvözöl a ";
   /// "Kezdés"
   String get begin => "Kezdés";
   /// "Modern, könnyen kezelhető felület"
@@ -1668,9 +1668,9 @@ class _I18n_en_US extends I18n {
   /// "Top"
   @override
   String get supportersTop => "Top";
-  /// "Welcome to the new"
+  /// "Welcome to "
   @override
-  String get welcome => "Welcome to the new";
+  String get welcome => "Welcome to ";
   /// "Begin"
   @override
   String get begin => "Begin";
@@ -1964,9 +1964,9 @@ class _I18n_de_DE extends I18n {
   /// "apr"
   @override
   String get dateApr => "apr";
-  /// "may"
+  /// "mai"
   @override
-  String get dateMay => "may";
+  String get dateMay => "mai";
   /// "jun"
   @override
   String get dateJun => "jun";
@@ -1979,9 +1979,9 @@ class _I18n_de_DE extends I18n {
   /// "sep"
   @override
   String get dateSep => "sep";
-  /// "oct"
+  /// "okt"
   @override
-  String get dateOct => "oct";
+  String get dateOct => "okt";
   /// "nov"
   @override
   String get dateNov => "nov";
@@ -2690,24 +2690,24 @@ class _I18n_de_DE extends I18n {
   /// "Top"
   @override
   String get supportersTop => "Top";
-  /// "Welcome to the new"
+  /// "Wilkommen zur"
   @override
-  String get welcome => "Welcome to the new";
+  String get welcome => "Wilkommen zur";
   /// "Beginnen"
   @override
   String get begin => "Beginnen";
-  /// "Modern, user-friendly interface"
+  /// "Moderne, benutzerfreundliche Oberfläche"
   @override
-  String get features1 => "Modern, user-friendly interface";
-  /// "Plan your day"
+  String get features1 => "Moderne, benutzerfreundliche Oberfläche";
+  /// "Plan deinen Tag"
   @override
-  String get features2 => "Plan your day";
-  /// "Get notified quickly"
+  String get features2 => "Plan deinen Tag";
+  /// "Läss du dich schnell benachrichtigen"
   @override
-  String get features3 => "Get notified quickly";
-  /// "Fully customizable"
+  String get features3 => "Läss du dich schnell benachrichtigen";
+  /// "Vollständig anpassbar"
   @override
-  String get features4 => "Fully customizable";
+  String get features4 => "Vollständig anpassbar";
   /// "Auf der Hauptseite siehst du alle Daten der anderen Seiten.\nDu kannst mit der Suchleiste oben suchen. Du kannst alles aus den zugehörigen Daten finden, z. B. das Thema einer Note, das Inhalt einer Hausaufgabe oder Name eines Fachs, in dem du eine Prüfung scheiben wirst."
   @override
   String get tutorial1 => "Auf der Hauptseite siehst du alle Daten der anderen Seiten.\nDu kannst mit der Suchleiste oben suchen. Du kannst alles aus den zugehörigen Daten finden, z. B. das Thema einer Note, das Inhalt einer Hausaufgabe oder Name eines Fachs, in dem du eine Prüfung scheiben wirst.";
@@ -2729,9 +2729,9 @@ class _I18n_de_DE extends I18n {
   /// "Wir hoffen, dass du Filc Napló genießen wirst!\nDies ist ein Free und Open Source Projekt, das von der Community kontinuierlich weiterentwickelt wird. Du wirst hier auf der Hauptseite über Updates und Neuigkeiten informiert.\nHast du einen Übersetzungsfehler gefunden? Vergiss nicht, uns davon zu erzählen."
   @override
   String get tutorial7 => "Wir hoffen, dass du Filc Napló genießen wirst!\nDies ist ein Free und Open Source Projekt, das von der Community kontinuierlich weiterentwickelt wird. Du wirst hier auf der Hauptseite über Updates und Neuigkeiten informiert.\nHast du einen Übersetzungsfehler gefunden? Vergiss nicht, uns davon zu erzählen.";
-  /// "unknown"
+  /// "unbekannt"
   @override
-  String get unknown => "unknown";
+  String get unknown => "unbekannt";
   /// "Nächste ${count} anzeigen"
   @override
   String showOthers(String count) => "Nächste ${count} anzeigen";
