@@ -167,8 +167,8 @@
     "title": "Notes"
   },
   "event": {
-    "": "event",
-    "title": "Events"
+    "": "post",
+    "title": "Notice board"
   },
   "message": {
     "": "message",
@@ -380,7 +380,7 @@
   "sync": {
     "message": "Syncing messages...",
     "student": "Syncing student...",
-    "event": "Syncing events...",
+    "event": "Syncing notice board posts...",
     "note": "Syncing notes...",
     "evaluation": "Syncing evaluations...",
     "absence": "Syncing absences...",
@@ -402,7 +402,7 @@
     "": "Wow, such empty!",
     "messages": "You have no messages",
     "notes": "You have no notes",
-    "events": "You have no events",
+    "events": "There are no posts on the notice board.",
     "absences": "You have no absences",
     "delays": "You have no delays",
     "misses": "You have never forgotten anything at home, and always diligently made your homework.",

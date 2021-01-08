@@ -167,8 +167,8 @@
     "title": "Feljegyzések"
   },
   "event": {
-    "": "esemény",
-    "title": "Események"
+    "": "bejegyzés",
+    "title": "Faliújság"
   },
   "message": {
     "": "üzenet",
@@ -380,7 +380,7 @@
   "sync": {
     "message": "Üzenetek szinkronizálása ...",
     "student": "Adatok szinkronizálása...",
-    "event": "Események szinkronizálása...",
+    "event": "Faliújság szinkronizálása...",
     "note": "Feljegyzések szinkronizálása...",
     "evaluation": "Jegyek szinkronizálása...",
     "absence": "Hiányok szinkronizálása...",
@@ -402,7 +402,7 @@
     "": "Micsoda üresség!",
     "messages": "Nincsenek üzeneteid",
     "notes": "Nincsenek feljegyzéseid",
-    "events": "Nincsenek eseményeid",
+    "events": "Nincs semmi a faliújságon",
     "absences": "Nincsenek mulasztásaid",
     "delays": "Nincsenek késéseid",
     "misses": "Még semmit sem felejtettél otthon, és a házikat is szorgalmasan elkészítetted.",
@@ -435,7 +435,7 @@
     "1": "A főoldalon minden egyéb oldal adatait egy helyre összegyűjtve láthatod.\nA felső sávba gépelve minden adat között kereshetsz, legyen az akár egy jegy címe, egy házi szövege, vagy egy tantárgy neve, amiből dolgozatot írsz.",
     "2": "Itt találod az összes jegyet.\nTöbb szempont alapján rendezheted őket a bal alsó sarokban.\nFelül válthatsz az évközi jegyek és lezárt eredmények között,\nmegnézheted a tárgyi átlagokat, és a hozzájuk tartozó jegyeket, és az összes jegyedre vonatkozó statisztikákat láthatsz.",
     "3": "A tervezőben találod az órarendet,\nitt vannak a házik és a dolgozatok, számon tarthatod, mennyi mindenre nem lesz idő készülni.",
-    "4": "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig az eseményeket láthatod.",
+    "4": "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig a faliújságot láthatod.",
     "5": "Ezen az oldalon listázzuk bűneidet.\nFigyelheted, mikor vonják meg tőletek a családi pótlékot a hiányzások miatt,\nláthatod a késéseket, el nem készített házi feladatokat és felszereléshiányokat.\nHa nem látsz itt semmit, akkor még biztos szeptember van.",
     "6": "Itt válthatsz bejelentkezett fiókok között.\nEgy fióknak beállíthatsz egyéni nevet, és profilképet.\nFelvehetsz és törölhetsz fiókokat.\nItt találod az app beállításait és néhány további információt is.",
     "7": "Reméljük, elégedett leszel a Filc Naplóval!\nNyílt forráskódú projekt lévén az appot a közösség folyamatosan fejleszti, a frissítéseket és híreket itt, a főoldalon fogod megtalálni."

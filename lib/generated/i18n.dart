@@ -290,10 +290,10 @@ class I18n implements WidgetsLocalizations {
   String get note => "feljegyzés";
   /// "Feljegyzések"
   String get noteTitle => "Feljegyzések";
-  /// "esemény"
-  String get event => "esemény";
-  /// "Események"
-  String get eventTitle => "Események";
+  /// "bejegyzés"
+  String get event => "bejegyzés";
+  /// "Faliújság"
+  String get eventTitle => "Faliújság";
   /// "üzenet"
   String get message => "üzenet";
   /// "Üzenetek"
@@ -596,8 +596,8 @@ class I18n implements WidgetsLocalizations {
   String get syncMessage => "Üzenetek szinkronizálása ...";
   /// "Adatok szinkronizálása..."
   String get syncStudent => "Adatok szinkronizálása...";
-  /// "Események szinkronizálása..."
-  String get syncEvent => "Események szinkronizálása...";
+  /// "Faliújság szinkronizálása..."
+  String get syncEvent => "Faliújság szinkronizálása...";
   /// "Feljegyzések szinkronizálása..."
   String get syncNote => "Feljegyzések szinkronizálása...";
   /// "Jegyek szinkronizálása..."
@@ -632,8 +632,8 @@ class I18n implements WidgetsLocalizations {
   String get emptyMessages => "Nincsenek üzeneteid";
   /// "Nincsenek feljegyzéseid"
   String get emptyNotes => "Nincsenek feljegyzéseid";
-  /// "Nincsenek eseményeid"
-  String get emptyEvents => "Nincsenek eseményeid";
+  /// "Nincs semmi a faliújságon"
+  String get emptyEvents => "Nincs semmi a faliújságon";
   /// "Nincsenek mulasztásaid"
   String get emptyAbsences => "Nincsenek mulasztásaid";
   /// "Nincsenek késéseid"
@@ -682,8 +682,8 @@ class I18n implements WidgetsLocalizations {
   String get tutorial2 => "Itt találod az összes jegyet.\nTöbb szempont alapján rendezheted őket a bal alsó sarokban.\nFelül válthatsz az évközi jegyek és lezárt eredmények között,\nmegnézheted a tárgyi átlagokat, és a hozzájuk tartozó jegyeket, és az összes jegyedre vonatkozó statisztikákat láthatsz.";
   /// "A tervezőben találod az órarendet,\nitt vannak a házik és a dolgozatok, számon tarthatod, mennyi mindenre nem lesz idő készülni."
   String get tutorial3 => "A tervezőben találod az órarendet,\nitt vannak a házik és a dolgozatok, számon tarthatod, mennyi mindenre nem lesz idő készülni.";
-  /// "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig az eseményeket láthatod."
-  String get tutorial4 => "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig az eseményeket láthatod.";
+  /// "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig a faliújságot láthatod."
+  String get tutorial4 => "Ezen az oldalon találod a személyes üzeneteidet, jobb alul tudsz új üzenetet írni, bal felül pedig a mappák között váltani.\nA következő fülön a feljegyzéseket, faliújságot, rendszerüzeneteket,\naz utolsón pedig a faliújságot láthatod.";
   /// "Ezen az oldalon listázzuk bűneidet.\nFigyelheted, mikor vonják meg tőletek a családi pótlékot a hiányzások miatt,\nláthatod a késéseket, el nem készített házi feladatokat és felszereléshiányokat.\nHa nem látsz itt semmit, akkor még biztos szeptember van."
   String get tutorial5 => "Ezen az oldalon listázzuk bűneidet.\nFigyelheted, mikor vonják meg tőletek a családi pótlékot a hiányzások miatt,\nláthatod a késéseket, el nem készített házi feladatokat és felszereléshiányokat.\nHa nem látsz itt semmit, akkor még biztos szeptember van.";
   /// "Itt válthatsz bejelentkezett fiókok között.\nEgy fióknak beállíthatsz egyéni nevet, és profilképet.\nFelvehetsz és törölhetsz fiókokat.\nItt találod az app beállításait és néhány további információt is."
@@ -1107,12 +1107,12 @@ class _I18n_en_US extends I18n {
   /// "Notes"
   @override
   String get noteTitle => "Notes";
-  /// "event"
+  /// "post"
   @override
-  String get event => "event";
-  /// "Events"
+  String get event => "post";
+  /// "Notice board"
   @override
-  String get eventTitle => "Events";
+  String get eventTitle => "Notice board";
   /// "message"
   @override
   String get message => "message";
@@ -1566,9 +1566,9 @@ class _I18n_en_US extends I18n {
   /// "Syncing student..."
   @override
   String get syncStudent => "Syncing student...";
-  /// "Syncing events..."
+  /// "Syncing notice board posts..."
   @override
-  String get syncEvent => "Syncing events...";
+  String get syncEvent => "Syncing notice board posts...";
   /// "Syncing notes..."
   @override
   String get syncNote => "Syncing notes...";
@@ -1620,9 +1620,9 @@ class _I18n_en_US extends I18n {
   /// "You have no notes"
   @override
   String get emptyNotes => "You have no notes";
-  /// "You have no events"
+  /// "There are no posts on the notice board."
   @override
-  String get emptyEvents => "You have no events";
+  String get emptyEvents => "There are no posts on the notice board.";
   /// "You have no absences"
   @override
   String get emptyAbsences => "You have no absences";
@@ -2129,12 +2129,12 @@ class _I18n_de_DE extends I18n {
   /// "Durchsagen"
   @override
   String get noteTitle => "Durchsagen";
-  /// "Ereignis"
+  /// "Poste"
   @override
-  String get event => "Ereignis";
-  /// "Ereignisse"
+  String get event => "Poste";
+  /// "Wandezeitung"
   @override
-  String get eventTitle => "Ereignisse";
+  String get eventTitle => "Wandezeitung";
   /// "Benachrichtigung"
   @override
   String get message => "Benachrichtigung";
@@ -2588,9 +2588,9 @@ class _I18n_de_DE extends I18n {
   /// "Konto wird abgerufen..."
   @override
   String get syncStudent => "Konto wird abgerufen...";
-  /// "Ereignisse werden abgerufen..."
+  /// "Wandezeitung wird abgerufen..."
   @override
-  String get syncEvent => "Ereignisse werden abgerufen...";
+  String get syncEvent => "Wandezeitung wird abgerufen...";
   /// "Durchsagen werden abgerufen..."
   @override
   String get syncNote => "Durchsagen werden abgerufen...";
@@ -2642,9 +2642,9 @@ class _I18n_de_DE extends I18n {
   /// "Du hast keine Durchsagen"
   @override
   String get emptyNotes => "Du hast keine Durchsagen";
-  /// "Du hast keine Ereignisse"
+  /// "Es gibt nicht an der Wandezeitung"
   @override
-  String get emptyEvents => "Du hast keine Ereignisse";
+  String get emptyEvents => "Es gibt nicht an der Wandezeitung";
   /// "Du hast keine Abwesenheiten"
   @override
   String get emptyAbsences => "Du hast keine Abwesenheiten";
@@ -2717,9 +2717,9 @@ class _I18n_de_DE extends I18n {
   /// "Dies ist die Planerseite.\nDu hast hier den Zeitplan sowie die Hausaufgaben und geplanten Prüfungen. Alles, wofür du nie Zeit haben wirst."
   @override
   String get tutorial3 => "Dies ist die Planerseite.\nDu hast hier den Zeitplan sowie die Hausaufgaben und geplanten Prüfungen. Alles, wofür du nie Zeit haben wirst.";
-  /// "Auf dieser Seite findest du deine persönlichen Nachrichten, und kannst du unten rechts eine neue schreiben. Du kannst oben links zwischen Ordnern wechseln.\nAuf der zweiten Tab befinden sich Memos und Systemnachrichten,\nUnd auf der dritten befindet sich die Pinnwand."
+  /// "Auf dieser Seite findest du deine persönlichen Nachrichten, und kannst du unten rechts eine neue schreiben. Du kannst oben links zwischen Ordnern wechseln.\nAuf der zweiten Tab befinden sich Memos und Systemnachrichten,\nUnd auf der dritten befindet sich die Wandezeitung."
   @override
-  String get tutorial4 => "Auf dieser Seite findest du deine persönlichen Nachrichten, und kannst du unten rechts eine neue schreiben. Du kannst oben links zwischen Ordnern wechseln.\nAuf der zweiten Tab befinden sich Memos und Systemnachrichten,\nUnd auf der dritten befindet sich die Pinnwand.";
+  String get tutorial4 => "Auf dieser Seite findest du deine persönlichen Nachrichten, und kannst du unten rechts eine neue schreiben. Du kannst oben links zwischen Ordnern wechseln.\nAuf der zweiten Tab befinden sich Memos und Systemnachrichten,\nUnd auf der dritten befindet sich die Wandezeitung.";
   /// "Jemand war ein böser Junge. Das heißt, wenn diese Seite nicht leer ist.\nDu kannst hier alle verpassten Klassen, Verzögerungen sehen, wenn die Hausaufgaben nicht erledigt wurden oder wenn du die gesamte Ausrüstung nicht für den Stunde hattest."
   @override
   String get tutorial5 => "Jemand war ein böser Junge. Das heißt, wenn diese Seite nicht leer ist.\nDu kannst hier alle verpassten Klassen, Verzögerungen sehen, wenn die Hausaufgaben nicht erledigt wurden oder wenn du die gesamte Ausrüstung nicht für den Stunde hattest.";
