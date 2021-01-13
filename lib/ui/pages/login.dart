@@ -47,26 +47,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget inputIcon({int type}) {
-    switch (type) {
-      case 1:
-        return IconButton(
-          icon: Icon(
-            loginContext.passwordVisible
-                ? FeatherIcons.eyeOff
-                : FeatherIcons.eye,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            setState(() {
-              loginContext.passwordVisible = !loginContext.passwordVisible;
-            });
-          },
-        );
-    }
-    return null;
-  }
-
   InputDecoration inputDecoration({int type}) {
     return InputDecoration(
       enabledBorder: UnderlineInputBorder(
@@ -81,7 +61,22 @@ class _LoginPageState extends State<LoginPage> {
       filled: true,
       contentPadding: EdgeInsets.all(12.0),
       isDense: false,
-      suffixIcon: inputIcon(type: type),
+      suffixIconConstraints: BoxConstraints(maxHeight: 40),
+      suffixIcon: type == 1
+          ? IconButton(
+              icon: Icon(
+                loginContext.passwordVisible
+                    ? FeatherIcons.eyeOff
+                    : FeatherIcons.eye,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setState(() {
+                  loginContext.passwordVisible = !loginContext.passwordVisible;
+                });
+              },
+            )
+          : null,
     );
   }
 
@@ -219,13 +214,15 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Text(
-                            loginContext.selectedSchool == null
-                                ? I18n.of(context).loginChooseSchool
-                                : loginContext.selectedSchool.name,
-                            softWrap: false,
-                            overflow: TextOverflow.fade,
-                            style: TextStyle(color: Colors.white),
+                          child: Center(
+                            child: Text(
+                              loginContext.selectedSchool == null
+                                  ? I18n.of(context).loginChooseSchool
+                                  : loginContext.selectedSchool.name,
+                              softWrap: false,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ],
