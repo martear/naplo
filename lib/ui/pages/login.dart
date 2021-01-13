@@ -218,13 +218,15 @@ class _LoginPageState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          loginContext.selectedSchool == null
-                              ? I18n.of(context).loginChooseSchool
-                              : loginContext.selectedSchool.name,
-                          softWrap: false,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.white),
+                        Expanded(
+                          child: Text(
+                            loginContext.selectedSchool == null
+                                ? I18n.of(context).loginChooseSchool
+                                : loginContext.selectedSchool.name,
+                            softWrap: false,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
