@@ -21,6 +21,10 @@ class _SubjectGraphState extends State<SubjectGraph> {
   Widget build(BuildContext context) {
     List<FlSpot> subjectData = [];
     List<List<Evaluation>> sortedData = [[]];
+    print("-----");
+
+    List<Evaluation> data = List<Evaluation>.from(widget.data);
+    data.sort((a, b) => a.date.compareTo(b.date));
 
     widget.data.forEach((element) {
       if (sortedData.last.length != 0 &&
@@ -44,7 +48,7 @@ class _SubjectGraphState extends State<SubjectGraph> {
       subjectData.add(FlSpot(
         dataList[0].date.month +
             (dataList[0].date.day / 31) +
-            ((DateTime.now().year - widget.data.first.date.year) * 100),
+            ((dataList[0].date.year - data.first.date.year) * 12),
         double.parse(average.toStringAsFixed(2)),
       ));
     });
@@ -131,7 +135,10 @@ class _SubjectGraphState extends State<SubjectGraph> {
               getTitles: (value) {
                 String ret = "";
 
-                switch (value.floor() % 100) {
+                switch (value.floor() % 12) {
+                  case 0:
+                    ret = I18n.of(context).dateDec;
+                    break;
                   case 1:
                     ret = I18n.of(context).dateJan;
                     break;
@@ -172,6 +179,7 @@ class _SubjectGraphState extends State<SubjectGraph> {
                     ret = '?';
                     break;
                 }
+                
                 return ret.toUpperCase();
               },
             ),
