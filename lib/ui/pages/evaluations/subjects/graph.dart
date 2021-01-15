@@ -21,7 +21,6 @@ class _SubjectGraphState extends State<SubjectGraph> {
   Widget build(BuildContext context) {
     List<FlSpot> subjectData = [];
     List<List<Evaluation>> sortedData = [[]];
-    print("-----");
 
     List<Evaluation> data = List<Evaluation>.from(widget.data);
     data.sort((a, b) => a.date.compareTo(b.date));
