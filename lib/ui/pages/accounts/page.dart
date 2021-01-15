@@ -1,5 +1,4 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:filcnaplo/ui/pages/about/page.dart';
 import 'package:filcnaplo/ui/pages/accounts/tile.dart';
 import 'package:filcnaplo/ui/pages/login.dart';
 import 'package:filcnaplo/utils/format.dart';
