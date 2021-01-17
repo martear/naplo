@@ -51,81 +51,9 @@ class DebugTile extends StatelessWidget {
                   ((snapshot.data.statusCode / 100).floor() - 2).clamp(0, 3)]
               : null;
 
-          return Container(
-            padding: EdgeInsets.all(12.0),
-            child: snapshot.hasData
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12.0),
-                        child: Text(
-                          endpoint.name,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            letterSpacing: .7,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            margin: EdgeInsets.only(right: 12.0),
-                            decoration: BoxDecoration(
-                              color: statusColor,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Text(
-                              snapshot.data.statusCode.toString(),
-                              style: TextStyle(
-                                color: textColor(statusColor),
-                                fontSize: 18.0,
-                                fontFamily: "SpaceMono",
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 0,
-                                vertical: 4,
-                              ),
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: SelectableText(
-                                  endpoint.uri,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: "SpaceMono",
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 6),
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                          child: Text(
-                            snapshot.data.response
-                                .replaceAll(RegExp(r'[\n\t\s]+'), " "),
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: "SpaceMono",
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                        onTap: () => Navigator.push(
+          return
+          GestureDetector(
+            onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ResponseView(
@@ -136,10 +64,84 @@ class DebugTile extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                : Center(child: CircularProgressIndicator()),
+            child: Container(
+              padding: EdgeInsets.all(12.0),
+              child: snapshot.hasData
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 12.0),
+                          child: Text(
+                            endpoint.name,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              letterSpacing: .7,
+                            ),
+                          ),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              margin: EdgeInsets.only(right: 12.0),
+                              decoration: BoxDecoration(
+                                color: statusColor,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Text(
+                                snapshot.data.statusCode.toString(),
+                                style: TextStyle(
+                                  color: textColor(statusColor),
+                                  fontSize: 18.0,
+                                  fontFamily: "SpaceMono",
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 0,
+                                  vertical: 4,
+                                ),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: SelectableText(
+                                    endpoint.uri,
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontFamily: "SpaceMono",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                          Container(
+                            margin: EdgeInsets.only(top: 6),
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.all(Radius.circular(5)),
+                            ),
+                            child: Text(
+                              snapshot.data.response
+                                  .replaceAll(RegExp(r'[\n\t\s]+'), " "),
+                              maxLines: 5,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: "SpaceMono",
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                          
+                      ],
+                    )
+                  : Center(child: CircularProgressIndicator()),
+            ),
           );
         },
       ),
