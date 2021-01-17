@@ -133,17 +133,24 @@ class ResponseView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: SelectableText(
-                      lines,
-                      scrollPhysics: NeverScrollableScrollPhysics(),
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: "SpaceMono",
-                      ),
-                    ),
-                  ),
+                  child: lines.contains("\n")
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: SelectableText(
+                            lines,
+                            scrollPhysics: NeverScrollableScrollPhysics(),
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: "SpaceMono",
+                            ),
+                          ),
+                        )
+                      : SelectableText(lines,
+                          scrollPhysics: NeverScrollableScrollPhysics(),
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontFamily: "SpaceMono",
+                          )),
                 ),
               ],
             ),

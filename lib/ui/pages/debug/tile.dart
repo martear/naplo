@@ -83,7 +83,7 @@ class DebugTile extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
+                            Container( //Response code
                               padding: EdgeInsets.all(4),
                               margin: EdgeInsets.only(right: 12.0),
                               decoration: BoxDecoration(
@@ -99,7 +99,7 @@ class DebugTile extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Expanded(
+                            Expanded( //Request endpoint
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 0,
@@ -119,7 +119,7 @@ class DebugTile extends StatelessWidget {
                             ),
                           ],
                         ),
-                          Container(
+                          Container( //Response
                             margin: EdgeInsets.only(top: 6),
                             padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
