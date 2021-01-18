@@ -35,7 +35,7 @@ class _TimetableFrameState extends State<TimetableFrame>
         _tabController = TabController(
           vsync: this,
           length: length,
-          initialIndex: selectedDay,
+          initialIndex: selectedDay.clamp(0, length - 1),
         );
       });
     });
@@ -61,6 +61,9 @@ class _TimetableFrameState extends State<TimetableFrame>
     if (_timetableBuilder.week.days.length > 1) {
       dayIndex = dayIndex.clamp(0, _timetableBuilder.week.days.length - 1);
     }
+
+    print(_timetableBuilder.week.days.length);
+    print(dayIndex);
 
     _tabController = TabController(
       vsync: this,
