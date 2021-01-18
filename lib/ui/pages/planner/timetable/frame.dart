@@ -62,9 +62,6 @@ class _TimetableFrameState extends State<TimetableFrame>
       dayIndex = dayIndex.clamp(0, _timetableBuilder.week.days.length - 1);
     }
 
-    print(_timetableBuilder.week.days.length);
-    print(dayIndex);
-
     _tabController = TabController(
       vsync: this,
       length: _timetableBuilder.week.days.length.clamp(1, 7),
@@ -78,8 +75,8 @@ class _TimetableFrameState extends State<TimetableFrame>
   @override
   void dispose() {
     if (mounted) {
-      _tabController.dispose();
       super.dispose();
+      _tabController.dispose();
     }
   }
 
