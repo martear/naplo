@@ -89,8 +89,8 @@ class CustomTabIndicator extends StatelessWidget {
     }
 
     return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(4.0),
+      child: Padding(
+        padding: EdgeInsets.only(top: 4, bottom: 4),
         child: FlatButton(
           key: _menuKey,
           shape:
