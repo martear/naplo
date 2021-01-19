@@ -205,7 +205,6 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
       animation: animation,
       builder: (BuildContext context, Widget child) {
         return Row(
-          mainAxisSize: MainAxisSize.min,
           children: List<Widget>.generate(labels.length, (int tabIndex) {
             final Color fixColor = color;
             final Color fixSelectedColor =
