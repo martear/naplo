@@ -79,7 +79,7 @@ class AbsenceTile extends StatelessWidget {
                 ),
               ],
             ),
-            absence.lessonStart == absence.date
+            //absence.lessonStart == absence.date
             Text(formatDate(context, absence.lessonStart))
           ],
         ),
