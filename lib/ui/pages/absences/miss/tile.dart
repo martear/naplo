@@ -15,7 +15,6 @@ class MissTile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
         child: ListTile(
-          dense: true,
           contentPadding: EdgeInsets.zero,
           leading: Container(
             width: 46.0,
