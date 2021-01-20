@@ -12,30 +12,36 @@ class MissTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        child: Row(
-          children: <Widget>[
-            Icon(
-              miss.type.name == "HaziFeladatHiany"
-                  ? FeatherIcons.home
-                  : FeatherIcons.bookOpen,
-              color: app.settings.appColor,
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(left: 12.0),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Container(
+            width: 46.0,
+            height: 46.0,
+            alignment: Alignment.center,
+            child: Icon(
+                miss.type.name == "HaziFeladatHiany"
+                    ? FeatherIcons.home
+                    : FeatherIcons.bookOpen,
+                color: app.settings.appColor,
+                size: 30),
+          ),
+          title: Row(
+            children: <Widget>[
+              Expanded(
                 child: Text(
-                  miss.content.split("órán")[0],
+                  miss.type.description,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 12.0),
-              child: Text(formatDate(context, miss.date)),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(formatDate(context, miss.submitDate)),
+              ),
+            ],
+          ),
+          subtitle: Text(miss.content.split("órán")[0]),
         ),
       ),
     );
