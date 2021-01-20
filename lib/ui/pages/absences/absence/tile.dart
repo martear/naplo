@@ -57,7 +57,10 @@ class AbsenceTileGroup extends StatelessWidget {
                         ),
                         title: Text(amountPlural(I18n.of(context).absence,
                             I18n.of(context).absenceAbsences, absences.length)),
-                        subtitle: Text(formatDate(context, absences[0].date)),
+                        subtitle: Text(weekdayStringShort(
+                                context, absences[0].date.weekday) +
+                            " " +
+                            formatDate(context, absences[0].date)),
                         children:
                             absences.map((a) => AbsenceTileSmall(a)).toList(),
                       ),
