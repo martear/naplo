@@ -9,6 +9,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/empty.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class AbsenceTabs extends StatefulWidget {
   final Function callback;
@@ -106,11 +107,27 @@ class _AbsenceTabsState extends State<AbsenceTabs>
               },
               child: widget._absenceTiles.length > 0
                   ? CupertinoScrollbar(
-                      child: ListView(
+                      child: ListView.builder(
                           padding: EdgeInsets.symmetric(vertical: 8),
                           physics: BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
-                          children: widget._absenceTiles),
+                          itemCount: widget._absenceTiles.length,
+                          itemBuilder: (context, index) {
+                            if (index <
+                                (MediaQuery.of(context).size.height / 72) - 3) {
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: Duration(milliseconds: 400),
+                                child: SlideAnimation(
+                                  verticalOffset: 150,
+                                  child: FadeInAnimation(
+                                      child: widget._absenceTiles[index]),
+                                ),
+                              );
+                            } else {
+                              return widget._absenceTiles[index];
+                            }
+                          }),
                     )
                   : Empty(title: I18n.of(context).emptyAbsences),
             ),

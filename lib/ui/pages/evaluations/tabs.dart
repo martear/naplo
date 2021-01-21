@@ -167,8 +167,7 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                             parent: AlwaysScrollableScrollPhysics()),
                         itemCount: widget._gradeTiles.length,
                         itemBuilder: (context, index) {
-                          if (app.shouldPlayIntro() &&
-                              (index <
+                          if ((index <
                                   (MediaQuery.of(context).size.height / 72) -
                                       3)) {
                             //72 is the size of an evaluation tile; 3 tiles are off-screen because elements at top and bottom

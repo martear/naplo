@@ -150,17 +150,20 @@ class _MessageTabsState extends State<MessageTabs>
                   padding: EdgeInsets.only(top: 12.0),
                   itemCount: messageTiles.length != 0 ? messageTiles.length : 1,
                   itemBuilder: (context, index) {
-                    if (messageTiles.length > 0 && index < 9) {
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: Duration(milliseconds: 400),
-                        child: SlideAnimation(
-                          verticalOffset: 150,
-                          child: FadeInAnimation(child: messageTiles[index]),
-                        ),
-                      );
-                    } else if (messageTiles.length > 0) {
-                      return messageTiles[index];
+                    if (messageTiles.length > 0) {
+                      if (index <
+                          (MediaQuery.of(context).size.height / 76) - 3) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: Duration(milliseconds: 400),
+                          child: SlideAnimation(
+                            verticalOffset: 150,
+                            child: FadeInAnimation(child: messageTiles[index]),
+                          ),
+                        );
+                      } else {
+                        return messageTiles[index];
+                      }
                     } else {
                       return Empty(
                         title: app.selectedMessagePage == 3
@@ -195,17 +198,7 @@ class _MessageTabsState extends State<MessageTabs>
                         ? widget.noteTiles.length
                         : 1,
                     itemBuilder: (context, index) {
-                      if (widget.noteTiles.length > 0 && index < 9) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: Duration(milliseconds: 400),
-                          child: SlideAnimation(
-                            verticalOffset: 150,
-                            child:
-                                FadeInAnimation(child: widget.noteTiles[index]),
-                          ),
-                        );
-                      } else if (widget.noteTiles.length > 0) {
+                      if (widget.noteTiles.length > 0) {
                         return widget.noteTiles[index];
                       } else {
                         return Empty(title: I18n.of(context).emptyNotes);
@@ -236,17 +229,7 @@ class _MessageTabsState extends State<MessageTabs>
                         ? widget.eventTiles.length
                         : 1,
                     itemBuilder: (context, index) {
-                      if (widget.eventTiles.length > 0 && index < 9) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: Duration(milliseconds: 400),
-                          child: SlideAnimation(
-                            verticalOffset: 150,
-                            child: FadeInAnimation(
-                                child: widget.eventTiles[index]),
-                          ),
-                        );
-                      } else if (widget.eventTiles.length > 0) {
+                      if (widget.eventTiles.length > 0) {
                         return widget.eventTiles[index];
                       } else {
                         return Empty(title: I18n.of(context).emptyEvents);
