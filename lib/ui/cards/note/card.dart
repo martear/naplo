@@ -17,9 +17,7 @@ class NoteCard extends BaseCard {
       key: key,
       compare: compare,
       child: GestureDetector(
-        child: Container(
-          child: NoteTile(note),
-        ),
+        child: NoteTile(note),
         onTap: () {
           showModalBottomSheet(
             context: context,

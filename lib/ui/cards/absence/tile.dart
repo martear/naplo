@@ -1,7 +1,6 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/models/absence.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:filcnaplo/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/ui/pages/absences/absence/view.dart';
 
