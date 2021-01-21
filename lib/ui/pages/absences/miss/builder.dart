@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/ui/cards/note/tile.dart';
 
 class MissBuilder {
-  List<Padding> missTiles = [];
+  List<Widget> missTiles = [];
   void build() {
     missTiles = [];
     List<Note> misses = app.user.sync.note.data
