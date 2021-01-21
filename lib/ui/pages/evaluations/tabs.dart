@@ -167,12 +167,16 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                             parent: AlwaysScrollableScrollPhysics()),
                         itemCount: widget._gradeTiles.length,
                         itemBuilder: (context, index) {
-                          if (index < 8) {
+                          if (app.shouldPlayIntro() &&
+                              (index <
+                                  (MediaQuery.of(context).size.height / 72) -
+                                      3)) {
+                            //72 is the size of an evaluation tile; 3 tiles are off-screen because elements at top and bottom
                             return AnimationConfiguration.staggeredList(
                               position: index,
                               duration: Duration(milliseconds: 500),
                               child: SlideAnimation(
-                                verticalOffset: 150,
+                                verticalOffset: 100,
                                 child: FadeInAnimation(
                                   child: widget._gradeTiles[index],
                                 ),

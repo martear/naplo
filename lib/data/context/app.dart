@@ -27,6 +27,18 @@ class AppContext {
   int selectedPage = 0;
   int evalSortBy = 0;
 
+  DateTime introPlayedAt;
+  bool shouldPlayIntro() {
+    if (introPlayedAt == null) {
+      introPlayedAt = DateTime.now();
+      return true;
+    } else if (introPlayedAt
+        .isAfter(DateTime.now().subtract(Duration(seconds: 1))))
+      return true;
+    else
+      return false;
+  }
+
   ThemeContext theme = ThemeContext();
 
   // Users
