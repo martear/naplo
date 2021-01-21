@@ -59,6 +59,7 @@ class _SubjectGraphState extends State<SubjectGraph> {
             LineChartBarData(
               spots: subjectData,
               isCurved: true,
+              curveSmoothness: .1,
               colors: [app.settings.theme.accentColor],
               barWidth: 8,
               isStrokeCapRound: true,
