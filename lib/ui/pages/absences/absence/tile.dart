@@ -20,7 +20,7 @@ class AbsenceTileGroup extends StatelessWidget {
                 ? Container(
                     padding: EdgeInsets.only(right: 9),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).bottomAppBarColor,
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Theme(
@@ -57,10 +57,10 @@ class AbsenceTileGroup extends StatelessWidget {
                         ),
                         title: Text(amountPlural(I18n.of(context).absence,
                             I18n.of(context).absenceAbsences, absences.length)),
-                        subtitle: Text(weekdayStringShort(
-                                context, absences[0].date.weekday) +
-                            " " +
-                            formatDate(context, absences[0].date)),
+                        subtitle: Text(capital(
+                            weekdayString(context, absences[0].date.weekday) +
+                                " " +
+                                formatDate(context, absences[0].date))),
                         children:
                             absences.map((a) => AbsenceTileSmall(a)).toList(),
                       ),
