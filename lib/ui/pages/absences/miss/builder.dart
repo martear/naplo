@@ -1,7 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/note.dart';
-import 'package:filcnaplo/ui/cards/miss/tile.dart';
 import 'package:flutter/src/widgets/basic.dart';
+import 'package:filcnaplo/ui/cards/note/tile.dart';
 
 class MissBuilder {
   List<Padding> missTiles = [];
@@ -19,7 +19,7 @@ class MissBuilder {
 
     misses.forEach((miss) => missTiles.add(Padding(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-          child: MissTile(miss),
+          child: NoteTile(miss),
         )));
   }
 }
