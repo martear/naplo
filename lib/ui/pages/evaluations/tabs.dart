@@ -175,7 +175,7 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                               position: index,
                               duration: Duration(milliseconds: 500),
                               child: SlideAnimation(
-                                verticalOffset: 100,
+                                verticalOffset: 150,
                                 child: FadeInAnimation(
                                   child: widget._gradeTiles[index],
                                 ),
