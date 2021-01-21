@@ -152,7 +152,7 @@ class _MessageTabsState extends State<MessageTabs>
                   itemBuilder: (context, index) {
                     if (messageTiles.length > 0) {
                       if (index <
-                          (MediaQuery.of(context).size.height / 76) - 3) {
+                          (MediaQuery.of(context).size.height / 76) - 2) {
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: Duration(milliseconds: 400),

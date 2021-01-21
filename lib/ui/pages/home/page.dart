@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(top: 100.0),
                   itemCount: feedCards.length,
                   itemBuilder: (context, index) {
-                    if (index < (MediaQuery.of(context).size.height / 92) - 2) {
+                    if (index < (MediaQuery.of(context).size.height / 92)) {
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         duration: Duration(milliseconds: 500),

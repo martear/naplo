@@ -114,7 +114,7 @@ class _AbsenceTabsState extends State<AbsenceTabs>
                           itemCount: widget._absenceTiles.length,
                           itemBuilder: (context, index) {
                             if (index <
-                                (MediaQuery.of(context).size.height / 72) - 3) {
+                                (MediaQuery.of(context).size.height / 72) - 2) {
                               return AnimationConfiguration.staggeredList(
                                 position: index,
                                 duration: Duration(milliseconds: 400),

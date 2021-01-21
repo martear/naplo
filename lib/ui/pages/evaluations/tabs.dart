@@ -169,7 +169,7 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                         itemBuilder: (context, index) {
                           if ((index <
                                   (MediaQuery.of(context).size.height / 72) -
-                                      3)) {
+                                      2)) {
                             //72 is the size of an evaluation tile; 3 tiles are off-screen because elements at top and bottom
                             return AnimationConfiguration.staggeredList(
                               position: index,
