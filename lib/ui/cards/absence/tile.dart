@@ -79,8 +79,7 @@ class AbsenceTile extends StatelessWidget {
                 ),
               ],
             ),
-            Text(capital(
-                    weekdayStringShort(context, absence.lessonStart.weekday)) +
+            Text(capital(weekdayString(context, absence.lessonStart.weekday)) +
                 " " +
                 formatDate(context, absence.lessonStart))
           ],
