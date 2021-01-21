@@ -64,8 +64,11 @@ class AbsenceTileGroup extends StatelessWidget {
                         subtitle: Text(capital(DateFormat(
                                     "EEEE", app.settings.locale.toString())
                                 .format(absences[0].date)) +
-                            " " +
-                            formatDate(context, absences[0].date)),
+                            (absences[0].date.isAfter(
+                                    DateTime.now().subtract(Duration(days: 6)))
+                                ? ""
+                                : (" " +
+                                    formatDate(context, absences[0].date)))),
                         children:
                             absences.map((a) => AbsenceTileSmall(a)).toList(),
                       ),

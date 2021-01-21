@@ -83,8 +83,10 @@ class AbsenceTile extends StatelessWidget {
             ),
             Text(capital(DateFormat("EEEE", app.settings.locale.toString())
                     .format(absence.date)) +
-                " " +
-                formatDate(context, absence.lessonStart))
+                (absence.date
+                        .isAfter(DateTime.now().subtract(Duration(days: 6)))
+                    ? ""
+                    : (" " + formatDate(context, absence.date)))),
           ],
         ),
       ),
