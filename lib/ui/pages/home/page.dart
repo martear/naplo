@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: feedCards.length,
                   itemBuilder: (context, index) {
                     if (lastStateInit.isAfter(
-                            DateTime.now().subtract(Duration(seconds: 3))) &&
+                            DateTime.now().subtract(Duration(seconds: 2))) &&
                         (index < (MediaQuery.of(context).size.height / 92))) {
                       return AnimationConfiguration.staggeredList(
                         position: index,

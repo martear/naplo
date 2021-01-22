@@ -117,7 +117,7 @@ class _AbsenceTabsState extends State<AbsenceTabs>
                           itemCount: widget._absenceTiles.length,
                           itemBuilder: (context, index) {
                             if (lastStateInit.isAfter(DateTime.now()
-                                    .subtract(Duration(seconds: 3))) &&
+                                    .subtract(Duration(seconds: 2))) &&
                                 (index <
                                     (MediaQuery.of(context).size.height / 72) -
                                         2)) {
