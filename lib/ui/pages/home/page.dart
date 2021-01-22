@@ -2,6 +2,7 @@ import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/ui/cards/card.dart';
 import 'package:filcnaplo/ui/cards/absence/card.dart';
 import 'package:filcnaplo/ui/cards/evaluation/card.dart';
+import 'package:filcnaplo/ui/cards/evaluation/final.dart';
 import 'package:filcnaplo/ui/cards/message/card.dart';
 import 'package:filcnaplo/ui/cards/note/card.dart';
 import 'package:filcnaplo/ui/cards/homework/card.dart';
@@ -102,13 +103,24 @@ class _HomePageState extends State<HomePage> {
           key: Key(note.id),
           compare: note.date,
         )));
-    app.user.sync.evaluation.data[0]
-        .where((element) => evalTypes[element.type.name] == 0)
-        .forEach((evaluation) => cards.add(EvaluationCard(
-              evaluation,
-              key: Key(evaluation.id),
-              compare: evaluation.date,
-            )));
+
+    List<List<Evaluation>> finalEvals = [[], [], [], [], []];
+    app.user.sync.evaluation.data[0].forEach((evaluation) {
+      if (evalTypes[evaluation.type.name] == 0) {
+        cards.add(EvaluationCard(
+          evaluation,
+          key: Key(evaluation.id),
+          compare: evaluation.date,
+        ));
+      } else {
+        finalEvals[evalTypes[evaluation.type.name] - 1].add(evaluation);
+      }
+    });
+    finalEvals.where((element) => element.isNotEmpty).forEach((list) {
+      cards.add(
+          FinalCard(list, key: Key(list.first.id), compare: list.first.date));
+    });
+
     app.user.sync.absence.data.forEach((absence) => cards.add(AbsenceCard(
           absence,
           key: Key(absence.id.toString()),
