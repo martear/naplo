@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/ui/cards/card.dart';
 import 'package:filcnaplo/ui/cards/absence/card.dart';
 import 'package:filcnaplo/ui/cards/evaluation/card.dart';
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> {
           compare: note.date,
         )));
     app.user.sync.evaluation.data[0]
+        .where((element) => evalTypes[element.type.name] == 0)
         .forEach((evaluation) => cards.add(EvaluationCard(
               evaluation,
               key: Key(evaluation.id),

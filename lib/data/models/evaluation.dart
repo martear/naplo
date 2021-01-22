@@ -114,3 +114,13 @@ class EvaluationValue {
     }
   }
 }
+
+Map<String, int> evalTypes = {
+  "evkozi_jegy_ertekeles": 0,
+  "I_ne_jegy_ertekeles": 1,
+  "II_ne_jegy_ertekeles": 2,
+  "felevi_jegy_ertekeles": 3,
+  "III_ne_jegy_ertekeles": 4,
+  "IV_ne_jegy_ertekeles": 5,
+  "evvegi_jegy_ertekeles": 6,
+};
