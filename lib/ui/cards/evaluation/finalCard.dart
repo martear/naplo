@@ -49,8 +49,7 @@ class FinalCard extends BaseCard {
 
     int dicseretesAmount =
         evals.where((element) => element.description == "Dicséret").length;
-    //TODO remove comment
-    int failedAmount = 2; //evals.where((element) => element.value == 1).length;
+    int failedAmount = evals.where((element) => element.value == 1).length;
 
     return BaseCard(
       child: ListTile(
