@@ -1,9 +1,11 @@
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/absence.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/pages/absences/delay/view.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:intl/intl.dart';
 
 class DelayTile extends StatelessWidget {
   final Absence delay;
@@ -47,8 +49,10 @@ class DelayTile extends StatelessWidget {
                               I18n.of(context).timeMinute,
                           style: TextStyle(
                               //Copied directly from ListTile source code, same as subtitle
-                              fontSize:
-                                  Theme.of(context).textTheme.bodyText2.fontSize,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .fontSize,
                               color: Theme.of(context).textTheme.caption.color),
                           overflow: TextOverflow.ellipsis)
                     ],
@@ -88,10 +92,12 @@ class DelayTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(capital(weekdayStringShort(
-                        context, delay.lessonStart.weekday)) +
-                    " " +
-                    formatDate(context, delay.lessonStart))
+                Text(capital(DateFormat("EEEE", app.settings.locale.toString())
+                        .format(delay.date)) +
+                    (delay.date
+                            .isAfter(DateTime.now().subtract(Duration(days: 6)))
+                        ? ""
+                        : (" " + formatDate(context, delay.date)))),
               ],
             ),
           ),
