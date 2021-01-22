@@ -50,11 +50,12 @@ class EvaluationTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          builder: (BuildContext context) => EvaluationView(evaluation),
-        );
+        if (!isTemp)
+          showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: (BuildContext context) => EvaluationView(evaluation),
+          );
       },
       child: Container(
         decoration: BoxDecoration(
