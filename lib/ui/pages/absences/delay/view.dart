@@ -1,8 +1,8 @@
-import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/ui/bottom_card.dart';
+import 'package:flutter/material.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/models/absence.dart';
 import 'package:intl/intl.dart';
 
@@ -13,19 +13,14 @@ class DelayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 14.0),
-      decoration: BoxDecoration(
-        color: app.settings.theme.backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
-        ),
-      ),
+    // todo: Justify button in parental mode
+    return BottomCard(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(
+            contentPadding: EdgeInsets.zero,
             leading: ProfileIcon(name: delay.teacher),
             title: Row(
               children: [
@@ -45,40 +40,50 @@ class DelayView extends StatelessWidget {
             ),
           ),
 
-          // Absence Details
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                DelayDetail(
-                  I18n.of(context).delayAmount,
-                  delay.delay.toString() + " " + I18n.of(context).timeMinute,
-                ),
-                DelayDetail(
-                  I18n.of(context).delayLesson,
-                  (delay.lessonIndex != 0
-                          ? (delay.lessonIndex.toString() + ". (")
-                          : ("")) +
-                      DateFormat("HH:mm").format(delay.lessonStart) +
-                      " - " +
-                      DateFormat("HH:mm").format(delay.lessonEnd) +
-                      (delay.lessonIndex != 0 ? ")" : ""),
-                ),
-                DelayDetail(
-                  I18n.of(context).delayMode,
-                  delay.mode.description,
-                ),
-                DelayDetail(
-                  I18n.of(context).delayState,
-                  delay.state.toString(),
-                ),
-                DelayDetail(
-                  I18n.of(context).administrationTime,
-                  formatDate(context, delay.submitDate, showTime: true),
-                ),
-              ],
-            ),
+          // Delay Details
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              delay.lessonIndex != null
+                  ? DelayDetail(
+                      I18n.of(context).delayLesson,
+                      delay.lessonIndex.toString() +
+                          ". (" +
+                          (delay.lessonStart != null
+                              ? DateFormat("HH:mm").format(delay.lessonStart)
+                              : I18n.of(context).unknown) +
+                          " - " +
+                          (delay.lessonEnd != null
+                              ? DateFormat("HH:mm").format(delay.lessonEnd)
+                              : I18n.of(context).unknown) +
+                          ")",
+                    )
+                  : Container(),
+              delay.mode != null
+                  ? DelayDetail(
+                      I18n.of(context).delayMode,
+                      delay.mode.description,
+                    )
+                  : Container(),
+              delay.justification != null
+                  ? DelayDetail(
+                      I18n.of(context).absenceJustification,
+                      delay.justification.description,
+                    )
+                  : Container(),
+              delay.state != null
+                  ? DelayDetail(
+                      I18n.of(context).delayState,
+                      delay.state,
+                    )
+                  : Container(),
+              delay.submitDate != null
+                  ? DelayDetail(
+                      I18n.of(context).administrationTime,
+                      formatDate(context, delay.submitDate, showTime: true),
+                    )
+                  : Container(),
+            ],
           ),
         ],
       ),
