@@ -75,7 +75,11 @@ class EvaluationTile extends StatelessWidget {
                   children: [
                     Text(
                       evaluation.value.value != 0
-                          ? evaluation.value.value.toString()
+                          ? (evaluation.value.value.toString() +
+                              ((evalTypes[evaluation.type.name] != 0 &&
+                                      evaluation.description == "Dicséret"
+                                  ? "D"
+                                  : "")))
                           : evaluation.value.shortName ?? "?",
                       textAlign: TextAlign.center,
                       style: TextStyle(
