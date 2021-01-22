@@ -19,7 +19,7 @@ int roundSubjAvg(double average) {
 }
 
 Color getAverageColor(double average) {
-  return app.theme.evalColors[(roundSubjAvg(average) - 1).clamp(0,4)];
+  return app.theme.evalColors[(roundSubjAvg(average) - 1).clamp(0, 4)];
 }
 
 List<SubjectAverage> calculateSubjectsAverage() {
@@ -32,19 +32,11 @@ List<SubjectAverage> calculateSubjectsAverage() {
         .map((SubjectAverage s) => s.subject.id)
         .toList()
         .contains(evaluation.subject.id)) {
-      double average = 0;
-      double classAverage = 0;
-
-      List<Evaluation> subjectEvals = evaluations
+      double average = averageOfEvals(evaluations
           .where((e) => e.subject.id == evaluation.subject.id)
-          .toList();
+          .toList());
 
-      subjectEvals.forEach((e) {
-        average += e.value.value * (e.value.weight / 100);
-      });
-
-      average = average /
-          subjectEvals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
+      double classAverage = 0;
 
       classAverage = app.user.sync.evaluation.data[1].firstWhere(
           (a) => a[0].id == evaluation.subject.id,
@@ -56,4 +48,18 @@ List<SubjectAverage> calculateSubjectsAverage() {
     }
   });
   return averages;
+}
+
+double averageOfEvals(List<Evaluation> evals) {
+  double average = 0.0;
+  evals.forEach((e) {
+    if (evalTypes[e] != 0) e.value.weight = 100; //Final evals
+
+    average += e.value.value * (e.value.weight / 100);
+  });
+
+  average =
+      average / evals.map((e) => e.value.weight / 100).reduce((a, b) => a + b);
+
+  return average.isNaN ? 0.0 : average;
 }

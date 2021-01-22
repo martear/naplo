@@ -28,6 +28,7 @@
     "4": "4",
     "5": "5"
   },
+  "amount": "",
   "account": {
     "title": "Accounts",
     "info": "info",
@@ -240,7 +241,8 @@
     "weight": "weight"
   },
   "evaluations": {
-    "": "Your grades",
+    "": "grades",
+    "yourGrades": "Your grades",
     "midYear": "Mid year",
     "qYear": "1. Quarter",
     "2qYear": "2. Quarter",
@@ -251,6 +253,8 @@
     "subjects": "subjects",
     "statistics": "statistics",
     "subjectsAverage": "Your subjects",
+    "compliment": "Complimented",
+    "failed": "Failed",
     "yearlyGraph": "Average troughout the year",
     "ghost": {
       "": "GHOST GRADE",

@@ -28,6 +28,7 @@
     "4": "4-es",
     "5": "5-ös"
   },
+  "amount": " db",
   "account": {
     "title": "Fiókok",
     "info": "infó",
@@ -240,17 +241,20 @@
     "weight": "súly"
   },
   "evaluations": {
-    "": "Jegyeid",
+    "": "jegyek",
+    "yourGrades": "Jegyeid",
     "midYear": "Évközi",
-    "qYear": "1. Negyedév",
-    "2qYear": "2. Negyedév",
+    "qYear": "1. Negyedévi",
+    "2qYear": "2. Negyedévi",
     "halfYear": "Félévi",
-    "3qYear": "3. Negyedév",
-    "4qYear": "4. Negyedév",
+    "3qYear": "3. Negyedévi",
+    "4qYear": "4. Negyedévi",
     "endYear": "Év végi",
     "subjects": "Tárgyak",
     "statistics": "Statisztikák",
     "subjectsAverage": "Tantárgyaid",
+    "compliment": "Dicséret",
+    "failed": "Bukás",
     "yearlyGraph": "Éves átlagod",
     "ghost": {
       "": "SZELLEMJEGY",

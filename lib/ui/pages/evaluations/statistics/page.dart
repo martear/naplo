@@ -112,7 +112,7 @@ class StatisticsPage extends StatelessWidget {
       evaluations.where((e) => e.value.value == 4).length.toString(),
       evaluations.where((e) => e.value.value == 5).length.toString(),
     ];
-    var subjects = calculateSubjectsAverage().where((e) => true);
+    var subjects = calculateSubjectsAverage();
     /*!e.subject.category.id.contains("Magatartas") &&
         !e.subject.category.id.contains("Szorgalom"));*/
 
@@ -156,8 +156,8 @@ class StatisticsPage extends StatelessWidget {
           children: <Widget>[
             //Grades
             StatisticsTitle(
-                FeatherIcons.bookmark, I18n.of(context).evaluations),
-            StatsBlock(grades, allAvg, I18n.of(context).evaluations,
+                FeatherIcons.bookmark, I18n.of(context).evaluationsYourGrades),
+            StatsBlock(grades, allAvg, I18n.of(context).evaluationsYourGrades,
                 I18n.of(context).tooltipStatisticsEvalsAvg),
             //Grades graph
             StatisticsTitle(FeatherIcons.trendingUp,

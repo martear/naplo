@@ -28,6 +28,7 @@
     "4": "4",
     "5": "5"
   },
+  "amount": "",
   "account": {
     "title": "Konten",
     "info": "Info",
@@ -240,7 +241,8 @@
     "weight": "Gewicht"
   },
   "evaluations": {
-    "": "Deine Noten",
+    "": "Note",
+    "yourGrades": "Deine Noten",
     "midYear": "Noten",
     "qYear": "1. Quartal",
     "2qYear": "2. Quartal",
@@ -251,6 +253,8 @@
     "subjects": "Fächer",
     "statistics": "Statistiken",
     "subjectsAverage": "Deine Fächer",
+    "compliment": "Gelobt",
+    "failed": "Nicht bestanden",
     "yearlyGraph": "Durchschnitt im Jahr",
     "ghost": {
       "": "SCHATTENNOTE",

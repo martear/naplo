@@ -74,6 +74,8 @@ class I18n implements WidgetsLocalizations {
   String get grade5 => "5-ös";
   /// "osztályzat"
   String get grade => "osztályzat";
+  /// " db"
+  String get amount => " db";
   /// "Fiókok"
   String get accountTitle => "Fiókok";
   /// "infó"
@@ -400,20 +402,22 @@ class I18n implements WidgetsLocalizations {
   String get evaluationDate => "dátum";
   /// "súly"
   String get evaluationWeight => "súly";
+  /// "jegyek"
+  String get evaluations => "jegyek";
   /// "Jegyeid"
-  String get evaluations => "Jegyeid";
+  String get evaluationsYourGrades => "Jegyeid";
   /// "Évközi"
   String get evaluationsMidYear => "Évközi";
-  /// "1. Negyedév"
-  String get evaluationsQYear => "1. Negyedév";
-  /// "2. Negyedév"
-  String get evaluations2qYear => "2. Negyedév";
+  /// "1. Negyedévi"
+  String get evaluationsQYear => "1. Negyedévi";
+  /// "2. Negyedévi"
+  String get evaluations2qYear => "2. Negyedévi";
   /// "Félévi"
   String get evaluationsHalfYear => "Félévi";
-  /// "3. Negyedév"
-  String get evaluations3qYear => "3. Negyedév";
-  /// "4. Negyedév"
-  String get evaluations4qYear => "4. Negyedév";
+  /// "3. Negyedévi"
+  String get evaluations3qYear => "3. Negyedévi";
+  /// "4. Negyedévi"
+  String get evaluations4qYear => "4. Negyedévi";
   /// "Év végi"
   String get evaluationsEndYear => "Év végi";
   /// "Tárgyak"
@@ -422,6 +426,10 @@ class I18n implements WidgetsLocalizations {
   String get evaluationsStatistics => "Statisztikák";
   /// "Tantárgyaid"
   String get evaluationsSubjectsAverage => "Tantárgyaid";
+  /// "Dicséret"
+  String get evaluationsCompliment => "Dicséret";
+  /// "Bukás"
+  String get evaluationsFailed => "Bukás";
   /// "Éves átlagod"
   String get evaluationsYearlyGraph => "Éves átlagod";
   /// "SZELLEMJEGY"
@@ -785,6 +793,9 @@ class _I18n_en_US extends I18n {
   /// "grade"
   @override
   String get grade => "grade";
+  /// ""
+  @override
+  String get amount => "";
   /// "Accounts"
   @override
   String get accountTitle => "Accounts";
@@ -1274,9 +1285,12 @@ class _I18n_en_US extends I18n {
   /// "weight"
   @override
   String get evaluationWeight => "weight";
+  /// "grades"
+  @override
+  String get evaluations => "grades";
   /// "Your grades"
   @override
-  String get evaluations => "Your grades";
+  String get evaluationsYourGrades => "Your grades";
   /// "Mid year"
   @override
   String get evaluationsMidYear => "Mid year";
@@ -1307,6 +1321,12 @@ class _I18n_en_US extends I18n {
   /// "Your subjects"
   @override
   String get evaluationsSubjectsAverage => "Your subjects";
+  /// "Complimented"
+  @override
+  String get evaluationsCompliment => "Complimented";
+  /// "Failed"
+  @override
+  String get evaluationsFailed => "Failed";
   /// "Average troughout the year"
   @override
   String get evaluationsYearlyGraph => "Average troughout the year";
@@ -1810,6 +1830,9 @@ class _I18n_de_DE extends I18n {
   /// "Note"
   @override
   String get grade => "Note";
+  /// ""
+  @override
+  String get amount => "";
   /// "Konten"
   @override
   String get accountTitle => "Konten";
@@ -2299,9 +2322,12 @@ class _I18n_de_DE extends I18n {
   /// "Gewicht"
   @override
   String get evaluationWeight => "Gewicht";
+  /// "Note"
+  @override
+  String get evaluations => "Note";
   /// "Deine Noten"
   @override
-  String get evaluations => "Deine Noten";
+  String get evaluationsYourGrades => "Deine Noten";
   /// "Noten"
   @override
   String get evaluationsMidYear => "Noten";
@@ -2332,6 +2358,12 @@ class _I18n_de_DE extends I18n {
   /// "Deine Fächer"
   @override
   String get evaluationsSubjectsAverage => "Deine Fächer";
+  /// "Gelobt"
+  @override
+  String get evaluationsCompliment => "Gelobt";
+  /// "Nicht bestanden"
+  @override
+  String get evaluationsFailed => "Nicht bestanden";
   /// "Durchschnitt im Jahr"
   @override
   String get evaluationsYearlyGraph => "Durchschnitt im Jahr";
