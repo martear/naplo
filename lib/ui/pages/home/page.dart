@@ -16,7 +16,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomePage extends StatefulWidget {
   final Function jumpToPage;
-  HomePage(this.jumpToPage);
+  final VoidCallback finalCardPageChangeCallback;
+
+  HomePage(this.jumpToPage, {@required this.finalCardPageChangeCallback});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -117,8 +120,14 @@ class _HomePageState extends State<HomePage> {
       }
     });
     finalEvals.where((element) => element.isNotEmpty).forEach((list) {
-      cards.add(
-          FinalCard(list, key: Key(list.first.id), compare: list.first.date));
+      cards.add(FinalCard(
+        list,
+        key: Key(list.first.id),
+        compare: list.first.date,
+        pageChangeCallback: () {
+          widget.finalCardPageChangeCallback();
+        },
+      ));
     });
 
     app.user.sync.absence.data.forEach((absence) => cards.add(AbsenceCard(

@@ -1,4 +1,5 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,10 @@ class FinalCard extends BaseCard {
   final List<Evaluation> evals;
   final Key key;
   final DateTime compare;
+  final VoidCallback pageChangeCallback;
 
-  FinalCard(this.evals, {this.key, this.compare});
+  FinalCard(this.evals,
+      {this.key, this.compare, @required this.pageChangeCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +105,10 @@ class FinalCard extends BaseCard {
             : null,
         trailing: IconButton(
           icon: Icon(FeatherIcons.arrowRight),
-          onPressed: () {},
+          onPressed: () {
+            app.selectedEvalPage = finalType;
+            pageChangeCallback();
+          },
         ),
       ),
     );

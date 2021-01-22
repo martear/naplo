@@ -132,10 +132,15 @@ class _PageFrameState extends State<PageFrame> {
 
     switch (app.selectedPage) {
       case 0:
-        pageContent = HomePage(_navItemSelected);
+        pageContent = HomePage(
+          _navItemSelected,
+          finalCardPageChangeCallback: () {
+            _navItemSelected(1);
+          },
+        );
         break;
       case 1:
-        pageContent = EvaluationsPage(_homeKey);
+        pageContent = EvaluationsPage();
         break;
       case 2:
         pageContent = PlannerPage();
@@ -147,7 +152,12 @@ class _PageFrameState extends State<PageFrame> {
         pageContent = AbsencesPage(_homeKey);
         break;
       default:
-        pageContent = HomePage(_navItemSelected);
+        pageContent = HomePage(
+          _navItemSelected,
+          finalCardPageChangeCallback: () {
+            _navItemSelected(1);
+          },
+        );
         break;
     }
 

@@ -5,20 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 
 class EvaluationsPage extends StatefulWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-
-  EvaluationsPage(this._scaffoldKey);
+  EvaluationsPage();
 
   @override
-  _EvaluationsPageState createState() =>
-      _EvaluationsPageState(this._scaffoldKey);
+  _EvaluationsPageState createState() => _EvaluationsPageState();
 }
 
 class _EvaluationsPageState extends State<EvaluationsPage> {
   GradeBuilder _gradeBuilder;
   SubjectBuilder _subjectBuilder;
 
-  _EvaluationsPageState(_scaffoldKey) {
+  _EvaluationsPageState() {
     this._gradeBuilder = GradeBuilder();
     this._subjectBuilder = SubjectBuilder();
   }
