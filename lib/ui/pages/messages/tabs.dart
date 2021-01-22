@@ -37,12 +37,15 @@ class _MessageTabsState extends State<MessageTabs>
   final _refreshKeyEvents = GlobalKey<RefreshIndicatorState>();
   TabController _tabController;
 
+  DateTime lastStateInit;
+
   @override
   void initState() {
     _tabController = TabController(
       vsync: this,
       length: 3,
     );
+    lastStateInit = DateTime.now();
     _tabController.addListener(() => widget.callback());
     super.initState();
   }
@@ -151,8 +154,10 @@ class _MessageTabsState extends State<MessageTabs>
                   itemCount: messageTiles.length != 0 ? messageTiles.length : 1,
                   itemBuilder: (context, index) {
                     if (messageTiles.length > 0) {
-                      if (index <
-                          (MediaQuery.of(context).size.height / 76) - 2) {
+                      if (lastStateInit.isAfter(
+                              DateTime.now().subtract(Duration(seconds: 2))) &&
+                          (index <
+                              (MediaQuery.of(context).size.height / 76) - 2)) {
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: Duration(milliseconds: 400),

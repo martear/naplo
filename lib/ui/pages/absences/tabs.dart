@@ -36,6 +36,8 @@ class _AbsenceTabsState extends State<AbsenceTabs>
 
   TabController _tabController;
 
+  DateTime lastStateInit;
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +45,7 @@ class _AbsenceTabsState extends State<AbsenceTabs>
       vsync: this,
       length: 3,
     );
+    lastStateInit = DateTime.now();
   }
 
   @override
@@ -113,8 +116,11 @@ class _AbsenceTabsState extends State<AbsenceTabs>
                               parent: AlwaysScrollableScrollPhysics()),
                           itemCount: widget._absenceTiles.length,
                           itemBuilder: (context, index) {
-                            if (index <
-                                (MediaQuery.of(context).size.height / 72) - 2) {
+                            if (lastStateInit.isAfter(DateTime.now()
+                                    .subtract(Duration(seconds: 3))) &&
+                                (index <
+                                    (MediaQuery.of(context).size.height / 72) -
+                                        2)) {
                               return AnimationConfiguration.staggeredList(
                                 position: index,
                                 duration: Duration(milliseconds: 400),

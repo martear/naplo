@@ -22,6 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _refreshHome = GlobalKey<RefreshIndicatorState>();
 
+  DateTime lastStateInit;
+
+  @override
+  void initState() {
+    super.initState();
+    lastStateInit = DateTime.now();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> feedCards = buildFeed();
@@ -44,7 +52,9 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(top: 100.0),
                   itemCount: feedCards.length,
                   itemBuilder: (context, index) {
-                    if (index < (MediaQuery.of(context).size.height / 92)) {
+                    if (lastStateInit.isAfter(
+                            DateTime.now().subtract(Duration(seconds: 3))) &&
+                        (index < (MediaQuery.of(context).size.height / 92))) {
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         duration: Duration(milliseconds: 500),

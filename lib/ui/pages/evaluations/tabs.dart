@@ -31,12 +31,15 @@ class _EvaluationTabsState extends State<EvaluationTabs>
   final _refreshKeyGrades = GlobalKey<RefreshIndicatorState>();
   final _refreshKeySubjects = GlobalKey<RefreshIndicatorState>();
 
+  DateTime lastStateInit;
+
   @override
   void initState() {
     _tabController = TabController(
       vsync: this,
       length: 3,
     );
+    lastStateInit = DateTime.now();
     _tabController.addListener(() => widget.callback());
     super.initState();
   }
@@ -167,7 +170,9 @@ class _EvaluationTabsState extends State<EvaluationTabs>
                             parent: AlwaysScrollableScrollPhysics()),
                         itemCount: widget._gradeTiles.length,
                         itemBuilder: (context, index) {
-                          if ((index <
+                          if (lastStateInit.isAfter(DateTime.now()
+                                  .subtract(Duration(seconds: 2))) &&
+                              (index <
                                   (MediaQuery.of(context).size.height / 72) -
                                       2)) {
                             //72 is the size of an evaluation tile; 3 tiles are off-screen because elements at top and bottom
