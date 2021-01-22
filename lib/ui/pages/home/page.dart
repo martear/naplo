@@ -2,7 +2,7 @@ import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/ui/cards/card.dart';
 import 'package:filcnaplo/ui/cards/absence/card.dart';
 import 'package:filcnaplo/ui/cards/evaluation/card.dart';
-import 'package:filcnaplo/ui/cards/evaluation/final.dart';
+import 'package:filcnaplo/ui/cards/evaluation/finalCard.dart';
 import 'package:filcnaplo/ui/cards/message/card.dart';
 import 'package:filcnaplo/ui/cards/note/card.dart';
 import 'package:filcnaplo/ui/cards/homework/card.dart';
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
     cards.sort((a, b) => -a.compare.compareTo(b.compare));
 
     elements.addAll(cards.where((card) =>
-        card.compare.isAfter(DateTime.now().subtract(Duration(days: 30)))));
+        card.compare.isAfter(DateTime.now().subtract(Duration(days: 300)))));
 
     return elements;
   }
