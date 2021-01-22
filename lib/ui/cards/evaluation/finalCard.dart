@@ -1,5 +1,4 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,8 @@ class FinalCard extends BaseCard {
 
     int dicseretesAmount =
         evals.where((element) => element.description == "Dicséret").length;
-    int failedAmount = evals.where((element) => element.value == 1).length;
+    int failedAmount =
+        evals.where((element) => element.value.value == 1).length;
 
     return BaseCard(
       child: ListTile(
