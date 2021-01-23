@@ -38,7 +38,7 @@ class _SubjectViewState extends State<SubjectView> {
 
     List<Evaluation> subjectEvals =
         evaluations.where((e) => e.subject.id == widget.subject.id).toList();
-    subjectEvals.addAll(tempEvals);
+    subjectEvals.insertAll(0, tempEvals);
 
     List<GradeTile> evaluationTiles = [];
 
@@ -73,7 +73,7 @@ class _SubjectViewState extends State<SubjectView> {
         leading: BackButton(color: Theme.of(context).accentColor),
         shadowColor: Colors.transparent,
         backgroundColor: app.settings.theme.scaffoldBackgroundColor,
-        actions: <Widget>[
+        actions: [
           widget.classAvg != null && roundSubjAvg(widget.classAvg) != 0
               ? Padding(
                   padding: EdgeInsets.fromLTRB(0, 12.0, 8.0, 12.0),

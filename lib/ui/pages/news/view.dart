@@ -1,12 +1,11 @@
 import 'package:filcnaplo/data/models/new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_html/style.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../data/context/app.dart';
 
 class NewsView extends StatefulWidget {
   final News news;
@@ -36,7 +35,7 @@ class _NewsViewState extends State<NewsView> {
                 physics: BouncingScrollPhysics(),
                 children: [
                   Text(
-                    widget.news.title,
+                    widget.news.title ?? "",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: FontSize.large.size,
@@ -85,7 +84,7 @@ class _NewsViewState extends State<NewsView> {
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  onPressed: () => app.root.currentState.pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ],
             ),

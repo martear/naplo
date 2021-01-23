@@ -19,6 +19,7 @@ class AverageCalculator extends StatefulWidget {
 class AverageCalculatorState extends State<AverageCalculator> {
   int evaluation = 1;
   double weight = 100;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,7 +117,8 @@ class AverageCalculatorState extends State<AverageCalculator> {
       DateTime.now(), //seen-date
       null,
     );
-    app.root.currentState.pop(tempEval);
+    
+    Navigator.of(context).pop(tempEval);
   }
 
   Widget evalRadio(int value) {

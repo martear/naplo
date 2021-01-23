@@ -60,7 +60,6 @@ class _PageFrameState extends State<PageFrame> {
             Future.forEach(
               app.user.sync.news.fresh,
               (news) async => await showDialog(
-                useSafeArea: true,
                 context: context,
                 builder: (context) => NewsView(news),
               ),
