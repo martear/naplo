@@ -39,7 +39,8 @@ class _EvaluationsPageState extends State<EvaluationsPage>
     _subjectBuilder.build();
   }
 
-  EvalType selectedEvalType = EvalType.midYear;
+  EvaluationType selectedEvalType =
+      app.pageContext.evaluationType ?? EvaluationType.midYear;
   TabController _tabController;
 
   final _refreshKeyGrades = GlobalKey<RefreshIndicatorState>();
@@ -68,7 +69,7 @@ class _EvaluationsPageState extends State<EvaluationsPage>
 
   @override
   Widget build(BuildContext context) {
-    List<EvalType> types = [];
+    List<EvaluationType> types = [];
 
     app.user.sync.evaluation.evaluations.forEach((evaluation) {
       if (!types.contains(evaluation.type)) {
@@ -126,27 +127,27 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                     dropdown: types.length > 1
                         ? CustomDropdown(
                             values: {
-                              EvalType.midYear:
+                              EvaluationType.midYear:
                                   I18n.of(context).evaluationsMidYear,
-                              EvalType.firstQ:
+                              EvaluationType.firstQ:
                                   I18n.of(context).evaluationsQYear,
-                              EvalType.secondQ:
+                              EvaluationType.secondQ:
                                   I18n.of(context).evaluations2qYear,
-                              EvalType.halfYear:
+                              EvaluationType.halfYear:
                                   I18n.of(context).evaluationsHalfYear,
-                              EvalType.thirdQ:
+                              EvaluationType.thirdQ:
                                   I18n.of(context).evaluations3qYear,
-                              EvalType.fourthQ:
+                              EvaluationType.fourthQ:
                                   I18n.of(context).evaluations4qYear,
-                              EvalType.endYear:
+                              EvaluationType.endYear:
                                   I18n.of(context).evaluationsEndYear,
                             },
-                            check: (EvalType type) {
+                            check: (EvaluationType type) {
                               return types.contains(type);
                             },
                             callback: (value) {
-                              setState(() =>
-                                  selectedEvalType = EvalType.values[value]);
+                              setState(() => selectedEvalType =
+                                  EvaluationType.values[value]);
                             },
                             initialValue: selectedEvalType.index,
                           )

@@ -9,7 +9,7 @@ class Evaluation {
   EvaluationValue value;
   String teacher;
   String description;
-  EvalType type;
+  EvaluationType type;
   String groupId;
   Subject subject;
   Type evaluationType;
@@ -48,7 +48,7 @@ class Evaluation {
     );
     String teacher = json["ErtekeloTanarNeve"] ?? "";
     String description = json["Tema"] ?? "";
-    EvalType type =
+    EvaluationType type =
         json["Tipus"] != null ? Type.getEvalType(json["Tipus"]["Nev"]) : null;
     String groupId = json["OsztalyCsoport"]["Uid"] ?? "";
     Subject subject =
@@ -117,4 +117,4 @@ class EvaluationValue {
   }
 }
 
-enum EvalType { midYear, firstQ, secondQ, halfYear, thirdQ, fourthQ, endYear }
+enum EvaluationType { midYear, firstQ, secondQ, halfYear, thirdQ, fourthQ, endYear }

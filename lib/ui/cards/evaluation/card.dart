@@ -1,6 +1,6 @@
 import 'package:filcnaplo/ui/cards/evaluation/tile.dart';
 import 'package:flutter/material.dart';
-import 'package:filcnaplo/ui/cards/card.dart';
+import 'package:filcnaplo/ui/cards/base.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
 
 class EvaluationCard extends BaseCard {

@@ -107,7 +107,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
       EvaluationValue(evaluation, " ", " ", weight.toInt()),
       "", //teacher
       "", //description
-      EvalType.midYear, //type
+      EvaluationType.midYear, //type
       null, //groupid
       widget.subject,
       Type("", "", ""), //evaluationtype

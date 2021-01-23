@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:filcnaplo/data/models/config.dart';
 import 'package:filcnaplo/helpers/settings.dart';
-import 'package:filcnaplo/ui/pages/welcome.dart';
+import 'package:filcnaplo/ui/pages/welcome/page.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:filcnaplo/utils/tools.dart';
 import 'package:flutter/material.dart';

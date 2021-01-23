@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/data/state/sync.dart';
 import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
@@ -8,7 +9,7 @@ import 'package:filcnaplo/ui/pages/evaluations/page.dart';
 import 'package:filcnaplo/ui/pages/home/page.dart';
 import 'package:filcnaplo/ui/pages/messages/page.dart';
 import 'package:filcnaplo/ui/pages/planner/page.dart';
-import 'package:filcnaplo/ui/pages/tutorial.dart';
+import 'package:filcnaplo/ui/pages/welcome/tutorial.dart';
 import 'package:filcnaplo/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';

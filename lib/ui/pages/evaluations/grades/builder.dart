@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class GradeBuilder {
   List<GradeTile> gradeTiles = [];
 
-  void build({EvalType type, int sortBy}) {
+  void build({EvaluationType type, int sortBy}) {
     // sortBy
     // 0 date
     // 1 date R

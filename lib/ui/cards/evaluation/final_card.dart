@@ -1,9 +1,10 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
 import 'package:flutter/material.dart';
-import 'package:filcnaplo/ui/cards/card.dart';
+import 'package:filcnaplo/ui/cards/base.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
 
 class FinalCard extends BaseCard {
@@ -24,25 +25,25 @@ class FinalCard extends BaseCard {
 
     String title = "";
     switch (evals.first.type) {
-      case EvalType.firstQ:
+      case EvaluationType.firstQ:
         title += I18n.of(context).evaluationsQYear;
         break;
-      case EvalType.secondQ:
+      case EvaluationType.secondQ:
         title += I18n.of(context).evaluations2qYear;
         break;
-      case EvalType.halfYear:
+      case EvaluationType.halfYear:
         title += I18n.of(context).evaluationsHalfYear;
         break;
-      case EvalType.thirdQ:
+      case EvaluationType.thirdQ:
         title += I18n.of(context).evaluations3qYear;
         break;
-      case EvalType.fourthQ:
+      case EvaluationType.fourthQ:
         title += I18n.of(context).evaluations4qYear;
         break;
-      case EvalType.endYear:
+      case EvaluationType.endYear:
         title += I18n.of(context).evaluationsEndYear;
         break;
-      case EvalType.midYear:
+      case EvaluationType.midYear:
         break;
     }
     title += (" " + I18n.of(context).evaluations);
@@ -102,7 +103,8 @@ class FinalCard extends BaseCard {
         trailing: IconButton(
           icon: Icon(FeatherIcons.arrowRight),
           onPressed: () {
-            app.gotoPage(PageType.evaluations);
+            app.gotoPage(PageType.evaluations,
+                pageContext: PageContext(evaluationType: evals.first.type));
           },
         ),
       ),

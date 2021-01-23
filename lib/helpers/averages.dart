@@ -24,7 +24,7 @@ Color getAverageColor(double average) {
 
 List<SubjectAverage> calculateSubjectsAverage() {
   List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
-      .where((e) => e.type == EvalType.midYear)
+      .where((e) => e.type == EvaluationType.midYear)
       .toList();
   List<SubjectAverage> averages = [];
   evaluations.forEach((evaluation) {

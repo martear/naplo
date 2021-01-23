@@ -1,7 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/ui/cards/absence/card.dart';
-import 'package:filcnaplo/ui/cards/card.dart';
+import 'package:filcnaplo/ui/cards/base.dart';
 import 'package:filcnaplo/ui/cards/evaluation/card.dart';
 import 'package:filcnaplo/ui/cards/evaluation/final_card.dart';
 import 'package:filcnaplo/ui/cards/exam/card.dart';
@@ -35,7 +35,7 @@ class FeedBuilder {
 
     List<List<Evaluation>> finalEvals = [[], [], [], [], []];
     app.user.sync.evaluation.evaluations.forEach((evaluation) {
-      if (evaluation.type == EvalType.midYear) {
+      if (evaluation.type == EvaluationType.midYear) {
         cards.add(EvaluationCard(
           evaluation,
           key: Key(evaluation.id),

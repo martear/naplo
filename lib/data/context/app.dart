@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/kreta/api.dart';
 import 'package:filcnaplo/data/models/user.dart';
@@ -50,8 +51,15 @@ class AppContext {
   final StorageController storage = StorageController();
   final SyncController sync = SyncController();
   final SearchController search = SearchController();
-  
-  void gotoPage(PageType page) {
+
+  PageContext _pageContext = PageContext();
+
+  void gotoPage(PageType page, {PageContext pageContext}) {
+    if (pageContext != null)
+      _pageContext = pageContext;
+    else
+      _pageContext = PageContext();
+
     switch (page) {
       case PageType.home:
         frameNavigator.currentState.pushReplacementNamed("home");
@@ -70,6 +78,6 @@ class AppContext {
         break;
     }
   }
-}
 
-enum PageType { home, evaluations, planner, messages, absences }
+  PageContext get pageContext => _pageContext;
+}

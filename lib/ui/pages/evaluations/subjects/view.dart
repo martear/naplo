@@ -32,7 +32,7 @@ class _SubjectViewState extends State<SubjectView> {
     studentAvg = 0;
 
     List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
-        .where((evaluation) => evaluation.type == EvalType.midYear)
+        .where((evaluation) => evaluation.type == EvaluationType.midYear)
         .toList();
 
     List<Evaluation> subjectEvals =

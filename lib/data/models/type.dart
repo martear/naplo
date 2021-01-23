@@ -15,15 +15,15 @@ class Type {
     return Type(id, description, name);
   }
 
-  static EvalType getEvalType(String string) {
-    return <String, EvalType>{
-      "evkozi_jegy_ertekeles": EvalType.midYear,
-      "I_ne_jegy_ertekeles": EvalType.firstQ,
-      "II_ne_jegy_ertekeles": EvalType.secondQ,
-      "felevi_jegy_ertekeles": EvalType.halfYear,
-      "III_ne_jegy_ertekeles": EvalType.thirdQ,
-      "IV_ne_jegy_ertekeles": EvalType.fourthQ,
-      "evvegi_jegy_ertekeles": EvalType.endYear,
+  static EvaluationType getEvalType(String string) {
+    return <String, EvaluationType>{
+      "evkozi_jegy_ertekeles": EvaluationType.midYear,
+      "I_ne_jegy_ertekeles": EvaluationType.firstQ,
+      "II_ne_jegy_ertekeles": EvaluationType.secondQ,
+      "felevi_jegy_ertekeles": EvaluationType.halfYear,
+      "III_ne_jegy_ertekeles": EvaluationType.thirdQ,
+      "IV_ne_jegy_ertekeles": EvaluationType.fourthQ,
+      "evvegi_jegy_ertekeles": EvaluationType.endYear,
     }[string];
   }
 }
