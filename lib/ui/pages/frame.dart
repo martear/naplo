@@ -180,7 +180,7 @@ class _PageFrameState extends State<PageFrame> {
         child: Stack(
           children: <Widget>[
             // Page content
-            Navigator(key: app.frameNavigator, onGenerateRoute: handleRoute),
+            Navigator(key: app.frame, onGenerateRoute: handleRoute),
 
             // Sync Progress Indicator
             showSyncProgress

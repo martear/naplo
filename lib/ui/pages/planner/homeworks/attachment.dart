@@ -64,7 +64,7 @@ class _AttachmentTileState extends State<AttachmentTile> {
     }
 
     tapImage() {
-      Navigator.of(context).push(
+      app.root.currentState.push(
         MaterialPageRoute(
           builder: (context) => ImageViewer(
             imageProvider: MemoryImage(data),

@@ -138,11 +138,16 @@ class _AppState extends State<App> {
           onGenerateTitle: (BuildContext context) => I18n.of(context).appTitle,
           title: 'Filc Napló',
           theme: theme,
-          home: app.firstStart
-              ? WelcomePage()
-              : app.users.length > 0
-                  ? PageFrame()
-                  : LoginPage(),
+          home: Navigator(
+            key: app.root,
+            onGenerateRoute: (settings) => PageRouteBuilder(
+              pageBuilder: (context, _, __) => app.firstStart
+                  ? WelcomePage()
+                  : app.users.length > 0
+                      ? PageFrame()
+                      : LoginPage(),
+            ),
+          ),
         );
       },
     );

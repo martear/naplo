@@ -85,7 +85,7 @@ class _NewsViewState extends State<NewsView> {
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => app.root.currentState.pop(),
                 ),
               ],
             ),

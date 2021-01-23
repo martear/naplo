@@ -27,7 +27,7 @@ class AccountHelper {
         .update("settings", {"nickname": newName}).then((_) {
       if (newName.toLowerCase() == "rendszerüzenet" &&
           newName.toLowerCase() != user.name.toLowerCase())
-        Navigator.of(context).push(MaterialPageRoute(
+        app.root.currentState.push(MaterialPageRoute(
           builder: (context) => Scaffold(
             body: Container(
               color: Colors.red[700],
@@ -179,7 +179,7 @@ class AccountHelper {
             textColor: app.settings.appColor,
             child: Text(I18n.of(context).dialogNo),
             onPressed: () {
-              Navigator.of(context).pop(false);
+              app.root.currentState.pop(false);
             },
           ),
           FlatButton(
@@ -192,7 +192,7 @@ class AccountHelper {
               app.storage.deleteUser(user.id).then((_) {
                 if (app.users.length == 0) {
                   DebugHelper().eraseData(context).then((_) {
-                    Navigator.of(context).pushAndRemoveUntil(
+                    app.root.currentState.pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => LoginPage()),
                       (_) => false,
                     );
@@ -202,7 +202,7 @@ class AccountHelper {
                     app.selectedUser = app.users.length - 1;
 
                   app.sync.updateCallback();
-                  Navigator.of(context).pop(true);
+                  app.root.currentState.pop(true);
                 }
               });
             },
@@ -210,7 +210,7 @@ class AccountHelper {
         ],
       ),
     ).then((needsPop) {
-      if (needsPop == true) Navigator.of(context).pop(true);
+      if (needsPop == true) app.root.currentState.pop(true);
     });
   }
 

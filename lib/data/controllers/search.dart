@@ -105,7 +105,7 @@ class SearchController {
           child: GestureDetector(
             child: MessageTile(message),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              app.root.currentState.push(MaterialPageRoute(
                   builder: (context) =>
                       MessageView([message], updateCallback)));
             },

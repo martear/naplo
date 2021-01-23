@@ -116,7 +116,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
       DateTime.now(), //seen-date
       null,
     );
-    Navigator.of(context).pop(tempEval);
+    app.root.currentState.pop(tempEval);
   }
 
   Widget evalRadio(int value) {

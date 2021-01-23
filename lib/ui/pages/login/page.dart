@@ -254,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() => loading = false);
 
                           if (success) {
-                            Navigator.of(context).pushReplacement(
+                            app.root.currentState.pushReplacement(
                                 MaterialPageRoute(
                                     builder: (context) => PageFrame()));
 

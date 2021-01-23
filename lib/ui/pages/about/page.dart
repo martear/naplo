@@ -65,7 +65,7 @@ class AboutPage extends StatelessWidget {
                   icon: FeatherIcons.award,
                   text: I18n.of(context).aboutLicenses,
                   onPressed: () {
-                    Navigator.of(context).push(CupertinoPageRoute(
+                    app.root.currentState.push(CupertinoPageRoute(
                       builder: (context) => LicensePage(
                         applicationName: "Filc Napló",
                         applicationVersion: app.currentAppVersion,
@@ -82,7 +82,7 @@ class AboutPage extends StatelessWidget {
                   icon: FeatherIcons.dollarSign,
                   text: I18n.of(context).aboutSupporters,
                   onPressed: () {
-                    Navigator.of(context).push(
+                    app.root.currentState.push(
                       CupertinoPageRoute(
                           builder: (BuildContext context) => AboutSupporters()),
                     );

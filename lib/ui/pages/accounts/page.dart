@@ -39,7 +39,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height - 58.0,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: <Widget>[
               AppBar(
@@ -125,7 +125,7 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                           onPressed: !app.debugUser
                               ? () {
-                                  Navigator.of(context).push(CupertinoPageRoute(
+                                  app.root.currentState.push(CupertinoPageRoute(
                                       builder: (context) => LoginPage()));
                                 }
                               : null,
@@ -150,7 +150,7 @@ class _AccountPageState extends State<AccountPage> {
                       title: Text(I18n.of(context).settingsTitle),
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(CupertinoPageRoute(
+                      app.root.currentState.push(CupertinoPageRoute(
                           builder: (context) => SettingsPage()));
                     },
                   ),

@@ -224,7 +224,7 @@ class _MessageViewTileState extends State<MessageViewTile> {
                           );
                           messageContext.replyId = widget.message.messageId;
 
-                          Navigator.of(context).push(MaterialPageRoute(
+                          app.root.currentState.push(MaterialPageRoute(
                               builder: (context) => NewMessagePage()));
                         },
                       ),

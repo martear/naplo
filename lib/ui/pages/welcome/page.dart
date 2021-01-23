@@ -1,4 +1,5 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/common/page_transition.dart';
 import 'package:filcnaplo/ui/pages/welcome/features.dart';
@@ -87,8 +88,9 @@ class WelcomePage extends StatelessWidget {
                                   color: Colors.white),
                             ],
                           ),
-                          onPressed: () => Navigator.of(context)
-                              .pushReplacement(PageTransition.horizontal(FeaturesPage())),
+                          onPressed: () => app.root.currentState
+                              .pushReplacement(
+                                  PageTransition.horizontal(FeaturesPage())),
                         ),
                       ),
                       SizedBox(height: 32.0),
@@ -103,7 +105,6 @@ class WelcomePage extends StatelessWidget {
     );
   }
 }
-
 
 class WaveClipper extends CustomClipper<Path> {
   @override

@@ -19,7 +19,8 @@ class AppContext {
   bool firstStart = false;
 
   String appDataPath;
-  final GlobalKey<NavigatorState> frameNavigator = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> frame = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> root = GlobalKey<NavigatorState>();
 
   String currentAppVersion = "unknown";
   String platform = "unknown";
@@ -62,19 +63,19 @@ class AppContext {
 
     switch (page) {
       case PageType.home:
-        frameNavigator.currentState.pushReplacementNamed("home");
+        frame.currentState.pushReplacementNamed("home");
         break;
       case PageType.evaluations:
-        frameNavigator.currentState.pushReplacementNamed("evaluations");
+        frame.currentState.pushReplacementNamed("evaluations");
         break;
       case PageType.planner:
-        frameNavigator.currentState.pushReplacementNamed("planner");
+        frame.currentState.pushReplacementNamed("planner");
         break;
       case PageType.messages:
-        frameNavigator.currentState.pushReplacementNamed("messages");
+        frame.currentState.pushReplacementNamed("messages");
         break;
       case PageType.absences:
-        frameNavigator.currentState.pushReplacementNamed("absences");
+        frame.currentState.pushReplacementNamed("absences");
         break;
     }
   }

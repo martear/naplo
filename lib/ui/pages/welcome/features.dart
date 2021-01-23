@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -64,7 +65,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
                           fontSize: 18.0,
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pushReplacement(
+                      onPressed: () => app.root.currentState.pushReplacement(
                           MaterialPageRoute(
                               builder: (context) => LoginPage()))),
                   FlatButton(
@@ -80,7 +81,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
                         _swiper.next();
                         index++;
                       } else {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        app.root.currentState.pushReplacement(MaterialPageRoute(
                             builder: (context) => LoginPage()));
                       }
                     },

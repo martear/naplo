@@ -107,7 +107,7 @@ class SubjectTile extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          app.root.currentState.push(MaterialPageRoute(
               builder: (context) => SubjectView(subject, classAvg)));
         },
       ),
