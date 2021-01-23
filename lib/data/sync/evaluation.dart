@@ -10,8 +10,6 @@ class EvaluationSync {
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      List<Evaluation> evaluations;
-      List averages;
       evaluations = await app.user.kreta.getEvaluations();
       if (app.user.sync.student.data.groupId != null)
         averages = await app.user.kreta
