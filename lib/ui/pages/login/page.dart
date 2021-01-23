@@ -263,8 +263,9 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.of(context, rootNavigator: true)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => PageFrame()));
-                          } else
+                          } else {
                             Navigator.of(context, rootNavigator: true).pop();
+                          }
 
                           // save login details & reset
                           loginContext = LoginContext();
