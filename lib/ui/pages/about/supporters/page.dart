@@ -22,7 +22,7 @@ class _AboutSupportersState extends State<AboutSupporters> {
           child: Column(
             children: <Widget>[
               ListTile(
-                leading: BackButton(),
+                leading: BackButton(color: Theme.of(context).accentColor),
                 title: Text(
                   I18n.of(context).aboutSupporters,
                   style: TextStyle(fontSize: 20.0),

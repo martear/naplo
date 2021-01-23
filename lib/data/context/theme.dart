@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class ThemeContext {
   static final Map<String, Color> colors = {
-    "blue": Color(0xFF44c0f0),
-    "default": Color(0xFF0FA089),
-    "green": Color(0xFF4aad0f),
-    "lime": Color(0xFF7fd21e),
-    "yellow": Color(0xFFffe934),
-    "orange": Color(0xFFffa400),
-    "red": Color(0xFFf45937),
-    "pink": Color(0xFFff34a8),
-    "purple": Color(0xFFd163ff),
+    "blue": Colors.blue[200],
+    "default": Color(0xFF6bc2b9),
+    "green": Colors.green[200],
+    "lime": Colors.lime[200],
+    "yellow": Colors.yellow[200],
+    "orange": Colors.orange[200],
+    "red": Colors.red[200],
+    "pink": Colors.pink[200],
+    "purple": Colors.purple[200],
   };
 
   List<Color> evalColors = [
@@ -73,7 +73,7 @@ class ThemeContext {
 
   ThemeData tinted() => ThemeData(
         brightness: Brightness.dark,
-        accentColor: Colors.teal[600],
+        accentColor: colors["default"],
         backgroundColor: Color(0xFF1c2d2a),
         scaffoldBackgroundColor: Color(0xFF1c2d2a),
         textTheme: darkText,

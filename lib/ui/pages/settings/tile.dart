@@ -14,7 +14,7 @@ class SettingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic accentColor = TinyColor(color).spin(-20).saturate(100);
+    dynamic accentColor = TinyColor(color).spin(-20).saturate(10);
 
     if (Theme.of(context).brightness == Brightness.light) {
       accentColor = accentColor.darken(10);
@@ -31,8 +31,8 @@ class SettingTile extends StatelessWidget {
             contentPadding: EdgeInsets.only(left: 0.0),
             title: Text(capital(title)),
             leading: Container(
-              height: 45.0,
-              width: 45.0,
+              height: 42.0,
+              width: 42.0,
               decoration: BoxDecoration(
                 color: Color.fromARGB(
                   Theme.of(context).brightness == Brightness.light ? 60 : 30,
@@ -42,7 +42,7 @@ class SettingTile extends StatelessWidget {
                 ),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: accentColor),
+              child: Icon(icon, color: accentColor, size: 26),
             ),
             subtitle: Text(description)),
         onPressed: () {

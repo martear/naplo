@@ -1,5 +1,6 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/kreta/client.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/ui/pages/debug/response_view.dart';
 import 'package:filcnaplo/ui/pages/debug/struct.dart';
 import 'package:filcnaplo/utils/colors.dart';
@@ -69,17 +70,8 @@ class DebugTile extends StatelessWidget {
               child: snapshot.hasData
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12.0),
-                          child: Text(
-                            endpoint.name,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              letterSpacing: .7,
-                            ),
-                          ),
-                        ),
+                      children: [
+                        Label(endpoint.name),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [

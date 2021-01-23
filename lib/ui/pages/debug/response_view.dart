@@ -1,3 +1,4 @@
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class ResponseView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: BackButton(),
+        leading: BackButton(color: Theme.of(context).accentColor),
         title: Text(
           uri,
           overflow: TextOverflow.ellipsis,
@@ -82,16 +83,7 @@ class ResponseView extends StatelessWidget {
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: [
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "HEADERS",
-                style: TextStyle(
-                  fontSize: 15.0,
-                  letterSpacing: .7,
-                ),
-              ),
-            ),
+            Label("Headers"),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
@@ -107,16 +99,7 @@ class ResponseView extends StatelessWidget {
               ),
             ),
             Divider(color: Colors.grey[700]),
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                "RESPONSE",
-                style: TextStyle(
-                  fontSize: 15.0,
-                  letterSpacing: .7,
-                ),
-              ),
-            ),
+            Label("Response"),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

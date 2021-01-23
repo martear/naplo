@@ -2,6 +2,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/helpers/debug.dart';
 import 'package:filcnaplo/modules/printing/main.dart';
 import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
@@ -24,7 +25,7 @@ class _DebugSettingsState extends State<DebugSettings> {
       body: Container(
         child: Column(children: <Widget>[
           AppBar(
-            leading: BackButton(),
+            leading: BackButton(color: Theme.of(context).accentColor),
             centerTitle: true,
             title: Text(
               I18n.of(context).settingsDebugTitle,
@@ -90,15 +91,8 @@ class _DebugSettingsState extends State<DebugSettings> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(12.0),
             alignment: Alignment.topLeft,
-            child: Text(
-              I18n.of(context).settingsDebugExperimental.toUpperCase(),
-              style: TextStyle(
-                fontSize: 15.0,
-                letterSpacing: .7,
-              ),
-            ),
+            child: Label(I18n.of(context).settingsDebugExperimental),
           ),
           ListTile(
             leading: Icon(FeatherIcons.printer),

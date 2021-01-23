@@ -151,7 +151,7 @@ class AboutButton extends StatelessWidget {
     return SizedBox(
       width: 250.0,
       child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+        shape: StadiumBorder(),
         child: ListTile(
             leading: icon != null
                 ? Padding(

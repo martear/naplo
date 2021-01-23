@@ -1,4 +1,5 @@
 import 'package:filcnaplo/helpers/settings.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 class AppearanceSettings extends StatefulWidget {
   @override
@@ -30,6 +32,8 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
     for (int i = 0; i < ThemeContext.colors.values.toList().length; i++) {
       Color color = ThemeContext.colors.values.toList()[i];
 
+      Color displayColor = TinyColor(color).darken(15).color;
+
       colorButtons.add(
         GestureDetector(
           child: Stack(
@@ -39,7 +43,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                 width: 32.0,
                 margin: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
-                  color: color,
+                  color: displayColor,
                   borderRadius: BorderRadius.circular(99.0),
                 ),
               ),
@@ -61,7 +65,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                           height: 18.0,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: color,
+                            color: displayColor,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -80,20 +84,20 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
     }
 
     // add ghost buttons to pad alignment
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
       colorButtons.add(SizedBox(height: 56.0, width: 56.0));
     }
 
     return Scaffold(
       body: Container(
         child: Stack(
-          children: <Widget>[
+          children: [
             CupertinoScrollbar(
               child: ListView(
                 physics: BouncingScrollPhysics(),
-                children: <Widget>[
+                children: [
                   AppBar(
-                    leading: BackButton(),
+                    leading: BackButton(color: Theme.of(context).accentColor),
                     centerTitle: true,
                     title: Text(
                       I18n.of(context).settingsAppearanceTitle,
@@ -104,16 +108,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                   ),
 
                   // Theme Title
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      I18n.of(context).settingsAppearanceTheme.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        letterSpacing: .7,
-                      ),
-                    ),
-                  ),
+                  Label(I18n.of(context).settingsAppearanceTheme),
 
                   // Theme
                   Row(
@@ -123,7 +118,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                       GestureDetector(
                         key: _lightKey,
                         child: Stack(
-                          children: <Widget>[
+                          children: [
                             Container(
                               height: 42.0,
                               width: 42.0,
@@ -153,7 +148,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                       GestureDetector(
                         key: _tintedKey,
                         child: Stack(
-                          children: <Widget>[
+                          children: [
                             Container(
                               height: 42.0,
                               width: 42.0,
@@ -255,16 +250,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
 
                   // App Color
 
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      I18n.of(context).settingsAppearanceColor.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        letterSpacing: .7,
-                      ),
-                    ),
-                  ),
+                  Label(I18n.of(context).settingsAppearanceColor),
 
                   Wrap(
                     direction: Axis.horizontal,
@@ -274,24 +260,13 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
 
                   // Evaluation Colors
 
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      I18n.of(context)
-                          .settingsAppearanceEvalColors
-                          .toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        letterSpacing: .7,
-                      ),
-                    ),
-                  ),
+                  Label(I18n.of(context).settingsAppearanceEvalColors),
 
                   Padding(
                     padding: EdgeInsets.all(4.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
+                      children: [
                         EvaluationColor(5, onChanged: changeColor),
                         EvaluationColor(4, onChanged: changeColor),
                         EvaluationColor(3, onChanged: changeColor),

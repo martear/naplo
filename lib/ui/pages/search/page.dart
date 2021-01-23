@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Icon(FeatherIcons.search),
+                Icon(FeatherIcons.search, color: Theme.of(context).accentColor),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),

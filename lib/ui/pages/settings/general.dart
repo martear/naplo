@@ -2,6 +2,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           children: <Widget>[
             AppBar(
               centerTitle: true,
-              leading: BackButton(),
+              leading: BackButton(color: Theme.of(context).accentColor),
               title: Text(I18n.of(context).settingsGeneralTitle),
               shadowColor: Colors.transparent,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -71,16 +72,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
 
             // Default Page
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                I18n.of(context).settingsGeneralStartPage.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 15.0,
-                  letterSpacing: .7,
-                ),
-              ),
-            ),
+            Label(I18n.of(context).settingsGeneralStartPage),
 
             Row(
               children: () {
@@ -104,16 +96,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
 
             // Default Page
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                I18n.of(context).settingsGeneralRound.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 15.0,
-                  letterSpacing: .7,
-                ),
-              ),
-            ),
+            Label(I18n.of(context).settingsGeneralRound),
 
             Column(
               children: [
@@ -186,6 +169,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                   max: 9.0,
                   onChanged: (roundUp) {
                     setState(() => app.settings.roundUp = roundUp.toInt());
+                    app.storage.storage
+                        .update("settings", {"round_up": roundUp.toInt()});
                   },
                   activeColor: Theme.of(context).accentColor,
                 ),

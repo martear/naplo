@@ -3,6 +3,7 @@ import 'package:filcnaplo/data/models/subject.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
 import 'package:filcnaplo/ui/common/empty.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/tile.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/graph.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -69,7 +70,7 @@ class _SubjectViewState extends State<SubjectView> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: BackButton(color: Theme.of(context).accentColor),
         shadowColor: Colors.transparent,
         backgroundColor: app.settings.theme.scaffoldBackgroundColor,
         actions: <Widget>[
@@ -172,25 +173,14 @@ class _SubjectViewState extends State<SubjectView> {
                 ),
                 child: SubjectGraph(subjectEvals, dayThreshold: 5),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 14.0, top: 18.0, bottom: 8.0),
-                child: Text(
-                  I18n.of(context).evaluationTitle.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    letterSpacing: .7,
-                  ),
-                ),
-              ),
+              Label(I18n.of(context).evaluationTitle),
               Container(
                 padding: EdgeInsets.only(
                     right: 12.0, top: 0, left: 12.0, bottom: 75.0),
                 child: Column(
                   children: evaluationTiles.isNotEmpty
                       ? evaluationTiles
-                      : <Widget>[
-                          Empty(title: I18n.of(context).emptySubjectGrades)
-                        ],
+                      : [Empty(title: I18n.of(context).emptySubjectGrades)],
                 ),
               ),
             ],

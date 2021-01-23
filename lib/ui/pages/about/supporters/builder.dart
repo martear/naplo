@@ -30,7 +30,7 @@ class SupporterBuilder {
           ],
         )));
 
-    if (supporters["progress"]["value"] != null)
+    if (supporters["progress"]["value"] != null) {
       tiles.add(Padding(
         padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
         child: Row(
@@ -38,13 +38,17 @@ class SupporterBuilder {
             Text("\$" + supporters["progress"]["value"].toString()),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: LinearProgressIndicator(
-                  minHeight: 6.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).accentColor),
-                  value: supporters["progress"]["value"] /
-                      supporters["progress"]["max"],
+                padding: EdgeInsets.symmetric(horizontal: 18.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: LinearProgressIndicator(
+                    minHeight: 12.0,
+                    backgroundColor: Colors.black12,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).accentColor),
+                    value: supporters["progress"]["value"] /
+                        supporters["progress"]["max"],
+                  ),
                 ),
               ),
             ),
@@ -52,6 +56,7 @@ class SupporterBuilder {
           ],
         ),
       ));
+    }
 
     if (supporters["top"].length > 0) {
       tiles.add(

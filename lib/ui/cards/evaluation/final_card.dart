@@ -66,7 +66,7 @@ class FinalCard extends BaseCard {
                     finalAvg.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 38.0,
+                        fontSize: 32.0,
                         height: 1.2,
                         fontWeight: FontWeight.w500,
                         color: getAverageColor(finalAvg)),

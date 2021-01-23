@@ -28,8 +28,8 @@ class SearchBar extends StatelessWidget {
       padding: EdgeInsets.only(left: 12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Icon(FeatherIcons.search),
+        children: [
+          Icon(FeatherIcons.search, color: Theme.of(context).accentColor),
           Expanded(
             child: GestureDetector(
               child: Container(

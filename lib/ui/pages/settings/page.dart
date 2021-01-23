@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
           children: <Widget>[
             AppBar(
               centerTitle: true,
-              leading: BackButton(),
+              leading: BackButton(color: Theme.of(context).accentColor),
               title: Text(
                 I18n.of(context).settingsTitle,
                 style: TextStyle(fontSize: 22.0),
@@ -33,7 +33,7 @@ class SettingsPage extends StatelessWidget {
 
             // Settings
             SettingTile(
-                color: Colors.blue,
+                color: Colors.blueAccent,
                 description: capitalize(
                   I18n.of(context).settingsGeneralLanguage +
                       ", " +
@@ -45,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                 icon: FeatherIcons.settings,
                 page: GeneralSettings()),
             SettingTile(
-                color: Colors.pink,
+                color: Colors.pinkAccent,
                 description: capital(I18n.of(context).settingsAppearanceTheme) +
                     ", " +
                     capital(I18n.of(context).settingsAppearanceColor),
@@ -55,13 +55,13 @@ class SettingsPage extends StatelessWidget {
                     : FeatherIcons.moon,
                 page: AppearanceSettings()),
             SettingTile(
-                color: Colors.green,
+                color: Colors.greenAccent,
                 description: capital(I18n.of(context).settingsPrivacySeen),
                 title: I18n.of(context).settingsPrivacyTitle,
                 icon: FeatherIcons.lock,
                 page: PrivacySettings()),
             SettingTile(
-                color: Colors.indigo[400],
+                color: Colors.indigoAccent,
                 description:
                     capital(I18n.of(context).settingsNotificationsTitle) +
                         ", " +
@@ -70,13 +70,13 @@ class SettingsPage extends StatelessWidget {
                 icon: FeatherIcons.bell,
                 page: NotificationSettings()),
             SettingTile(
-                color: Colors.red,
+                color: Colors.red[400],
                 description: capital(I18n.of(context).settingsDebugDelete),
                 title: I18n.of(context).settingsDebugTitle,
                 icon: FeatherIcons.terminal,
                 page: DebugSettings()),
             SettingTile(
-                color: Colors.yellow,
+                color: Colors.lime,
                 description: capital(I18n.of(context).aboutLinks) +
                     ", " +
                     capital(I18n.of(context).aboutLicenses) +

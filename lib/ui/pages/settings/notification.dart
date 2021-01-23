@@ -17,7 +17,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           children: <Widget>[
             AppBar(
               centerTitle: true,
-              leading: BackButton(),
+              leading: BackButton(color: Theme.of(context).accentColor),
               title: Text(I18n.of(context).settingsNotificationsTitle),
               shadowColor: Colors.transparent,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,

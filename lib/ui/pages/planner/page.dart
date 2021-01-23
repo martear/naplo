@@ -1,3 +1,4 @@
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/ui/pages/planner/homeworks/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/exams/builder.dart';
 import 'package:flutter/material.dart';
@@ -138,23 +139,13 @@ class _PlannerPageState extends State<PlannerPage>
                         children: <Widget>[
                           Column(children: _homeworkBuilder.homeworkTiles[0]),
                           _homeworkBuilder.homeworkTiles[0].length == 0
-                              ? Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 12.0, top: 12.0),
-                                  child: Text(
-                                    I18n.of(context).homeworkPast.toUpperCase(),
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      letterSpacing: .7,
-                                    ),
-                                  ),
-                                )
+                              ? Label(I18n.of(context).homeworkPast)
                               : _homeworkBuilder.homeworkTiles[1].length > 0
                                   ? FlatButton(
                                       onPressed: () => setState(() =>
                                           showPastHomework = !showPastHomework),
                                       child: Row(
-                                        children: <Widget>[
+                                        children: [
                                           Expanded(
                                               child: Text(I18n.of(context)
                                                   .homeworkPast)),
@@ -205,17 +196,7 @@ class _PlannerPageState extends State<PlannerPage>
                         children: <Widget>[
                           Column(children: _examBuilder.examTiles[0]),
                           _examBuilder.examTiles[0].length == 0
-                              ? Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 12.0, top: 12.0),
-                                  child: Text(
-                                    I18n.of(context).examPast.toUpperCase(),
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      letterSpacing: .7,
-                                    ),
-                                  ),
-                                )
+                              ? Label(I18n.of(context).examPast.toUpperCase())
                               : _examBuilder.examTiles[1].length > 0
                                   ? FlatButton(
                                       onPressed: () => setState(

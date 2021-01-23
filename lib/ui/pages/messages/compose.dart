@@ -189,6 +189,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
                   children: <Widget>[
                     // Back
                     BackButton(
+                      color: Theme.of(context).accentColor,
                       onPressed: () {
                         Navigator.pop(context);
                       },

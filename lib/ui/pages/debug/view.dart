@@ -28,7 +28,7 @@ class _DebugViewState extends State<DebugView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: BackButton(),
+        leading: BackButton(color: Theme.of(context).accentColor),
         title: Text(debug.title),
         shadowColor: Colors.transparent,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

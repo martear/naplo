@@ -11,7 +11,7 @@ class PrivacySettings extends StatelessWidget {
           children: <Widget>[
             AppBar(
               centerTitle: true,
-              leading: BackButton(),
+              leading: BackButton(color: Theme.of(context).accentColor),
               title: Text(I18n.of(context).settingsPrivacyTitle),
               shadowColor: Colors.transparent,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,

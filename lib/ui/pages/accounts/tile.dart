@@ -130,12 +130,7 @@ class AccountTileButton extends StatelessWidget {
         onPressed: onPressed,
         child: Column(
           children: [
-            icon != null
-                ? Icon(
-                    icon,
-                    size: 20.0,
-                  )
-                : Container(),
+            icon != null ? Icon(icon, size: 20.0) : Container(),
             icon != null ? SizedBox(height: 3.0) : Container(),
             title != ""
                 ? Text(

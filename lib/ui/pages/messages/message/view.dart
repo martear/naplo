@@ -103,6 +103,7 @@ class _MessageViewTileState extends State<MessageViewTile> {
         children: <Widget>[
           (widget.isFirst)
               ? AppBar(
+                  leading: BackButton(color: Theme.of(context).accentColor),
                   shadowColor: Colors.transparent,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   actions: <Widget>[
