@@ -16,12 +16,12 @@ class ExamView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: ProfileIcon(name: exam.teacher),
             title: Row(
-              children: <Widget>[
+              children: [
                 Expanded(
                   child: Text(
                     exam.teacher != null
@@ -40,7 +40,7 @@ class ExamView extends StatelessWidget {
           // Test details
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               exam.description != ""
                   ? TestDetail(
                       I18n.of(context).evaluationDescription,
@@ -77,7 +77,7 @@ class TestDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

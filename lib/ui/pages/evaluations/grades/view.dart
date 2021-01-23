@@ -16,7 +16,7 @@ class EvaluationView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
             contentPadding: EdgeInsets.only(left: 12.0),
             leading: Text(
@@ -37,7 +37,7 @@ class EvaluationView extends StatelessWidget {
               ),
             ),
             title: Row(
-              children: <Widget>[
+              children: [
                 Expanded(
                   child: Text(
                     capital(evaluation.subject.name),
@@ -61,7 +61,7 @@ class EvaluationView extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               EvaluationDetail(
                 I18n.of(context).evaluationValue,
                 evaluation.value.valueName.replaceFirst("(", " (") +
@@ -118,7 +118,7 @@ class EvaluationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

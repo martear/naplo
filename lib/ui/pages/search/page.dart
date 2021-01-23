@@ -24,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
     return Material(
       color: app.settings.theme.scaffoldBackgroundColor,
       child: Stack(
-        children: <Widget>[
+        children: [
           // Results
           CupertinoScrollbar(
             child: ListView.builder(
@@ -66,12 +66,13 @@ class _SearchPageState extends State<SearchPage> {
             padding: EdgeInsets.only(left: 12.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 Icon(FeatherIcons.search, color: Theme.of(context).accentColor),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: TextField(
+                      cursorColor: Theme.of(context).accentColor,
                       controller: _searchController,
                       autofocus: true,
                       decoration: InputDecoration(

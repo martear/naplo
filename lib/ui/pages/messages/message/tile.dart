@@ -59,7 +59,7 @@ class MessageTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 4.0),
         child: ListTile(
           leading: ProfileIcon(name: message.sender),
-          title: Row(children: <Widget>[
+          title: Row(children: [
             Expanded(
               child: Text(
                 message.sender,
@@ -67,7 +67,7 @@ class MessageTile extends StatelessWidget {
                 style: TextStyle(fontSize: 16.0),
               ),
             ),
-            Row(children: <Widget>[
+            Row(children: [
               (message.attachments.length > 0)
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4.0),

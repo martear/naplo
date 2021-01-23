@@ -126,7 +126,7 @@ class _AttachmentTileState extends State<AttachmentTile> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
               child: Row(
-                children: <Widget>[
+                children: [
                   Icon(FeatherIcons.file),
                   Expanded(
                     child: Padding(
@@ -137,7 +137,10 @@ class _AttachmentTileState extends State<AttachmentTile> {
                       ),
                     ),
                   ),
-                  Icon(FeatherIcons.download),
+                  Icon(
+                    FeatherIcons.download,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ],
               ),
             ),

@@ -130,16 +130,20 @@ class AccountTileButton extends StatelessWidget {
         onPressed: onPressed,
         child: Column(
           children: [
-            icon != null ? Icon(icon, size: 20.0) : Container(),
-            icon != null ? SizedBox(height: 3.0) : Container(),
-            title != ""
-                ? Text(
-                    capitalize(title),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.fade,
-                    softWrap: false,
-                  )
-                : Container(),
+            if (icon != null)
+              Icon(
+                icon,
+                size: 20.0,
+                color: Theme.of(context).accentColor,
+              ),
+            if (icon != null) SizedBox(height: 3.0),
+            if (title != "")
+              Text(
+                capitalize(title),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+              ),
           ],
         ),
       ),

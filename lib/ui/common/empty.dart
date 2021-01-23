@@ -10,7 +10,7 @@ class Empty extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           Text(
             "¯\\_(ツ)_/¯",
             style: TextStyle(fontSize: 18.0, color: Colors.grey[600]),

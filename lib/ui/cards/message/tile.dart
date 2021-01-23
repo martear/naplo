@@ -18,7 +18,7 @@ class MessageTile extends StatelessWidget {
           alignment: Alignment.center,
           child: ProfileIcon(name: message.sender)),
       title: Row(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Text(
               message.sender,

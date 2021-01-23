@@ -52,7 +52,7 @@ class ResponseView extends StatelessWidget {
           uri,
           overflow: TextOverflow.ellipsis,
         ),
-        actions: <Widget>[
+        actions: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

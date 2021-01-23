@@ -30,7 +30,7 @@ class HomeworkTile extends StatelessWidget {
           child: Icon(FeatherIcons.home, color: app.settings.appColor),
         ),
         title: Row(
-          children: <Widget>[
+          children: [
             Expanded(
               child: Text(
                 capital(homework.subjectName),

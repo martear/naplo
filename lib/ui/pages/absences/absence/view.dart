@@ -18,7 +18,7 @@ class AbsenceView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: ProfileIcon(name: absence.teacher),
@@ -43,7 +43,7 @@ class AbsenceView extends StatelessWidget {
           // Absence Details
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               absence.lessonIndex != null
                   ? AbsenceDetail(
                       I18n.of(context).delayLesson,
@@ -101,7 +101,7 @@ class AbsenceDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

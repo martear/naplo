@@ -26,7 +26,7 @@ class HomeworkTile extends StatelessWidget {
           ),
         ),
         title: Row(
-          children: <Widget>[
+          children: [
             Expanded(
               child: Text(capital(homework.subjectName)),
             ),

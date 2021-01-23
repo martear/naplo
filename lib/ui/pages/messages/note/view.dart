@@ -28,9 +28,9 @@ class NoteView extends StatelessWidget {
       margin: EdgeInsets.only(top: 64.0),
       padding: EdgeInsets.only(top: 24.0),
       child: Column(
-        children: <Widget>[
+        children: [
           Column(
-            children: <Widget>[
+            children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
                 child: Text(
@@ -45,7 +45,8 @@ class NoteView extends StatelessWidget {
                 title: Text(note.teacher),
                 subtitle: Text(formatDate(context, note.date)),
                 trailing: IconButton(
-                  icon: Icon(FeatherIcons.share2),
+                  icon: Icon(FeatherIcons.share2,
+                      color: Theme.of(context).accentColor),
                   onPressed: () {
                     Share.share(note.content);
                   },
@@ -57,7 +58,7 @@ class NoteView extends StatelessWidget {
             child: CupertinoScrollbar(
               child: ListView(
                 physics: BouncingScrollPhysics(),
-                children: <Widget>[
+                children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
                     child: app.settings.renderHtml

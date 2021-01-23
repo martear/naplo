@@ -62,7 +62,7 @@ class _PlannerPageState extends State<PlannerPage>
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {
-          return <Widget>[
+          return [
             SliverAppBar(
               backgroundColor:
                   app.settings.theme.bottomNavigationBarTheme.backgroundColor,
@@ -74,7 +74,7 @@ class _PlannerPageState extends State<PlannerPage>
                 I18n.of(context).plannerTitle,
                 style: TextStyle(fontSize: 22.0),
               ),
-              actions: <Widget>[
+              actions: [
                 app.debugMode
                     ? DebugButton(DebugViewClass.planner)
                     : Container(),
@@ -99,7 +99,7 @@ class _PlannerPageState extends State<PlannerPage>
         },
         body: TabBarView(
           controller: _tabController,
-          children: <Widget>[
+          children: [
             // Timetable
             RefreshIndicator(
               key: _refreshKeyTimetable,
@@ -136,7 +136,7 @@ class _PlannerPageState extends State<PlannerPage>
                         padding: EdgeInsets.only(top: 12.0),
                         physics: BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        children: <Widget>[
+                        children: [
                           Column(children: _homeworkBuilder.homeworkTiles[0]),
                           _homeworkBuilder.homeworkTiles[0].length == 0
                               ? Label(I18n.of(context).homeworkPast)
@@ -193,7 +193,7 @@ class _PlannerPageState extends State<PlannerPage>
                         padding: EdgeInsets.only(top: 12.0),
                         physics: BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        children: <Widget>[
+                        children: [
                           Column(children: _examBuilder.examTiles[0]),
                           _examBuilder.examTiles[0].length == 0
                               ? Label(I18n.of(context).examPast.toUpperCase())
@@ -202,7 +202,7 @@ class _PlannerPageState extends State<PlannerPage>
                                       onPressed: () => setState(
                                           () => showPastExams = !showPastExams),
                                       child: Row(
-                                        children: <Widget>[
+                                        children: [
                                           Expanded(
                                               child: Text(
                                                   I18n.of(context).examPast)),

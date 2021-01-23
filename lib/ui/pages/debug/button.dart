@@ -12,7 +12,7 @@ class DebugButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(FeatherIcons.cpu),
+      icon: Icon(FeatherIcons.cpu, color: Theme.of(context).accentColor),
       onPressed: () => app.root.currentState.push(
           CupertinoPageRoute(builder: (context) => DebugView(type: type))),
     );

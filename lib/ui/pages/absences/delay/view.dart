@@ -18,7 +18,7 @@ class DelayView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: ProfileIcon(name: delay.teacher),
@@ -43,7 +43,7 @@ class DelayView extends StatelessWidget {
           // Delay Details
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               delay.lessonIndex != null
                   ? DelayDetail(
                       I18n.of(context).delayLesson,
@@ -101,7 +101,7 @@ class DelayDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

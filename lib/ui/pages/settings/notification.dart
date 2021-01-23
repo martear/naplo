@@ -14,7 +14,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
     return Scaffold(
       body: Container(
         child: Column(
-          children: <Widget>[
+          children: [
             AppBar(
               centerTitle: true,
               leading: BackButton(color: Theme.of(context).accentColor),
@@ -26,6 +26,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
               leading: Icon(FeatherIcons.mail),
               title: Text(I18n.of(context).settingsNotificationsNews),
               trailing: Switch(
+                activeColor: Theme.of(context).accentColor,
                 value: app.settings.enableNews,
                 onChanged: (bool value) {
                   setState(() {
@@ -43,6 +44,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   : FeatherIcons.bellOff),
               title: Text(I18n.of(context).settingsNotificationsTitle),
               trailing: Switch(
+                activeColor: Theme.of(context).accentColor,
                 value: app.settings.enableNotifications,
                 onChanged: (bool value) {
                   setState(() {

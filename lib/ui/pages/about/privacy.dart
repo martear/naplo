@@ -16,7 +16,7 @@ class AboutPrivacy extends StatelessWidget {
         padding: EdgeInsets.only(top: 18.0, bottom: 4.0),
         margin: EdgeInsets.all(32.0),
         child: Column(
-          children: <Widget>[
+          children: [
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),

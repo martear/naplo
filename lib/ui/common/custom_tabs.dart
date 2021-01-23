@@ -16,7 +16,7 @@ class CustomTabButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+        children: [
           Expanded(
             child: Text(
               title,

@@ -65,7 +65,7 @@ SpeedDialChild speedDialButton(
     child: Row(
       mainAxisAlignment:
           selected ? MainAxisAlignment.start : MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         selected
             ? Container(
                 decoration: BoxDecoration(

@@ -16,7 +16,7 @@ class TimetableView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
             contentPadding: EdgeInsets.only(left: 4.0),
             leading: Container(
@@ -27,6 +27,7 @@ class TimetableView extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 42.0,
                   height: 1.15,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
@@ -56,7 +57,7 @@ class TimetableView extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               lesson.room != ""
                   ? TimetableDetail(I18n.of(context).lessonRoom, lesson.room)
                   : Container(),
@@ -106,7 +107,7 @@ class TimetableDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

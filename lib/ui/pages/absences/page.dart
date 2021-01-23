@@ -70,7 +70,7 @@ class _AbsencesPageState extends State<AbsencesPage>
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {
-          return <Widget>[
+          return [
             SliverAppBar(
               floating: true,
               pinned: true,
@@ -82,7 +82,7 @@ class _AbsencesPageState extends State<AbsencesPage>
                 I18n.of(context).absenceTitle,
                 style: TextStyle(fontSize: 22.0),
               ),
-              actions: <Widget>[
+              actions: [
                 app.debugMode
                     ? DebugButton(DebugViewClass.absences)
                     : Container(),

@@ -35,7 +35,7 @@ class DelayTile extends StatelessWidget {
                   size: 30),
             ),
             title: Row(
-              children: <Widget>[
+              children: [
                 Expanded(
                   child: Row(
                     children: [

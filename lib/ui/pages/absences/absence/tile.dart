@@ -90,7 +90,7 @@ class AbsenceTileSmall extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
         child: Row(
-          children: <Widget>[
+          children: [
             Icon(
               absence.state == "Igazolt"
                   ? FeatherIcons.check

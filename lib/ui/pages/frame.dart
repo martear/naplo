@@ -177,7 +177,7 @@ class _PageFrameState extends State<PageFrame> {
     return Scaffold(
       body: Container(
         child: Stack(
-          children: <Widget>[
+          children: [
             // Page content
             Navigator(key: app.frame, onGenerateRoute: handleRoute),
 

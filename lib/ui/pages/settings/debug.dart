@@ -23,7 +23,7 @@ class _DebugSettingsState extends State<DebugSettings> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-        child: Column(children: <Widget>[
+        child: Column(children: [
           AppBar(
             leading: BackButton(color: Theme.of(context).accentColor),
             centerTitle: true,
@@ -35,6 +35,7 @@ class _DebugSettingsState extends State<DebugSettings> {
               Padding(
                 padding: EdgeInsets.only(right: 8.0),
                 child: Switch(
+                  activeColor: Theme.of(context).accentColor,
                   value: app.debugMode,
                   onChanged: (value) => setState(() {
                     app.debugMode = value;
@@ -80,6 +81,7 @@ class _DebugSettingsState extends State<DebugSettings> {
                   color: app.debugMode ? null : Colors.grey,
                 )),
             trailing: Switch(
+              activeColor: Theme.of(context).accentColor,
               value: app.debugMode && app.settings.renderHtml,
               onChanged: (bool value) {
                 setState(() => app.settings.renderHtml = value);

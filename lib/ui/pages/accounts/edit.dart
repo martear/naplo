@@ -46,7 +46,7 @@ class _EditAccountTileState extends State<EditAccountTile> {
               GestureDetector(
                 child: Stack(
                   alignment: Alignment.center,
-                  children: <Widget>[
+                  children: [
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.black,
@@ -79,6 +79,7 @@ class _EditAccountTileState extends State<EditAccountTile> {
               !editProfileI
                   ? Expanded(
                       child: TextField(
+                        cursorColor: Theme.of(context).accentColor,
                         autofocus: true,
                         controller: _userNameController,
                         textAlign: TextAlign.left,

@@ -8,7 +8,7 @@ class PrivacySettings extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Column(
-          children: <Widget>[
+          children: [
             AppBar(
               centerTitle: true,
               leading: BackButton(color: Theme.of(context).accentColor),
@@ -20,6 +20,7 @@ class PrivacySettings extends StatelessWidget {
               leading: Icon(FeatherIcons.eye),
               title: Text(I18n.of(context).settingsPrivacySeen),
               trailing: Switch(
+                activeColor: Theme.of(context).accentColor,
                 value: false,
                 onChanged: (bool value) {
                   // magic

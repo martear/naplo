@@ -45,7 +45,7 @@ class LessonTile extends StatelessWidget {
               : BorderSide(color: Colors.transparent),
         ),
         child: Column(
-          children: <Widget>[
+          children: [
             ListTile(
               leading: Text(
                 lesson.lessonIndex,
@@ -110,48 +110,49 @@ class LessonTile extends StatelessWidget {
               ),
             ),
             if (homework != null || exams.isNotEmpty)
-            Container(
-              padding: EdgeInsets.only(left: 70.0),
-              margin: EdgeInsets.only(bottom: 5.0),
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                runSpacing: 1.0,
-                children: [
-                      homework != null
-                          ? CustomChip(
+              Container(
+                padding: EdgeInsets.only(left: 70.0),
+                margin: EdgeInsets.only(bottom: 5.0),
+                child: Wrap(
+                  alignment: WrapAlignment.start,
+                  runSpacing: 1.0,
+                  children: [
+                        homework != null
+                            ? CustomChip(
+                                color: textColor(
+                                    Theme.of(context).backgroundColor),
+                                icon: FeatherIcons.home,
+                                text: escapeHtml(homework.content)
+                                    .replaceAll("\n", " "),
+                                onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  isScrollControlled: true,
+                                  builder: (context) => HomeworkView(homework),
+                                ),
+                              )
+                            : Container(),
+                        Container(), // DON'T DELETE, IT BREAKS ALIGNMENT SOMEHOW
+                      ] +
+                      exams
+                          .map(
+                            (exam) => CustomChip(
                               color:
                                   textColor(Theme.of(context).backgroundColor),
-                              icon: FeatherIcons.home,
-                              text: escapeHtml(homework.content)
-                                  .replaceAll("\n", " "),
+                              icon: FeatherIcons.edit2,
+                              text: exam.description != null
+                                  ? exam.description.replaceAll("\n", " ")
+                                  : exam.mode.description,
                               onTap: () => showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                builder: (context) => HomeworkView(homework),
+                                builder: (context) => ExamView(exam),
                               ),
-                            )
-                          : Container(),
-                      Container(), // DON'T DELETE, IT BREAKS ALIGNMENT SOMEHOW
-                    ] +
-                    exams
-                        .map(
-                          (exam) => CustomChip(
-                            color: textColor(Theme.of(context).backgroundColor),
-                            icon: FeatherIcons.edit2,
-                            text: exam.description != null
-                                ? exam.description.replaceAll("\n", " ")
-                                : exam.mode.description,
-                            onTap: () => showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => ExamView(exam),
                             ),
-                          ),
-                        )
-                        .toList(),
+                          )
+                          .toList(),
+                ),
               ),
-            ),
           ],
         ),
         onPressed: () => lesson.isEmpty
@@ -186,7 +187,7 @@ class SpecialDateTile extends LessonTile {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
           margin: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 8.0),

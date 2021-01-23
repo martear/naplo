@@ -34,7 +34,7 @@ class AccountHelper {
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
+                  children: [
                     Container(
                       color: Colors.red[900],
                       padding: EdgeInsets.all(12.0),
@@ -50,7 +50,7 @@ class AccountHelper {
                     Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           Text(
                             "Hiba történt. Kérjük próbálja újra!",
                             style: TextStyle(
@@ -174,12 +174,12 @@ class AccountHelper {
       builder: (context) => AlertDialog(
         backgroundColor: app.settings.theme.backgroundColor,
         content: Text(I18n.of(context).accountDeleteConfirm(user.name)),
-        actions: <Widget>[
+        actions: [
           FlatButton(
             textColor: app.settings.appColor,
             child: Text(I18n.of(context).dialogNo),
             onPressed: () {
-              app.root.currentState.pop(false);
+              Navigator.of(context).pop(false);
             },
           ),
           FlatButton(
@@ -202,7 +202,7 @@ class AccountHelper {
                     app.selectedUser = app.users.length - 1;
 
                   app.sync.updateCallback();
-                  app.root.currentState.pop(true);
+                  Navigator.of(context).pop(true);
                 }
               });
             },
@@ -210,7 +210,7 @@ class AccountHelper {
         ],
       ),
     ).then((needsPop) {
-      if (needsPop == true) app.root.currentState.pop(true);
+      if (needsPop == true) Navigator.of(context).pop(true);
     });
   }
 

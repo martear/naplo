@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
         padding: EdgeInsets.only(top: 8.0, left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             AppBar(
               centerTitle: true,
               leading: BackButton(color: Theme.of(context).accentColor),

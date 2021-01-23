@@ -3,6 +3,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
+import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/ui/cards/base.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
@@ -20,8 +21,7 @@ class FinalCard extends BaseCard {
 
   @override
   Widget build(BuildContext context) {
-    double finalAvg =
-        double.parse(averageEvals(evals, forceWeight: 100).toStringAsFixed(1));
+    double finalAvg = averageEvals(evals, forceWeight: 100) +1;
 
     String title = "";
     switch (evals.first.type) {
@@ -52,56 +52,71 @@ class FinalCard extends BaseCard {
         evals.where((e) => e.description == "Dicséret").length;
     int failedAmount = evals.where((e) => e.value.value == 1).length;
 
+    Color color = textColor(getAverageColor(finalAvg));
+    Color secondary = color.withAlpha(180);
+
     return BaseCard(
+      color: getAverageColor(finalAvg),
+      gradient: true,
+      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Container(
-            width: 46.0,
-            height: 46.0,
-            child: Container(
-                alignment: Alignment.center,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    finalAvg.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 32.0,
-                        height: 1.2,
-                        fontWeight: FontWeight.w500,
-                        color: getAverageColor(finalAvg)),
-                  ),
-                ))),
+          width: 46.0,
+          height: 46.0,
+          child: Container(
+            alignment: Alignment.center,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                finalAvg.toStringAsFixed(1),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28.0,
+                  height: 1.2,
+                  fontWeight: FontWeight.w500,
+                  color: color,
+                ),
+              ),
+            ),
+          ),
+        ),
         title: Row(
           children: [
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: color),
             ),
             Text(" • " + evals.length.toString() + I18n.of(context).amount,
                 style: TextStyle(
                     fontSize: Theme.of(context).textTheme.bodyText2.fontSize,
-                    color: Theme.of(context).textTheme.caption.color),
+                    color: secondary),
                 overflow: TextOverflow.ellipsis)
           ],
         ),
         subtitle: (dicseretesAmount + failedAmount) > 0
-            ? Text((dicseretesAmount > 0
-                    ? (I18n.of(context).evaluationsCompliment +
-                        ": " +
-                        dicseretesAmount.toString() +
-                        I18n.of(context).amount +
-                        ((failedAmount > 0) ? ", " : ""))
-                    : ("")) +
-                (failedAmount > 0
-                    ? (I18n.of(context).evaluationsFailed +
-                        ": " +
-                        failedAmount.toString() +
-                        I18n.of(context).amount)
-                    : ("")))
+            ? Text(
+                (dicseretesAmount > 0
+                        ? (I18n.of(context).evaluationsCompliment +
+                            ": " +
+                            dicseretesAmount.toString() +
+                            I18n.of(context).amount +
+                            ((failedAmount > 0) ? ", " : ""))
+                        : ("")) +
+                    (failedAmount > 0
+                        ? (I18n.of(context).evaluationsFailed +
+                            ": " +
+                            failedAmount.toString() +
+                            I18n.of(context).amount)
+                        : ("")),
+                style: TextStyle(color: secondary),
+              )
             : null,
         trailing: IconButton(
-          icon: Icon(FeatherIcons.arrowRight),
+          icon: Icon(
+            FeatherIcons.arrowRight,
+            color: color,
+          ),
           onPressed: () {
             app.gotoPage(PageType.evaluations,
                 pageContext: PageContext(evaluationType: evals.first.type));

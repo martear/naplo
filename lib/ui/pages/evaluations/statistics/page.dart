@@ -25,7 +25,7 @@ class StatsBlock extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 EvaluationBlock(
                   title: "5",
                   value: values[4],
@@ -48,7 +48,7 @@ class StatsBlock extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   EvaluationBlock(
                     title: "2",
                     value: values[1],
@@ -153,7 +153,7 @@ class StatisticsPage extends StatelessWidget {
       child: CupertinoScrollbar(
         child: ListView(
           physics: BouncingScrollPhysics(),
-          children: <Widget>[
+          children: [
             //Grades
             StatisticsTitle(
                 FeatherIcons.bookmark, I18n.of(context).evaluationsYourGrades),
@@ -207,7 +207,7 @@ class EvaluationBlock extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
+        children: [
           title != null
               ? Container(
                   width: 42.0,

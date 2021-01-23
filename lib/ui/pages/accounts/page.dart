@@ -21,6 +21,7 @@ class _AccountPageState extends State<AccountPage> {
     app.sync.updateCallback();
     app.sync.fullSync();
     app.user.kreta.userAgent = app.settings.config.data.userAgent;
+    Navigator.of(context).pop();
   }
 
   @override
@@ -41,7 +42,7 @@ class _AccountPageState extends State<AccountPage> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: Column(
-            children: <Widget>[
+            children: [
               AppBar(
                 leading: Container(),
                 title: Text(I18n.of(context).accountTitle),
@@ -73,7 +74,7 @@ class _AccountPageState extends State<AccountPage> {
                 child: Container(
                   padding: EdgeInsets.only(top: 12.0),
                   child: Column(
-                    children: <Widget>[
+                    children: [
                       app.users.length > 0
                           ? AccountTile(
                               app.users[app.selectedUser],

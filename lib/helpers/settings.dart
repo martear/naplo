@@ -34,7 +34,7 @@ class SettingsHelper {
           circleSize: 54,
           shrinkWrap: true,
         ),
-        actions: <Widget>[
+        actions: [
           FlatButton(
             child: Text(
               I18n.of(context).dialogOk,

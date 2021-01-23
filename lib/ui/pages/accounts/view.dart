@@ -39,7 +39,7 @@ class _AccountViewState extends State<AccountView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             // User
             ListTile(
               contentPadding: EdgeInsets.only(top: 8.0, bottom: 4.0),
@@ -76,7 +76,7 @@ class _AccountViewState extends State<AccountView> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
+                    children: [
                       widget.user.name != widget.user.realName
                           ? StudentDetail(I18n.of(context).studentRealName,
                               widget.user.realName)
@@ -121,7 +121,7 @@ class StudentDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capitalize(title) + ":  ",
           style: TextStyle(

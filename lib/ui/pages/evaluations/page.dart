@@ -95,7 +95,7 @@ class _EvaluationsPageState extends State<EvaluationsPage>
           : null,
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {
-          return <Widget>[
+          return [
             SliverAppBar(
               floating: true,
               pinned: true,

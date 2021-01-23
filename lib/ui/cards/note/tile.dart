@@ -12,7 +12,7 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Container(
       child: (note.type.name == "HaziFeladatHiany" ||
               note.type.name == "Felszereleshiany")
           ? MissTile(note)
@@ -24,7 +24,7 @@ class NoteTile extends StatelessWidget {
                   alignment: Alignment.center,
                   child: ProfileIcon(name: note.teacher)),
               title: Row(
-                children: <Widget>[
+                children: [
                   Expanded(
                     child: Text(
                       note.teacher,
@@ -44,15 +44,15 @@ class NoteTile extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) => NoteView(note),
+                );
+              },
             ),
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          isScrollControlled: true,
-          builder: (BuildContext context) => NoteView(note),
-        );
-      },
     );
   }
 }

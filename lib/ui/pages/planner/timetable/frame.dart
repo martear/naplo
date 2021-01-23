@@ -109,11 +109,11 @@ class _TimetableFrameState extends State<TimetableFrame>
 
         return Container(
           child: Column(
-            children: <Widget>[
+            children: [
               Container(
                 padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
                 child: Row(
-                  children: <Widget>[
+                  children: [
                     IconButton(
                       icon: Icon(FeatherIcons.chevronLeft),
                       onPressed: () {

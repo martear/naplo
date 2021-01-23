@@ -79,14 +79,14 @@ class _MessagesPageState extends State<MessagesPage>
               onPressed: () {
                 messageContext = MessageContext();
 
-                Navigator.push(context,
+                app.root.currentState.push(
                     MaterialPageRoute(builder: (context) => NewMessagePage()));
               },
             )
           : null,
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {
-          return <Widget>[
+          return [
             SliverAppBar(
               floating: true,
               pinned: true,
@@ -99,7 +99,7 @@ class _MessagesPageState extends State<MessagesPage>
                 I18n.of(context).messageTitle,
                 style: TextStyle(fontSize: 22.0),
               ),
-              actions: <Widget>[
+              actions: [
                 app.debugMode
                     ? DebugButton(DebugViewClass.messages)
                     : Container(),
@@ -136,7 +136,7 @@ class _MessagesPageState extends State<MessagesPage>
         },
         body: TabBarView(
           controller: _tabController,
-          children: <Widget>[
+          children: [
             // Messages
             RefreshIndicator(
               key: _refreshKeyMessages,

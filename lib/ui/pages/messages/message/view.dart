@@ -100,56 +100,55 @@ class _MessageViewTileState extends State<MessageViewTile> {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          (widget.isFirst)
-              ? AppBar(
-                  leading: BackButton(color: Theme.of(context).accentColor),
-                  shadowColor: Colors.transparent,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  actions: <Widget>[
-                      Tooltip(
-                        message: capital(widget.message.deleted
-                            ? I18n.of(context).messageRestore
-                            : I18n.of(context).messageArchive),
-                        child: IconButton(
-                            icon: Icon(widget.message.deleted
+        children: [
+          if (widget.isFirst)
+            AppBar(
+                leading: BackButton(color: Theme.of(context).accentColor),
+                shadowColor: Colors.transparent,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                actions: [
+                  Tooltip(
+                    message: capital(widget.message.deleted
+                        ? I18n.of(context).messageRestore
+                        : I18n.of(context).messageArchive),
+                    child: IconButton(
+                        icon: Icon(
+                            widget.message.deleted
                                 ? FeatherIcons.arrowUp
-                                : FeatherIcons.archive),
+                                : FeatherIcons.archive,
+                            color: Theme.of(context).accentColor),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          widget.archiveCallback(
+                              context, !widget.message.deleted);
+                        }),
+                  ),
+                  widget.message.deleted
+                      ? Tooltip(
+                          message: capital(I18n.of(context).messageDelete),
+                          child: IconButton(
+                            icon: Icon(FeatherIcons.trash2),
                             onPressed: () {
                               Navigator.pop(context);
-                              widget.archiveCallback(
-                                  context, !widget.message.deleted);
-                            }),
-                      ),
-                      widget.message.deleted
-                          ? Tooltip(
-                              message: capital(I18n.of(context).messageDelete),
-                              child: IconButton(
-                                icon: Icon(FeatherIcons.trash2),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  widget.deleteCallback(context);
-                                },
-                              ))
-                          : Container()
-                    ])
-              : Container(),
-          widget.isFirst
-              ? Padding(
-                  padding:
-                      EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                  child: Text(
-                    widget.message.subject,
-                    style: TextStyle(fontSize: 24.0),
-                  ),
-                )
-              : Container(),
+                              widget.deleteCallback(context);
+                            },
+                          ))
+                      : Container()
+                ]),
+          if (widget.isFirst)
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
+              child: Text(
+                widget.message.subject,
+                style: TextStyle(fontSize: 24.0),
+              ),
+            ),
           RawMaterialButton(
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
                 leading: ProfileIcon(name: widget.message.sender),
                 title: Row(
-                  children: <Widget>[
+                  children: [
                     Expanded(
                       child: Text(
                         widget.message.sender,
@@ -166,7 +165,7 @@ class _MessageViewTileState extends State<MessageViewTile> {
                 ),
                 subtitle: showBody
                     ? Row(
-                        children: <Widget>[
+                        children: [
                           Expanded(
                             child: Text(
                               (widget.message.recipients
@@ -190,7 +189,8 @@ class _MessageViewTileState extends State<MessageViewTile> {
                                       showRecipients
                                           ? FeatherIcons.chevronUp
                                           : FeatherIcons.chevronDown,
-                                      size: 18.0),
+                                      size: 18.0,
+                                      color: Theme.of(context).accentColor),
                                   padding: EdgeInsets.zero,
                                   constraints:
                                       BoxConstraints.tight(Size(28.0, 32.0)),
@@ -207,12 +207,13 @@ class _MessageViewTileState extends State<MessageViewTile> {
                       ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+                  children: [
                     Tooltip(
                       message: capital(I18n.of(context).messageReply),
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: Icon(FeatherIcons.cornerUpLeft),
+                        icon: Icon(FeatherIcons.cornerUpLeft,
+                            color: Theme.of(context).accentColor),
                         constraints: BoxConstraints.tight(Size(32.0, 32.0)),
                         onPressed: () {
                           messageContext = MessageContext();
@@ -234,7 +235,8 @@ class _MessageViewTileState extends State<MessageViewTile> {
                       message: capital(I18n.of(context).messageShare),
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: Icon(FeatherIcons.share2),
+                        icon: Icon(FeatherIcons.share2,
+                            color: Theme.of(context).accentColor),
                         constraints: BoxConstraints.tight(Size(32.0, 32.0)),
                         onPressed: () {
                           Share.share(
@@ -254,88 +256,80 @@ class _MessageViewTileState extends State<MessageViewTile> {
               onPressed: !widget.isFirst
                   ? () => setState(() => showBody = !showBody)
                   : null),
-          showRecipients
-              ? Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                  child: Wrap(
-                    spacing: 12.0,
-                    children: () {
-                      return widget.message.recipients
-                          .map((r) => Chip(
-                              avatar: ProfileIcon(name: r.name, size: .7),
-                              label: Text(r.name)))
-                          .toList();
-                    }(),
-                  ),
-                )
-              : Container(),
-          showBody
-              ? Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: app.settings.renderHtml
-                      ? Html(
-                          data: messageContent,
-                          onLinkTap: (url) async {
-                            if (await canLaunch(url))
-                              await launch(url);
-                            else
-                              throw '[ERROR] MessageView.build: Invalid URL';
-                          },
-                        )
-                      : SelectableLinkify(
-                          text: escapeHtml(messageContent),
-                          onOpen: (url) async {
-                            if (await canLaunch(url.url))
-                              await launch(url.url);
-                            else
-                              throw '[ERROR] MessageView.build: nvalid URL';
-                          },
-                        ),
-                )
-              : Container(),
-          quotedMessage != null
-              ? FlatButton(
-                  child: Text(
-                    showQuoted
-                        ? I18n.of(context).messageHideQuoted
-                        : I18n.of(context).messageShowQuoted,
-                    style: TextStyle(color: app.settings.appColor),
-                  ),
-                  onPressed: () => setState(() => showQuoted = !showQuoted),
-                )
-              : Container(),
-          showQuoted
-              ? Padding(
-                  padding: EdgeInsets.fromLTRB(24.0, 12.0, 12.0, 12.0),
-                  child: app.settings.renderHtml
-                      ? Html(
-                          data: quotedMessage,
-                          onLinkTap: (url) async {
-                            if (await canLaunch(url))
-                              await launch(url);
-                            else
-                              throw '[ERROR] MessageView.build: Invalid URL';
-                          },
-                        )
-                      : SelectableLinkify(
-                          text: escapeHtml(quotedMessage),
-                          onOpen: (url) async {
-                            if (await canLaunch(url.url))
-                              await launch(url.url);
-                            else
-                              throw '[ERROR] MessageView.build: Invalid URL';
-                          },
-                        ),
-                )
-              : Container(),
-          showBody
-              ? Column(
-                  children: widget.message.attachments
-                      .map((attachment) => AttachmentTile(attachment))
-                      .toList())
-              : Container(),
-          (!widget.isLast) ? Divider() : Container(),
+          if (showRecipients)
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              child: Wrap(
+                spacing: 12.0,
+                children: widget.message.recipients
+                    .map((r) => Chip(
+                        avatar: ProfileIcon(name: r.name, size: .7),
+                        label: Text(r.name)))
+                    .toList(),
+              ),
+            ),
+          if (showBody)
+            Padding(
+              padding: EdgeInsets.all(12.0),
+              child: app.settings.renderHtml
+                  ? Html(
+                      data: messageContent,
+                      onLinkTap: (url) async {
+                        if (await canLaunch(url))
+                          await launch(url);
+                        else
+                          throw '[ERROR] MessageView.build: Invalid URL';
+                      },
+                    )
+                  : SelectableLinkify(
+                      text: escapeHtml(messageContent),
+                      onOpen: (url) async {
+                        if (await canLaunch(url.url))
+                          await launch(url.url);
+                        else
+                          throw '[ERROR] MessageView.build: nvalid URL';
+                      },
+                    ),
+            ),
+          if (quotedMessage != null)
+            FlatButton(
+              child: Text(
+                showQuoted
+                    ? I18n.of(context).messageHideQuoted
+                    : I18n.of(context).messageShowQuoted,
+                style: TextStyle(color: app.settings.appColor),
+              ),
+              onPressed: () => setState(() => showQuoted = !showQuoted),
+            ),
+          if (showQuoted)
+            Padding(
+              padding: EdgeInsets.fromLTRB(24.0, 12.0, 12.0, 12.0),
+              child: app.settings.renderHtml
+                  ? Html(
+                      data: quotedMessage,
+                      onLinkTap: (url) async {
+                        if (await canLaunch(url))
+                          await launch(url);
+                        else
+                          throw '[ERROR] MessageView.build: Invalid URL';
+                      },
+                    )
+                  : SelectableLinkify(
+                      text: escapeHtml(quotedMessage),
+                      onOpen: (url) async {
+                        if (await canLaunch(url.url))
+                          await launch(url.url);
+                        else
+                          throw '[ERROR] MessageView.build: Invalid URL';
+                      },
+                    ),
+            ),
+          if (showBody)
+            Column(
+                children: widget.message.attachments
+                    .map((attachment) => AttachmentTile(attachment))
+                    .toList()),
+          if (!widget.isLast) Divider(),
         ],
       ),
     );

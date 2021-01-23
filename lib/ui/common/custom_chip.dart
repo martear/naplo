@@ -24,7 +24,7 @@ class CustomChip extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             icon != null
                 ? Icon(
                     icon,

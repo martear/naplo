@@ -48,6 +48,7 @@ class _SchoolSelectState extends State<SchoolSelect> {
               children: [
                 Expanded(
                   child: TextField(
+                    cursorColor: Theme.of(context).accentColor,
                     autofocus: true,
                     decoration: InputDecoration(
                       hintText: capital(I18n.of(context).search),
@@ -65,7 +66,8 @@ class _SchoolSelectState extends State<SchoolSelect> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(FeatherIcons.x),
+                  icon: Icon(FeatherIcons.x,
+                      color: Theme.of(context).accentColor),
                   onPressed: () => Navigator.pop(context),
                 ),
               ],
@@ -120,7 +122,7 @@ class SchoolTile extends StatelessWidget {
         subtitle: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
+          children: [
             Expanded(
               child: Text(
                 schoolId,

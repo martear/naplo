@@ -154,7 +154,7 @@ class _SubjectViewState extends State<SubjectView> {
         child: CupertinoScrollbar(
           child: ListView(
             physics: BouncingScrollPhysics(),
-            children: <Widget>[
+            children: [
               Container(
                 padding: EdgeInsets.all(12.0),
                 child: Text(

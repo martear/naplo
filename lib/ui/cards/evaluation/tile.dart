@@ -78,7 +78,7 @@ class EvaluationTile extends StatelessWidget {
                           ? (evaluation.value.value.toString() +
                               ((evaluation.type != EvaluationType.midYear &&
                                       evaluation.description == "Dicséret"
-                                  ? "D"
+                                  ? "*"
                                   : "")))
                           : evaluation.value.shortName ?? "?",
                       textAlign: TextAlign.center,
@@ -113,7 +113,7 @@ class EvaluationTile extends StatelessWidget {
             ),
           ),
           title: Row(
-            children: <Widget>[
+            children: [
               Expanded(
                 child: isTemp
                     ? Text(

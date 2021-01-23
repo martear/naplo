@@ -13,35 +13,33 @@ class NoteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 8.0),
-      child: GestureDetector(
-        child: ListTile(
-          leading: ProfileIcon(name: note.teacher),
-          title: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(note.teacher, overflow: TextOverflow.ellipsis),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text(formatDate(context, note.date)),
-              ),
-            ],
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                note.title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                note.content,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
+      child: ListTile(
+        leading: ProfileIcon(name: note.teacher),
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(note.teacher, overflow: TextOverflow.ellipsis),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(formatDate(context, note.date)),
+            ),
+          ],
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              note.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              note.content,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
         onTap: () {
           showModalBottomSheet(

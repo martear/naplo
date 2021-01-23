@@ -20,7 +20,7 @@ class _AboutSupportersState extends State<AboutSupporters> {
         builder: (BuildContext context, snapshot) => Container(
           padding: EdgeInsets.only(top: 28.0),
           child: Column(
-            children: <Widget>[
+            children: [
               ListTile(
                 leading: BackButton(color: Theme.of(context).accentColor),
                 title: Text(

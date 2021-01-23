@@ -37,7 +37,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
       colorButtons.add(
         GestureDetector(
           child: Stack(
-            children: <Widget>[
+            children: [
               Container(
                 height: 32.0,
                 width: 32.0,
@@ -113,7 +113,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                   // Theme
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
+                    children: [
                       // Light theme
                       GestureDetector(
                         key: _lightKey,
@@ -180,7 +180,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                       GestureDetector(
                         key: _darkKey,
                         child: Stack(
-                          children: <Widget>[
+                          children: [
                             Container(
                               height: 42.0,
                               width: 42.0,
@@ -215,7 +215,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                       GestureDetector(
                         key: _blackKey,
                         child: Stack(
-                          children: <Widget>[
+                          children: [
                             Container(
                               height: 42.0,
                               width: 42.0,

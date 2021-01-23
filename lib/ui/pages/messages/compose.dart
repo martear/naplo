@@ -35,26 +35,19 @@ class _NewMessagePageState extends State<NewMessagePage> {
   }
 
   InputDecoration inputDecoration({String hint}) => InputDecoration(
-      enabledBorder: UnderlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(width: 0, color: Colors.transparent),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(width: 0, color: Colors.transparent),
-      ),
-      fillColor: Colors.black12,
-      filled: true,
-      contentPadding: EdgeInsets.all(8.0),
-      isDense: true,
-      hintText: hint);
+        contentPadding: EdgeInsets.all(8.0),
+        isDense: true,
+        hintText: hint,
+      );
 
   List<Recipient> recipientsAll = [];
 
   Widget searchField() {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
-          controller: _typeAheadController, decoration: inputDecoration()),
+          cursorColor: Theme.of(context).accentColor,
+          controller: _typeAheadController,
+          decoration: inputDecoration()),
       suggestionsCallback: (pattern) {
         return SearchController.recipientResults(recipientsAll, pattern);
       },
@@ -87,7 +80,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
         borderRadius: BorderRadius.circular(99),
       ),
       child: Row(
-        children: <Widget>[
+        children: [
           Icon(FeatherIcons.file),
           Expanded(
             child: Padding(
@@ -99,7 +92,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
             ),
           ),
           IconButton(
-            icon: Icon(FeatherIcons.x),
+            icon: Icon(FeatherIcons.x, color: Theme.of(context).accentColor),
             onPressed: () {
               setState(() {
                 messageContext.attachments.removeWhere((f) => f.file == file);
@@ -112,7 +105,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
   }
 
   List<Widget> getRecipients() {
-    List<Widget> recipients = <Widget>[];
+    List<Widget> recipients = [];
 
     if (messageContext.recipients != null) {
       messageContext.recipients.forEach((Recipient recipient) {
@@ -184,9 +177,9 @@ class _NewMessagePageState extends State<NewMessagePage> {
             constraints:
                 BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
             child: Column(
-              children: <Widget>[
+              children: [
                 Row(
-                  children: <Widget>[
+                  children: [
                     // Back
                     BackButton(
                       color: Theme.of(context).accentColor,
@@ -199,7 +192,10 @@ class _NewMessagePageState extends State<NewMessagePage> {
 
                     // Add Attachments
                     IconButton(
-                      icon: Icon(FeatherIcons.paperclip),
+                      icon: Icon(
+                        FeatherIcons.paperclip,
+                        color: Theme.of(context).accentColor,
+                      ),
                       tooltip: capital(I18n.of(context).messageAttachments),
                       onPressed: () async {
                         try {
@@ -250,13 +246,13 @@ class _NewMessagePageState extends State<NewMessagePage> {
                 ),
                 Expanded(
                   child: Column(
-                    children: <Widget>[
+                    children: [
                       // Recipients
                       Padding(
                         padding:
                             EdgeInsets.only(top: 6.0, left: 14.0, right: 14.0),
                         child: Row(
-                          children: <Widget>[
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(right: 12.0),
                               child: Text(
@@ -287,7 +283,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
                         padding:
                             EdgeInsets.only(top: 6.0, left: 14.0, right: 14.0),
                         child: Row(
-                          children: <Widget>[
+                          children: [
                             Text(
                               capital(I18n.of(context).messageSubject),
                               style: TextStyle(fontSize: 16.0),
@@ -295,6 +291,7 @@ class _NewMessagePageState extends State<NewMessagePage> {
                             SizedBox(width: 12.0),
                             Expanded(
                               child: TextField(
+                                cursorColor: Theme.of(context).accentColor,
                                 controller: subjectController,
                                 decoration: inputDecoration(),
                               ),
@@ -303,11 +300,19 @@ class _NewMessagePageState extends State<NewMessagePage> {
                         ),
                       ),
 
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 12.0,
+                        ),
+                        child: Divider(),
+                      ),
+
                       // Body
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.only(left: 14.0, right: 14.0),
                           child: TextField(
+                            cursorColor: Theme.of(context).accentColor,
                             controller: messageController,
                             textAlignVertical: TextAlignVertical.top,
                             keyboardType: TextInputType.multiline,

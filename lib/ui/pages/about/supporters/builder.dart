@@ -13,7 +13,7 @@ class SupporterBuilder {
     tiles.add(Padding(
         padding: EdgeInsets.all(12.0),
         child: Row(
-          children: <Widget>[
+          children: [
             Spacer(),
             Dot(color: Color(0xFFE7513B)),
             SizedBox(width: 6.0),

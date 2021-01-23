@@ -31,7 +31,7 @@ class AbsenceTile extends StatelessWidget {
           ),
         ),
         title: Row(
-          children: <Widget>[
+          children: [
             Expanded(
               child: Row(
                 children: [

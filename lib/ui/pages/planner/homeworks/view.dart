@@ -37,15 +37,15 @@ class _HomeworkViewState extends State<HomeworkView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Row(
-            children: <Widget>[
+            children: [
               Expanded(
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: ProfileIcon(name: widget.homework.teacher),
                   title: Row(
-                    children: <Widget>[
+                    children: [
                       Expanded(
                         child: Text(
                           widget.homework.teacher != null
@@ -122,7 +122,7 @@ class HomeworkDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

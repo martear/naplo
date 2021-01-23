@@ -35,7 +35,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
@@ -46,7 +46,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
             ),
             Expanded(child: Container()),
             Row(
-              children: <Widget>[
+              children: [
                 evalRadio(1),
                 evalRadio(2),
                 evalRadio(3),
@@ -117,13 +117,13 @@ class AverageCalculatorState extends State<AverageCalculator> {
       DateTime.now(), //seen-date
       null,
     );
-    
+
     Navigator.of(context).pop(tempEval);
   }
 
   Widget evalRadio(int value) {
     return Column(
-      children: <Widget>[
+      children: [
         Text(
           value.toString(),
           style: TextStyle(fontSize: 23),

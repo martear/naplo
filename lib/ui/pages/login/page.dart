@@ -91,13 +91,12 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.fromLTRB(12.0, 32.0, 16.0, 0),
             height: MediaQuery.of(context).size.height,
             child: Column(
-              children: <Widget>[
-                app.users.where((user) => user.loginState).length > 0
-                    ? Container(
-                        alignment: Alignment.topLeft,
-                        child: BackButton(color: Colors.white),
-                      )
-                    : Container(),
+              children: [
+                if (app.users.where((user) => user.loginState).length > 0)
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: BackButton(color: Colors.white),
+                  ),
 
                 Spacer(),
 
@@ -123,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 Tooltip(
                   message: I18n.of(context).loginUsernameHint,
                   child: Column(
-                    children: <Widget>[
+                    children: [
                       Container(
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.only(bottom: 6.0),
@@ -142,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextField(
+                        cursorColor: Theme.of(context).accentColor,
                         style: TextStyle(color: Color(0xE0FFFFFF)),
                         decoration: inputDecoration(type: 0),
                         controller: loginUsernameController,
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                 Tooltip(
                   message: I18n.of(context).loginPasswordHint,
                   child: Column(
-                    children: <Widget>[
+                    children: [
                       Container(
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.only(top: 12.0, bottom: 6.0),
@@ -174,6 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextField(
+                        cursorColor: Theme.of(context).accentColor,
                         style: TextStyle(color: Color(0xE0FFFFFF)),
                         obscureText: !loginContext.passwordVisible,
                         decoration: inputDecoration(type: 1),
@@ -249,22 +250,28 @@ class _LoginPageState extends State<LoginPage> {
                       loginContext.loginError = {};
                       loginContext.username = loginUsernameController.text;
                       loginContext.password = loginPasswordController.text;
-                      LoginHelper(key: _scaffoldKey).submit(context).then(
-                        (bool success) {
-                          setState(() => loading = false);
+                      LoginHelper(key: _scaffoldKey)
+                          .submit(context)
+                          .then((bool success) {
+                        setState(() => loading = false);
 
-                          if (success) {
+                        if (success) {
+                          if (app.users
+                                  .where((user) => user.loginState)
+                                  .length >
+                              0) {
                             app.root.currentState.pushReplacement(
                                 MaterialPageRoute(
                                     builder: (context) => PageFrame()));
+                          } else
+                            app.root.currentState.pop();
 
-                            // save login details & reset
-                            loginContext = LoginContext();
-                            loginUsernameController.text = "";
-                            loginPasswordController.text = "";
-                          }
-                        },
-                      ).catchError((error) {
+                          // save login details & reset
+                          loginContext = LoginContext();
+                          loginUsernameController.text = "";
+                          loginPasswordController.text = "";
+                        }
+                      }).catchError((error) {
                         print("ERROR: LoginPage.submit: " + error.toString());
                         setState(() => loading = false);
                       });

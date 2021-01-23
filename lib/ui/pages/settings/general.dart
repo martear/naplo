@@ -31,7 +31,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             AppBar(
               centerTitle: true,
               leading: BackButton(color: Theme.of(context).accentColor),
