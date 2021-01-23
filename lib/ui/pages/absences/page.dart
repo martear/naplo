@@ -79,6 +79,8 @@ class _AbsencesPageState extends State<AbsencesPage>
                 I18n.of(context).absenceTitle,
                 style: TextStyle(fontSize: 22.0),
               ),
+              // BackButton appears between pages while animating
+              automaticallyImplyLeading: false,
               actions: [
                 app.debugMode
                     ? DebugButton(DebugViewClass.absences)

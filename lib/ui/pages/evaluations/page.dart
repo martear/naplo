@@ -98,6 +98,8 @@ class _EvaluationsPageState extends State<EvaluationsPage>
           return [
             SliverAppBar(
               floating: true,
+              // BackButton appears between pages while animating
+              automaticallyImplyLeading: false,
               pinned: true,
               forceElevated: true,
               shadowColor: Colors.transparent,

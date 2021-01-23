@@ -89,6 +89,8 @@ class _MessagesPageState extends State<MessagesPage>
           return [
             SliverAppBar(
               floating: true,
+              // BackButton appears between pages while animating
+              automaticallyImplyLeading: false,
               pinned: true,
               forceElevated: true,
               stretch: true,
