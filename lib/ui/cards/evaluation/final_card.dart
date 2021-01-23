@@ -21,7 +21,7 @@ class FinalCard extends BaseCard {
 
   @override
   Widget build(BuildContext context) {
-    double finalAvg = averageEvals(evals, forceWeight: 100) +1;
+    double finalAvg = averageEvals(evals, forceWeight: 100);
 
     String title = "";
     switch (evals.first.type) {
