@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/bottom_card.dart';
+import 'package:filcnaplo/ui/common/bottom_card.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

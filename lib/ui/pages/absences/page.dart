@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:filcnaplo/ui/pages/absences/absence/builder.dart';
 import 'package:filcnaplo/ui/pages/absences/delay/builder.dart';
 import 'package:filcnaplo/ui/pages/absences/miss/builder.dart';
-import 'package:filcnaplo/ui/account_button.dart';
-import 'package:filcnaplo/ui/custom_snackbar.dart';
-import 'package:filcnaplo/ui/custom_tabs.dart';
+import 'package:filcnaplo/ui/common/account_button.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/custom_tabs.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
 import 'package:filcnaplo/ui/pages/debug/view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/empty.dart';
+import 'package:filcnaplo/ui/common/empty.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class AbsencesPage extends StatefulWidget {

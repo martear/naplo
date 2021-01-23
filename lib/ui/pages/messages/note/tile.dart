@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/models/note.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/ui/pages/messages/note/view.dart';
 import 'package:filcnaplo/utils/format.dart';
 

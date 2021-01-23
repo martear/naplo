@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/pages/login.dart';
+import 'package:filcnaplo/ui/pages/login/page.dart';
 
 class AccountHelper {
   final User user;

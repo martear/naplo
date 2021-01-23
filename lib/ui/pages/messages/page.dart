@@ -4,10 +4,10 @@ import 'package:filcnaplo/ui/pages/messages/note/builder.dart';
 import 'package:filcnaplo/ui/pages/messages/event/builder.dart';
 import 'package:filcnaplo/data/context/message.dart';
 import 'package:filcnaplo/data/models/message.dart';
-import 'package:filcnaplo/ui/account_button.dart';
-import 'package:filcnaplo/ui/custom_snackbar.dart';
-import 'package:filcnaplo/ui/custom_tabs.dart';
-import 'package:filcnaplo/ui/empty.dart';
+import 'package:filcnaplo/ui/common/account_button.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/custom_tabs.dart';
+import 'package:filcnaplo/ui/common/empty.dart';
 import 'package:filcnaplo/ui/pages/debug/button.dart';
 import 'package:filcnaplo/ui/pages/debug/view.dart';
 import 'package:filcnaplo/ui/pages/messages/compose.dart';
@@ -37,7 +37,7 @@ class _MessagesPageState extends State<MessagesPage>
   final _refreshKeyMessages = GlobalKey<RefreshIndicatorState>();
   final _refreshKeyNotes = GlobalKey<RefreshIndicatorState>();
   final _refreshKeyEvents = GlobalKey<RefreshIndicatorState>();
-  
+
   TabController _tabController;
   MessageType selectedMessageType = MessageType.inbox;
 

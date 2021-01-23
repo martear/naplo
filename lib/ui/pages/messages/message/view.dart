@@ -8,7 +8,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/context/message.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/ui/pages/messages/compose.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:share/share.dart';
 import 'package:flutter_html/flutter_html.dart';

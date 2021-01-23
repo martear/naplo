@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:flutter/material.dart';
 
 class MessageTile extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/page_transition.dart';
+import 'package:filcnaplo/ui/common/page_transition.dart';
 import 'package:filcnaplo/ui/pages/accounts/page.dart';
 import 'package:flutter/material.dart';
 

@@ -1,8 +1,8 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/custom_snackbar.dart';
-import 'package:filcnaplo/ui/empty.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/empty.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/day.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/day_tab.dart';

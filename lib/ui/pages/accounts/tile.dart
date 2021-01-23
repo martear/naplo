@@ -6,7 +6,7 @@ import 'package:filcnaplo/ui/pages/accounts/dkt.dart';
 import 'package:filcnaplo/ui/pages/accounts/edit.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/data/models/user.dart';
 import 'package:filcnaplo/ui/pages/accounts/view.dart';
 

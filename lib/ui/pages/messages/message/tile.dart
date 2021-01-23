@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/ui/pages/messages/message/view.dart';
 import 'package:filcnaplo/helpers/archive_message.dart';
@@ -79,7 +79,9 @@ class MessageTile extends StatelessWidget {
             ]),
           ]),
           subtitle: Text(
-            message.subject + "\n" + escapeHtml(message.content.replaceAll("\n", " ")),
+            message.subject +
+                "\n" +
+                escapeHtml(message.content.replaceAll("\n", " ")),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

@@ -4,7 +4,7 @@ import 'package:filcnaplo/data/models/homework.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/custom_chip.dart';
+import 'package:filcnaplo/ui/common/custom_chip.dart';
 import 'package:filcnaplo/ui/pages/planner/exams/view.dart';
 import 'package:filcnaplo/ui/pages/planner/homeworks/view.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/view.dart';

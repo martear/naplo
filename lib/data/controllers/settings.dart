@@ -16,7 +16,7 @@ import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/data/models/student.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/models/user.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SettingsController {

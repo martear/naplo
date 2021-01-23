@@ -2,7 +2,7 @@ import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/models/subject.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/averages.dart';
-import 'package:filcnaplo/ui/empty.dart';
+import 'package:filcnaplo/ui/common/empty.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/tile.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/graph.dart';
 import 'package:filcnaplo/utils/format.dart';

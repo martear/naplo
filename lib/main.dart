@@ -17,7 +17,7 @@ import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/utils/format.dart';
 
 import 'package:filcnaplo/ui/pages/frame.dart';
-import 'package:filcnaplo/ui/pages/login.dart';
+import 'package:filcnaplo/ui/pages/login/page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

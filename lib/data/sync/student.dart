@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/student.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class StudentSync {

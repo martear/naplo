@@ -1,5 +1,5 @@
 import 'package:filcnaplo/helpers/login.dart';
-import 'package:filcnaplo/ui/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
@@ -9,7 +9,7 @@ import 'package:filcnaplo/data/context/login.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/utils/format.dart';
 
-import 'package:filcnaplo/ui/school_select.dart';
+import 'package:filcnaplo/ui/pages/login/school_select.dart';
 import 'package:filcnaplo/ui/pages/frame.dart';
 
 class LoginPage extends StatefulWidget {

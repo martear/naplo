@@ -1,7 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/dot.dart';
+import 'package:filcnaplo/ui/common/dot.dart';
 import 'package:filcnaplo/ui/pages/about/supporters/tile.dart';
 import 'package:flutter/material.dart';
 

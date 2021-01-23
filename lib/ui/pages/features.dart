@@ -1,5 +1,5 @@
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/pages/login.dart';
+import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter/material.dart';
 

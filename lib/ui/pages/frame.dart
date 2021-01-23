@@ -1,5 +1,5 @@
 import 'package:filcnaplo/data/state/sync.dart';
-import 'package:filcnaplo/ui/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
 import 'package:filcnaplo/ui/sync/indicator.dart';
 import 'package:filcnaplo/generated/i18n.dart';
@@ -12,7 +12,7 @@ import 'package:filcnaplo/ui/pages/tutorial.dart';
 import 'package:filcnaplo/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/bottom_navbar.dart';
+import 'package:filcnaplo/ui/common/bottom_navbar.dart';
 
 class PageFrame extends StatefulWidget {
   @override

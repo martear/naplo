@@ -1,4 +1,4 @@
-import 'package:filcnaplo/ui/empty.dart';
+import 'package:filcnaplo/ui/common/empty.dart';
 import 'package:filcnaplo/ui/pages/debug/struct.dart';
 import 'package:filcnaplo/ui/pages/debug/tile.dart';
 import 'package:flutter/material.dart';
