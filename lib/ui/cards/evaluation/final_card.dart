@@ -77,7 +77,7 @@ class FinalCard extends BaseCard {
               title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(" - " + evals.length.toString() + I18n.of(context).amount,
+            Text(" • " + evals.length.toString() + I18n.of(context).amount,
                 style: TextStyle(
                     fontSize: Theme.of(context).textTheme.bodyText2.fontSize,
                     color: Theme.of(context).textTheme.caption.color),

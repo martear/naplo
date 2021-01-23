@@ -49,7 +49,7 @@ class AbsenceTileGroup extends StatelessWidget {
                                       absence.state == "Igazolatlan" ||
                                       absence.state == "Igazolando")
                                   ? FeatherIcons.slash
-                                  : FeatherIcons.check,
+                                  : FeatherIcons.checkCircle,
                               color: absences.any((absence) =>
                                       absence.state == "Igazolatlan")
                                   ? Colors.red
@@ -105,11 +105,7 @@ class AbsenceTileSmall extends StatelessWidget {
               padding: EdgeInsets.only(left: 12.0),
               child: absence.lessonIndex != null
                   ? Text(
-                      (absence.lessonIndex != 0
-                          ? absence.lessonIndex.toString() + "."
-                          : formatTime(absence.lessonStart) +
-                              " - " +
-                              formatTime(absence.lessonEnd)),
+                      absence.lessonIndex.toString() + ".",
                       style: TextStyle(
                           color: Theme.of(context).textTheme.caption.color),
                     )

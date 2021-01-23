@@ -38,7 +38,7 @@ class AbsenceTile extends StatelessWidget {
                   Text(
                     absence.type.description,
                   ),
-                  Text(" - " + absence.mode.description,
+                  Text(" • " + absence.mode.description,
                       style: TextStyle(
                           //Copied directly from ListTile source code, same as subtitle
                           fontSize:
@@ -63,11 +63,7 @@ class AbsenceTile extends StatelessWidget {
                     ? Padding(
                         padding: EdgeInsets.only(right: 5),
                         child: Text(
-                          (absence.lessonIndex != 0
-                              ? absence.lessonIndex.toString() + "."
-                              : formatTime(absence.lessonStart) +
-                                  " - " +
-                                  formatTime(absence.lessonEnd)),
+                          absence.lessonIndex.toString() + ".",
                           style: TextStyle(
                               color: Theme.of(context).textTheme.caption.color,
                               fontWeight: FontWeight.bold),

@@ -25,7 +25,7 @@ class DelayTile extends StatelessWidget {
               alignment: Alignment.center,
               child: Icon(
                   delay.state == "Igazolt"
-                      ? FeatherIcons.check
+                      ? FeatherIcons.checkCircle
                       : FeatherIcons.clock,
                   color: delay.state == "Igazolt"
                       ? Colors.green
@@ -43,7 +43,7 @@ class DelayTile extends StatelessWidget {
                         delay.type.description,
                       ),
                       Text(
-                          " - " +
+                          " • " +
                               delay.delay.toString() +
                               " " +
                               I18n.of(context).timeMinute,
