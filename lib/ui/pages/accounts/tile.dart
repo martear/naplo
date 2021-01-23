@@ -80,8 +80,10 @@ class _AccountTileState extends State<AccountTile> {
                           icon: FeatherIcons.grid,
                           title: "DKT",
                           onPressed: () {
-                            app.root.currentState.push(MaterialPageRoute(
-                                builder: (context) => DKTPage(widget.user)));
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DKTPage(widget.user)));
                           },
                         ),
                         AccountTileButton(

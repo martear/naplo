@@ -1,4 +1,3 @@
-import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -65,9 +64,10 @@ class _FeaturesPageState extends State<FeaturesPage> {
                           fontSize: 18.0,
                         ),
                       ),
-                      onPressed: () => app.root.currentState.pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => LoginPage()))),
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => LoginPage()))),
                   FlatButton(
                     child: Text(
                       I18n.of(context).dialogNext,
@@ -81,8 +81,9 @@ class _FeaturesPageState extends State<FeaturesPage> {
                         _swiper.next();
                         index++;
                       } else {
-                        app.root.currentState.pushReplacement(MaterialPageRoute(
-                            builder: (context) => LoginPage()));
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (context) => LoginPage()));
                       }
                     },
                   ),

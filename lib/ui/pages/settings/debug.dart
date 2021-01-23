@@ -66,7 +66,8 @@ class _DebugSettingsState extends State<DebugSettings> {
                     ));
 
                     DebugHelper().eraseData(context).then((_) {
-                      app.root.currentState.pushAndRemoveUntil(
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => LoginPage()),
                         (_) => false,
                       );

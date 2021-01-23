@@ -63,7 +63,7 @@ class _AttachmentTileState extends State<AttachmentTile> {
     }
 
     openImage() {
-      app.root.currentState.push(MaterialPageRoute(
+      Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
           builder: (context) => ImageViewer(
               imageProvider: MemoryImage(data),
               shareHandler: handleShare,

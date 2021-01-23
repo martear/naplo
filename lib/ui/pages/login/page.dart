@@ -260,11 +260,11 @@ class _LoginPageState extends State<LoginPage> {
                                   .where((user) => user.loginState)
                                   .length >
                               0) {
-                            app.root.currentState.pushReplacement(
-                                MaterialPageRoute(
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(MaterialPageRoute(
                                     builder: (context) => PageFrame()));
                           } else
-                            app.root.currentState.pop();
+                            Navigator.of(context, rootNavigator: true).pop();
 
                           // save login details & reset
                           loginContext = LoginContext();

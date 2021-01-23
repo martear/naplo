@@ -126,8 +126,9 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                           onPressed: !app.debugUser
                               ? () {
-                                  app.root.currentState.push(CupertinoPageRoute(
-                                      builder: (context) => LoginPage()));
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(CupertinoPageRoute(
+                                          builder: (context) => LoginPage()));
                                 }
                               : null,
                         ),
@@ -151,8 +152,9 @@ class _AccountPageState extends State<AccountPage> {
                       title: Text(I18n.of(context).settingsTitle),
                     ),
                     onPressed: () {
-                      app.root.currentState.push(CupertinoPageRoute(
-                          builder: (context) => SettingsPage()));
+                      Navigator.of(context, rootNavigator: true).push(
+                          CupertinoPageRoute(
+                              builder: (context) => SettingsPage()));
                     },
                   ),
                 ),
