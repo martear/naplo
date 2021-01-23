@@ -23,19 +23,20 @@ class ExamTile extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Container(
-            width: 46.0,
-            height: 46.0,
-            alignment: Alignment.center,
-            child: Icon(
-                exam.writeDate.isAfter(DateTime.now())
-                    ? FeatherIcons.edit
-                    : FeatherIcons.checkSquare,
-                color: exam.writeDate.isAfter(DateTime.now())
-                    ? app.settings.appColor
-                    : Colors.green,
-                size: 30)),
+          width: 46.0,
+          height: 46.0,
+          alignment: Alignment.center,
+          child: Icon(
+            exam.writeDate.isAfter(DateTime.now())
+                ? FeatherIcons.edit
+                : FeatherIcons.checkSquare,
+            color: exam.writeDate.isAfter(DateTime.now())
+                ? app.settings.appColor
+                : Colors.green,
+          ),
+        ),
         title: Row(
-          children: <Widget>[
+          children: [
             Expanded(
               child: Text(
                 exam.mode.description,

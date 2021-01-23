@@ -10,49 +10,46 @@ class FinalCard extends BaseCard {
   final List<Evaluation> evals;
   final Key key;
   final DateTime compare;
-  final VoidCallback pageChangeCallback;
 
-  FinalCard(this.evals,
-      {this.key, this.compare, @required this.pageChangeCallback});
+  FinalCard(
+    this.evals, {
+    this.key,
+    this.compare,
+  });
 
   @override
   Widget build(BuildContext context) {
-    double finalAvg = (averageOfEvals(evals) * 10).roundToDouble() /
-        10; //this is pretty jank sry
-
-    int finalType = evalTypes[evals.first.type.name];
+    double finalAvg =
+        double.parse(averageEvals(evals, forceWeight: 100).toStringAsFixed(1));
 
     String title = "";
-    switch (finalType) {
-      case 1:
-        title += (I18n.of(context).evaluationsQYear);
+    switch (evals.first.type) {
+      case EvalType.firstQ:
+        title += I18n.of(context).evaluationsQYear;
         break;
-      case 2:
-        title += (I18n.of(context).evaluations2qYear);
+      case EvalType.secondQ:
+        title += I18n.of(context).evaluations2qYear;
         break;
-      case 3:
-        title += (I18n.of(context).evaluationsHalfYear);
+      case EvalType.halfYear:
+        title += I18n.of(context).evaluationsHalfYear;
         break;
-      case 4:
-        title += (I18n.of(context).evaluations3qYear);
+      case EvalType.thirdQ:
+        title += I18n.of(context).evaluations3qYear;
         break;
-      case 5:
-        title += (I18n.of(context).evaluations4qYear);
+      case EvalType.fourthQ:
+        title += I18n.of(context).evaluations4qYear;
         break;
-      case 6:
-        title += (I18n.of(context).evaluationsEndYear);
+      case EvalType.endYear:
+        title += I18n.of(context).evaluationsEndYear;
         break;
-      default:
-        print("error!" + evals.first.subject.name);
-        title += "error";
+      case EvalType.midYear:
         break;
     }
     title += (" " + I18n.of(context).evaluations);
 
     int dicseretesAmount =
-        evals.where((element) => element.description == "Dicséret").length;
-    int failedAmount =
-        evals.where((element) => element.value.value == 1).length;
+        evals.where((e) => e.description == "Dicséret").length;
+    int failedAmount = evals.where((e) => e.value.value == 1).length;
 
     return BaseCard(
       child: ListTile(
@@ -82,7 +79,6 @@ class FinalCard extends BaseCard {
             ),
             Text(" - " + evals.length.toString() + I18n.of(context).amount,
                 style: TextStyle(
-                    //Copied directly from ListTile source code, same as subtitle
                     fontSize: Theme.of(context).textTheme.bodyText2.fontSize,
                     color: Theme.of(context).textTheme.caption.color),
                 overflow: TextOverflow.ellipsis)
@@ -106,8 +102,7 @@ class FinalCard extends BaseCard {
         trailing: IconButton(
           icon: Icon(FeatherIcons.arrowRight),
           onPressed: () {
-            app.selectedEvalPage = finalType;
-            pageChangeCallback();
+            app.gotoPage(PageType.evaluations);
           },
         ),
       ),

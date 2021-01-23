@@ -9,7 +9,7 @@ class Evaluation {
   EvaluationValue value;
   String teacher;
   String description;
-  Type type;
+  EvalType type;
   String groupId;
   Subject subject;
   Type evaluationType;
@@ -48,7 +48,8 @@ class Evaluation {
     );
     String teacher = json["ErtekeloTanarNeve"] ?? "";
     String description = json["Tema"] ?? "";
-    Type type = json["Tipus"] != null ? Type.fromJson(json["Tipus"]) : null;
+    EvalType type =
+        json["Tipus"] != null ? Type.getEvalType(json["Tipus"]["Nev"]) : null;
     String groupId = json["OsztalyCsoport"]["Uid"] ?? "";
     Subject subject =
         json["Tantargy"] != null ? Subject.fromJson(json["Tantargy"]) : null;
@@ -99,9 +100,10 @@ class EvaluationValue {
   int weight;
 
   EvaluationValue(this.value, this.valueName, this.shortName, this.weight) {
+    String _valueName = SearchController.specialChars(valueName.toLowerCase());
+
     if (value == 0 &&
-        ["peldas", "jo", "valtozo", "rossz", "hanyag"]
-            .contains(SearchController.specialChars(valueName.toLowerCase()))) {
+        ["peldas", "jo", "valtozo", "rossz", "hanyag"].contains(_valueName)) {
       weight = 100;
 
       value = {
@@ -110,17 +112,9 @@ class EvaluationValue {
         "valtozo": 3,
         "rossz": 2,
         "hanyag": 2
-      }[SearchController.specialChars(valueName.toLowerCase())];
+      }[_valueName];
     }
   }
 }
 
-Map<String, int> evalTypes = {
-  "evkozi_jegy_ertekeles": 0,
-  "I_ne_jegy_ertekeles": 1,
-  "II_ne_jegy_ertekeles": 2,
-  "felevi_jegy_ertekeles": 3,
-  "III_ne_jegy_ertekeles": 4,
-  "IV_ne_jegy_ertekeles": 5,
-  "evvegi_jegy_ertekeles": 6,
-};
+enum EvalType { midYear, firstQ, secondQ, halfYear, thirdQ, fourthQ, endYear }

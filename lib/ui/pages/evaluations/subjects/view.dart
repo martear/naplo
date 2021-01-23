@@ -31,8 +31,8 @@ class _SubjectViewState extends State<SubjectView> {
   Widget build(BuildContext context) {
     studentAvg = 0;
 
-    List<Evaluation> evaluations = app.user.sync.evaluation.data[0]
-        .where((evaluation) => evaluation.type.name == "evkozi_jegy_ertekeles")
+    List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
+        .where((evaluation) => evaluation.type == EvalType.midYear)
         .toList();
 
     List<Evaluation> subjectEvals =

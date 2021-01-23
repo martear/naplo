@@ -5,6 +5,7 @@ import 'package:filcnaplo/data/controllers/settings.dart';
 import 'package:filcnaplo/data/controllers/storage.dart';
 import 'package:filcnaplo/data/controllers/sync.dart';
 import 'package:filcnaplo/data/controllers/search.dart';
+import 'package:flutter/cupertino.dart';
 
 AppContext app = AppContext();
 
@@ -17,15 +18,10 @@ class AppContext {
   bool firstStart = false;
 
   String appDataPath;
+  final GlobalKey<NavigatorState> frameNavigator = GlobalKey<NavigatorState>();
 
   String currentAppVersion = "unknown";
   String platform = "unknown";
-
-  int selectedTimetablePage = 0;
-  int selectedMessagePage = 0;
-  int selectedEvalPage = 0;
-  int selectedPage = 0;
-  int evalSortBy = 0;
 
   ThemeContext theme = ThemeContext();
 
@@ -54,4 +50,26 @@ class AppContext {
   final StorageController storage = StorageController();
   final SyncController sync = SyncController();
   final SearchController search = SearchController();
+  
+  void gotoPage(PageType page) {
+    switch (page) {
+      case PageType.home:
+        frameNavigator.currentState.pushReplacementNamed("home");
+        break;
+      case PageType.evaluations:
+        frameNavigator.currentState.pushReplacementNamed("evaluations");
+        break;
+      case PageType.planner:
+        frameNavigator.currentState.pushReplacementNamed("planner");
+        break;
+      case PageType.messages:
+        frameNavigator.currentState.pushReplacementNamed("messages");
+        break;
+      case PageType.absences:
+        frameNavigator.currentState.pushReplacementNamed("absences");
+        break;
+    }
+  }
 }
+
+enum PageType { home, evaluations, planner, messages, absences }

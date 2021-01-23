@@ -5,8 +5,9 @@ import 'package:filcnaplo/data/context/app.dart';
 
 class BottomNavbar extends StatelessWidget {
   final Function onTap;
+  final PageType selectedPage;
 
-  BottomNavbar(this.onTap);
+  BottomNavbar(this.onTap, {@required this.selectedPage});
 
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -64,7 +65,7 @@ class BottomNavbar extends StatelessWidget {
           label: I18n.of(context).absenceTitle,
         ),
       ],
-      currentIndex: app.selectedPage,
+      currentIndex: selectedPage.index,
       selectedFontSize: 0,
       unselectedFontSize: 0,
       selectedIconTheme: IconThemeData(color: app.settings.appColor),

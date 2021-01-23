@@ -69,8 +69,7 @@ void main() async {
   }
   await app.settings.update(
       login: false, settings: migrationRequired ? settingsCopy : settings);
-  // Set current page to default page
-  app.selectedPage = app.settings.defaultPage;
+
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(App());

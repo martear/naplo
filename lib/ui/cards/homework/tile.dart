@@ -24,11 +24,11 @@ class HomeworkTile extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Container(
-            width: 46.0,
-            height: 46.0,
-            alignment: Alignment.center,
-            child: Icon(FeatherIcons.home,
-                color: app.settings.appColor, size: 30)),
+          width: 46.0,
+          height: 46.0,
+          alignment: Alignment.center,
+          child: Icon(FeatherIcons.home, color: app.settings.appColor),
+        ),
         title: Row(
           children: <Widget>[
             Expanded(

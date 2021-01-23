@@ -5,7 +5,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/ui/pages/messages/message/view.dart';
-import 'package:filcnaplo/helpers/archiveMessage.dart';
+import 'package:filcnaplo/helpers/archive_message.dart';
 
 class MessageTile extends StatelessWidget {
   final Message message;

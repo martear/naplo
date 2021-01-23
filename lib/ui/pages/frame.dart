@@ -20,11 +20,13 @@ class PageFrame extends StatefulWidget {
 }
 
 class _PageFrameState extends State<PageFrame> {
-  GlobalKey<ScaffoldState> _homeKey = GlobalKey();
+  PageType selectedPage;
 
   @override
   void initState() {
     super.initState();
+
+    selectedPage = PageType.values[app.settings.defaultPage];
 
     NetworkUtils.checkConnectivity().then((networkAvailable) {
       if (!networkAvailable) {
@@ -48,41 +50,71 @@ class _PageFrameState extends State<PageFrame> {
     });
 
     if (app.firstStart) {
-      app.user.sync.news.sync();
       //Dont display news on first start.
+      app.user.sync.news.sync();
     } else {
-      app.user.sync.news.sync().then(
-        (_) {
-          if (app.settings.enableNews) {
-            Future.delayed(
-              Duration(seconds: 1),
-              () {
-                Future.forEach(
-                  app.user.sync.news.fresh,
-                  (news) async => await showDialog(
-                    useSafeArea: true,
-                    context: context,
-                    builder: (context) => NewsView(news),
-                  ),
-                );
-              },
+      app.user.sync.news.sync().then((_) {
+        if (app.settings.enableNews) {
+          Future.delayed(Duration(seconds: 1), () {
+            Future.forEach(
+              app.user.sync.news.fresh,
+              (news) async => await showDialog(
+                useSafeArea: true,
+                context: context,
+                builder: (context) => NewsView(news),
+              ),
             );
-          }
-        },
-      );
-    }
-  }
-
-  void _navItemSelected(int item) {
-    if (item != app.selectedPage) {
-      setState(() {
-        app.selectedPage = item;
+          });
+        }
       });
     }
   }
 
-  SyncState syncState = SyncState();
+  void _navItemSelected(int item) {
+    if (item != selectedPage.index) {
+      app.gotoPage(PageType.values[item]);
+    }
+  }
 
+  _pageRoute(Function(BuildContext) builder) {
+    return PageRouteBuilder(
+      pageBuilder: (context, _, __) => builder(context),
+      // transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //   var tween = Tween(begin: 0.0, end: 1.0);
+      //   var offsetAnimation = animation.drive(tween);
+
+      //   return FadeTransition(
+      //     opacity: offsetAnimation,
+      //     child: child,
+      //   );
+      // },
+    );
+  }
+
+  Route handleRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case "home":
+        selectedPage = PageType.home;
+        return _pageRoute((_) => HomePage());
+      case "evaluations":
+        selectedPage = PageType.evaluations;
+        return _pageRoute((_) => EvaluationsPage());
+      case "planner":
+        selectedPage = PageType.planner;
+        return _pageRoute((_) => PlannerPage());
+      case "messages":
+        selectedPage = PageType.messages;
+        return _pageRoute((_) => MessagesPage());
+      case "absences":
+        selectedPage = PageType.absences;
+        return _pageRoute((_) => AbsencesPage());
+      default:
+        selectedPage = PageType.home;
+        return _pageRoute((_) => HomePage());
+    }
+  }
+
+  SyncState syncState = SyncState();
   bool showSyncProgress = false;
   bool animateSyncProgress = false;
 
@@ -104,8 +136,11 @@ class _PageFrameState extends State<PageFrame> {
 
         setState(() {
           if (task != null) {
-            syncState =
-                SyncState(text: tasks[task] ?? "", current: current, max: max);
+            syncState = SyncState(
+              text: tasks[task] ?? "",
+              current: current,
+              max: max,
+            );
           }
         });
       };
@@ -128,41 +163,6 @@ class _PageFrameState extends State<PageFrame> {
       }
     });
 
-    Widget pageContent;
-
-    switch (app.selectedPage) {
-      case 0:
-        pageContent = HomePage(
-          _navItemSelected,
-          finalCardPageChangeCallback: () {
-            _navItemSelected(1);
-          },
-        );
-        break;
-      case 1:
-        pageContent = EvaluationsPage();
-        break;
-      case 2:
-        pageContent = PlannerPage();
-        break;
-      case 3:
-        pageContent = MessagesPage(_homeKey);
-        break;
-      case 4:
-        pageContent = AbsencesPage(_homeKey);
-        break;
-      default:
-        pageContent = HomePage(
-          _navItemSelected,
-          finalCardPageChangeCallback: () {
-            _navItemSelected(1);
-          },
-        );
-        break;
-    }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
-
     if (syncState.current != null && app.sync.tasks.length > 0) {
       showSyncProgress = true;
       animateSyncProgress = true;
@@ -175,12 +175,11 @@ class _PageFrameState extends State<PageFrame> {
     }
 
     return Scaffold(
-      key: _homeKey,
       body: Container(
         child: Stack(
           children: <Widget>[
             // Page content
-            pageContent,
+            Navigator(key: app.frameNavigator, onGenerateRoute: handleRoute),
 
             // Sync Progress Indicator
             showSyncProgress
@@ -200,7 +199,8 @@ class _PageFrameState extends State<PageFrame> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavbar(this._navItemSelected),
+      bottomNavigationBar:
+          BottomNavbar(this._navItemSelected, selectedPage: selectedPage),
     );
   }
 }

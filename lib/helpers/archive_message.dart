@@ -8,7 +8,7 @@ class MessageArchiveHelper {
   Future deleteMessage(
       BuildContext context, Message message, Function updateCallback) async {
     await app.user.kreta.deleteMessage(message.id);
-    app.user.sync.messages.archived.removeWhere((msg) => msg.id == message.id);
+    app.user.sync.messages.trash.removeWhere((msg) => msg.id == message.id);
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
@@ -27,9 +27,9 @@ class MessageArchiveHelper {
     MessageType oldPlace, newPlace;
     if (archiving) {
       oldPlace = message.type;
-      newPlace = MessageType.archived;
+      newPlace = MessageType.trash;
     } else {
-      oldPlace = MessageType.archived;
+      oldPlace = MessageType.trash;
       newPlace = message.type;
     }
 
@@ -69,17 +69,17 @@ class MessageArchiveHelper {
   List<Message> localMessages(MessageType type) {
     // Returns the list in which the wanted type of messages are stored in.
     switch (type) {
-      case MessageType.received:
-        return app.user.sync.messages.received;
+      case MessageType.inbox:
+        return app.user.sync.messages.inbox;
         break;
       case MessageType.sent:
         return app.user.sync.messages.sent;
         break;
-      case MessageType.archived:
-        return app.user.sync.messages.archived;
+      case MessageType.trash:
+        return app.user.sync.messages.trash;
         break;
-      case MessageType.drafted:
-        return app.user.sync.messages.drafted;
+      case MessageType.draft:
+        return app.user.sync.messages.draft;
         break;
       default:
         return null;

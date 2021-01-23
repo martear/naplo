@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class GradeBuilder {
   List<GradeTile> gradeTiles = [];
 
-  void build({int sortBy}) {
+  void build({EvalType type, int sortBy}) {
     // sortBy
     // 0 date
     // 1 date R
@@ -16,9 +16,8 @@ class GradeBuilder {
     // 5 value R
 
     gradeTiles = [];
-    List<Evaluation> evaluations = app.user.sync.evaluation.data[0]
-        .where((evaluation) =>
-            evalTypes[evaluation.type.name] == app.selectedEvalPage)
+    List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
+        .where((evaluation) => evaluation.type == type)
         .toList();
 
     if (sortBy != null) {

@@ -5,7 +5,8 @@ import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class EvaluationSync {
-  List<List> data = [[], []];
+  List<Evaluation> evaluations = [];
+  List<dynamic> averages = [];
 
   Future<bool> sync() async {
     if (!app.debugUser) {
@@ -25,8 +26,8 @@ class EvaluationSync {
       }
 
       if (evaluations != null) {
-        data[0] = evaluations;
-        if (averages != null) data[1] = averages;
+        evaluations = evaluations;
+        if (averages != null) averages = averages;
 
         await app.user.storage.delete("evaluations");
 
@@ -41,12 +42,13 @@ class EvaluationSync {
 
       return evaluations != null;
     } else {
-      data[0] = Dummy.evaluations;
+      evaluations = Dummy.evaluations;
       return true;
     }
   }
 
   delete() {
-    data = [[], []];
+    evaluations = [];
+    averages = [];
   }
 }

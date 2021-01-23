@@ -16,11 +16,6 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   void selectCallback(int id) {
     setState(() {
-      if (app.selectedUser != id) {
-        app.selectedMessagePage = 0;
-        app.selectedEvalPage = 0;
-        app.evalSortBy = 0;
-      }
       app.selectedUser = id;
     });
     app.sync.updateCallback();
@@ -44,7 +39,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height - 58.0,
           child: Column(
             children: <Widget>[
               AppBar(

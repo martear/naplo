@@ -55,7 +55,7 @@ class Message {
     MessageType type = () {
       switch (json["tipus"]["kod"]) {
         case "BEERKEZETT":
-          return MessageType.received;
+          return MessageType.inbox;
         case "ELKULDOTT":
           return MessageType.sent;
       }
@@ -100,4 +100,4 @@ class Message {
   }
 }
 
-enum MessageType { sent, received, archived, drafted }
+enum MessageType { inbox, sent, trash, draft }

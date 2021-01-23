@@ -9,7 +9,7 @@ class BottomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 70.0),
+      margin: EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 16.0),
       padding: EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 14.0),
       decoration: BoxDecoration(
         color: app.settings.theme.backgroundColor,

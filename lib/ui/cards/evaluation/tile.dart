@@ -16,7 +16,7 @@ class EvaluationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isTemp = evaluation.id.startsWith("temp_");
 
-    String title = evaluation.type.name == "evkozi_jegy_ertekeles"
+    String title = evaluation.type == EvalType.midYear
         ? evaluation.description != ""
             ? capital(evaluation.description)
             : capital(evaluation.mode != null
@@ -30,7 +30,7 @@ class EvaluationTile extends StatelessWidget {
             ? evaluation.subject.name
             : I18n.of(context).unknown);
 
-    String subtitle = evaluation.type.name == "evkozi_jegy_ertekeles"
+    String subtitle = evaluation.type == EvalType.midYear
         ? capital(evaluation.subject != null
                 ? evaluation.subject.name
                 : I18n.of(context).unknown) +
@@ -76,7 +76,7 @@ class EvaluationTile extends StatelessWidget {
                     Text(
                       evaluation.value.value != 0
                           ? (evaluation.value.value.toString() +
-                              ((evalTypes[evaluation.type.name] != 0 &&
+                              ((evaluation.type != EvalType.midYear &&
                                       evaluation.description == "Dicséret"
                                   ? "D"
                                   : "")))

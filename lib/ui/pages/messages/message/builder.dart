@@ -25,8 +25,8 @@ class MessageBuilder {
     });
     // We don't care about conversations for sent messages, so we display every one of them.
     // The following part groups received (+ archived) messages into conversations, and only displays the newest one in every category
-    List<Message> received = app.user.sync.messages.received;
-    List<Message> archived = app.user.sync.messages.archived;
+    List<Message> received = app.user.sync.messages.inbox;
+    List<Message> archived = app.user.sync.messages.trash;
     Map<int, List<Message>> conversations = {};
 
     void buildConversations(
@@ -77,7 +77,7 @@ class MessageBuilder {
         if (conversations[conversationId].first.deleted) {
           return messageTiles.archived;
         } else if (conversations[conversationId].first.type ==
-            MessageType.received) {
+            MessageType.inbox) {
           return messageTiles.received;
         }
       }();

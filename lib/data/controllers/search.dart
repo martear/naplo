@@ -95,9 +95,9 @@ class SearchController {
 
     // Messages
     List<Message> messages = <List<Message>>[
-      app.user.sync.messages.received,
+      app.user.sync.messages.inbox,
       app.user.sync.messages.sent,
-      app.user.sync.messages.archived,
+      app.user.sync.messages.trash,
     ].expand((x) => x).toList();
 
     messages.forEach((message) => searchables.add(Searchable(
@@ -183,7 +183,7 @@ class SearchController {
         )));
 
     // Evaluations
-    app.user.sync.evaluation.data[0]
+    app.user.sync.evaluation.evaluations
         .forEach((evaluation) => searchables.add(Searchable(
               text: searchString([
                 evaluation.description,

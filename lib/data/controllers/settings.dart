@@ -176,11 +176,11 @@ Future loadData(User user) async {
 
   List evaluations = await userStorage.query("evaluations");
 
-  globalSync.evaluation.data = [[], []];
-  globalSync.evaluation.data[0] = <Evaluation>[];
+  globalSync.evaluation.evaluations = [];
+  globalSync.evaluation.averages = [];
 
   evaluations.forEach((evaluation) {
-    globalSync.evaluation.data[0]
+    globalSync.evaluation.evaluations
         .add(Evaluation.fromJson(jsonDecode(evaluation["json"])));
   });
 
@@ -200,9 +200,9 @@ Future loadData(User user) async {
 
   List messagesInbox = await userStorage.query("messages_inbox");
 
-  globalSync.messages.received = [];
+  globalSync.messages.inbox = [];
   messagesInbox.forEach((message) {
-    globalSync.messages.received
+    globalSync.messages.inbox
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 
@@ -215,17 +215,17 @@ Future loadData(User user) async {
 
   List messagesDraft = await userStorage.query("messages_draft");
 
-  globalSync.messages.received = [];
+  globalSync.messages.inbox = [];
   messagesDraft.forEach((message) {
-    globalSync.messages.received
+    globalSync.messages.inbox
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 
   List messagesTrash = await userStorage.query("messages_trash");
 
-  globalSync.messages.archived = [];
+  globalSync.messages.trash = [];
   messagesTrash.forEach((message) {
-    globalSync.messages.archived
+    globalSync.messages.trash
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 

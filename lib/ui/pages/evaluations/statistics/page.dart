@@ -101,8 +101,8 @@ class StatisticsTitle extends StatelessWidget {
 class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Evaluation> evaluations = app.user.sync.evaluation.data[0]
-        .where((evaluation) => evaluation.type.name == "evkozi_jegy_ertekeles")
+    List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
+        .where((evaluation) => evaluation.type == EvalType.midYear)
         .toList();
 
     List<String> grades = [
