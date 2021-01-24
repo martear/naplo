@@ -79,7 +79,7 @@ class MessageArchiveHelper {
         return app.user.sync.messages.trash;
         break;
       case MessageType.draft:
-        return app.user.sync.messages.draft;
+        return [];
         break;
       default:
         return null;

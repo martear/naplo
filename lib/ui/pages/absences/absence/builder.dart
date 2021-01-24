@@ -7,7 +7,7 @@ class AbsenceBuilder {
 
   void build() {
     absenceTiles = [];
-    List<Absence> absences = app.user.sync.absence.data
+    List<Absence> absences = app.user.sync.absence.absences
         .where((absence) => absence.type.name == "hianyzas")
         .toList();
 

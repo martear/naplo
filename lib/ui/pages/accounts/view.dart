@@ -24,7 +24,7 @@ class _AccountViewState extends State<AccountView> {
   @override
   Widget build(BuildContext context) {
     Student student = app.sync.users[widget.user.id] != null
-        ? app.sync.users[widget.user.id].student.data
+        ? app.sync.users[widget.user.id].student.student
         : null;
 
     return BottomCard(

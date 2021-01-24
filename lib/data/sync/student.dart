@@ -6,31 +6,31 @@ import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class StudentSync {
-  Student data;
+  Student student;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      Student student;
-      student = await app.user.kreta.getStudent();
+      Student _student;
+      _student = await app.user.kreta.getStudent();
       Map group = await app.user.kreta.getGroup();
-      student.groupId = group['uid'];
-      student.className = group['className'];
+      _student.groupId = group['uid'];
+      _student.className = group['className'];
 
-      if (student == null) {
+      if (_student == null) {
         await app.user.kreta.refreshLogin();
-        student = await app.user.kreta.getStudent();
+        _student = await app.user.kreta.getStudent();
         Map group = await app.user.kreta.getGroup();
-        student.groupId = group['uid'];
-        student.className = group['className'];
+        _student.groupId = group['uid'];
+        _student.className = group['className'];
       }
 
-      if (student != null) {
-        data = student;
+      if (_student != null) {
+        student = _student;
 
         await app.user.storage.delete("student");
-        app.user.realName = student.name;
+        app.user.realName = _student.name;
 
-        if (app.user.name == null) app.user.name = student.name;
+        if (app.user.name == null) app.user.name = _student.name;
 
         if (app.user.customProfileIcon != null &&
             app.user.customProfileIcon != null) {
@@ -40,16 +40,16 @@ class StudentSync {
               image: app.user.customProfileIcon);
         }
 
-        if (student.json != null) {
+        if (_student.json != null) {
           await app.user.storage.insert("student", {
-            "json": jsonEncode(student.json),
+            "json": jsonEncode(_student.json),
           });
         }
       }
 
-      return student != null;
+      return _student != null;
     } else {
-      data = Dummy.student;
+      student = Dummy.student;
       if (app.user.customProfileIcon != null) {
         app.user.profileIcon = ProfileIcon(name: Dummy.student.name, size: 0.7);
       }
@@ -59,6 +59,6 @@ class StudentSync {
   }
 
   delete() {
-    data = null;
+    student = null;
   }
 }

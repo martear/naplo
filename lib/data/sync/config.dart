@@ -5,28 +5,28 @@ import 'package:filcnaplo/data/models/config.dart';
 //import 'package:filcnaplo/data/models/dummy.dart';
 
 class ConfigSync {
-  Config data = Config.defaults;
+  Config config = Config.defaults;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      Config config;
-      config = await app.kretaApi.client.getConfig();
+      Config _config;
+      _config = await app.kretaApi.client.getConfig();
 
-      if (config != null) {
-        data = config;
+      if (_config != null) {
+        config = _config;
 
         await app.storage.storage.update("settings", {
-          "config": jsonEncode(config.json),
+          "config": jsonEncode(_config.json),
         });
       }
 
-      return config != null;
+      return _config != null;
     } else {
       return true;
     }
   }
 
   delete() {
-    data = Config.defaults;
+    config = Config.defaults;
   }
 }

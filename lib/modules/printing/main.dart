@@ -77,7 +77,7 @@ class TimetablePrinter {
       trailing: pw.Text('filcnaplo.hu'),
       margin: pw.EdgeInsets.only(top: 12.0),
     );
-    String className = app.user.sync.student.data.className;
+    String className = app.user.sync.student.student.className;
 
     pw.Footer header = pw.Footer(
       margin: pw.EdgeInsets.all(5),

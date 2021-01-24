@@ -12,7 +12,7 @@ class TimetableBuilder {
     List<Lesson> lessons;
     if (!app.debugUser) {
       week = getWeek(i);
-      lessons = app.user.sync.timetable.data;
+      lessons = app.user.sync.timetable.lessons;
     } else {
       week = Dummy.week;
       lessons = Dummy.lessons;

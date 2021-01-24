@@ -7,7 +7,7 @@ class MissBuilder {
   List<Widget> missTiles = [];
   void build() {
     missTiles = [];
-    List<Note> misses = app.user.sync.note.data
+    List<Note> misses = app.user.sync.note.notes
         .where((miss) =>
             miss.type.name == "HaziFeladatHiany" ||
             miss.type.name == "Felszereleshiany")

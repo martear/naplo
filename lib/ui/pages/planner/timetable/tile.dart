@@ -23,13 +23,13 @@ class LessonTile extends StatelessWidget {
     List<Exam> exams = [];
 
     if (lesson.homeworkId != null) {
-      homework = app.user.sync.homework.data
+      homework = app.user.sync.homework.homework
           .firstWhere((h) => h.id == lesson.homeworkId, orElse: () => null);
     }
 
     lesson.exams.forEach(
       (exam) => exams.add(
-        app.user.sync.exam.data
+        app.user.sync.exam.exams
             .firstWhere((t) => t.id == exam, orElse: () => null),
       ),
     );

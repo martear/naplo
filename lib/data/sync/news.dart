@@ -2,23 +2,23 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/new.dart';
 
 class NewsSync {
-  List<News> data = [];
+  List<News> news = [];
   List<News> fresh = []; // News to show with popup
   int length = 0;
   int prevLength = 0;
 
   Future sync() async {
     prevLength = (await app.storage.storage.query("settings"))[0]["news_len"];
-    data = await app.user.kreta.getNews();
+    news = await app.user.kreta.getNews();
     fresh = [];
 
-    length = data.length;
+    length = news.length;
     if (length > prevLength) {
       int lag = (length - prevLength).clamp(0, 3);
 
       while (lag > 0) {
         // Add the missed news to list
-        fresh.add(data[lag - 1]);
+        fresh.add(news[lag - 1]);
         lag--;
       }
     }
@@ -27,6 +27,6 @@ class NewsSync {
   }
 
   void delete() {
-    data = [];
+    news = [];
   }
 }

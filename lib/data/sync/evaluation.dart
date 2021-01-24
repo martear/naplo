@@ -9,23 +9,26 @@ class EvaluationSync {
   List<dynamic> averages = [];
 
   Future<bool> sync() async {
-    if (!app.debugUser) {
-      evaluations = await app.user.kreta.getEvaluations() ?? [];
-      if (app.user.sync.student.data.groupId != null)
-        averages = await app.user.kreta
-            .getAverages(app.user.sync.student.data.groupId);
+    List<Evaluation> _evaluations;
+    List<dynamic> _averages;
 
-      if (evaluations == null) {
+    if (!app.debugUser) {
+      _evaluations = await app.user.kreta.getEvaluations();
+      if (app.user.sync.student.student.groupId != null)
+        _averages = await app.user.kreta
+            .getAverages(app.user.sync.student.student.groupId);
+
+      if (_evaluations == null) {
         await app.user.kreta.refreshLogin();
-        evaluations = await app.user.kreta.getEvaluations() ?? [];
-        if (app.user.sync.student.data.groupId != null)
-          averages = await app.user.kreta
-              .getAverages(app.user.sync.student.data.groupId);
+        _evaluations = await app.user.kreta.getEvaluations() ?? [];
+        if (app.user.sync.student.student.groupId != null)
+          _averages = await app.user.kreta
+              .getAverages(app.user.sync.student.student.groupId);
       }
 
-      if (evaluations != null) {
-        evaluations = evaluations;
-        if (averages != null) averages = averages;
+      if (_evaluations != null) {
+        evaluations = _evaluations;
+        if (_averages != null) averages = _averages;
 
         await app.user.storage.delete("evaluations");
 
@@ -38,7 +41,7 @@ class EvaluationSync {
         });
       }
 
-      return evaluations != null;
+      return _evaluations != null;
     } else {
       evaluations = Dummy.evaluations;
       return true;

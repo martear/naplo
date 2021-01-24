@@ -7,9 +7,12 @@ class MessageSync {
   List<Message> inbox = [];
   List<Message> sent = [];
   List<Message> trash = [];
-  List<Message> draft = [];
 
   Future<bool> sync() async {
+    List<Message> _inbox = [];
+    List<Message> _sent = [];
+    List<Message> _trash = [];
+
     if (!app.debugUser) {
       // Fetch messages from Kréta by type and store them in their own lists.
       Future getMessages() async {
@@ -18,27 +21,23 @@ class MessageSync {
           "elkuldott",
           "torolt",
         ];
-        inbox = await app.user.kreta.getMessages(types[0]) ?? [];
-        sent = await app.user.kreta.getMessages(types[1]) ?? [];
-        trash = await app.user.kreta.getMessages(types[2]) ?? [];
+        _inbox = await app.user.kreta.getMessages(types[0]);
+        _sent = await app.user.kreta.getMessages(types[1]);
+        _trash = await app.user.kreta.getMessages(types[2]);
       }
 
       await getMessages();
-      bool success = (inbox != null && sent != null && trash != null);
+      bool success = (_inbox != null && _sent != null && _trash != null);
       if (!success) {
         await app.user.kreta.refreshLogin();
         await getMessages();
+        success = (_inbox != null && _sent != null && _trash != null);
         // refresh Login and try again in case we get null back.
       }
-      inbox ??= [];
-      sent ??= [];
-      trash ??= [];
-      draft ??= [];
-      // Replace nulls with empty lists if Kreta is non-cooperative.
 
       if (success) {
-        List types = ["inbox", "sent", "trash", "draft"];
-        for (int i = 0; i < 3; i++) {
+        List types = ["inbox", "sent", "trash"];
+        for (int i = 0; i <= 2; i++) {
           // Delete preexisting local messages from database
           await app.user.storage.delete("messages_" + types[i]);
         }
@@ -54,8 +53,11 @@ class MessageSync {
           });
         }
 
+        if (_inbox != null) inbox = _inbox;
         await saveLocally(inbox, types[0]);
+        if (_sent != null) sent = _sent;
         await saveLocally(sent, types[1]);
+        if (_trash != null) trash = _trash;
         await saveLocally(trash, types[2]);
       }
 
@@ -70,6 +72,5 @@ class MessageSync {
     inbox = [];
     sent = [];
     trash = [];
-    draft = [];
   }
 }

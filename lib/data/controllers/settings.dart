@@ -96,7 +96,7 @@ class SettingsController {
     enableNews = settings["news_show"] == 1;
     renderHtml = settings["render_html"] == 1;
 
-    config.data = Config.fromJson(jsonDecode(settings["config"]));
+    config.config = Config.fromJson(jsonDecode(settings["config"]));
 
     roundUp = settings["round_up"];
 
@@ -190,7 +190,7 @@ Future loadData(User user) async {
   }
 
   if (student.length > 0) {
-    globalSync.student.data = Student.fromJson(jsonDecode(student[0]["json"]));
+    globalSync.student.student = Student.fromJson(jsonDecode(student[0]["json"]));
   }
 
   List evaluations = await userStorage.query("evaluations");
@@ -205,16 +205,16 @@ Future loadData(User user) async {
 
   List notes = await userStorage.query("kreta_notes");
 
-  globalSync.note.data = [];
+  globalSync.note.notes = [];
   notes.forEach((note) {
-    globalSync.note.data.add(Note.fromJson(jsonDecode(note["json"])));
+    globalSync.note.notes.add(Note.fromJson(jsonDecode(note["json"])));
   });
 
   List events = await userStorage.query("kreta_events");
 
-  globalSync.event.data = [];
+  globalSync.event.events = [];
   events.forEach((event) {
-    globalSync.event.data.add(Event.fromJson(jsonDecode(event["json"])));
+    globalSync.event.events.add(Event.fromJson(jsonDecode(event["json"])));
   });
 
   List messagesInbox = await userStorage.query("messages_inbox");
@@ -250,30 +250,30 @@ Future loadData(User user) async {
 
   List absences = await userStorage.query("kreta_absences");
 
-  globalSync.absence.data = [];
+  globalSync.absence.absences = [];
   absences.forEach((absence) {
-    globalSync.absence.data.add(Absence.fromJson(jsonDecode(absence["json"])));
+    globalSync.absence.absences.add(Absence.fromJson(jsonDecode(absence["json"])));
   });
 
   List exams = await userStorage.query("kreta_exams");
 
-  globalSync.exam.data = [];
+  globalSync.exam.exams = [];
   exams.forEach((exam) {
-    globalSync.exam.data.add(Exam.fromJson(jsonDecode(exam["json"])));
+    globalSync.exam.exams.add(Exam.fromJson(jsonDecode(exam["json"])));
   });
 
   List homeworks = await userStorage.query("kreta_homeworks");
 
-  globalSync.homework.data = [];
+  globalSync.homework.homework = [];
   homeworks.forEach((homework) {
-    globalSync.homework.data
+    globalSync.homework.homework
         .add(Homework.fromJson(jsonDecode(homework["json"])));
   });
 
   List lessons = await userStorage.query("kreta_lessons");
 
-  globalSync.timetable.data = [];
+  globalSync.timetable.lessons = [];
   lessons.forEach((lesson) {
-    globalSync.timetable.data.add(Lesson.fromJson(jsonDecode(lesson["json"])));
+    globalSync.timetable.lessons.add(Lesson.fromJson(jsonDecode(lesson["json"])));
   });
 }

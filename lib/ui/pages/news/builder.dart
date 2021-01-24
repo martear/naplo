@@ -10,7 +10,7 @@ class NewsBuilder {
   void build() {
     newsTiles = [];
     List<News> news = [];
-    news = app.user.sync.news.data.where((n) => n.title != null).toList();
+    news = app.user.sync.news.news.where((n) => n.title != null).toList();
     news.forEach((n) => newsTiles.add(NewsTile(n)));
   }
 }

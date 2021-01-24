@@ -27,7 +27,7 @@ class FeedBuilder {
           key: Key(message.messageId.toString()),
           compare: message.date,
         )));
-    app.user.sync.note.data.forEach((note) => cards.add(NoteCard(
+    app.user.sync.note.notes.forEach((note) => cards.add(NoteCard(
           note,
           key: Key(note.id),
           compare: note.date,
@@ -53,19 +53,19 @@ class FeedBuilder {
       ));
     });
 
-    app.user.sync.absence.data.forEach((absence) => cards.add(AbsenceCard(
+    app.user.sync.absence.absences.forEach((absence) => cards.add(AbsenceCard(
           absence,
           key: Key(absence.id.toString()),
           compare: absence.submitDate,
         )));
-    app.user.sync.homework.data
+    app.user.sync.homework.homework
         .where((homework) => homework.deadline.isAfter(DateTime.now()))
         .forEach((homework) => cards.add(HomeworkCard(
               homework,
               key: Key(homework.id.toString()),
               compare: homework.date,
             )));
-    app.user.sync.exam.data
+    app.user.sync.exam.exams
         .where((exam) => exam.writeDate.isAfter(DateTime.now()))
         .forEach((exam) => cards.add(ExamCard(
               exam,

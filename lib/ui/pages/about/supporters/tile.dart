@@ -1,4 +1,3 @@
-import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/models/supporter.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:flutter/material.dart';

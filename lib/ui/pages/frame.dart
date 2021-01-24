@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/data/models/new.dart';
-import 'package:filcnaplo/data/state/sync.dart';
+import 'package:filcnaplo/data/sync/state.dart';
 import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
 import 'package:filcnaplo/ui/sync/indicator.dart';
@@ -41,9 +41,9 @@ class _PageFrameState extends State<PageFrame> {
 
     // Sync at startup
     app.settings.update().then((_) {
-      app.user.kreta.userAgent = app.settings.config.data.userAgent;
+      app.user.kreta.userAgent = app.settings.config.config.userAgent;
       app.settings.config.sync().then((success) {
-        app.user.kreta.userAgent = app.settings.config.data.userAgent;
+        app.user.kreta.userAgent = app.settings.config.config.userAgent;
         if (app.user.loginState) app.sync.fullSync();
       }).catchError((error) {
         print("ERROR: PageFrame.initState: Could not get config: $error");

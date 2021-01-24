@@ -113,7 +113,7 @@ class SearchController {
         )));
 
     // Notes
-    app.user.sync.note.data.forEach((note) => searchables.add(Searchable(
+    app.user.sync.note.notes.forEach((note) => searchables.add(Searchable(
           text: searchString([note.teacher, note.title, note.content]),
           child: GestureDetector(
             child: NoteTile(note),
@@ -129,7 +129,7 @@ class SearchController {
         )));
 
     // Absences
-    app.user.sync.absence.data.forEach((absence) => searchables.add(Searchable(
+    app.user.sync.absence.absences.forEach((absence) => searchables.add(Searchable(
           text: searchString([
             absence.teacher,
             absence.subject.name,
@@ -149,7 +149,7 @@ class SearchController {
         )));
 
     // Homeworks
-    app.user.sync.homework.data
+    app.user.sync.homework.homework
         .forEach((homework) => searchables.add(Searchable(
               text: searchString(
                   [homework.teacher, homework.subjectName, homework.content]),
@@ -167,7 +167,7 @@ class SearchController {
             )));
 
     // Exams
-    app.user.sync.exam.data.forEach((exam) => searchables.add(Searchable(
+    app.user.sync.exam.exams.forEach((exam) => searchables.add(Searchable(
           text:
               searchString([exam.teacher, exam.subjectName, exam.description]),
           child: GestureDetector(
