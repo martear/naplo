@@ -11,7 +11,6 @@ class ThemeContext {
     "red": Colors.red[200],
     "pink": Colors.pink[200],
     "purple": Colors.purple[200],
-    "grey": Colors.grey[700],
   };
 
   List<Color> evalColors = [
