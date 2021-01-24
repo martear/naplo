@@ -71,7 +71,7 @@ class LoginHelper {
       await app.settings.update(login: false);
 
       app.selectedUser = app.users.length - 1;
-      app.users[app.selectedUser].loginState = true;
+      // app.users[app.selectedUser].loginState = true;
 
       return true;
     } else {

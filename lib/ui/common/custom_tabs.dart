@@ -20,7 +20,7 @@ class CustomTabButton extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              title,
+              title ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

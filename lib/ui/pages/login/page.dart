@@ -256,15 +256,19 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() => loading = false);
 
                         if (success) {
+                          if (app.debugMode)
+                            print(
+                                "DEBUG: Users currently logged in: ${app.users.where((user) => user.loginState)}");
                           if (app.users
                                   .where((user) => user.loginState)
                                   .length >
                               0) {
+                            app.sync.fullSync();
+                            Navigator.of(context, rootNavigator: true).pop();
+                          } else {
                             Navigator.of(context, rootNavigator: true)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => PageFrame()));
-                          } else {
-                            Navigator.of(context, rootNavigator: true).pop();
                           }
 
                           // save login details & reset
