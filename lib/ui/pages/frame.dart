@@ -51,7 +51,7 @@ class _PageFrameState extends State<PageFrame> {
       });
     });
 
-    if (app.user.sync.news.length == 0) {
+    if (app.user.sync.news == null) {
       //Dont display news on first start.
       app.user.sync.news.sync();
     } else {
