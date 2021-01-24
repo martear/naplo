@@ -40,7 +40,7 @@ class LessonTile extends StatelessWidget {
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14.0),
-          side: accentColor != null
+          side: accentColor != null && !lesson.isEmpty
               ? BorderSide(color: accentColor, width: 2.5)
               : BorderSide(color: Colors.transparent),
         ),
