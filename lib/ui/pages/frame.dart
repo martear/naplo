@@ -1,4 +1,5 @@
 import 'package:filcnaplo/data/context/page.dart';
+import 'package:filcnaplo/data/models/new.dart';
 import 'package:filcnaplo/data/state/sync.dart';
 import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
@@ -57,13 +58,13 @@ class _PageFrameState extends State<PageFrame> {
       app.user.sync.news.sync().then((_) {
         if (app.settings.enableNews) {
           Future.delayed(Duration(seconds: 1), () {
-            Future.forEach(
-              app.user.sync.news.fresh,
-              (news) async => await showDialog(
-                context: context,
-                builder: (context) => NewsView(news),
-              ),
-            );
+            Future.forEach(app.user.sync.news.fresh, (News news) async {
+              if (news.title != null)
+                await showDialog(
+                  context: context,
+                  builder: (context) => NewsView(news),
+                );
+            });
           });
         }
       });
