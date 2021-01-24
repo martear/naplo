@@ -1,4 +1,5 @@
 import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/message.dart';
@@ -46,7 +47,7 @@ class MessageArchiveHelper {
         message: I18n.of(context).messageArchived,
         duration: Duration(seconds: 5),
         action: SnackBarAction(
-          label: I18n.of(context).dialogUndo,
+          label: capital(I18n.of(context).dialogUndo),
           onPressed: () {
             app.user.kreta.trashMessage(false, message.id);
             moveMessage(message, newPlace, oldPlace);
