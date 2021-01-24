@@ -230,14 +230,22 @@ class _NewMessagePageState extends State<NewMessagePage> {
                           Icon(FeatherIcons.send, color: app.settings.appColor),
                       tooltip: capital(I18n.of(context).messageSend),
                       onPressed: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => Center(
+                                child: Container(
+                                    child: CircularProgressIndicator())));
                         sendMessage().then((success) {
                           if (success) {
                             Future.delayed(Duration(seconds: 1), () {
                               app.user.sync.messages.sync().then((_) {
                                 Navigator.pop(context);
+                                Navigator.pop(context);
                               });
                             });
                           } else {
+                            Navigator.pop(context);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(CustomSnackBar(
                               message: I18n.of(context).errorMessageSend,

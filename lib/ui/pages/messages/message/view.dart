@@ -22,8 +22,9 @@ class MessageView extends StatefulWidget {
   final updateCallback;
 
   archiveMessages(context, bool archiving) {
-    messages.forEach((msg) => MessageArchiveHelper()
-        .archiveMessage(context, msg, archiving, updateCallback));
+    messages.forEach((msg) => MessageArchiveHelper().archiveMessage(
+        context, msg, archiving, updateCallback,
+        showSnackbar: messages.length <= 1));
   }
 
   deleteMessages(context) {
@@ -127,7 +128,7 @@ class _MessageViewTileState extends State<MessageViewTile> {
                       ? Tooltip(
                           message: capital(I18n.of(context).messageDelete),
                           child: IconButton(
-                            icon: Icon(FeatherIcons.trash2),
+                            icon: Icon(FeatherIcons.trash2, color: Colors.red),
                             onPressed: () {
                               Navigator.pop(context);
                               widget.deleteCallback(context);

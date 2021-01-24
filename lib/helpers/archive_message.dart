@@ -23,8 +23,9 @@ class MessageArchiveHelper {
     BuildContext context,
     Message message,
     bool archiving,
-    Function updateCallback,
-  ) async {
+    Function updateCallback, {
+    bool showSnackbar = true,
+  }) async {
     MessageType oldPlace, newPlace;
     if (archiving) {
       oldPlace = message.type;
@@ -41,7 +42,7 @@ class MessageArchiveHelper {
     message.deleted = archiving;
     updateCallback();
 
-    if (archiving) {
+    if (archiving && showSnackbar) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
         message: I18n.of(context).messageArchived,
