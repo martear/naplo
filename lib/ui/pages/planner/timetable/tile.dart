@@ -128,6 +128,7 @@ class LessonTile extends StatelessWidget {
                                   context: context,
                                   backgroundColor: Colors.transparent,
                                   isScrollControlled: true,
+                                  useRootNavigator: true,
                                   builder: (context) => HomeworkView(homework),
                                 ),
                               )

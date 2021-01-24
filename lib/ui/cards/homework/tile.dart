@@ -18,6 +18,7 @@ class HomeworkTile extends StatelessWidget {
           context: context,
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
+          useRootNavigator: true,
           builder: (BuildContext context) => HomeworkView(homework),
         );
       },

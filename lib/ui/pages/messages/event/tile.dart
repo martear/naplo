@@ -28,6 +28,7 @@ class EventTile extends StatelessWidget {
           builder: (context) => EventView(event),
           backgroundColor: Colors.transparent,
           isScrollControlled: true,
+          useRootNavigator: true,
         ),
       ),
     );

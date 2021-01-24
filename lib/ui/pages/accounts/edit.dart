@@ -47,27 +47,27 @@ class _EditAccountTileState extends State<EditAccountTile> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
+                    if (editProfileI)
+                      ProfileIcon(
+                          name: widget.user.name,
+                          size: 1.7,
+                          image: widget.user.customProfileIcon)
+                    else
+                      ProfileIcon(
+                          name: widget.user.name,
+                          size: 1.3,
+                          image: widget.user.customProfileIcon),
                     Container(
+                      width: 48 * 1.3,
+                      height: 48 * 1.3,
                       decoration: BoxDecoration(
+                        color:
+                            editProfileI ? Colors.transparent : Colors.black26,
                         shape: BoxShape.circle,
                       ),
-                      child: Opacity(
-                        opacity: editProfileI ? 1.0 : 0.7,
-                        child: !editProfileI
-                            ? ProfileIcon(
-                                name: widget.user.name,
-                                size: 1.3,
-                                image: widget.user.customProfileIcon)
-                            : ProfileIcon(
-                                name: widget.user.name,
-                                size: 1.7,
-                                image: widget.user.customProfileIcon),
-                      ),
                     ),
-                    !editProfileI
-                        ? Icon(FeatherIcons.camera,
-                            color: Colors.white, size: 32.0)
-                        : Container(),
+                    if (!editProfileI)
+                      Icon(FeatherIcons.camera, color: Colors.white, size: 32.0)
                   ],
                 ),
                 onTap: () {
