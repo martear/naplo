@@ -171,12 +171,47 @@ class _PageFrameState extends State<PageFrame> {
       );
     }
 
+    // Tween<double> offlineAnimation = Tween<double>(begin: 100.0, end: 0.0);
+    // Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 100.0);
+    Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 0.0);
+
     return Scaffold(
       body: Container(
         child: Stack(
           children: [
             // Page content
-            Navigator(key: app.frame, onGenerateRoute: handleRoute),
+            TweenAnimationBuilder(
+              tween: offlineAnimation,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 500),
+              builder: (context, value, _) => Padding(
+                padding: EdgeInsets.only(top: value / (100 / 42)),
+                child: Navigator(key: app.frame, onGenerateRoute: handleRoute),
+              ),
+            ),
+
+            TweenAnimationBuilder(
+              tween: offlineAnimation,
+              duration: Duration(milliseconds: 500),
+              curve: Curves.ease,
+              builder: (context, value, _) => Opacity(
+                opacity: value / 100,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.red,
+                  padding: EdgeInsets.only(
+                    left: 12.0,
+                    right: 12.0,
+                    bottom: 12.0,
+                    top: value / (100 / 38.0),
+                  ),
+                  child: Text(
+                    "A kréta jelenleg karbantartás alatt van.",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
 
             // Sync Progress Indicator
             showSyncProgress
