@@ -1,4 +1,5 @@
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/models/new.dart';
 import 'package:filcnaplo/ui/pages/news/tile.dart';
 
 class NewsBuilder {
@@ -8,7 +9,38 @@ class NewsBuilder {
 
   void build() {
     newsTiles = [];
-
-    app.user.sync.news.data.forEach((news) => newsTiles.add(NewsTile(news)));
+    List<News> news = [];
+    news = app.user.sync.news.data.where((n) => n.title != null).toList();
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.add(news[0]);
+    news.forEach((n) => newsTiles.add(NewsTile(n)));
   }
 }

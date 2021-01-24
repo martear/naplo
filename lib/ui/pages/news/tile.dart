@@ -1,4 +1,3 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/ui/pages/news/view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:filcnaplo/data/models/new.dart';
@@ -6,28 +5,30 @@ import 'package:flutter/material.dart';
 
 class NewsTile extends StatelessWidget {
   final News news;
+
   NewsTile(this.news);
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(width: 1, color: Colors.white),
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(width: 1, color: Colors.white),
+      ),
+      margin: EdgeInsets.only(top: 6.0, left: 14.0, right: 14.0, bottom: 12.0),
+      child: ListTile(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        title: Text(news.title),
+        subtitle: Text(
+          news.content.replaceAll("\n", " "),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        margin: EdgeInsets.only(top: 5, left: 5, right: 5),
-        child: ListTile(
-          // leading: Image.network(news.image, width: 50, height: 50)
-          leading: Icon(FeatherIcons.mail),
-          title: Text(news.title),
-          subtitle: Text(
-            news.content,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          onTap: () => showDialog(
-              barrierColor: Colors.transparent,
-              context: context,
-              builder: (BuildContext context) => NewsView(news)),
-        ),
-      );
+        onTap: () => showDialog(
+            context: context,
+            builder: (BuildContext context) => NewsView(news)),
+      ),
+    );
+  }
 }

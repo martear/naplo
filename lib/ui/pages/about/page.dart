@@ -3,6 +3,8 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/about/privacy.dart';
 import 'package:filcnaplo/ui/pages/about/supporters/page.dart';
+import 'package:filcnaplo/ui/pages/news/history.dart';
+import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,7 +60,7 @@ class AboutPage extends StatelessWidget {
                   onPressed: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) => AboutPrivacy());
+                        builder: (context) => AboutPrivacy());
                   },
                 ),
                 AboutButton(
@@ -85,7 +87,17 @@ class AboutPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).push(
                       CupertinoPageRoute(
-                          builder: (BuildContext context) => AboutSupporters()),
+                          builder: (context) => AboutSupporters()),
+                    );
+                  },
+                ),
+                AboutButton(
+                  icon: FeatherIcons.mail,
+                  text: capital(I18n.of(context).aboutNews),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      CupertinoPageRoute(
+                          builder: (context) => NewsHistoryView()),
                     );
                   },
                 ),
