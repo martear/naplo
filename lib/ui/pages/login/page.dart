@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextField(
-                        cursorColor: Theme.of(context).accentColor,
+                        cursorColor: app.settings.appColor,
                         style: TextStyle(color: Color(0xE0FFFFFF)),
                         decoration: inputDecoration(type: 0),
                         controller: loginUsernameController,
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       TextField(
-                        cursorColor: Theme.of(context).accentColor,
+                        cursorColor: app.settings.appColor,
                         style: TextStyle(color: Color(0xE0FFFFFF)),
                         obscureText: !loginContext.passwordVisible,
                         decoration: inputDecoration(type: 1),

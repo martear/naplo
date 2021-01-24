@@ -56,7 +56,7 @@ class _AccountPageState extends State<AccountPage> {
                         color: Colors.transparent,
                         child: IconButton(
                           icon: Icon(FeatherIcons.x,
-                              color: Theme.of(context).accentColor),
+                              color: app.settings.appColor),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -114,7 +114,7 @@ class _AccountPageState extends State<AccountPage> {
                                 FeatherIcons.userPlus,
                                 color: app.debugUser
                                     ? Colors.grey
-                                    : Theme.of(context).accentColor,
+                                    : app.settings.appColor,
                               ),
                             ),
                             title: Text(
@@ -148,7 +148,7 @@ class _AccountPageState extends State<AccountPage> {
                     child: ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: Icon(FeatherIcons.settings,
-                          color: Theme.of(context).accentColor),
+                          color: app.settings.appColor),
                       title: Text(I18n.of(context).settingsTitle),
                     ),
                     onPressed: () {

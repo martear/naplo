@@ -136,7 +136,7 @@ class AccountTileButton extends StatelessWidget {
               Icon(
                 icon,
                 size: 20.0,
-                color: Theme.of(context).accentColor,
+                color: app.settings.appColor,
               ),
             if (icon != null) SizedBox(height: 3.0),
             if (title != "")

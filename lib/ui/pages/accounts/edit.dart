@@ -79,7 +79,7 @@ class _EditAccountTileState extends State<EditAccountTile> {
               !editProfileI
                   ? Expanded(
                       child: TextField(
-                        cursorColor: Theme.of(context).accentColor,
+                        cursorColor: app.settings.appColor,
                         autofocus: true,
                         controller: _userNameController,
                         textAlign: TextAlign.left,

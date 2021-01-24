@@ -139,7 +139,7 @@ class _AttachmentTileState extends State<AttachmentTile> {
                   ),
                   Icon(
                     FeatherIcons.download,
-                    color: Theme.of(context).accentColor,
+                    color: app.settings.appColor,
                   ),
                 ],
               ),

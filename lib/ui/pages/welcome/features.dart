@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -60,7 +61,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
                       child: Text(
                         I18n.of(context).dialogSkip,
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: app.settings.appColor,
                           fontSize: 18.0,
                         ),
                       ),
@@ -72,7 +73,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
                     child: Text(
                       I18n.of(context).dialogNext,
                       style: TextStyle(
-                        color: Theme.of(context).accentColor,
+                        color: app.settings.appColor,
                         fontSize: 18.0,
                       ),
                     ),
