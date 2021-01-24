@@ -7,7 +7,7 @@ class NewsSync {
   int length = 0;
   int prevLength = 0;
 
-  Future<bool> sync() async {
+  Future sync() async {
     prevLength = (await app.storage.storage.query("settings"))[0]["news_len"];
     data = await app.user.kreta.getNews();
     fresh = [];
@@ -21,11 +21,9 @@ class NewsSync {
         fresh.add(data[lag - 1]);
         lag--;
       }
-      // print(fresh.map((e) => e.title));
     }
 
     await app.storage.storage.update("settings", {"news_len": length});
-    return true;
   }
 
   void delete() {

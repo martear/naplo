@@ -53,18 +53,15 @@ class _PageFrameState extends State<PageFrame> {
 
     app.user.sync.news.sync().then((_) {
       if (app.user.sync.news.prevLength != 0 && app.settings.enableNews) {
-        Future.delayed(
-          Duration(seconds: 1),
-          () {
-            Future.forEach(app.user.sync.news.fresh, (News news) async {
-              if (news.title != null)
-                await showDialog(
-                  context: context,
-                  builder: (context) => NewsView(news),
-                );
-            });
-          },
-        );
+        Future.delayed(Duration(seconds: 1), () {
+          Future.forEach(app.user.sync.news.fresh, (News news) async {
+            if (news.title != null)
+              await showDialog(
+                context: context,
+                builder: (context) => NewsView(news),
+              );
+          });
+        });
       }
     });
   }
