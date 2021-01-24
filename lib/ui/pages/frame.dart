@@ -51,13 +51,11 @@ class _PageFrameState extends State<PageFrame> {
       });
     });
 
-    if (app.firstStart) {
-      //Dont display news on first start.
-      app.user.sync.news.sync();
-    } else {
-      app.user.sync.news.sync().then((_) {
-        if (app.settings.enableNews) {
-          Future.delayed(Duration(seconds: 1), () {
+    app.user.sync.news.sync().then((_) {
+      if (app.user.sync.news.prevLength != 0 && app.settings.enableNews) {
+        Future.delayed(
+          Duration(seconds: 1),
+          () {
             Future.forEach(app.user.sync.news.fresh, (News news) async {
               if (news.title != null)
                 await showDialog(
@@ -65,10 +63,10 @@ class _PageFrameState extends State<PageFrame> {
                   builder: (context) => NewsView(news),
                 );
             });
-          });
-        }
-      });
-    }
+          },
+        );
+      }
+    });
   }
 
   void _navItemSelected(int item) {
