@@ -33,8 +33,9 @@ class KretaClient {
   String refreshToken;
   String instituteCode;
   String userId;
+  bool kretaOffline = false;
 
-  Future checkResponse(response, {bool retry = true}) async {
+  Future checkResponse(http.Response response, {bool retry = true}) async {
     if (instituteCode != null) {
       if (accessToken == null)
         print("WARNING: accessToken is null. How did this happen?");
@@ -53,6 +54,13 @@ class KretaClient {
 
     if (response.statusCode != 200 && response.statusCode != 204)
       throw "Invalid response: " + response.statusCode.toString();
+
+    if (response.headers.containsKey("x-maintenance-mode") &&
+        response.request.url.host.contains(instituteCode)) {
+      kretaOffline = true;
+    } else {
+      kretaOffline = false;
+    }
   }
 
   Future<List<School>> getSchools() async {
@@ -430,8 +438,6 @@ class KretaClient {
       request.files
           .add(await http.MultipartFile.fromPath('fajl', attachment.file.path));
       var response = await request.send();
-
-      checkResponse(response);
 
       Map responseJson = jsonDecode(await response.stream.bytesToString());
 
