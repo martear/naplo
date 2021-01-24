@@ -11,36 +11,6 @@ class NewsBuilder {
     newsTiles = [];
     List<News> news = [];
     news = app.user.sync.news.data.where((n) => n.title != null).toList();
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
-    news.add(news[0]);
     news.forEach((n) => newsTiles.add(NewsTile(n)));
   }
 }
