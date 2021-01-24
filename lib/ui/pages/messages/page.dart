@@ -79,8 +79,10 @@ class _MessagesPageState extends State<MessagesPage>
               onPressed: () {
                 messageContext = MessageContext();
 
-                Navigator.of(context, rootNavigator: true).push(
-                    MaterialPageRoute(builder: (context) => NewMessagePage()));
+                Navigator.of(context, rootNavigator: true)
+                    .push(MaterialPageRoute(
+                        builder: (context) => NewMessagePage()))
+                    .then((_) => setState(() {}));
               },
             )
           : null,
@@ -155,7 +157,7 @@ class _MessagesPageState extends State<MessagesPage>
 
               // Message Tiles
               child: CupertinoScrollbar(
-                child: messageTiles.length > 0
+                child: messageTiles.length > 1
                     ? AnimationLimiter(
                         child: ListView.builder(
                           physics: BouncingScrollPhysics(
@@ -177,10 +179,10 @@ class _MessagesPageState extends State<MessagesPage>
                       )
                     : ListView(
                         children: [
-                          Expanded(
-                            child: Empty(
-                              title: I18n.of(context).emptyMessages,
-                            ),
+                          Empty(
+                            title: selectedMessageType == MessageType.draft
+                                ? I18n.of(context).notImplemented
+                                : I18n.of(context).emptyMessages,
                           )
                         ],
                       ),

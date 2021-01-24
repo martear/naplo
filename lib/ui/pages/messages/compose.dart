@@ -232,7 +232,11 @@ class _NewMessagePageState extends State<NewMessagePage> {
                       onPressed: () {
                         sendMessage().then((success) {
                           if (success) {
-                            Navigator.pop(context);
+                            Future.delayed(Duration(seconds: 1), () {
+                              app.user.sync.messages.sync().then((_) {
+                                Navigator.pop(context);
+                              });
+                            });
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(CustomSnackBar(
