@@ -23,7 +23,7 @@ class SupporterTile extends StatelessWidget {
       //   suffix = "/ " + I18n.of(context).dateMonth.substring(0, 2);
       //   break;
       case "donate":
-        color = ThemeContext.colors["default"];
+        color = Colors.yellow[600];
         break;
     }
 

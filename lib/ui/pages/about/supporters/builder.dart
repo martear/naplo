@@ -2,6 +2,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/common/dot.dart';
+import 'package:filcnaplo/ui/common/label.dart';
 import 'package:filcnaplo/ui/pages/about/supporters/tile.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,8 @@ class SupporterBuilder {
             Dot(color: Color(0xFFE7513B)),
             SizedBox(width: 6.0),
             Text("Patreon"),
-            // Spacer(),
-            // Dot(color: Color(0xFFA66BFF)),
-            // SizedBox(width: 6.0),
-            // Text("Twitch"),
             Spacer(),
-            Dot(color: ThemeContext.colors["default"]),
+            Dot(color: Colors.yellow[600]),
             SizedBox(width: 6.0),
             Text("Donate"),
             Spacer(),
@@ -59,29 +56,13 @@ class SupporterBuilder {
     }
 
     if (supporters["top"].length > 0) {
-      tiles.add(
-        Padding(
-          padding: EdgeInsets.only(top: 12.0, left: 12.0),
-          child: Text(
-            I18n.of(context).supportersTop.toUpperCase(),
-            style: TextStyle(letterSpacing: 1.5),
-          ),
-        ),
-      );
+      tiles.add(Label(I18n.of(context).supportersTop));
     }
     supporters["top"]
         .forEach((supporter) => tiles.add(SupporterTile(supporter)));
 
     if (supporters["all"].length > 0) {
-      tiles.add(
-        Container(
-          padding: EdgeInsets.only(top: 12.0, left: 12.0),
-          child: Text(
-            I18n.of(context).supportersAll.toUpperCase(),
-            style: TextStyle(letterSpacing: 1.5),
-          ),
-        ),
-      );
+      tiles.add(Label(I18n.of(context).supportersAll));
     }
     supporters["all"]
         .forEach((supporter) => tiles.add(SupporterTile(supporter)));
