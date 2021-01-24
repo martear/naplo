@@ -47,7 +47,7 @@ class _AppearanceSettingsState extends State<AppearanceSettings>
                   borderRadius: BorderRadius.circular(99.0),
                 ),
               ),
-              app.settings.appColor == color
+              app.settings.rawAppColor == color
                   ? Container(
                       alignment: Alignment.center,
                       width: 56.0,

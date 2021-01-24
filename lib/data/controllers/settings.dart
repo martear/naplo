@@ -52,6 +52,10 @@ class SettingsController {
       return _appColor;
   }
 
+  Color get rawAppColor {
+    return _appColor;
+  }
+
   set appColor(Color color) {
     _appColor = color;
   }

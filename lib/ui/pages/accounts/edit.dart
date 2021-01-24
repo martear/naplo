@@ -49,7 +49,6 @@ class _EditAccountTileState extends State<EditAccountTile> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black,
                         shape: BoxShape.circle,
                       ),
                       child: Opacity(
@@ -87,6 +86,10 @@ class _EditAccountTileState extends State<EditAccountTile> {
                           fontSize: 24.0,
                           fontWeight: FontWeight.w500,
                         ),
+                        decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: app.settings.appColor))),
                         onSubmitted: (name) {
                           AccountHelper(
                             user: widget.user,
