@@ -22,30 +22,34 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: app.settings.theme.scaffoldBackgroundColor,
+      color: Colors.black38,
       child: Stack(
         children: [
           // Results
-          CupertinoScrollbar(
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.fromLTRB(12.0, 100.0, 12.0, 0),
-              itemCount: results.length,
-              // results.length == 0 ? search history
-              itemBuilder: (context, index) {
-                if (index < 6) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: Duration(milliseconds: 500),
-                    child: SlideAnimation(
-                      verticalOffset: 150,
-                      child: FadeInAnimation(child: results[index].child),
-                    ),
-                  );
-                } else {
-                  return results[index].child;
-                }
-              },
+          Container(
+            margin: EdgeInsets.only(left: 18.0, right: 18.0, top: 74.0, bottom: 18.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: results.length > 0 ? app.settings.theme.scaffoldBackgroundColor : Colors.transparent,
+            ),
+            child: CupertinoScrollbar(
+              child: AnimationLimiter(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 12.0),
+                  itemCount: results.length,
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: Duration(milliseconds: 500),
+                      child: SlideAnimation(
+                        verticalOffset: 150,
+                        child: FadeInAnimation(child: results[index].child),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ),
 

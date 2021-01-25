@@ -156,39 +156,36 @@ class _TimetableFrameState extends State<TimetableFrame>
                   ],
                 ),
               ),
-              ready
-                  ? Expanded(
-                      child: Container(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: _timetableBuilder.week.days.length > 0
-                              ? _timetableBuilder.week.days
-                                  .map((d) => DayTab(d))
-                                  .toList()
-                              : [Empty(title: I18n.of(context).timetableEmpty)],
-                        ),
-                      ),
-                    )
-                  : Container(),
-              ready
-                  ? Container(
-                      child: TimetableTabBar(
-                        color: app.settings.theme.textTheme.bodyText1.color,
-                        currentDayColor: Colors.grey,
-                        controller: _tabController,
-                        days: _timetableBuilder.week.days.length > 0
-                            ? _timetableBuilder.week.days
-                            : [],
-                      ),
-                    )
-                  : Container(),
-              !ready
-                  ? Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : Container(),
+              if (ready)
+                Expanded(
+                  child: Container(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: _timetableBuilder.week.days.length > 0
+                          ? _timetableBuilder.week.days
+                              .map((d) => DayTab(d))
+                              .toList()
+                          : [Empty(title: I18n.of(context).timetableEmpty)],
+                    ),
+                  ),
+                ),
+              if (ready)
+                Container(
+                  child: TimetableTabBar(
+                    color: app.settings.theme.textTheme.bodyText1.color,
+                    currentDayColor: Colors.grey,
+                    controller: _tabController,
+                    days: _timetableBuilder.week.days.length > 0
+                        ? _timetableBuilder.week.days
+                        : [],
+                  ),
+                ),
+              if (!ready)
+                Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
             ],
           ),
         );
