@@ -88,10 +88,13 @@ class _TimetableFrameState extends State<TimetableFrame>
     selectedWeek = _timetableBuilder.getCurrentWeek();
 
     refreshWeek(offline: true)
-        .then((hasOfflineLessons) => ready = hasOfflineLessons)
+        .then((hasOfflineLessons) => setState(() {
+              ready = hasOfflineLessons;
+            }))
         .then((_) => {
-              refreshWeek().then(
-                  (successfulOnlineRefresh) => ready = successfulOnlineRefresh)
+              refreshWeek().then((successfulOnlineRefresh) => setState(() {
+                    ready = successfulOnlineRefresh;
+                  }))
             });
   }
 
