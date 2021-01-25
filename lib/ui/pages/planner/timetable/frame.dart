@@ -119,7 +119,7 @@ class _TimetableFrameState extends State<TimetableFrame>
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(FeatherIcons.chevronLeft),
+                      icon: Icon(FeatherIcons.chevronLeft, color: app.settings.appColor),
                       onPressed: () {
                         if (selectedWeek > 0) {
                           changeWeek(selectedWeek - 1);
@@ -144,7 +144,7 @@ class _TimetableFrameState extends State<TimetableFrame>
                       ),
                     ),
                     IconButton(
-                      icon: Icon(FeatherIcons.chevronRight),
+                      icon: Icon(FeatherIcons.chevronRight, color: app.settings.appColor),
                       onPressed: () {
                         if (selectedWeek < 51) {
                           changeWeek(selectedWeek + 1);
