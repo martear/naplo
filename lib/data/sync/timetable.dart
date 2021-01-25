@@ -12,6 +12,8 @@ class TimetableSync {
   Future<bool> sync() async {
     Week currentWeek =
         TimetableBuilder().getWeek(TimetableBuilder().getCurrentWeek());
+    bool updatingCurrent =
+        (currentWeek.start == from) && (currentWeek.end == to);
 
     if (!app.debugUser) {
       List<Lesson> _lessons;
@@ -21,11 +23,12 @@ class TimetableSync {
         await app.user.kreta.refreshLogin();
         _lessons = await app.user.kreta.getLessons(from, to);
       }
-      //Only do DB calls if we're working with the current week.
-      if ((currentWeek.start == from) && (currentWeek.end == to)) {
-        if (_lessons != null) {
-          lessons = _lessons;
 
+      if (_lessons != null) {
+        lessons = _lessons;
+
+        //Only do DB calls if we're working with the current week.
+        if (updatingCurrent) {
           await app.user.storage.delete("kreta_lessons");
 
           await Future.forEach(_lessons, (lesson) async {
@@ -37,10 +40,10 @@ class TimetableSync {
               });
             }
           });
-        } else {
-          lessons = [];
-          await app.user.storage.delete("kreta_lessons");
         }
+      } else {
+        lessons = [];
+        if (updatingCurrent) await app.user.storage.delete("kreta_lessons");
       }
 
       return _lessons != null;

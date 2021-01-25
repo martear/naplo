@@ -94,6 +94,7 @@ class _TimetableFrameState extends State<TimetableFrame>
         .then((_) => {
               refreshWeek().then((successfulOnlineRefresh) => setState(() {
                     ready = successfulOnlineRefresh;
+                    _timetableBuilder.build(selectedWeek);
                   }))
             });
   }
