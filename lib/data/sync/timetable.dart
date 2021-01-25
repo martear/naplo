@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
-//import 'package:filcnaplo/data/models/dummy.dart';
 
 class TimetableSync {
   List<Lesson> lessons = [];

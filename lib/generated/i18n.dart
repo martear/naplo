@@ -602,8 +602,8 @@ class I18n implements WidgetsLocalizations {
   String rateLimitAlert(String minutes) => "${minutes} percenként egyszer frissíthetsz!";
   /// "keresés"
   String get search => "keresés";
-  /// "Üzenetek szinkronizálása ..."
-  String get syncMessage => "Üzenetek szinkronizálása ...";
+  /// "Üzenetek szinkronizálása..."
+  String get syncMessage => "Üzenetek szinkronizálása...";
   /// "Adatok szinkronizálása..."
   String get syncStudent => "Adatok szinkronizálása...";
   /// "Faliújság szinkronizálása..."
