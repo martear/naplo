@@ -1,7 +1,8 @@
 import 'dart:convert';
-
+import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
+import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
 
 class TimetableSync {
   List<Lesson> lessons = [];
@@ -9,6 +10,9 @@ class TimetableSync {
   DateTime to;
 
   Future<bool> sync() async {
+    Week currentWeek =
+        TimetableBuilder().getWeek(TimetableBuilder().getCurrentWeek());
+
     if (!app.debugUser) {
       List<Lesson> _lessons;
       _lessons = await app.user.kreta.getLessons(from, to);
@@ -17,24 +21,26 @@ class TimetableSync {
         await app.user.kreta.refreshLogin();
         _lessons = await app.user.kreta.getLessons(from, to);
       }
+      //Only do DB calls if we're working with the current week.
+      if ((currentWeek.start == from) && (currentWeek.end == to)) {
+        if (_lessons != null) {
+          lessons = _lessons;
 
-      if (_lessons != null) {
-        lessons = _lessons;
+          await app.user.storage.delete("kreta_lessons");
 
-        await app.user.storage.delete("kreta_lessons");
-
-        await Future.forEach(_lessons, (lesson) async {
-          if (lesson.json != null &&
-              from.isBefore(DateTime.now()) &&
-              to.isAfter(DateTime.now())) {
-            await app.user.storage.insert("kreta_lessons", {
-              "json": jsonEncode(lesson.json),
-            });
-          }
-        });
-      } else {
-        lessons = [];
-        await app.user.storage.delete("kreta_lessons");
+          await Future.forEach(_lessons, (lesson) async {
+            if (lesson.json != null &&
+                from.isBefore(DateTime.now()) &&
+                to.isAfter(DateTime.now())) {
+              await app.user.storage.insert("kreta_lessons", {
+                "json": jsonEncode(lesson.json),
+              });
+            }
+          });
+        } else {
+          lessons = [];
+          await app.user.storage.delete("kreta_lessons");
+        }
       }
 
       return _lessons != null;
