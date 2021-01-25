@@ -42,11 +42,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
   EvaluationType selectedEvalType =
       app.pageContext.evaluationType ?? EvaluationType.midYear;
   TabController _tabController;
+  bool didPageChange;
 
   final _refreshKeyGrades = GlobalKey<RefreshIndicatorState>();
   final _refreshKeySubjects = GlobalKey<RefreshIndicatorState>();
-
-  DateTime lastStateInit;
 
   @override
   void initState() {
@@ -54,8 +53,8 @@ class _EvaluationsPageState extends State<EvaluationsPage>
       vsync: this,
       length: 3,
     );
-    lastStateInit = DateTime.now();
-    _tabController.addListener(() => setState(() {}));
+    didPageChange = false;
+    _tabController.addListener(() => setState(() => didPageChange = true));
     super.initState();
   }
 
@@ -191,7 +190,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                           itemBuilder: (context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
-                              duration: Duration(milliseconds: 500),
+                              duration: didPageChange
+                                  ? Duration.zero
+                                  : Duration(milliseconds: 500),
+                              delay: didPageChange ? Duration.zero : null,
                               child: SlideAnimation(
                                 verticalOffset: 150,
                                 child: FadeInAnimation(

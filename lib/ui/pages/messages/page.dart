@@ -40,8 +40,7 @@ class _MessagesPageState extends State<MessagesPage>
 
   TabController _tabController;
   MessageType selectedMessageType = MessageType.inbox;
-
-  DateTime lastStateInit;
+  bool didPageChange;
 
   @override
   void initState() {
@@ -49,8 +48,8 @@ class _MessagesPageState extends State<MessagesPage>
       vsync: this,
       length: 3,
     );
-    lastStateInit = DateTime.now();
-    _tabController.addListener(() => setState(() {}));
+    didPageChange = false;
+    _tabController.addListener(() => setState(() => didPageChange = true));
     super.initState();
   }
 
@@ -167,7 +166,10 @@ class _MessagesPageState extends State<MessagesPage>
                           itemBuilder: (context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
-                              duration: Duration(milliseconds: 400),
+                              duration: didPageChange
+                                  ? Duration.zero
+                                  : Duration(milliseconds: 400),
+                              delay: didPageChange ? Duration.zero : null,
                               child: SlideAnimation(
                                 verticalOffset: 150,
                                 child:

@@ -42,6 +42,7 @@ class _AbsencesPageState extends State<AbsencesPage>
   final _refreshKeyMisses = GlobalKey<RefreshIndicatorState>();
 
   TabController _tabController;
+  bool didPageChange;
 
   @override
   void initState() {
@@ -50,6 +51,8 @@ class _AbsencesPageState extends State<AbsencesPage>
       vsync: this,
       length: 3,
     );
+    didPageChange = false;
+    _tabController.addListener(() => setState(() => didPageChange = true));
   }
 
   @override
@@ -127,7 +130,10 @@ class _AbsencesPageState extends State<AbsencesPage>
                             itemBuilder: (context, index) {
                               return AnimationConfiguration.staggeredList(
                                 position: index,
-                                duration: Duration(milliseconds: 400),
+                                duration: didPageChange
+                                    ? Duration.zero
+                                    : Duration(milliseconds: 400),
+                                delay: didPageChange ? Duration.zero : null,
                                 child: SlideAnimation(
                                   verticalOffset: 150,
                                   child: FadeInAnimation(

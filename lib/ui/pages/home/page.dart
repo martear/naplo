@@ -14,13 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _refreshHome = GlobalKey<RefreshIndicatorState>();
 
-  DateTime lastStateInit;
   FeedBuilder _feedBuilder;
 
   @override
   void initState() {
     super.initState();
-    lastStateInit = DateTime.now();
     _feedBuilder = FeedBuilder(callback: () => setState(() {}));
   }
 
