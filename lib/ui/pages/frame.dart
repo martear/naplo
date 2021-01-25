@@ -175,64 +175,71 @@ class _PageFrameState extends State<PageFrame> {
     // Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 100.0);
     Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 0.0);
 
-    return Scaffold(
-      body: Container(
-        child: Stack(
-          children: [
-            // Page content
-            TweenAnimationBuilder(
-              tween: offlineAnimation,
-              curve: Curves.ease,
-              duration: Duration(milliseconds: 500),
-              builder: (context, value, _) => Padding(
-                padding: EdgeInsets.only(top: value / (100 / 42)),
-                child: Navigator(key: app.frame, onGenerateRoute: handleRoute),
+    return WillPopScope(
+      onWillPop: () async {
+        if (app.frame.currentState.canPop()) app.frame.currentState.pop();
+        return false;
+      },
+      child: Scaffold(
+        body: Container(
+          child: Stack(
+            children: [
+              // Page content
+              TweenAnimationBuilder(
+                tween: offlineAnimation,
+                curve: Curves.ease,
+                duration: Duration(milliseconds: 500),
+                builder: (context, value, _) => Padding(
+                  padding: EdgeInsets.only(top: value / (100 / 42)),
+                  child:
+                      Navigator(key: app.frame, onGenerateRoute: handleRoute),
+                ),
               ),
-            ),
 
-            TweenAnimationBuilder(
-              tween: offlineAnimation,
-              duration: Duration(milliseconds: 500),
-              curve: Curves.ease,
-              builder: (context, value, _) => Opacity(
-                opacity: value / 100,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.red,
-                  padding: EdgeInsets.only(
-                    left: 12.0,
-                    right: 12.0,
-                    bottom: 12.0,
-                    top: value / (100 / 38.0),
-                  ),
-                  child: Text(
-                    "A kréta jelenleg karbantartás alatt van.",
-                    textAlign: TextAlign.center,
+              TweenAnimationBuilder(
+                tween: offlineAnimation,
+                duration: Duration(milliseconds: 500),
+                curve: Curves.ease,
+                builder: (context, value, _) => Opacity(
+                  opacity: value / 100,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.red,
+                    padding: EdgeInsets.only(
+                      left: 12.0,
+                      right: 12.0,
+                      bottom: 12.0,
+                      top: value / (100 / 38.0),
+                    ),
+                    child: Text(
+                      "A kréta jelenleg karbantartás alatt van.",
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Sync Progress Indicator
-            showSyncProgress
-                ? AnimatedOpacity(
-                    opacity: animateSyncProgress ? 1.0 : 0.0,
-                    duration: Duration(milliseconds: 100),
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      child: SyncProgressIndicator(
-                        text: syncState.text,
-                        current: syncState.current.toString(),
-                        max: syncState.max.toString(),
+              // Sync Progress Indicator
+              showSyncProgress
+                  ? AnimatedOpacity(
+                      opacity: animateSyncProgress ? 1.0 : 0.0,
+                      duration: Duration(milliseconds: 100),
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        child: SyncProgressIndicator(
+                          text: syncState.text,
+                          current: syncState.current.toString(),
+                          max: syncState.max.toString(),
+                        ),
                       ),
-                    ),
-                  )
-                : Container(),
-          ],
+                    )
+                  : Container(),
+            ],
+          ),
         ),
+        bottomNavigationBar:
+            BottomNavbar(this._navItemSelected, selectedPage: selectedPage),
       ),
-      bottomNavigationBar:
-          BottomNavbar(this._navItemSelected, selectedPage: selectedPage),
     );
   }
 }
