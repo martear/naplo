@@ -385,7 +385,7 @@
   },
   "search": "keresés",
   "sync": {
-    "message": "Üzenetek szinkronizálása ...",
+    "message": "Üzenetek szinkronizálása...",
     "student": "Adatok szinkronizálása...",
     "event": "Faliújság szinkronizálása...",
     "note": "Feljegyzések szinkronizálása...",

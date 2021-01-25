@@ -22,25 +22,22 @@ class _TimetableFrameState extends State<TimetableFrame>
   int selectedWeek = 0;
   TimetableBuilder _timetableBuilder;
   Week currentWeek;
-
-  Future<bool> future;
+  bool ready = false;
 
   changeWeek(int week) {
     //Start loading animation by making setting future to a constant false
-    future = () async {
-      setState(() {});
-      return false;
-    }();
+    setState(() {
+      ready = false;
+    });
 
     // Start loading new week
     selectedWeek = week;
-    refreshWeek().then((successfull) {
-      if (successfull) {
+    refreshWeek().then((successful) {
+      if (successful) {
         //After week is refreshed, stop animation, display week
-        future = () async {
-          return true;
-        }();
         setState(() {
+          ready = true;
+
           _timetableBuilder.build(selectedWeek);
           int selectedDay = _tabController.index;
           int length = _timetableBuilder.week.days.length;
@@ -89,7 +86,13 @@ class _TimetableFrameState extends State<TimetableFrame>
     );
 
     selectedWeek = _timetableBuilder.getCurrentWeek();
-    future = refreshWeek();
+
+    refreshWeek(offline: true)
+        .then((hasOfflineLessons) => ready = hasOfflineLessons)
+        .then((_) => {
+              refreshWeek().then(
+                  (successfulOnlineRefresh) => ready = successfulOnlineRefresh)
+            });
   }
 
   @override
@@ -102,108 +105,103 @@ class _TimetableFrameState extends State<TimetableFrame>
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot) {
-        if (app.selectedUser != currentUser) {
-          changeWeek(selectedWeek);
-          currentUser = app.selectedUser;
-        }
-        bool ready = snapshot.data ?? false;
+    if (app.selectedUser != currentUser) {
+      changeWeek(selectedWeek);
+      currentUser = app.selectedUser;
+    }
 
-        return Container(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(FeatherIcons.chevronLeft,
-                          color: app.settings.appColor),
-                      onPressed: () {
-                        if (selectedWeek > 0) {
-                          changeWeek(selectedWeek - 1);
-                        }
-                      },
-                    ),
-                    Expanded(
-                      child: Text(
-                        (selectedWeek + 1).toString() +
-                            ". " +
-                            I18n.of(context).dateWeek +
-                            " (" +
-                            formatDate(context, currentWeek.start,
-                                weekday: false) +
-                            " - " +
-                            formatDate(context, currentWeek.end,
-                                weekday: false) +
-                            ")",
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(FeatherIcons.chevronRight,
-                          color: app.settings.appColor),
-                      onPressed: () {
-                        if (selectedWeek < 51) {
-                          changeWeek(selectedWeek + 1);
-                        }
-                      },
-                    ),
-                  ],
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(FeatherIcons.chevronLeft,
+                      color: app.settings.appColor),
+                  onPressed: () {
+                    if (selectedWeek > 0) {
+                      changeWeek(selectedWeek - 1);
+                    }
+                  },
+                ),
+                Expanded(
+                  child: Text(
+                    (selectedWeek + 1).toString() +
+                        ". " +
+                        I18n.of(context).dateWeek +
+                        " (" +
+                        formatDate(context, currentWeek.start, weekday: false) +
+                        " - " +
+                        formatDate(context, currentWeek.end, weekday: false) +
+                        ")",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(FeatherIcons.chevronRight,
+                      color: app.settings.appColor),
+                  onPressed: () {
+                    if (selectedWeek < 51) {
+                      changeWeek(selectedWeek + 1);
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          if (ready)
+            Expanded(
+              child: Container(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: _timetableBuilder.week.days.length > 0
+                      ? _timetableBuilder.week.days
+                          .map((d) => DayTab(d))
+                          .toList()
+                      : [Empty(title: I18n.of(context).timetableEmpty)],
                 ),
               ),
-              if (ready)
-                Expanded(
-                  child: Container(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: _timetableBuilder.week.days.length > 0
-                          ? _timetableBuilder.week.days
-                              .map((d) => DayTab(d))
-                              .toList()
-                          : [Empty(title: I18n.of(context).timetableEmpty)],
-                    ),
-                  ),
-                ),
-              if (ready)
-                Container(
-                  child: TimetableTabBar(
-                    color: app.settings.theme.textTheme.bodyText1.color,
-                    currentDayColor: Colors.grey,
-                    controller: _tabController,
-                    days: _timetableBuilder.week.days.length > 0
-                        ? _timetableBuilder.week.days
-                        : [],
-                  ),
-                ),
-              if (!ready)
-                Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-            ],
-          ),
-        );
-      },
+            ),
+          if (ready)
+            Container(
+              child: TimetableTabBar(
+                color: app.settings.theme.textTheme.bodyText1.color,
+                currentDayColor: Colors.grey,
+                controller: _tabController,
+                days: _timetableBuilder.week.days.length > 0
+                    ? _timetableBuilder.week.days
+                    : [],
+              ),
+            ),
+          if (!ready)
+            Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+        ],
+      ),
     );
   }
 
-  Future<bool> refreshWeek() async {
+  Future<bool> refreshWeek({bool offline = false}) async {
     currentWeek = _timetableBuilder.getWeek(selectedWeek);
     app.user.sync.timetable.from = currentWeek.start;
     app.user.sync.timetable.to = currentWeek.end;
-    bool successfull = false;
-    for (int i = 0; i < 5; i++) {
-      successfull = await app.user.sync.timetable.sync();
-      if (successfull) break;
-      await Future.delayed(Duration(seconds: 1));
+    if (offline) {
+      return app.user.sync.timetable.lessons.isNotEmpty;
+    } else {
+      bool successful = false;
+      for (int i = 0; i < 5; i++) {
+        successful = await app.user.sync.timetable.sync();
+        if (successful) break;
+        await Future.delayed(Duration(seconds: 1));
+      }
+      return successful;
     }
-
-    return successfull;
   }
 }

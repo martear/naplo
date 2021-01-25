@@ -27,10 +27,13 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           // Results
           Container(
-            margin: EdgeInsets.only(left: 18.0, right: 18.0, top: 74.0, bottom: 18.0),
+            margin: EdgeInsets.only(
+                left: 18.0, right: 18.0, top: 74.0, bottom: 18.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              color: results.length > 0 ? app.settings.theme.scaffoldBackgroundColor : Colors.transparent,
+              color: results.length > 0
+                  ? app.settings.theme.scaffoldBackgroundColor
+                  : Colors.transparent,
             ),
             child: CupertinoScrollbar(
               child: AnimationLimiter(
