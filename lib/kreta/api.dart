@@ -16,6 +16,7 @@ class FilcEndpoints {
   static const config = "/settings.json";
   static const config2 = "/v2/config.json";
   static const supporters = "/v2/supporters.json";
+  static const news = "/v2/news.json";
 }
 
 class KretaEndpoints {
@@ -30,9 +31,11 @@ class KretaEndpoints {
       "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/OsztalyAtlagok";
   static const timetable = "/ellenorzo/V3/Sajat/OrarendElemek";
   static const exams = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
-  static const homeworks = "/ellenorzo/V3/Sajat/HaziFeladatok";
+  static const homework = "/ellenorzo/V3/Sajat/HaziFeladatok";
   static const homeworkDone = "/ellenorzo/V3/Sajat/HaziFeladatok/Megoldva";
   static const capabilities = "/ellenorzo/V3/Sajat/Intezmenyek";
+  static String downloadHomeworkAttachments(String uid, String type) =>
+      "/ellenorzo/V3/Sajat/HaziFeladatok/Csatolmanyok/$uid,$type";
 }
 
 class AdminEndpoints {

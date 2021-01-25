@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:filcnaplo/data/models/config.dart';
+import 'package:filcnaplo/data/models/new.dart';
 import 'package:http/http.dart' as http;
 import 'package:filcnaplo/kreta/api.dart';
 import 'package:filcnaplo/utils/parse_jwt.dart';
@@ -26,13 +28,14 @@ import 'package:intl/intl.dart';
 class KretaClient {
   var client = http.Client();
   final String clientId = "kreta-ellenorzo-mobile";
-  final String userAgent = "hu.ekreta.student/1.0.5/Android/0/0";
+  String userAgent;
   String accessToken;
   String refreshToken;
   String instituteCode;
   String userId;
+  bool kretaOffline = false;
 
-  Future checkResponse(response, {bool retry = true}) async {
+  Future checkResponse(http.Response response, {bool retry = true}) async {
     if (instituteCode != null) {
       if (accessToken == null)
         print("WARNING: accessToken is null. How did this happen?");
@@ -51,6 +54,13 @@ class KretaClient {
 
     if (response.statusCode != 200 && response.statusCode != 204)
       throw "Invalid response: " + response.statusCode.toString();
+
+    if (response.headers.containsKey("x-maintenance-mode") &&
+        response.request.url.host.contains(instituteCode)) {
+      kretaOffline = true;
+    } else {
+      kretaOffline = false;
+    }
   }
 
   Future<List<School>> getSchools() async {
@@ -114,6 +124,42 @@ class KretaClient {
         "all": [],
         "progress": {"value": 0, "max": 100}
       };
+    }
+  }
+
+  Future<Config> getConfig() async {
+    try {
+      var response = await http.get(
+        BaseURL.FILC + FilcEndpoints.config2,
+        headers: {"Content-Type": "application/json"},
+      );
+
+      checkResponse(response);
+
+      Map responseJson = jsonDecode(response.body);
+      Config config = Config.fromJson(responseJson);
+
+      return config;
+    } catch (error) {
+      print("ERROR: KretaAPI.getConfig: " + error.toString());
+      return Config.defaults;
+    }
+  }
+
+  Future<List<News>> getNews() async {
+    try {
+      var response = await http.get(BaseURL.FILC + FilcEndpoints.news,
+          headers: {"Content-Type": "application/json"});
+      List<News> news = [];
+
+      List responseJson = json.decode(response.body);
+
+      responseJson.forEach((newJson) => news.add(News.fromJson(newJson)));
+
+      return news;
+    } catch (error) {
+      print("ERROR: KretaAPI.getNews: " + error.toString());
+      return [];
     }
   }
 
@@ -226,6 +272,7 @@ class KretaClient {
   // }
 
   Future<List<Message>> getMessages(String type) async {
+    print(userAgent);
     try {
       var response = await client.get(
         BaseURL.KRETA_ADMIN + AdminEndpoints.messages(type),
@@ -391,8 +438,6 @@ class KretaClient {
       request.files
           .add(await http.MultipartFile.fromPath('fajl', attachment.file.path));
       var response = await request.send();
-
-      checkResponse(response);
 
       Map responseJson = jsonDecode(await response.stream.bytesToString());
 
@@ -629,7 +674,7 @@ class KretaClient {
     try {
       var response = await client.get(
         BaseURL.kreta(instituteCode) +
-            KretaEndpoints.homeworks +
+            KretaEndpoints.homework +
             "?datumTol=" +
             from.toUtc().toIso8601String(),
         headers: {
@@ -642,13 +687,52 @@ class KretaClient {
 
       List responseJson = jsonDecode(response.body);
       List<Homework> homeworks = [];
+      responseJson.forEach((homework) async {
+        //homeworks.add(Homework.fromJson(homework)
+        var response2 = await client.get(
+          BaseURL.kreta(instituteCode) +
+              KretaEndpoints.homework +
+              "/" +
+              homework["Uid"],
+          headers: {
+            "Authorization": "Bearer $accessToken",
+            "User-Agent": userAgent
+          },
+        );
 
-      responseJson
-          .forEach((homework) => homeworks.add(Homework.fromJson(homework)));
+        await checkResponse(response2);
+
+        Map responseJson2 = jsonDecode(response2.body);
+        homeworks.add(Homework.fromJson(responseJson2));
+      });
 
       return homeworks;
     } catch (error) {
       print("ERROR: KretaAPI.getHomeworks: " + error.toString());
+      return null;
+    }
+  }
+
+  // Client method template
+
+  Future<Uint8List> downloadHomeworkAttachment(
+      HomeworkAttachment attachment) async {
+    try {
+      var response = await client.get(
+        BaseURL.kreta(instituteCode) +
+            KretaEndpoints.downloadHomeworkAttachments(
+                attachment.id.toString(), attachment.type),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+          "User-Agent": userAgent
+        },
+      );
+
+      await checkResponse(response);
+
+      return response.bodyBytes;
+    } catch (error) {
+      print("ERROR: KretaAPI.downloadHomeworkAttachment: " + error.toString());
       return null;
     }
   }
@@ -686,21 +770,44 @@ class KretaClient {
     }
   }
 
-  Future homeworkSolved(Homework homework, bool state) async {
+  Future<void> trashMessage(bool deleted, int id) async {
+    Map data = {
+      "isKuka": deleted,
+      "postaladaElemAzonositoLista": [id]
+    };
+
     try {
-      var response = await client.post(
-        BaseURL.kreta(instituteCode) + KretaEndpoints.homeworkDone,
-        body: '[{"IsMegoldva":$state,"TanarHaziFeladatUid":"${homework.id}"}]',
+      var response =
+          await client.post(BaseURL.KRETA_ADMIN + AdminEndpoints.trashMessage,
+              headers: {
+                "Authorization": "Bearer $accessToken",
+                "User-Agent": userAgent,
+                "Content-Type": "application/json"
+              },
+              body: jsonEncode(data));
+      await checkResponse(response);
+    } catch (error) {
+      print("ERROR: KretaAPI.trashMessage: " + error.toString());
+      return null;
+    }
+  }
+
+  Future<void> deleteMessage(int id) async {
+    try {
+      var response = await client.delete(
+        BaseURL.KRETA_ADMIN +
+            AdminEndpoints.deleteMessage +
+            "?postaladaElemAzonositok=" +
+            id.toString(),
         headers: {
           "Authorization": "Bearer $accessToken",
           "User-Agent": userAgent,
-          "Content-Type": "application/json"
         },
       );
-
       await checkResponse(response);
     } catch (error) {
-      print("ERROR: KretaAPI.homeworkSolved: " + error.toString());
+      print("ERROR: KretaAPI.deleteMessage: " + error.toString());
+      return null;
     }
   }
 

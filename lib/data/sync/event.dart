@@ -5,24 +5,24 @@ import 'package:filcnaplo/data/models/dummy.dart';
 import 'package:filcnaplo/data/models/event.dart';
 
 class EventSync {
-  List<Event> data = [];
+  List<Event> events = [];
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      List<Event> events;
-      events = await app.user.kreta.getEvents();
+      List<Event> _events;
+      _events = await app.user.kreta.getEvents();
 
-      if (events == null) {
+      if (_events == null) {
         await app.user.kreta.refreshLogin();
-        events = await app.user.kreta.getEvents();
+        _events = await app.user.kreta.getEvents();
       }
 
-      if (events != null) {
-        data = events;
+      if (_events != null) {
+        events = _events;
 
         await app.user.storage.delete("kreta_events");
 
-        await Future.forEach(events, (event) async {
+        await Future.forEach(_events, (event) async {
           if (event.json != null) {
             await app.user.storage.insert("kreta_events", {
               "json": jsonEncode(event.json),
@@ -31,14 +31,14 @@ class EventSync {
         });
       }
 
-      return events != null;
+      return _events != null;
     } else {
-      data = Dummy.events;
+      events = Dummy.events;
       return true;
     }
   }
 
   delete() {
-    data = [];
+    events = [];
   }
 }

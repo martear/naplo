@@ -1,7 +1,7 @@
-import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/bottom_card.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
 
@@ -12,22 +12,16 @@ class ExamView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 12.0),
-      decoration: BoxDecoration(
-        color: app.settings.theme.backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
-        ),
-      ),
+    return BottomCard(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           ListTile(
+            contentPadding: EdgeInsets.zero,
             leading: ProfileIcon(name: exam.teacher),
             title: Row(
-              children: <Widget>[
+              children: [
                 Expanded(
                   child: Text(
                     exam.teacher != null
@@ -44,31 +38,28 @@ class ExamView extends StatelessWidget {
           ),
 
           // Test details
-          Padding(
-            padding: EdgeInsets.all(14.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                exam.description != ""
-                    ? TestDetail(
-                        I18n.of(context).evaluationDescription,
-                        exam.description,
-                      )
-                    : Container(),
-                exam.writeDate != null
-                    ? TestDetail(
-                        I18n.of(context).evaluationWriteDate,
-                        formatDate(context, exam.writeDate),
-                      )
-                    : Container(),
-                exam.mode != null
-                    ? TestDetail(
-                        I18n.of(context).evaluationType,
-                        exam.mode.description,
-                      )
-                    : Container(),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              exam.description != ""
+                  ? TestDetail(
+                      I18n.of(context).evaluationDescription,
+                      exam.description,
+                    )
+                  : Container(),
+              exam.writeDate != null
+                  ? TestDetail(
+                      I18n.of(context).evaluationWriteDate,
+                      formatDate(context, exam.writeDate),
+                    )
+                  : Container(),
+              exam.mode != null
+                  ? TestDetail(
+                      I18n.of(context).evaluationType,
+                      exam.mode.description,
+                    )
+                  : Container(),
+            ],
           ),
         ],
       ),
@@ -86,7 +77,7 @@ class TestDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      children: <Widget>[
+      children: [
         Text(
           capital(title) + ":  ",
           style: TextStyle(

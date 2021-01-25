@@ -1,4 +1,5 @@
 import 'package:filcnaplo/data/models/event.dart';
+import 'package:filcnaplo/data/models/homework.dart';
 import 'package:filcnaplo/data/models/school.dart';
 import 'package:filcnaplo/data/models/student.dart';
 import 'package:filcnaplo/data/models/evaluation.dart';
@@ -31,7 +32,7 @@ class Dummy {
       EvaluationValue(1, "One", "One", 200),
       "Test Teacher",
       "Test",
-      Type("", "", "evkozi_jegy_ertekeles"),
+      EvaluationType.midYear,
       "",
       Subject("0", null, "English"),
       null,
@@ -46,7 +47,7 @@ class Dummy {
       EvaluationValue(5, "Ötös", "Ötös", 100),
       "Teszttanár",
       "EzAzEnJegyem",
-      Type("", "", "III_ne_jegy_ertekeles"),
+      EvaluationType.thirdQ,
       "",
       Subject("0", null, "English"),
       null,
@@ -61,7 +62,7 @@ class Dummy {
       EvaluationValue(4, "Four", "Four", 100),
       "Test Teacher",
       "Test 2",
-      Type("", "", "evkozi_jegy_ertekeles"),
+      EvaluationType.midYear,
       "",
       Subject("0", null, "English"),
       null,
@@ -73,10 +74,10 @@ class Dummy {
     Evaluation(
       "234512346",
       DateTime.now(),
-      EvaluationValue(2, "Two", "Two", 100),
+      EvaluationValue(1, "One", "One", 100),
       "Test Teacher 2",
       "Test 2",
-      Type("", "", "evkozi_jegy_ertekeles"),
+      EvaluationType.midYear,
       "",
       Subject("1", null, "Grammar"),
       null,
@@ -91,9 +92,25 @@ class Dummy {
       EvaluationValue(5, "Five", "Five", 50),
       "Test Teacher 3",
       "Test 3",
-      Type("", "", "evkozi_jegy_ertekeles"),
+      EvaluationType.midYear,
       "",
       Subject("2", null, "Math"),
+      null,
+      Type("0", "Test 3", "Test 3"),
+      DateTime.now(),
+      DateTime.now(),
+      "Test 3",
+    ),
+    Evaluation(
+      "2345123134",
+      DateTime.now(),
+      EvaluationValue(5, "Five", "Five", 50),
+      "Test Teacher 3",
+      "Test 3",
+      EvaluationType.midYear,
+      "",
+      Subject(
+          "123", null, "Matematika kompetencianövelő masterclass okosoknak"),
       null,
       Type("0", "Test 3", "Test 3"),
       DateTime.now(),
@@ -112,6 +129,7 @@ class Dummy {
       "Test User",
       "This is a test.",
       "Test",
+      MessageType.inbox,
       [Recipient(0, '0', "Test Teacher", 0, null)],
       [],
     ),
@@ -124,6 +142,7 @@ class Dummy {
       "Test User",
       "This is another test message.",
       "Test 2",
+      MessageType.inbox,
       [
         Recipient(0, '0', "Test Teacher", 0, null),
         Recipient(1, '1', "Albert", 1, null)
@@ -162,12 +181,24 @@ class Dummy {
     Recipient(2, "", "Test User 3", 0, null),
   ];
 
+  static List<Exam> exams = [
+    Exam(
+        DateTime.now(),
+        DateTime.now().add(Duration(minutes: 120)),
+        Type("123", "Gyakorlati feladat", "Gyakorlati feladat"),
+        6,
+        "Alváselmélet",
+        "Marika nénje",
+        "Javítási lehetőség",
+        null,
+        "555"),
+  ];
+
   static List<Lesson> lessons = [
     Lesson(
       Type("122455", "", ""),
       DateTime.now(),
-      Subject("1231651", null,
-          "Szolfézs"),
+      Subject("1231651", null, "Szolfézs"),
       "3",
       12,
       "Jozsa Neni legjobb spanja",
@@ -175,16 +206,61 @@ class Dummy {
       true,
       DateTime.now(),
       DateTime.now().add(Duration(minutes: 45)),
-      Type("51654537", "student presence type desc",
-          "student presence type name"),
-      null, 
+      Type("51654537", "", ""),
+      null,
       <Exam>[],
       "6153131",
-      Type("51561", "lesson type desc", "lesson type name"),
+      Type("51561", "", ""),
       "Le van irva",
       "Kisterem",
       "9. C",
       "Matekmatika - mi ez mi?",
+    ),
+    Lesson(
+      Type("122455", "", ""),
+      DateTime.now(),
+      Subject("420", null, "Kémia"),
+      "5",
+      12,
+      "",
+      "Irma né",
+      true,
+      DateTime.now().add(Duration(minutes: 2 * 45)),
+      DateTime.now().add(Duration(minutes: 3 * 45)),
+      Type("51654537", "student presence type desc",
+          "student presence type name"),
+      null,
+      <Exam>[],
+      "6153132",
+      Type("51561", "lesson type desc", "lesson type name"),
+      "Le van irva",
+      "Khémia",
+      "9. C",
+      "Matekmatika - mi ez mi?",
+    ),
+    Lesson(
+      Type("122455", "", ""),
+      DateTime.now(),
+      Subject("1234", null, "Alváselmélet"),
+      "0",
+      12,
+      "",
+      "Marika Nénje",
+      true,
+      DateTime.now().add(Duration(minutes: 2 * 45)),
+      DateTime.now().add(Duration(minutes: 3 * 45)),
+      Type("51654537", "student presence type desc",
+          "student presence type name"),
+      "333",
+      [
+        "555",
+      ],
+      "6153133",
+      Type("51561", "lesson type desc", "lesson type name"),
+      "Bevezetés a tudatos álmodásba",
+      "Hálószóbád",
+      "9. C",
+      "Név.",
     ),
   ];
 
@@ -193,6 +269,45 @@ class Dummy {
       date: DateTime.now(),
     )
   ]);
+
+  static List<Homework> homework = [
+    Homework(
+        DateTime.now(),
+        DateTime.now(),
+        DateTime.now().add(Duration(days: 1)),
+        true,
+        false,
+        "Lajosne Fekete Andras",
+        "Pihend ki az iskolai faradalmakat",
+        "Kvantumfizika",
+        "",
+        [],
+        "24672456"),
+    Homework(
+        DateTime.now(),
+        DateTime.now(),
+        DateTime.now().add(Duration(days: 1)),
+        true,
+        false,
+        "Marika Nénje",
+        "Fordítsd meg a párnádat a hideg oldalára.",
+        "Alváselmélet",
+        "",
+        [],
+        "333"),
+    Homework(
+        DateTime.now().subtract(Duration(days: 1)),
+        DateTime.now().subtract(Duration(days: 1)),
+        DateTime.now().subtract(Duration(days: 1)),
+        true,
+        false,
+        "Fekete Geza",
+        "Vagj ki egy fat otthon, lakhelyedhez kozeli erdoben, a videot kuldd el TIMSZEN",
+        "Faipari ismeretek",
+        "",
+        [],
+        "24672456"),
+  ];
 
   // k0sz boa
 }

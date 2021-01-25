@@ -1,57 +1,76 @@
 import 'dart:convert';
-
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class MessageSync {
-  List<List<Message>> data = [[], [], [], []];
+  List<Message> inbox = [];
+  List<Message> sent = [];
+  List<Message> trash = [];
 
-  Future<bool> sync(i) async {
+  Future<bool> sync() async {
+    List<Message> _inbox = [];
+    List<Message> _sent = [];
+    List<Message> _trash = [];
+
     if (!app.debugUser) {
-      String type;
-      List types = [
-        "beerkezett",
-        "elkuldott",
-        "torolt",
-      ];
+      // Fetch messages from Kréta by type and store them in their own lists.
+      Future getMessages() async {
+        List types = [
+          "beerkezett",
+          "elkuldott",
+          "torolt",
+        ];
+        _inbox = await app.user.kreta.getMessages(types[0]);
+        _sent = await app.user.kreta.getMessages(types[1]);
+        _trash = await app.user.kreta.getMessages(types[2]);
+      }
 
-      type = types[i];
-
-      List<Message> messages;
-      messages = await app.user.kreta.getMessages(type);
-
-      if (messages == null) {
+      await getMessages();
+      bool success = (_inbox != null && _sent != null && _trash != null);
+      if (!success) {
         await app.user.kreta.refreshLogin();
-        messages = await app.user.kreta.getMessages(type);
+        await getMessages();
+        success = (_inbox != null && _sent != null && _trash != null);
+        // refresh Login and try again in case we get null back.
       }
 
-      if (messages != null) {
-        data[i] = messages;
+      if (success) {
+        List types = ["inbox", "sent", "trash"];
+        for (int i = 0; i <= 2; i++) {
+          // Delete preexisting local messages from database
+          await app.user.storage.delete("messages_" + types[i]);
+        }
 
-        List types = ["inbox", "sent", "trash", "draft"];
+        Future saveLocally(List<Message> messages, String type) async {
+          // Save given messages to database
+          await Future.forEach(messages, (message) async {
+            if (message.json != []) {
+              await app.user.storage.insert("messages_" + type, {
+                "json": jsonEncode(message.json),
+              });
+            }
+          });
+        }
 
-        String messageType = types[i];
-
-        await app.user.storage.delete("messages_" + messageType);
-
-        await Future.forEach(messages, (message) async {
-          if (message.json != null) {
-            await app.user.storage.insert("messages_" + messageType, {
-              "json": jsonEncode(message.json),
-            });
-          }
-        });
+        if (_inbox != null) inbox = _inbox;
+        await saveLocally(inbox, types[0]);
+        if (_sent != null) sent = _sent;
+        await saveLocally(sent, types[1]);
+        if (_trash != null) trash = _trash;
+        await saveLocally(trash, types[2]);
       }
 
-      return messages != null;
+      return success;
     } else {
-      data[0] = Dummy.messages;
+      inbox = Dummy.messages;
       return true;
     }
   }
 
   delete() {
-    data = [[], [], [], []];
+    inbox = [];
+    sent = [];
+    trash = [];
   }
 }

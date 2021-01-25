@@ -5,24 +5,24 @@ import 'package:filcnaplo/data/models/note.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class NoteSync {
-  List<Note> data = [];
+  List<Note> notes = [];
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      List<Note> notes;
-      notes = await app.user.kreta.getNotes();
+      List<Note> _notes;
+      _notes = await app.user.kreta.getNotes();
 
-      if (notes == null) {
+      if (_notes == null) {
         await app.user.kreta.refreshLogin();
-        notes = await app.user.kreta.getNotes();
+        _notes = await app.user.kreta.getNotes();
       }
 
-      if (notes != null) {
-        data = notes;
+      if (_notes != null) {
+        notes = _notes;
 
         await app.user.storage.delete("kreta_notes");
 
-        await Future.forEach(notes, (note) async {
+        await Future.forEach(_notes, (note) async {
           if (note.json != null) {
             await app.user.storage.insert("kreta_notes", {
               "json": jsonEncode(note.json),
@@ -31,14 +31,14 @@ class NoteSync {
         });
       }
       
-      return notes != null;
+      return _notes != null;
     } else {
-      data = Dummy.notes;
+      notes = Dummy.notes;
       return true;
     }
   }
 
   delete() {
-    data = [];
+    notes = [];
   }
 }

@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/utils/format.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:flutter/material.dart';
 
 class MessageTile extends StatelessWidget {
@@ -12,9 +12,13 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: ProfileIcon(name: message.sender),
+      leading: Container(
+          width: 46.0,
+          height: 46.0,
+          alignment: Alignment.center,
+          child: ProfileIcon(name: message.sender)),
       title: Row(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Text(
               message.sender,
@@ -28,7 +32,9 @@ class MessageTile extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        message.subject + "\n" + escapeHtml(message.content),
+        message.subject +
+            "\n" +
+            escapeHtml(message.content).replaceAll("\n", " "),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),

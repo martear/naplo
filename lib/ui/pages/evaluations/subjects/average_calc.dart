@@ -19,80 +19,82 @@ class AverageCalculator extends StatefulWidget {
 class AverageCalculatorState extends State<AverageCalculator> {
   int evaluation = 1;
   double weight = 100;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          color: app.settings.theme.backgroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.0),
-            topRight: Radius.circular(24.0),
-          ),
+      decoration: BoxDecoration(
+        color: app.settings.theme.backgroundColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.0),
+          topRight: Radius.circular(24.0),
         ),
-        child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      I18n.of(context).evaluationsGhostTitle,
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Expanded(child: Container()),
-                  Row(
-                    children: <Widget>[
-                      evalRadio(1),
-                      evalRadio(2),
-                      evalRadio(3),
-                      evalRadio(4),
-                      evalRadio(5)
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      capital(I18n.of(context).evaluationWeight) +
-                          ": " +
-                          weight.toInt().toString() +
-                          "%",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        right: 10, top: 10, left: 10, bottom: 35),
-                    child: Slider(
-                      value: weight,
-                      divisions: 7,
-                      min: 50.0,
-                      max: 400.0,
-                      onChanged: (newWeight) {
-                        setState(() => weight = newWeight);
-                      },
-                      activeColor: Theme.of(context).accentColor,
-                    ),
-                  ),
-                  FlatButton(
-                    padding: EdgeInsets.only(
-                        top: 15, bottom: 15, right: 35, left: 35),
-                    shape: StadiumBorder(),
-                    child: Text(
-                      I18n.of(context).dialogAdd,
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: addEvalToAverage,
-                    color: Theme.of(context).highlightColor,
-                  ),
-                  Expanded(child: Container())
-                ])));
+      ),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                I18n.of(context).evaluationsGhostTitle,
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Expanded(child: Container()),
+            Row(
+              children: [
+                evalRadio(1),
+                evalRadio(2),
+                evalRadio(3),
+                evalRadio(4),
+                evalRadio(5)
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                capital(I18n.of(context).evaluationWeight) +
+                    ": " +
+                    weight.toInt().toString() +
+                    "%",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(right: 10, top: 10, left: 10, bottom: 35),
+              child: Slider(
+                value: weight,
+                divisions: 7,
+                min: 50.0,
+                max: 400.0,
+                onChanged: (newWeight) {
+                  setState(() => weight = newWeight);
+                },
+                activeColor: app.settings.appColor,
+              ),
+            ),
+            FlatButton(
+              padding:
+                  EdgeInsets.only(top: 15, bottom: 15, right: 35, left: 35),
+              shape: StadiumBorder(),
+              child: Text(
+                I18n.of(context).dialogAdd,
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              onPressed: addEvalToAverage,
+              color: Theme.of(context).highlightColor,
+            ),
+            Expanded(child: Container())
+          ],
+        ),
+      ),
+    );
   }
 
   void addEvalToAverage() {
@@ -106,7 +108,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
       EvaluationValue(evaluation, " ", " ", weight.toInt()),
       "", //teacher
       "", //description
-      Type("", "", "evkozi_jegy_ertekeles"), //type
+      EvaluationType.midYear, //type
       null, //groupid
       widget.subject,
       Type("", "", ""), //evaluationtype
@@ -115,12 +117,13 @@ class AverageCalculatorState extends State<AverageCalculator> {
       DateTime.now(), //seen-date
       null,
     );
+
     Navigator.of(context).pop(tempEval);
   }
 
   Widget evalRadio(int value) {
     return Column(
-      children: <Widget>[
+      children: [
         Text(
           value.toString(),
           style: TextStyle(fontSize: 23),
@@ -128,7 +131,7 @@ class AverageCalculatorState extends State<AverageCalculator> {
         Radio<int>(
           value: value,
           groupValue: evaluation,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: app.settings.appColor,
           onChanged: (int value) {
             setState(() {
               evaluation = value;

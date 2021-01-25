@@ -1,7 +1,9 @@
 import 'package:filcnaplo/data/models/absence.dart';
+import 'package:filcnaplo/data/models/config.dart';
 import 'package:filcnaplo/data/models/homework.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/data/models/exam.dart';
+import 'package:filcnaplo/data/sync/config.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -14,25 +16,48 @@ import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/data/models/student.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/models/user.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 class SettingsController {
   String language;
   String deviceLanguage;
   ThemeData theme;
-  Color appColor;
+  Color _appColor;
+  bool _isDark;
   int backgroundColor;
   bool enableNotifications;
   bool renderHtml;
   int defaultPage;
+  int eveningStartHour;
+  bool enableNews;
+  ConfigSync config = ConfigSync();
+  int roundUp;
 
   get locale {
     List<String> lang = (language == "auto"
-            ? deviceLanguage != null ? deviceLanguage : "hu_HU"
+            ? deviceLanguage != null
+                ? deviceLanguage
+                : "hu_HU"
             : language)
         .split("_");
     return Locale(lang[0], lang[1]);
+  }
+
+  Color get appColor {
+    if (!(_isDark ?? app.settings.theme.brightness == Brightness.dark))
+      return TinyColor(_appColor).darken(10).color;
+    else
+      return _appColor;
+  }
+
+  Color get rawAppColor {
+    return _appColor;
+  }
+
+  set appColor(Color color) {
+    _appColor = color;
   }
 
   Color colorFromHex(String hexColor) {
@@ -43,20 +68,21 @@ class SettingsController {
     return Color(int.parse(hexColor, radix: 16));
   }
 
-  Future update({bool login = true, List settings}) async {
-    List settingsInstance = settings ?? await app.storage.storage.query("settings");
-    language = settingsInstance[0]["language"];
-    appColor = ThemeContext.colors[settingsInstance[0]["app_color"]];
-    backgroundColor = settingsInstance[0]["background_color"];
-
-    defaultPage = settingsInstance[0]["default_page"];
+  Future update({bool login = true, Map<String, dynamic> settings}) async {
+    settings = settings ?? (await app.storage.storage.query("settings"))[0];
+    language = settings["language"];
+    _appColor = ThemeContext.colors[settings["app_color"]];
+    backgroundColor = settings["background_color"];
+    defaultPage = settings["default_page"];
+    _isDark = settings["theme"] != "light";
     theme = {
       "light": ThemeContext().light(app.settings.appColor),
       "tinted": ThemeContext().tinted(),
       "dark": ThemeContext()
           .dark(app.settings.appColor, app.settings.backgroundColor)
-    }[settingsInstance[0]["theme"]];
-    app.debugMode = settingsInstance[0]["debug_mode"] == 1;
+    }[settings["theme"]];
+    _isDark = null;
+    app.debugMode = settings["debug_mode"] == 1;
 
     List evalColorsI = await app.storage.storage.query("eval_colors");
 
@@ -66,13 +92,18 @@ class SettingsController {
     app.theme.evalColors[3] = colorFromHex(evalColorsI[0]["color4"]);
     app.theme.evalColors[4] = colorFromHex(evalColorsI[0]["color5"]);
 
-    enableNotifications = settingsInstance[0]["notifications"] == 1;
-    renderHtml = settingsInstance[0]["render_html"] == 1;
+    enableNotifications = settings["notifications"] == 1;
+    enableNews = settings["news_show"] == 1;
+    renderHtml = settings["render_html"] == 1;
+
+    config.config = Config.fromJson(jsonDecode(settings["config"]));
+
+    roundUp = settings["round_up"];
 
     List usersInstance = await app.storage.storage.query("users");
 
     if (app.debugMode)
-      print("Loading " + usersInstance.length.toString() + " users");
+      print("INFO: Loading " + usersInstance.length.toString() + " users");
 
     for (int i = 0; i < usersInstance.length; i++) {
       Map instance = usersInstance[i];
@@ -143,7 +174,6 @@ Future loadData(User user) async {
 
   List student = await userStorage.query("student");
   List settings = await userStorage.query("settings");
-  List tabs = await app.storage.storage.query("tabs");
 
   if (settings[0]["nickname"] != "") globalUser.name = settings[0]["nickname"];
 
@@ -160,96 +190,90 @@ Future loadData(User user) async {
   }
 
   if (student.length > 0) {
-    globalSync.student.data = Student.fromJson(jsonDecode(student[0]["json"]));
+    globalSync.student.student = Student.fromJson(jsonDecode(student[0]["json"]));
   }
-
-  app.tabState.messages.index = tabs[0]["messages"];
-  app.tabState.evaluations.index = tabs[0]["evaluations"];
-  app.tabState.absences.index = tabs[0]["absences"];
-  app.tabState.timetable.index = tabs[0]["timetable"];
 
   List evaluations = await userStorage.query("evaluations");
 
-  globalSync.evaluation.data = [[], []];
-  globalSync.evaluation.data[0] = <Evaluation>[];
+  globalSync.evaluation.evaluations = [];
+  globalSync.evaluation.averages = [];
 
   evaluations.forEach((evaluation) {
-    globalSync.evaluation.data[0]
+    globalSync.evaluation.evaluations
         .add(Evaluation.fromJson(jsonDecode(evaluation["json"])));
   });
 
   List notes = await userStorage.query("kreta_notes");
 
-  globalSync.note.data = [];
+  globalSync.note.notes = [];
   notes.forEach((note) {
-    globalSync.note.data.add(Note.fromJson(jsonDecode(note["json"])));
+    globalSync.note.notes.add(Note.fromJson(jsonDecode(note["json"])));
   });
 
   List events = await userStorage.query("kreta_events");
 
-  globalSync.event.data = [];
+  globalSync.event.events = [];
   events.forEach((event) {
-    globalSync.event.data.add(Event.fromJson(jsonDecode(event["json"])));
+    globalSync.event.events.add(Event.fromJson(jsonDecode(event["json"])));
   });
 
   List messagesInbox = await userStorage.query("messages_inbox");
 
-  globalSync.messages.data[0] = [];
+  globalSync.messages.inbox = [];
   messagesInbox.forEach((message) {
-    globalSync.messages.data[0]
+    globalSync.messages.inbox
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 
   List messagesSent = await userStorage.query("messages_sent");
 
-  globalSync.messages.data[1] = [];
+  globalSync.messages.sent = [];
   messagesSent.forEach((message) {
-    globalSync.messages.data[1]
-        .add(Message.fromJson(jsonDecode(message["json"])));
+    globalSync.messages.sent.add(Message.fromJson(jsonDecode(message["json"])));
   });
 
   List messagesDraft = await userStorage.query("messages_draft");
 
-  globalSync.messages.data[2] = [];
+  globalSync.messages.inbox = [];
   messagesDraft.forEach((message) {
-    globalSync.messages.data[2]
+    globalSync.messages.inbox
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 
   List messagesTrash = await userStorage.query("messages_trash");
 
-  globalSync.messages.data[3] = [];
+  globalSync.messages.trash = [];
   messagesTrash.forEach((message) {
-    globalSync.messages.data[3]
+    globalSync.messages.trash
         .add(Message.fromJson(jsonDecode(message["json"])));
   });
 
   List absences = await userStorage.query("kreta_absences");
 
-  globalSync.absence.data = [];
+  globalSync.absence.absences = [];
   absences.forEach((absence) {
-    globalSync.absence.data.add(Absence.fromJson(jsonDecode(absence["json"])));
+    globalSync.absence.absences.add(Absence.fromJson(jsonDecode(absence["json"])));
   });
 
   List exams = await userStorage.query("kreta_exams");
 
-  globalSync.exam.data = [];
+  globalSync.exam.exams = [];
   exams.forEach((exam) {
-    globalSync.exam.data.add(Exam.fromJson(jsonDecode(exam["json"])));
+    globalSync.exam.exams.add(Exam.fromJson(jsonDecode(exam["json"])));
   });
 
   List homeworks = await userStorage.query("kreta_homeworks");
 
-  globalSync.homework.data = [];
+  globalSync.homework.homework = [];
   homeworks.forEach((homework) {
-    globalSync.homework.data
+    globalSync.homework.homework
         .add(Homework.fromJson(jsonDecode(homework["json"])));
   });
 
   List lessons = await userStorage.query("kreta_lessons");
 
-  globalSync.timetable.data = [];
+  globalSync.timetable.lessons = [];
   lessons.forEach((lesson) {
-    globalSync.timetable.data.add(Lesson.fromJson(jsonDecode(lesson["json"])));
+    globalSync.timetable.lessons.add(Lesson.fromJson(jsonDecode(lesson["json"])));
   });
 }

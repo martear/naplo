@@ -7,7 +7,7 @@ class NoteBuilder {
 
   void build() {
     noteTiles = [];
-    List<Note> notes = app.user.sync.note.data
+    List<Note> notes = app.user.sync.note.notes
         .where((miss) =>
             miss.type.name != "HaziFeladatHiany" &&
             miss.type.name != "Felszereleshiany")

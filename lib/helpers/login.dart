@@ -1,3 +1,4 @@
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/login.dart';
 import 'package:filcnaplo/data/context/app.dart';
@@ -19,8 +20,12 @@ class LoginHelper {
         loginContext.password == "nobody" &&
         app.debugMode) {
       app.users.add(User("debug", "nobody", "nobody", null));
+      app.users.add(User("debug2", "nobody2", "nobody", null));
       app.user.name = "Test User";
       app.user.realName = "Test User";
+      app.users[1].name = "Test User 2";
+      app.users[1].realName = "Test User 2";
+      app.users[1].loginState = true;
       app.debugUser = true;
       app.selectedUser = 0;
       app.user.loginState = true;
@@ -66,18 +71,16 @@ class LoginHelper {
       await app.settings.update(login: false);
 
       app.selectedUser = app.users.length - 1;
+      // app.users[app.selectedUser].loginState = true;
 
       return true;
     } else {
       if (loginContext.error == null) {
         app.kretaApi.users[userID] = null;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            I18n.of(context).loginError,
-            style: TextStyle(color: Colors.white),
-          ),
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+          message: I18n.of(context).loginError,
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          color: Colors.red,
         ));
 
         return false;

@@ -7,7 +7,7 @@ class AbsenceBuilder {
 
   void build() {
     absenceTiles = [];
-    List<Absence> absences = app.user.sync.absence.data
+    List<Absence> absences = app.user.sync.absence.absences
         .where((absence) => absence.type.name == "hianyzas")
         .toList();
 
@@ -25,7 +25,9 @@ class AbsenceBuilder {
     });
 
     absenceDays.keys.forEach((day) {
-      absenceTiles.add(AbsenceTileGroup(absenceDays[day]));
+      List<Absence> absences = absenceDays[day];
+      absences.sort((a, b) => a.lessonStart.compareTo(b.lessonStart));
+      absenceTiles.add(AbsenceTileGroup(absences));
     });
   }
 }

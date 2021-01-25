@@ -1,5 +1,6 @@
 import 'package:filcnaplo/data/sync/evaluation.dart';
 import 'package:filcnaplo/data/sync/message.dart';
+import 'package:filcnaplo/data/sync/news.dart';
 import 'package:filcnaplo/data/sync/note.dart';
 import 'package:filcnaplo/data/sync/event.dart';
 import 'package:filcnaplo/data/sync/student.dart';
@@ -8,6 +9,9 @@ import 'package:filcnaplo/data/sync/exam.dart';
 import 'package:filcnaplo/data/sync/homework.dart';
 import 'package:filcnaplo/data/sync/timetable.dart';
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
+import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
+import 'dart:async';
 
 class SyncController {
   // Users
@@ -17,7 +21,7 @@ class SyncController {
   List<Map<String, dynamic>> tasks = [];
   Function updateCallback;
   int currentTask = 0;
-
+  Future<void> fullSyncFinished = Completer().future;
   void addUser(String userID) {
     if (users[userID] == null) users[userID] = SyncUser();
   }
@@ -52,12 +56,10 @@ class SyncController {
       task: app.user.sync.exam.sync(),
     );
 
-    for (var i = 0; i < 3; i++) {
-      createTask(
-        name: "message",
-        task: app.user.sync.messages.sync(i),
-      );
-    }
+    createTask(
+      name: "message",
+      task: app.user.sync.messages.sync(),
+    );
 
     createTask(
       name: "note",
@@ -95,7 +97,7 @@ class SyncController {
       }
     });
     tasks = [];
-
+    fullSyncFinished = Future.value(true);
     print("INFO: Full sync completed.");
   }
 
@@ -128,6 +130,7 @@ class SyncController {
       sync.exam.delete();
       sync.homework.delete();
       sync.timetable.delete();
+      sync.news.delete();
     });
   }
 }
@@ -143,4 +146,11 @@ class SyncUser {
   ExamSync exam = ExamSync();
   HomeworkSync homework = HomeworkSync();
   TimetableSync timetable = TimetableSync();
+  NewsSync news = NewsSync();
+  SyncUser() {
+    TimetableBuilder builder = TimetableBuilder();
+    Week currentWeek = builder.getWeek(builder.getCurrentWeek());
+    timetable.from = currentWeek.start;
+    timetable.to = currentWeek.end;
+  }
 }

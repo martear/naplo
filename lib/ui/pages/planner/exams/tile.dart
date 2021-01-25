@@ -17,7 +17,7 @@ class ExamTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         child: Row(
-          children: <Widget>[
+          children: [
             Icon(
               isPast ? FeatherIcons.checkSquare : FeatherIcons.edit,
               color: isPast ? Colors.green : app.settings.appColor,
@@ -34,7 +34,7 @@ class ExamTile extends StatelessWidget {
                 ),
               ),
             ),
-            Text(formatDate(context, exam.date)),
+            Text(formatDate(context, exam.writeDate)),
           ],
         ),
       ),

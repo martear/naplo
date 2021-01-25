@@ -14,13 +14,29 @@ class _NotificationSettingsState extends State<NotificationSettings> {
     return Scaffold(
       body: Container(
         child: Column(
-          children: <Widget>[
+          children: [
             AppBar(
               centerTitle: true,
-              leading: BackButton(),
+              leading: BackButton(color: app.settings.appColor),
               title: Text(I18n.of(context).settingsNotificationsTitle),
               shadowColor: Colors.transparent,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            ListTile(
+              leading: Icon(FeatherIcons.mail),
+              title: Text(I18n.of(context).settingsNotificationsNews),
+              trailing: Switch(
+                activeColor: app.settings.appColor,
+                value: app.settings.enableNews,
+                onChanged: (bool value) {
+                  setState(() {
+                    app.settings.enableNews = value;
+                  });
+
+                  app.storage.storage.update("settings",
+                      {"news_show": (app.settings.enableNews ? 1 : 0)});
+                },
+              ),
             ),
             ListTile(
               leading: Icon(app.settings.enableNotifications
@@ -28,6 +44,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   : FeatherIcons.bellOff),
               title: Text(I18n.of(context).settingsNotificationsTitle),
               trailing: Switch(
+                activeColor: app.settings.appColor,
                 value: app.settings.enableNotifications,
                 onChanged: (bool value) {
                   setState(() {

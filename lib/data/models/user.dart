@@ -1,6 +1,6 @@
 import 'package:filcnaplo/data/controllers/sync.dart';
 import 'package:filcnaplo/kreta/client.dart';
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:sqflite/sqflite.dart';
 

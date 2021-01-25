@@ -1,18 +1,20 @@
-import 'package:filcnaplo/data/context/message.dart';
-import 'package:filcnaplo/data/state/sync.dart';
+import 'package:filcnaplo/data/context/page.dart';
+import 'package:filcnaplo/data/models/new.dart';
+import 'package:filcnaplo/data/sync/state.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/pages/news/view.dart';
 import 'package:filcnaplo/ui/sync/indicator.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/absences/page.dart';
-import 'package:filcnaplo/ui/pages/messages/compose.dart';
-import 'package:filcnaplo/ui/pages/evaluations/dial.dart';
 import 'package:filcnaplo/ui/pages/evaluations/page.dart';
 import 'package:filcnaplo/ui/pages/home/page.dart';
 import 'package:filcnaplo/ui/pages/messages/page.dart';
 import 'package:filcnaplo/ui/pages/planner/page.dart';
-import 'package:filcnaplo/ui/pages/tutorial.dart';
+import 'package:filcnaplo/ui/pages/welcome/tutorial.dart';
+import 'package:filcnaplo/utils/network.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/bottom_navbar.dart';
+import 'package:filcnaplo/ui/common/bottom_navbar.dart';
 
 class PageFrame extends StatefulWidget {
   @override
@@ -20,27 +22,98 @@ class PageFrame extends StatefulWidget {
 }
 
 class _PageFrameState extends State<PageFrame> {
-  GlobalKey<ScaffoldState> _homeKey = GlobalKey();
+  PageType selectedPage;
 
   @override
   void initState() {
     super.initState();
 
+    selectedPage = PageType.values[app.settings.defaultPage];
+
+    NetworkUtils.checkConnectivity().then((networkAvailable) {
+      if (!networkAvailable) {
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+          message: I18n.of(context).errorInternet,
+          color: Colors.red,
+        ));
+      }
+    });
+
     // Sync at startup
     app.settings.update().then((_) {
-      if (app.user.loginState) app.sync.fullSync();
+      app.user.kreta.userAgent = app.settings.config.config.userAgent;
+      app.settings.config.sync().then((success) {
+        app.user.kreta.userAgent = app.settings.config.config.userAgent;
+        if (app.user.loginState) app.sync.fullSync();
+      }).catchError((error) {
+        print("ERROR: PageFrame.initState: Could not get config: $error");
+        if (app.user.loginState) app.sync.fullSync();
+      });
+    });
+
+    app.user.sync.news.sync().then((_) {
+      if (app.user.sync.news.prevLength != 0 && app.settings.enableNews) {
+        Future.delayed(Duration(seconds: 1), () {
+          Future.forEach(app.user.sync.news.fresh, (News news) async {
+            if (news.title != null)
+              await showDialog(
+                context: context,
+                builder: (context) => NewsView(news),
+              );
+          });
+        });
+      }
     });
   }
 
   void _navItemSelected(int item) {
-    if (item != app.selectedPage) {
-      setState(() {
-        app.selectedPage = item;
-      });
+    if (item != selectedPage.index) {
+      app.gotoPage(PageType.values[item]);
+    }
+  }
+
+  _pageRoute(Function(BuildContext) builder) {
+    return PageRouteBuilder(
+      pageBuilder: (context, _, __) => builder(context),
+      transitionDuration: Duration(milliseconds: 200),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var tween = Tween(begin: 0.0, end: 1.0);
+        var offsetAnimation = animation.drive(tween);
+
+        return FadeTransition(
+          opacity: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route handleRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case "home":
+        selectedPage = PageType.home;
+        return _pageRoute((_) => HomePage());
+      case "evaluations":
+        selectedPage = PageType.evaluations;
+        return _pageRoute((_) => EvaluationsPage());
+      case "planner":
+        selectedPage = PageType.planner;
+        return _pageRoute((_) => PlannerPage());
+      case "messages":
+        selectedPage = PageType.messages;
+        return _pageRoute((_) => MessagesPage());
+      case "absences":
+        selectedPage = PageType.absences;
+        return _pageRoute((_) => AbsencesPage());
+      default:
+        selectedPage = PageType.home;
+        return _pageRoute((_) => HomePage());
     }
   }
 
   SyncState syncState = SyncState();
+  bool showSyncProgress = false;
+  bool animateSyncProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +132,13 @@ class _PageFrameState extends State<PageFrame> {
         };
 
         setState(() {
-          if (task != null)
-            syncState =
-                SyncState(text: tasks[task] ?? "", current: current, max: max);
+          if (task != null) {
+            syncState = SyncState(
+              text: tasks[task] ?? "",
+              current: current,
+              max: max,
+            );
+          }
         });
       };
 
@@ -83,97 +160,86 @@ class _PageFrameState extends State<PageFrame> {
       }
     });
 
-    Widget pageContent;
-
-    switch (app.selectedPage) {
-      case 0:
-        pageContent = HomePage();
-        break;
-      case 1:
-        pageContent = EvaluationsPage(_homeKey);
-        break;
-      case 2:
-        pageContent = PlannerPage(_homeKey);
-        break;
-      case 3:
-        pageContent = MessagesPage(_homeKey);
-        break;
-      case 4:
-        pageContent = AbsencesPage(_homeKey);
-        break;
-      default:
-        pageContent = HomePage();
-        break;
+    if (syncState.current != null && app.sync.tasks.length > 0) {
+      showSyncProgress = true;
+      animateSyncProgress = true;
+    } else {
+      animateSyncProgress = false;
+      Future.delayed(
+        Duration(milliseconds: 200),
+        () => setState(() => showSyncProgress = false),
+      );
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    // Tween<double> offlineAnimation = Tween<double>(begin: 100.0, end: 0.0);
+    // Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 100.0);
+    Tween<double> offlineAnimation = Tween<double>(begin: 0.0, end: 0.0);
 
-    return Scaffold(
-      key: _homeKey,
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            // Page content
-            pageContent,
+    return WillPopScope(
+      onWillPop: () async {
+        if (app.frame.currentState.canPop()) app.frame.currentState.pop();
+        return false;
+      },
+      child: Scaffold(
+        body: Container(
+          child: Stack(
+            children: [
+              // Page content
+              TweenAnimationBuilder(
+                tween: offlineAnimation,
+                curve: Curves.ease,
+                duration: Duration(milliseconds: 500),
+                builder: (context, value, _) => Padding(
+                  padding: EdgeInsets.only(top: value / (100 / 42)),
+                  child:
+                      Navigator(key: app.frame, onGenerateRoute: handleRoute),
+                ),
+              ),
 
-            // Sync Progress Indicator
-            (syncState.current != null && app.sync.tasks.length > 0)
-                ? Container(
-                    alignment: Alignment.bottomCenter,
-                    child: SyncProgressIndicator(
-                      text: syncState.text,
-                      current: syncState.current.toString(),
-                      max: syncState.max.toString(),
+              TweenAnimationBuilder(
+                tween: offlineAnimation,
+                duration: Duration(milliseconds: 500),
+                curve: Curves.ease,
+                builder: (context, value, _) => Opacity(
+                  opacity: value / 100,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.red,
+                    padding: EdgeInsets.only(
+                      left: 12.0,
+                      right: 12.0,
+                      bottom: 12.0,
+                      top: value / (100 / 38.0),
                     ),
-                  )
-                : Container(),
-
-            // Shadow
-            app.settings.theme.brightness == Brightness.light
-                ? Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 10.0,
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[700],
-                          blurRadius: 8.0,
-                          offset: Offset(0, 16),
-                        )
-                      ]),
+                    child: Text(
+                      "A kréta jelenleg karbantartás alatt van.",
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                : Container(),
-          ],
+                  ),
+                ),
+              ),
+
+              // Sync Progress Indicator
+              showSyncProgress
+                  ? AnimatedOpacity(
+                      opacity: animateSyncProgress ? 1.0 : 0.0,
+                      duration: Duration(milliseconds: 100),
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        child: SyncProgressIndicator(
+                          text: syncState.text,
+                          current: syncState.current.toString(),
+                          max: syncState.max.toString(),
+                        ),
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
         ),
+        bottomNavigationBar:
+            BottomNavbar(this._navItemSelected, selectedPage: selectedPage),
       ),
-      floatingActionButton: (app.selectedPage == 3 &&
-              app.tabState.messages.index == 0)
-          ? FloatingActionButton(
-              child: Icon(Icons.edit, color: app.settings.appColor),
-              backgroundColor: app.settings.theme.backgroundColor,
-              onPressed: () {
-                messageContext = MessageContext();
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewMessagePage()));
-              },
-            )
-          : (app.selectedPage == 1 && app.tabState.evaluations.index == 0)
-              ? EvaluationsDial(
-                  (app.evalSortBy / 2).floor(),
-                  app.evalSortBy % 2 == 1,
-                  onSelect: (int selected) {
-                    int newVal = 4 - selected * 2;
-                    bool changed = newVal != app.evalSortBy;
-
-                    setState(
-                      () => app.evalSortBy = newVal + (changed ? 0 : 1),
-                    );
-                  },
-                )
-              : null,
-      bottomNavigationBar: BottomNavbar(this._navItemSelected),
     );
   }
 }

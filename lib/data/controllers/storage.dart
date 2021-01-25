@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/models/config.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io';
@@ -11,7 +16,7 @@ class StorageController {
   Map<String, Database> users = {};
   Future createSettingsTable(Database db) async {
     await db.execute(
-        "create table settings (language TEXT, app_color TEXT, theme TEXT, background_color INTIGER, notifications INTIGER, selected_user INTIGER, render_html INTIGER, debug_mode INTIGER, default_page INTIGER)");
+        "create table settings (language TEXT, app_color TEXT, theme TEXT, background_color INTIGER, notifications INTIGER, selected_user INTIGER, render_html INTIGER, debug_mode INTIGER, default_page INTIGER, news_show INTIGER, news_len INTIGER, config TEXT, round_up INTIGER)");
   }
 
   Future init() async {
@@ -36,13 +41,20 @@ class StorageController {
         await db.insert("settings", {
           "language": "auto",
           "app_color": "default",
-          "theme": "light",
-          "background_color": 0,
+          "theme": SchedulerBinding.instance.window.platformBrightness ==
+                  Brightness.dark
+              ? 'dark'
+              : 'light',
+          "background_color": 1,
           "notifications": 1,
           "selected_user": 0,
-          "render_html": 1,
+          "render_html": 0,
           "debug_mode": 0,
-          "default_page": 0
+          "default_page": 0,
+          "news_show": 1,
+          "news_len": 0,
+          "config": jsonEncode(Config.defaults.json),
+          "round_up": 5,
         });
 
         // Create Eval Colors
@@ -54,16 +66,6 @@ class StorageController {
           "color3": "#fdd835",
           "color4": "#8bc34a",
           "color5": "#43a047",
-        });
-
-        // Tab States
-        await db.execute(
-            "create table tabs (messages INTIGER, evaluations INTIGER, absences INTIGER, timetable INTIGER)");
-        await db.insert("tabs", {
-          "messages": 0,
-          "evaluations": 0,
-          "absences": 0,
-          "timetable": 0,
         });
       },
     );

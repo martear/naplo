@@ -1,5 +1,8 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/subject.dart';
+import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/helpers/averages.dart';
 import 'package:filcnaplo/ui/pages/evaluations/subjects/view.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -23,52 +26,79 @@ class SubjectTile extends StatelessWidget {
           title: Text(
             capital(subject.name),
             style: TextStyle(fontSize: 18.0),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              classAvg != null && classAvg.round() != 0
-                  ? Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                        border: Border.all(
-                          width: 3.0,
-                          color: app.theme
-                              .evalColors[(classAvg.round() - 1).clamp(0, 4)],
+              roundSubjAvg(studentAvg) < 3.0
+                  ? Tooltip(
+                      message: roundSubjAvg(studentAvg) < 2.0
+                          ? I18n.of(context).tooltipSubjectsFailWarning
+                          : I18n.of(context).tooltipSubjectsAlmostFailWarning,
+                      child: Container(
+                        child: Icon(
+                          FeatherIcons.alertCircle,
+                          color: getAverageColor(studentAvg),
                         ),
+                        margin: EdgeInsets.only(right: 8),
                       ),
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        app.settings.language == "en"
-                            ? classAvg.toStringAsFixed(2)
-                            : classAvg.toStringAsFixed(2).split(".").join(","),
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  : Container(),
+              classAvg != null && roundSubjAvg(classAvg) != 0
+                  ? Tooltip(
+                      message:
+                          capitalize(I18n.of(context).evaluationAverageClass),
+                      child: Container(
+                        width: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(45.0)),
+                          border: Border.all(
+                            width: 3.0,
+                            color: getAverageColor(classAvg),
+                          ),
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        child: Text(
+                          app.settings.language.split("_")[0] == "en"
+                              ? classAvg.toStringAsFixed(2)
+                              : classAvg
+                                  .toStringAsFixed(2)
+                                  .split(".")
+                                  .join(","),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     )
                   : Container(),
               studentAvg > 0 && studentAvg <= 5.0
-                  ? Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                        color: app.theme
-                            .evalColors[(studentAvg.round() - 1).clamp(0, 4)],
-                      ),
-                      padding: EdgeInsets.all(8.0),
-                      margin: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        app.settings.language == "en"
-                            ? studentAvg.toStringAsFixed(2)
-                            : studentAvg
-                                .toStringAsFixed(2)
-                                .split(".")
-                                .join(","),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: textColor(
-                            app.theme.evalColors[
-                                (studentAvg.round() - 1).clamp(0, 4)],
+                  ? Tooltip(
+                      message: capitalize(I18n.of(context).evaluationAverage),
+                      child: Container(
+                        width: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(45.0)),
+                          color: getAverageColor(studentAvg),
+                        ),
+                        padding: EdgeInsets.all(8.0),
+                        margin: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          app.settings.language.split("_")[0] == "en"
+                              ? studentAvg.toStringAsFixed(2)
+                              : studentAvg
+                                  .toStringAsFixed(2)
+                                  .split(".")
+                                  .join(","),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: textColor(
+                              getAverageColor(studentAvg),
+                            ),
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     )
@@ -77,7 +107,7 @@ class SubjectTile extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
               builder: (context) => SubjectView(subject, classAvg)));
         },
       ),

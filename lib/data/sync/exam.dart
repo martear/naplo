@@ -1,28 +1,29 @@
 import 'dart:convert';
 
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/models/dummy.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 //import 'package:filcnaplo/data/models/dummy.dart';
 
 class ExamSync {
-  List<Exam> data = [];
+  List<Exam> exams = [];
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      List<Exam> exams;
-      exams = await app.user.kreta.getExams();
+      List<Exam> _exams;
+      _exams = await app.user.kreta.getExams();
 
-      if (exams == null) {
+      if (_exams == null) {
         await app.user.kreta.refreshLogin();
-        exams = await app.user.kreta.getExams();
+        _exams = await app.user.kreta.getExams();
       }
 
-      if (exams != null) {
-        data = exams;
+      if (_exams != null) {
+        exams = _exams;
 
         await app.user.storage.delete("kreta_exams");
 
-        await Future.forEach(exams, (exam) async {
+        await Future.forEach(_exams, (exam) async {
           if (exam.json != null) {
             await app.user.storage.insert("kreta_exams", {
               "json": jsonEncode(exam.json),
@@ -31,13 +32,14 @@ class ExamSync {
         });
       }
 
-      return exams != null;
+      return _exams != null;
     } else {
+      exams = Dummy.exams;
       return true;
     }
   }
 
   delete() {
-    data = [];
+    exams = [];
   }
 }

@@ -9,7 +9,7 @@ class Evaluation {
   EvaluationValue value;
   String teacher;
   String description;
-  Type type;
+  EvaluationType type;
   String groupId;
   Subject subject;
   Type evaluationType;
@@ -43,12 +43,13 @@ class Evaluation {
     EvaluationValue value = EvaluationValue(
       json["SzamErtek"] ?? 0,
       json["SzovegesErtek"] ?? "",
-      json["SzovegesErtekRovidNev"] ?? "",
+      json["SzovegesErtekelesRovidNev"] ?? "",
       json["SulySzazalekErteke"] ?? 0,
     );
     String teacher = json["ErtekeloTanarNeve"] ?? "";
     String description = json["Tema"] ?? "";
-    Type type = json["Tipus"] != null ? Type.fromJson(json["Tipus"]) : null;
+    EvaluationType type =
+        json["Tipus"] != null ? Type.getEvalType(json["Tipus"]["Nev"]) : null;
     String groupId = json["OsztalyCsoport"]["Uid"] ?? "";
     Subject subject =
         json["Tantargy"] != null ? Subject.fromJson(json["Tantargy"]) : null;
@@ -61,7 +62,7 @@ class Evaluation {
     DateTime seenDate = json["LattamozasDatuma"] != null
         ? DateTime.parse(json["LattamozasDatuma"]).toLocal()
         : null;
-    String form = json["Jelleg"] ?? "";
+    String form = json["Jelleg"] != "Na" ? json["Jelleg"] : null;
 
     return Evaluation(
       id,
@@ -99,9 +100,10 @@ class EvaluationValue {
   int weight;
 
   EvaluationValue(this.value, this.valueName, this.shortName, this.weight) {
+    String _valueName = SearchController.specialChars(valueName.toLowerCase());
+
     if (value == 0 &&
-        ["peldas", "jo", "valtozo", "rossz", "hanyag"]
-            .contains(SearchController.specialChars(valueName.toLowerCase()))) {
+        ["peldas", "jo", "valtozo", "rossz", "hanyag"].contains(_valueName)) {
       weight = 100;
 
       value = {
@@ -110,7 +112,9 @@ class EvaluationValue {
         "valtozo": 3,
         "rossz": 2,
         "hanyag": 2
-      }[SearchController.specialChars(valueName.toLowerCase())];
+      }[_valueName];
     }
   }
 }
+
+enum EvaluationType { midYear, firstQ, secondQ, halfYear, thirdQ, fourthQ, endYear }

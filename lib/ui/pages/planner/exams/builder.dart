@@ -8,7 +8,7 @@ class ExamBuilder {
   void build() {
     examTiles = [[], []];
 
-    List<Exam> exams = app.user.sync.exam.data;
+    List<Exam> exams = app.user.sync.exam.exams;
 
     exams.sort((a, b) => -a.date.compareTo(b.date));
     
