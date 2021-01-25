@@ -34,8 +34,8 @@ class _TimetableFrameState extends State<TimetableFrame>
 
     // Start loading new week
     selectedWeek = week;
-    refreshWeek().then((successfull) {
-      if (successfull) {
+    refreshWeek().then((successful) {
+      if (successful) {
         //After week is refreshed, stop animation, display week
         future = () async {
           return true;
@@ -200,13 +200,13 @@ class _TimetableFrameState extends State<TimetableFrame>
     currentWeek = _timetableBuilder.getWeek(selectedWeek);
     app.user.sync.timetable.from = currentWeek.start;
     app.user.sync.timetable.to = currentWeek.end;
-    bool successfull = false;
+    bool successful = false;
     for (int i = 0; i < 5; i++) {
-      successfull = await app.user.sync.timetable.sync();
-      if (successfull) break;
+      successful = await app.user.sync.timetable.sync();
+      if (successful) break;
       await Future.delayed(Duration(seconds: 1));
     }
 
-    return successfull;
+    return successful;
   }
 }
