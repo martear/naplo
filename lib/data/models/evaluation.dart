@@ -104,7 +104,7 @@ class EvaluationValue {
 
     if (value == 0 &&
         ["peldas", "jo", "valtozo", "rossz", "hanyag"].contains(_valueName)) {
-      weight = 100;
+      weight = 0;
 
       value = {
         "peldas": 5,
@@ -117,4 +117,12 @@ class EvaluationValue {
   }
 }
 
-enum EvaluationType { midYear, firstQ, secondQ, halfYear, thirdQ, fourthQ, endYear }
+enum EvaluationType {
+  midYear,
+  firstQ,
+  secondQ,
+  halfYear,
+  thirdQ,
+  fourthQ,
+  endYear
+}

@@ -50,20 +50,23 @@ List<SubjectAverage> calculateSubjectsAverage() {
   return averages;
 }
 
-double averageEvals(List<Evaluation> evals,
-    {int forceWeight, List<String> ignoreTypes}) {
+double averageEvals(List<Evaluation> evals, {bool finalAvg}) {
   double average = 0.0;
-  if (ignoreTypes == null) {
-    ignoreTypes = [];
-  }
-  var ev = evals.where((e) => !ignoreTypes.contains(e.evaluationType.id));
-  ev.forEach((e) {
-    average += e.value.value * ((forceWeight ?? e.value.weight) / 100);
+
+  List<String> ignoreInFinal = ["5,SzorgalomErtek", "4,MagatartasErtek"];
+
+  if (finalAvg)
+    evals.removeWhere((element) =>
+        (element.value.value == 0) ||
+        (ignoreInFinal.contains(element.evaluationType.id)));
+
+  evals.forEach((e) {
+    average += e.value.value * ((finalAvg ? 100 : e.value.weight) / 100);
   });
 
   average = average /
-      ev
-          .map((e) => (forceWeight ?? e.value.weight) / 100)
+      evals
+          .map((e) => (finalAvg ? 100 : e.value.weight) / 100)
           .reduce((a, b) => a + b);
 
   return average.isNaN ? 0.0 : average;

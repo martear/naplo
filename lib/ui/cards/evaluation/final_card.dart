@@ -21,9 +21,7 @@ class FinalCard extends BaseCard {
 
   @override
   Widget build(BuildContext context) {
-    double finalAvg = averageEvals(evals,
-        forceWeight: 100,
-        ignoreTypes: ["5,SzorgalomErtek", "4,MagatartasErtek"]);
+    double finalAvg = averageEvals(evals, finalAvg: true);
 
     String title = "";
     switch (evals.first.type) {
