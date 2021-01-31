@@ -9,7 +9,7 @@
     "timetable": "Stundenplan",
     "homework": "Hausaufgaben",
     "notes": "Hinweise",
-    "messages": "Benachrichtigungen",
+    "messages": "Mitteilungen",
     "exams": "Prüfungen",
     "absences": "Abwesenheiten",
     "settings": "Einstellungen"
@@ -172,8 +172,8 @@
     "title": "Wandezeitung"
   },
   "message": {
-    "": "Benachrichtigung",
-    "title": "Benachrichtigungen",
+    "": "Mitteilungen",
+    "title": "Mitteilungen",
     "subject": "Gegenstand",
     "recipients": "Empfänger",
     "attachments": "Anhänge",

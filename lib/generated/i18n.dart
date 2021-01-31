@@ -1788,9 +1788,9 @@ class _I18n_de_DE extends I18n {
   /// "Hinweise"
   @override
   String get drawerNotes => "Hinweise";
-  /// "Benachrichtigungen"
+  /// "Mitteilungen"
   @override
-  String get drawerMessages => "Benachrichtigungen";
+  String get drawerMessages => "Mitteilungen";
   /// "Prüfungen"
   @override
   String get drawerExams => "Prüfungen";
@@ -2163,12 +2163,12 @@ class _I18n_de_DE extends I18n {
   /// "Wandezeitung"
   @override
   String get eventTitle => "Wandezeitung";
-  /// "Benachrichtigung"
+  /// "Mitteilungen"
   @override
-  String get message => "Benachrichtigung";
-  /// "Benachrichtigungen"
+  String get message => "Mitteilungen";
+  /// "Mitteilungen"
   @override
-  String get messageTitle => "Benachrichtigungen";
+  String get messageTitle => "Mitteilungen";
   /// "Gegenstand"
   @override
   String get messageSubject => "Gegenstand";
