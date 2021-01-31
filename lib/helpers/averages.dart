@@ -50,14 +50,19 @@ List<SubjectAverage> calculateSubjectsAverage() {
   return averages;
 }
 
-double averageEvals(List<Evaluation> evals, {int forceWeight}) {
+double averageEvals(List<Evaluation> evals,
+    {int forceWeight, List<String> ignoreTypes}) {
   double average = 0.0;
-  evals.forEach((e) {
+  if (ignoreTypes == null) {
+    ignoreTypes = [];
+  }
+  var ev = evals.where((e) => !ignoreTypes.contains(e.evaluationType.id));
+  ev.forEach((e) {
     average += e.value.value * ((forceWeight ?? e.value.weight) / 100);
   });
 
   average = average /
-      evals
+      ev
           .map((e) => (forceWeight ?? e.value.weight) / 100)
           .reduce((a, b) => a + b);
 
