@@ -2,6 +2,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/helpers/account.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/accounts/dkt.dart';
 import 'package:filcnaplo/ui/pages/accounts/edit.dart';
 import 'package:filcnaplo/utils/format.dart';
@@ -74,25 +75,46 @@ class _AccountTileState extends State<AccountTile> {
                         AccountTileButton(
                           icon: FeatherIcons.edit2,
                           title: I18n.of(context).actionEdit,
-                          onPressed: () => setState(() => editMode = true),
+                          onPressed: () => {
+                            if (!app.debugUser)
+                              setState(() => editMode = true)
+                            else
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  CustomSnackBar(
+                                      color: Colors.red,
+                                      message: "Debug user can't be edited."))
+                          },
                         ),
                         AccountTileButton(
                           icon: FeatherIcons.grid,
                           title: "DKT",
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        DKTPage(widget.user)));
+                            if (!app.debugUser)
+                              Navigator.of(context, rootNavigator: true).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DKTPage(widget.user)));
+                            else
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  CustomSnackBar(
+                                      color: Colors.red,
+                                      message: "Debug user has no DKT page."));
                           },
                         ),
                         AccountTileButton(
                           icon: FeatherIcons.trash2,
                           title: I18n.of(context).actionDelete,
                           onPressed: () {
-                            AccountHelper(user: widget.user)
-                                .deleteAccount(context);
-                            widget.onDelete();
+                            if (!app.debugUser) {
+                              AccountHelper(user: widget.user)
+                                  .deleteAccount(context);
+                              widget.onDelete();
+                            } else
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  CustomSnackBar(
+                                      color: Colors.red,
+                                      message:
+                                          "Restart the app to log out of Debug user."));
                           },
                         ),
                       ],

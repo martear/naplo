@@ -175,12 +175,6 @@ class Dummy {
     ),
   ];
 
-  static List<Recipient> recipients = [
-    Recipient(0, "", "Test User 1", 0, null),
-    Recipient(1, "", "Test User 2", 0, null),
-    Recipient(2, "", "Test User 3", 0, null),
-  ];
-
   static List<Exam> exams = [
     Exam(
         DateTime.now(),
