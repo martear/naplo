@@ -76,12 +76,22 @@ class _MessagesPageState extends State<MessagesPage>
               child: Icon(Icons.edit, color: app.settings.appColor),
               backgroundColor: app.settings.theme.backgroundColor,
               onPressed: () {
-                messageContext = MessageContext();
+                if (!app.debugUser) {
+                  messageContext = MessageContext();
 
-                Navigator.of(context, rootNavigator: true)
-                    .push(MaterialPageRoute(
-                        builder: (context) => NewMessagePage()))
-                    .then((_) => setState(() {}));
+                  Navigator.of(context, rootNavigator: true)
+                      .push(MaterialPageRoute(
+                          builder: (context) => NewMessagePage()))
+                      .then((_) => setState(() {}));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    CustomSnackBar(
+                      color: Colors.red,
+                      message:
+                          "Message writing is not available with the debug user.",
+                    ),
+                  );
+                }
               },
             )
           : null,
