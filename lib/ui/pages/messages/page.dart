@@ -29,7 +29,9 @@ class _MessagesPageState extends State<MessagesPage>
   EventBuilder _eventBuilder;
 
   _MessagesPageState() {
-    this._messageBuilder = MessageBuilder(() => setState(() {}));
+    this._messageBuilder = MessageBuilder(() => setState(() {
+          buildPage();
+        }));
     this._noteBuilder = NoteBuilder();
     this._eventBuilder = EventBuilder();
   }
@@ -51,6 +53,7 @@ class _MessagesPageState extends State<MessagesPage>
     didPageChange = false;
     _tabController.addListener(() => setState(() => didPageChange = true));
     super.initState();
+    buildPage();
   }
 
   @override
@@ -63,8 +66,6 @@ class _MessagesPageState extends State<MessagesPage>
 
   @override
   Widget build(BuildContext context) {
-    buildPage();
-
     List<Widget> messageTiles = [];
     messageTiles.addAll(_messageBuilder.messageTiles
         .getSelectedMessages(selectedMessageType.index));
@@ -82,7 +83,9 @@ class _MessagesPageState extends State<MessagesPage>
                   Navigator.of(context, rootNavigator: true)
                       .push(MaterialPageRoute(
                           builder: (context) => NewMessagePage()))
-                      .then((_) => setState(() {}));
+                      .then((_) => setState(() {
+                            buildPage();
+                          }));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     CustomSnackBar(
@@ -123,15 +126,19 @@ class _MessagesPageState extends State<MessagesPage>
                 color: app.settings.theme.textTheme.bodyText1.color,
                 onTap: (value) {
                   _tabController.animateTo(value);
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 },
                 labels: [
                   CustomLabel(
                     dropdown: CustomDropdown(
                         initialValue: selectedMessageType.index,
                         callback: (value) {
-                          setState(() =>
-                              selectedMessageType = MessageType.values[value]);
+                          setState(() {
+                            selectedMessageType = MessageType.values[value];
+                            buildPage();
+                          });
                         },
                         values: {
                           0: capital(I18n.of(context).messageDrawerInbox),
@@ -160,7 +167,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
 
@@ -211,7 +220,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: CupertinoScrollbar(
@@ -242,7 +253,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: CupertinoScrollbar(
