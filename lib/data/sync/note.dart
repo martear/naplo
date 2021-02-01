@@ -30,9 +30,6 @@ class NoteSync {
           }
         });
       }
-
-      app.messagesPending = true;
-      app.homePending = true;
       
       return _notes != null;
     } else {

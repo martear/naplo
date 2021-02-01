@@ -61,9 +61,6 @@ class MessageSync {
         await saveLocally(trash, types[2]);
       }
 
-      app.messagesPending = true;
-      app.homePending = true;
-
       return success;
     } else {
       inbox = Dummy.messages;

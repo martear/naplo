@@ -66,11 +66,6 @@ class _AbsencesPageState extends State<AbsencesPage>
 
   @override
   Widget build(BuildContext context) {
-    if (app.absencesPending) {
-      buildPage();
-      app.absencesPending = false;
-    }
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {

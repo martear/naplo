@@ -32,8 +32,6 @@ class HomeworkSync {
         });
       }
 
-      app.homePending = true;
-
       return _homework != null;
     } else {
       homework = Dummy.homework;

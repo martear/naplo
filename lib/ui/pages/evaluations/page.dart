@@ -78,11 +78,6 @@ class _EvaluationsPageState extends State<EvaluationsPage>
 
   @override
   Widget build(BuildContext context) {
-    if (app.evaluationsPending) {
-      buildPage();
-      app.evaluationsPending = false;
-    }
-
     return Scaffold(
       floatingActionButton: _tabController.index == 0
           ? EvaluationsDial(

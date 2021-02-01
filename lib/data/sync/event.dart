@@ -31,9 +31,6 @@ class EventSync {
         });
       }
 
-      app.messagesPending = true;
-      app.homePending = true;
-
       return _events != null;
     } else {
       events = Dummy.events;
