@@ -1,25 +1,13 @@
-import 'package:filcnaplo/data/models/absence.dart';
 import 'package:filcnaplo/data/models/config.dart';
-import 'package:filcnaplo/data/models/homework.dart';
-import 'package:filcnaplo/data/models/lesson.dart';
-import 'package:filcnaplo/data/models/exam.dart';
 import 'package:filcnaplo/data/sync/config.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/data/controllers/sync.dart';
-import 'package:filcnaplo/data/models/evaluation.dart';
-import 'package:filcnaplo/data/models/note.dart';
-import 'package:filcnaplo/data/models/event.dart';
-import 'package:filcnaplo/data/models/message.dart';
-import 'package:filcnaplo/data/models/student.dart';
 import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/models/user.dart';
-import 'package:filcnaplo/ui/common/profile_icon.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:tinycolor/tinycolor.dart';
 import 'package:filcnaplo/data/controllers/offlineloader.dart';
+
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:tinycolor/tinycolor.dart';
 
 class SettingsController {
   String language;
