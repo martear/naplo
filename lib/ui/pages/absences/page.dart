@@ -53,6 +53,7 @@ class _AbsencesPageState extends State<AbsencesPage>
     );
     didPageChange = false;
     _tabController.addListener(() => setState(() => didPageChange = true));
+    buildPage();
   }
 
   @override
@@ -65,8 +66,6 @@ class _AbsencesPageState extends State<AbsencesPage>
 
   @override
   Widget build(BuildContext context) {
-    buildPage();
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {
@@ -116,7 +115,9 @@ class _AbsencesPageState extends State<AbsencesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: _absenceBuilder.absenceTiles.length > 0
@@ -157,7 +158,9 @@ class _AbsencesPageState extends State<AbsencesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: _delayBuilder.delayTiles.length > 0
@@ -181,7 +184,9 @@ class _AbsencesPageState extends State<AbsencesPage>
                       color: Colors.red,
                     ));
                   } else {
-                    setState(() {});
+                    setState(() {
+                      buildPage();
+                    });
                   }
                 },
                 child: _missBuilder.missTiles.length > 0
