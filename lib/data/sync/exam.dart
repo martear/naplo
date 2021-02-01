@@ -32,6 +32,8 @@ class ExamSync {
         });
       }
 
+      app.homePending = true;
+
       return _exams != null;
     } else {
       exams = Dummy.exams;

@@ -46,6 +46,8 @@ class TimetableSync {
         if (updatingCurrent) await app.user.storage.delete("kreta_lessons");
       }
 
+      app.homePending = true;
+
       return _lessons != null;
     } else {
       //data[0] = Dummy.lessons;

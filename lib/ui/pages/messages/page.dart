@@ -43,6 +43,7 @@ class _MessagesPageState extends State<MessagesPage>
   TabController _tabController;
   MessageType selectedMessageType = MessageType.inbox;
   bool didPageChange;
+  List<Widget> messageTiles = [];
 
   @override
   void initState() {
@@ -66,10 +67,10 @@ class _MessagesPageState extends State<MessagesPage>
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> messageTiles = [];
-    messageTiles.addAll(_messageBuilder.messageTiles
-        .getSelectedMessages(selectedMessageType.index));
-    messageTiles.add(SizedBox(height: 100.0));
+    if (app.messagesPending) {
+      buildPage();
+      app.messagesPending = false;
+    }
 
     return Scaffold(
       floatingActionButton: _tabController.index == 0
@@ -285,5 +286,9 @@ class _MessagesPageState extends State<MessagesPage>
     _messageBuilder.build();
     _noteBuilder.build();
     _eventBuilder.build();
+
+    messageTiles.addAll(_messageBuilder.messageTiles
+        .getSelectedMessages(selectedMessageType.index));
+    messageTiles.add(SizedBox(height: 100.0));
   }
 }

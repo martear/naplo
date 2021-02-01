@@ -20,6 +20,8 @@ class ConfigSync {
         });
       }
 
+      app.homePending = true;
+      
       return _config != null;
     } else {
       return true;

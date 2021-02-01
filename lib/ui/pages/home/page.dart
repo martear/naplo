@@ -20,11 +20,15 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _feedBuilder = FeedBuilder(callback: () => setState(() {}));
+    _feedBuilder.build();
   }
 
   @override
   Widget build(BuildContext context) {
-    _feedBuilder.build();
+    if (app.homePending) {
+      _feedBuilder.build();
+      app.homePending = false;
+    }
 
     return Scaffold(
       body: Stack(

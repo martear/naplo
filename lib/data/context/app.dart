@@ -80,4 +80,10 @@ class AppContext {
   }
 
   PageContext get pageContext => _pageContext;
+
+  //Page updates
+    bool homePending = false;
+    bool evaluationsPending = false;
+    bool messagesPending = false;
+    bool absencesPending = false;
 }

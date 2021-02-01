@@ -24,6 +24,8 @@ class NewsSync {
     }
 
     await app.storage.storage.update("settings", {"news_len": length});
+    
+    app.homePending = true;
   }
 
   void delete() {

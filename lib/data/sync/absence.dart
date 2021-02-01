@@ -30,6 +30,9 @@ class AbsenceSync {
           }
         });
       }
+
+      app.absencesPending = true;
+      app.homePending = true;
       
       return _absences != null;
     } else {

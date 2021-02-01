@@ -41,6 +41,9 @@ class EvaluationSync {
         });
       }
 
+      app.evaluationsPending = true;
+      app.homePending = true;
+
       return _evaluations != null;
     } else {
       evaluations = Dummy.evaluations;

@@ -47,6 +47,8 @@ class StudentSync {
         }
       }
 
+      app.homePending = true;
+
       return _student != null;
     } else {
       student = Dummy.student;
