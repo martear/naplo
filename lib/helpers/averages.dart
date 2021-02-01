@@ -50,7 +50,7 @@ List<SubjectAverage> calculateSubjectsAverage() {
   return averages;
 }
 
-double averageEvals(List<Evaluation> evals, {bool finalAvg}) {
+double averageEvals(List<Evaluation> evals, {bool finalAvg = false}) {
   double average = 0.0;
 
   List<String> ignoreInFinal = ["5,SzorgalomErtek", "4,MagatartasErtek"];

@@ -149,8 +149,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                               return types.contains(type);
                             },
                             callback: (value) {
-                              setState(() => selectedEvalType =
-                                  EvaluationType.values[value]);
+                              setState(() {
+                                selectedEvalType = EvaluationType.values[value];
+                                buildPage();
+                              });
                             },
                             initialValue: selectedEvalType.index,
                           )
