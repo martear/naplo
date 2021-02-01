@@ -190,7 +190,8 @@ Future loadData(User user) async {
   }
 
   if (student.length > 0) {
-    globalSync.student.student = Student.fromJson(jsonDecode(student[0]["json"]));
+    globalSync.student.student =
+        Student.fromJson(jsonDecode(student[0]["json"]));
   }
 
   List evaluations = await userStorage.query("evaluations");
@@ -252,7 +253,8 @@ Future loadData(User user) async {
 
   globalSync.absence.absences = [];
   absences.forEach((absence) {
-    globalSync.absence.absences.add(Absence.fromJson(jsonDecode(absence["json"])));
+    globalSync.absence.absences
+        .add(Absence.fromJson(jsonDecode(absence["json"])));
   });
 
   List exams = await userStorage.query("kreta_exams");
@@ -274,6 +276,7 @@ Future loadData(User user) async {
 
   globalSync.timetable.lessons = [];
   lessons.forEach((lesson) {
-    globalSync.timetable.lessons.add(Lesson.fromJson(jsonDecode(lesson["json"])));
+    globalSync.timetable.lessons
+        .add(Lesson.fromJson(jsonDecode(lesson["json"])));
   });
 }

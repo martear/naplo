@@ -6,7 +6,7 @@ import 'package:filcnaplo/data/models/event.dart';
 
 class EventSync {
   List<Event> events = [];
-  bool uiPending = false;
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {

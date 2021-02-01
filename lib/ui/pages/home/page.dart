@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _feedBuilder = FeedBuilder(callback: () => setState(() {}));
+    _feedBuilder.build();
   }
 
   @override
@@ -89,6 +90,8 @@ class _HomePageState extends State<HomePage> {
       app.user.sync.event.uiPending = false;
       app.user.sync.exam.uiPending = false;
       app.user.sync.homework.uiPending = false;
+
+      return true;
     } else
       return false;
   }

@@ -153,4 +153,14 @@ class SyncUser {
     timetable.from = currentWeek.start;
     timetable.to = currentWeek.end;
   }
+
+  void allPending() {
+    app.user.sync.absence.uiPending = true;
+    app.user.sync.note.uiPending = true;
+    app.user.sync.messages.uiPending = true;
+    app.user.sync.evaluation.uiPending = true;
+    app.user.sync.event.uiPending = true;
+    app.user.sync.exam.uiPending = true;
+    app.user.sync.homework.uiPending = true;
+  }
 }

@@ -7,7 +7,7 @@ import 'package:filcnaplo/data/models/exam.dart';
 
 class ExamSync {
   List<Exam> exams = [];
-  bool uiPending = false;
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {

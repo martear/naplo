@@ -22,13 +22,7 @@ class _AccountPageState extends State<AccountPage> {
     app.sync.fullSync();
     app.user.kreta.userAgent = app.settings.config.config.userAgent;
 
-    app.user.sync.absence.uiPending = true;
-    app.user.sync.note.uiPending = true;
-    app.user.sync.messages.uiPending = true;
-    app.user.sync.evaluation.uiPending = true;
-    app.user.sync.event.uiPending = true;
-    app.user.sync.exam.uiPending = true;
-    app.user.sync.homework.uiPending = true;
+    app.user.sync.allPending();
 
     Navigator.of(context).pop();
   }

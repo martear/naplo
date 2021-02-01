@@ -6,7 +6,7 @@ import 'package:filcnaplo/data/models/absence.dart';
 
 class AbsenceSync {
   List<Absence> absences = [];
-  bool uiPending = false;
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
@@ -33,7 +33,7 @@ class AbsenceSync {
       }
 
       uiPending = true;
-      
+
       return _absences != null;
     } else {
       //data = Dummy.absences;

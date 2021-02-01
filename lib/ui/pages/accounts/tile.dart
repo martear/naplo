@@ -67,9 +67,7 @@ class _AccountTileState extends State<AccountTile> {
                               builder: (context) => AccountView(widget.user,
                                   callback: () => setState(() {})),
                               backgroundColor: Colors.transparent,
-                            ).then((deleted) {
-                              if (deleted == true) widget.onDelete();
-                            });
+                            );
                           },
                         ),
                         AccountTileButton(
@@ -108,7 +106,7 @@ class _AccountTileState extends State<AccountTile> {
                             if (!app.debugUser) {
                               AccountHelper(user: widget.user)
                                   .deleteAccount(context);
-                              widget.onDelete();
+                              widget.onDelete(app.selectedUser);
                             } else
                               ScaffoldMessenger.of(context).showSnackBar(
                                   CustomSnackBar(

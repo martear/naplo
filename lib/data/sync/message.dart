@@ -7,7 +7,7 @@ class MessageSync {
   List<Message> inbox = [];
   List<Message> sent = [];
   List<Message> trash = [];
-  bool uiPending = false;
+  bool uiPending = true;
 
   Future<bool> sync() async {
     List<Message> _inbox = [];
