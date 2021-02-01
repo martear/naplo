@@ -1,5 +1,6 @@
 import 'package:filcnaplo/data/sync/evaluation.dart';
 import 'package:filcnaplo/data/sync/message.dart';
+import 'package:filcnaplo/data/sync/news.dart';
 import 'package:filcnaplo/data/sync/note.dart';
 import 'package:filcnaplo/data/sync/event.dart';
 import 'package:filcnaplo/data/sync/student.dart';
@@ -11,6 +12,7 @@ import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
 import 'dart:async';
+
 class SyncController {
   // Users
   Map<String, SyncUser> users = {};
@@ -54,12 +56,10 @@ class SyncController {
       task: app.user.sync.exam.sync(),
     );
 
-    for (var i = 0; i < 3; i++) {
-      createTask(
-        name: "message",
-        task: app.user.sync.messages.sync(i),
-      );
-    }
+    createTask(
+      name: "message",
+      task: app.user.sync.messages.sync(),
+    );
 
     createTask(
       name: "note",
@@ -130,6 +130,7 @@ class SyncController {
       sync.exam.delete();
       sync.homework.delete();
       sync.timetable.delete();
+      sync.news.delete();
     });
   }
 }
@@ -145,10 +146,21 @@ class SyncUser {
   ExamSync exam = ExamSync();
   HomeworkSync homework = HomeworkSync();
   TimetableSync timetable = TimetableSync();
+  NewsSync news = NewsSync();
   SyncUser() {
     TimetableBuilder builder = TimetableBuilder();
     Week currentWeek = builder.getWeek(builder.getCurrentWeek());
     timetable.from = currentWeek.start;
     timetable.to = currentWeek.end;
+  }
+
+  void allPending() {
+    app.user.sync.absence.uiPending = true;
+    app.user.sync.note.uiPending = true;
+    app.user.sync.messages.uiPending = true;
+    app.user.sync.evaluation.uiPending = true;
+    app.user.sync.event.uiPending = true;
+    app.user.sync.exam.uiPending = true;
+    app.user.sync.homework.uiPending = true;
   }
 }

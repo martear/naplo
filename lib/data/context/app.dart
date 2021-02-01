@@ -1,11 +1,12 @@
+import 'package:filcnaplo/data/context/page.dart';
 import 'package:filcnaplo/data/context/theme.dart';
-import 'package:filcnaplo/data/state/tab.dart';
 import 'package:filcnaplo/kreta/api.dart';
 import 'package:filcnaplo/data/models/user.dart';
 import 'package:filcnaplo/data/controllers/settings.dart';
 import 'package:filcnaplo/data/controllers/storage.dart';
 import 'package:filcnaplo/data/controllers/sync.dart';
 import 'package:filcnaplo/data/controllers/search.dart';
+import 'package:flutter/cupertino.dart';
 
 AppContext app = AppContext();
 
@@ -18,15 +19,11 @@ class AppContext {
   bool firstStart = false;
 
   String appDataPath;
+  final GlobalKey<NavigatorState> frame = GlobalKey<NavigatorState>();
 
   String currentAppVersion = "unknown";
-  int selectedTimetablePage = 0;
-  int selectedMessagePage = 0;
-  int selectedEvalPage = 0;
-  int selectedPage = 0;
-  int evalSortBy = 0;
+  String platform = "unknown";
 
-  TabState tabState = TabState();
   ThemeContext theme = ThemeContext();
 
   // Users
@@ -40,6 +37,8 @@ class AppContext {
         app.sync.users[users[selectedUser].id],
       );
     } catch (error) {
+      if (debugMode)
+        print("[ERROR] data.context.app.AppContext: " + error.toString());
       return null;
     }
   }
@@ -52,4 +51,30 @@ class AppContext {
   final StorageController storage = StorageController();
   final SyncController sync = SyncController();
   final SearchController search = SearchController();
+
+  PageContext _pageContext = PageContext();
+
+  void gotoPage(PageType page, {PageContext pageContext}) {
+    _pageContext = pageContext ?? PageContext();
+
+    switch (page) {
+      case PageType.home:
+        frame.currentState.pushReplacementNamed("home");
+        break;
+      case PageType.evaluations:
+        frame.currentState.pushReplacementNamed("evaluations");
+        break;
+      case PageType.planner:
+        frame.currentState.pushReplacementNamed("planner");
+        break;
+      case PageType.messages:
+        frame.currentState.pushReplacementNamed("messages");
+        break;
+      case PageType.absences:
+        frame.currentState.pushReplacementNamed("absences");
+        break;
+    }
+  }
+
+  PageContext get pageContext => _pageContext;
 }

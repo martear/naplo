@@ -1,6 +1,7 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/day.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/modules/printing/printerDebugScreen.dart';
@@ -10,6 +11,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
+import 'package:flutter/foundation.dart';
 
 /*
 Author: daaniiieel
@@ -19,16 +21,6 @@ current week.
 */
 
 class TimetablePrinter {
-  String dayNames(BuildContext context, int i) => [
-        I18n.of(context).dateMondayShort,
-        I18n.of(context).dateTuesdayShort,
-        I18n.of(context).dateWednesdayShort,
-        I18n.of(context).dateThursdayShort,
-        I18n.of(context).dateFridayShort,
-        I18n.of(context).dateSaturdayShort,
-        I18n.of(context).dateSundayShort,
-      ][i - 1];
-
   pw.Document build(
       BuildContext context, pw.Document pdf, List<Day> days, int min, int max) {
     List rows = <pw.TableRow>[];
@@ -38,7 +30,7 @@ class TimetablePrinter {
     days.forEach((day) => headerChildren.add(pw.Padding(
         padding: pw.EdgeInsets.all(5),
         child:
-            pw.Center(child: pw.Text(dayNames(context, day.date.weekday))))));
+            pw.Center(child: pw.Text(weekdayStringShort(context, day.date.weekday))))));
     pw.TableRow headerRow = pw.TableRow(
         children: headerChildren,
         verticalAlignment: pw.TableCellVerticalAlignment.middle);
@@ -76,7 +68,7 @@ class TimetablePrinter {
     // add timetable to pdf
     pw.Table table = pw.Table(
       children: rows,
-      border: pw.TableBorder(bottom: true, top: true, left: true, right: true),
+      border: pw.TableBorder.all(),
       defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
     );
 
@@ -85,7 +77,7 @@ class TimetablePrinter {
       trailing: pw.Text('filcnaplo.hu'),
       margin: pw.EdgeInsets.only(top: 12.0),
     );
-    String className = app.user.sync.student.data.className;
+    String className = app.user.sync.student.student.className;
 
     pw.Footer header = pw.Footer(
       margin: pw.EdgeInsets.all(5),
@@ -109,12 +101,8 @@ class TimetablePrinter {
       pw.Document pdf = pw.Document(theme: myTheme);
 
       // sync indicator
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(
-          I18n.of(context).syncTimetable,
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.grey,
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+        message: I18n.of(context).syncTimetable,
       ));
 
       // get a builder and build current week
@@ -141,15 +129,11 @@ class TimetablePrinter {
       pdf = build(context, pdf, weekDays, minLessonIndex, maxLessonIndex);
 
       // print pdf
-      if (!app.debugMode) {
+      if (kReleaseMode) {
         Printing.layoutPdf(onLayout: (format) => pdf.save()).then((success) {
           if (success)
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
-              content: Text(
-                I18n.of(context).settingsExportExportTimetableSuccess,
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green[700],
+            ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+              message: I18n.of(context).settingsExportExportTimetableSuccess,
             ));
         });
       } else {

@@ -1,5 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/data/context/page.dart';
 
 class DebugHelper {
   Future<void> eraseData(context) async {
@@ -18,10 +19,7 @@ class DebugHelper {
     app.kretaApi.users = {};
     app.settings.update();
 
-    app.selectedPage = 0;
-    app.selectedEvalPage = 0;
-    app.selectedMessagePage = 0;
-    app.selectedTimetablePage = 0;
+    app.gotoPage(PageType.home);
 
     DynamicTheme.of(context)
         .setThemeData(app.theme.light(app.settings.appColor));

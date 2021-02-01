@@ -1,3 +1,4 @@
+import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/about/supporters/builder.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,9 +21,9 @@ class _AboutSupportersState extends State<AboutSupporters> {
         builder: (BuildContext context, snapshot) => Container(
           padding: EdgeInsets.only(top: 28.0),
           child: Column(
-            children: <Widget>[
+            children: [
               ListTile(
-                leading: BackButton(),
+                leading: BackButton(color: app.settings.appColor),
                 title: Text(
                   I18n.of(context).aboutSupporters,
                   style: TextStyle(fontSize: 20.0),

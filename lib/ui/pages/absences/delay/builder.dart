@@ -7,7 +7,7 @@ class DelayBuilder {
   void build() {
 
     delayTiles = [];
-    List<Absence> delays = app.user.sync.absence.data
+    List<Absence> delays = app.user.sync.absence.absences
         .where((delay) => delay.type.name == "keses")
         .toList();
 

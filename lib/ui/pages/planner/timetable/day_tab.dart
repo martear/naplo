@@ -1,4 +1,5 @@
-import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/data/context/app.dart';
+import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/day.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/tile.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class DayTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    day.buildTiles();
+
     if (day.lessons.any((l) => l.subject == null) &&
         !day.tiles
             .map((t) => t.lesson.id)
@@ -44,24 +47,12 @@ class DayTabButton extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
-        days(context, day.date.weekday).toUpperCase(),
+        weekdayStringShort(context, day.date.weekday).toUpperCase(),
         style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24.0,
-            color: color),
+            fontWeight: FontWeight.bold, fontSize: 24.0, color: color),
       ),
     );
   }
-
-  String days(BuildContext context, int i) => [
-        I18n.of(context).dateMondayShort,
-        I18n.of(context).dateTuesdayShort,
-        I18n.of(context).dateWednesdayShort,
-        I18n.of(context).dateThursdayShort,
-        I18n.of(context).dateFridayShort,
-        I18n.of(context).dateSaturdayShort,
-        I18n.of(context).dateSundayShort
-      ][i - 1];
 }
 
 double _indexChangeProgress(TabController controller) {
@@ -107,7 +98,10 @@ class TimetableTabIndicator extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
           padding: EdgeInsets.zero,
           onPressed: () {
-            controller.animateTo(index);
+            controller.animateTo(
+              index,
+              duration: Duration(milliseconds: 650),
+            );
           },
           child: Center(
             child: DayTabButton(day, color: backgroundColor),
@@ -158,7 +152,7 @@ class TimetableTabBar extends StatelessWidget {
       final double offset = tabController.offset;
       if (tabController.index == tabIndex) {
         background = selectedColorTween.lerp(1.0 - offset.abs());
-        borderColor = Theme.of(context).accentColor;
+        borderColor = app.settings.appColor;
       } else if (tabController.index == tabIndex - 1 && offset > 0.0) {
         background = selectedColorTween.lerp(offset);
       } else if (tabController.index == tabIndex + 1 && offset < 0.0) {
@@ -200,7 +194,7 @@ class TimetableTabBar extends StatelessWidget {
               final Color fixColor =
                   dif > -24 && dif < 0 ? currentDayColor : color;
               final Color fixSelectedColor =
-                  selectedColor ?? Theme.of(context).accentColor;
+                  selectedColor ?? app.settings.appColor;
               final ColorTween selectedColorTween =
                   ColorTween(begin: fixColor, end: fixSelectedColor);
               final ColorTween previousColorTween =

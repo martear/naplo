@@ -1,7 +1,9 @@
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/helpers/debug.dart';
 import 'package:filcnaplo/modules/printing/main.dart';
-import 'package:filcnaplo/ui/pages/login.dart';
+import 'package:filcnaplo/ui/common/custom_snackbar.dart';
+import 'package:filcnaplo/ui/common/label.dart';
+import 'package:filcnaplo/ui/pages/login/page.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/builder.dart';
 import 'package:filcnaplo/ui/pages/planner/timetable/week.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +23,9 @@ class _DebugSettingsState extends State<DebugSettings> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-        child: Column(children: <Widget>[
+        child: Column(children: [
           AppBar(
-            leading: BackButton(),
+            leading: BackButton(color: app.settings.appColor),
             centerTitle: true,
             title: Text(
               I18n.of(context).settingsDebugTitle,
@@ -33,6 +35,7 @@ class _DebugSettingsState extends State<DebugSettings> {
               Padding(
                 padding: EdgeInsets.only(right: 8.0),
                 child: Switch(
+                  activeColor: app.settings.appColor,
                   value: app.debugMode,
                   onChanged: (value) => setState(() {
                     app.debugMode = value;
@@ -57,16 +60,14 @@ class _DebugSettingsState extends State<DebugSettings> {
             ),
             onTap: app.debugMode
                 ? () {
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
-                      content: Text(
-                        I18n.of(context).settingsDebugDeleteSuccess,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.red,
+                    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                      message: I18n.of(context).settingsDebugDeleteSuccess,
+                      color: Colors.red,
                     ));
 
                     DebugHelper().eraseData(context).then((_) {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => LoginPage()),
                         (_) => false,
                       );
@@ -81,6 +82,7 @@ class _DebugSettingsState extends State<DebugSettings> {
                   color: app.debugMode ? null : Colors.grey,
                 )),
             trailing: Switch(
+              activeColor: app.settings.appColor,
               value: app.debugMode && app.settings.renderHtml,
               onChanged: (bool value) {
                 setState(() => app.settings.renderHtml = value);
@@ -92,15 +94,8 @@ class _DebugSettingsState extends State<DebugSettings> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(12.0),
             alignment: Alignment.topLeft,
-            child: Text(
-              I18n.of(context).settingsDebugExperimental.toUpperCase(),
-              style: TextStyle(
-                fontSize: 15.0,
-                letterSpacing: .7,
-              ),
-            ),
+            child: Label(I18n.of(context).settingsDebugExperimental),
           ),
           ListTile(
             leading: Icon(FeatherIcons.printer),

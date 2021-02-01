@@ -14,8 +14,11 @@ Map<String, Locale> languages = {
   "hu_HU": hu_HU
 };
 
-String capital(String s) =>
-    s != null ? s.length > 0 ? s[0].toUpperCase() + s.substring(1) : "" : null;
+String capital(String s) => s != null
+    ? s.length > 0
+        ? s[0].toUpperCase() + s.substring(1)
+        : ""
+    : null;
 
 String capitalize(String s) =>
     s != null ? s.split(" ").map((w) => capital(w)).join(" ") : null;
@@ -64,6 +67,9 @@ String formatDate(BuildContext context, DateTime date,
   }
 }
 
+String formatTime(DateTime time) =>
+    time.hour.toString() + ":" + time.minute.toString().padLeft(2, "0");
+
 String escapeHtml(String htmlString) {
   if (htmlString == null) return null;
   htmlString = htmlString.replaceAll("\r", "");
@@ -84,3 +90,23 @@ String monogram(String name) {
   });
   return mg;
 }
+
+String amountPlural(String singular, String plural, int amount) {
+  return amount.toString() +
+      " " +
+      ((app.settings.language == "hu_HU")
+          ? singular
+          : amount > 1
+              ? plural
+              : singular);
+}
+
+String weekdayStringShort(BuildContext context, int i) => [
+      I18n.of(context).dateMondayShort,
+      I18n.of(context).dateTuesdayShort,
+      I18n.of(context).dateWednesdayShort,
+      I18n.of(context).dateThursdayShort,
+      I18n.of(context).dateFridayShort,
+      I18n.of(context).dateSaturdayShort,
+      I18n.of(context).dateSundayShort
+    ][i - 1];

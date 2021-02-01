@@ -1,4 +1,3 @@
-import 'package:filcnaplo/data/context/theme.dart';
 import 'package:filcnaplo/data/models/supporter.dart';
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +17,12 @@ class SupporterTile extends StatelessWidget {
         color = Color(0xFFE7513B);
         suffix = "/ " + I18n.of(context).dateMonth.substring(0, 2);
         break;
-      case "twitch":
-        color = Color(0xFFA66BFF);
-        suffix = "/ " + I18n.of(context).dateMonth.substring(0, 2);
-        break;
+      // case "twitch":
+      //   color = Color(0xFFA66BFF);
+      //   suffix = "/ " + I18n.of(context).dateMonth.substring(0, 2);
+      //   break;
       case "donate":
-        color = ThemeContext.colors["default"];
+        color = Colors.yellow[600];
         break;
     }
 

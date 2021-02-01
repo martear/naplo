@@ -5,28 +5,31 @@ import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/models/dummy.dart';
 
 class EvaluationSync {
-  List<List> data = [[], []];
+  List<Evaluation> evaluations = [];
+  List<dynamic> averages = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
-    if (!app.debugUser) {
-      List<Evaluation> evaluations;
-      List averages;
-      evaluations = await app.user.kreta.getEvaluations();
-      if (app.user.sync.student.data.groupId != null)
-        averages = await app.user.kreta
-            .getAverages(app.user.sync.student.data.groupId);
+    List<Evaluation> _evaluations;
+    List<dynamic> _averages;
 
-      if (evaluations == null) {
+    if (!app.debugUser) {
+      _evaluations = await app.user.kreta.getEvaluations();
+      if (app.user.sync.student.student.groupId != null)
+        _averages = await app.user.kreta
+            .getAverages(app.user.sync.student.student.groupId);
+
+      if (_evaluations == null) {
         await app.user.kreta.refreshLogin();
-        evaluations = await app.user.kreta.getEvaluations();
-        if (app.user.sync.student.data.groupId != null)
-          averages = await app.user.kreta
-              .getAverages(app.user.sync.student.data.groupId);
+        _evaluations = await app.user.kreta.getEvaluations() ?? [];
+        if (app.user.sync.student.student.groupId != null)
+          _averages = await app.user.kreta
+              .getAverages(app.user.sync.student.student.groupId);
       }
 
-      if (evaluations != null) {
-        data[0] = evaluations;
-        if (averages != null) data[1] = averages;
+      if (_evaluations != null) {
+        evaluations = _evaluations;
+        if (_averages != null) averages = _averages;
 
         await app.user.storage.delete("evaluations");
 
@@ -38,15 +41,18 @@ class EvaluationSync {
           }
         });
       }
+      
+      uiPending = true;
 
-      return evaluations != null;
+      return _evaluations != null;
     } else {
-      data[0] = Dummy.evaluations;
+      evaluations = Dummy.evaluations;
       return true;
     }
   }
 
   delete() {
-    data = [[], []];
+    evaluations = [];
+    averages = [];
   }
 }

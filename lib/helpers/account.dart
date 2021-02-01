@@ -4,14 +4,13 @@ import 'package:filcnaplo/helpers/debug.dart';
 import 'package:filcnaplo/utils/tools.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:filcnaplo/ui/profile_icon.dart';
+import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:filcnaplo/generated/i18n.dart';
-import 'package:filcnaplo/ui/pages/login.dart';
+import 'package:filcnaplo/ui/pages/login/page.dart';
 
 class AccountHelper {
   final User user;
@@ -28,32 +27,34 @@ class AccountHelper {
         .update("settings", {"nickname": newName}).then((_) {
       if (newName.toLowerCase() == "rendszerüzenet" &&
           newName.toLowerCase() != user.name.toLowerCase())
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
           builder: (context) => Scaffold(
             body: Container(
               color: Colors.red[700],
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
+                  children: [
                     Container(
                       color: Colors.red[900],
                       padding: EdgeInsets.all(12.0),
                       child: Text(
                         "ERROR",
-                        style: GoogleFonts.spaceMono(
+                        style: TextStyle(
+                          fontFamily: "SpaceMono",
                           fontSize: 64.0,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           Text(
                             "Hiba történt. Kérjük próbálja újra!",
-                            style: GoogleFonts.spaceMono(
+                            style: TextStyle(
+                              fontFamily: "SpaceMono",
                               color: Colors.white,
                               fontSize: 15.0,
                             ),
@@ -73,7 +74,8 @@ class AccountHelper {
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         "VISSZA",
-                        style: GoogleFonts.spaceMono(
+                        style: TextStyle(
+                          fontFamily: "SpaceMono",
                           color: Colors.white,
                           fontSize: 18.0,
                         ),
@@ -94,7 +96,7 @@ class AccountHelper {
 
       user.name = newName;
 
-      callback(() {});
+      if (callback != null) callback();
       app.sync.updateCallback();
     });
   }
@@ -160,7 +162,7 @@ class AccountHelper {
     app.users.firstWhere((search) => search.id == user.id).customProfileIcon =
         profileId;
 
-    callback(() {});
+    if (callback != null) callback();
     app.sync.updateCallback();
 
     return ProfileIcon(name: user.name, size: 3.0, image: profileId);
@@ -172,7 +174,7 @@ class AccountHelper {
       builder: (context) => AlertDialog(
         backgroundColor: app.settings.theme.backgroundColor,
         content: Text(I18n.of(context).accountDeleteConfirm(user.name)),
-        actions: <Widget>[
+        actions: [
           FlatButton(
             textColor: app.settings.appColor,
             child: Text(I18n.of(context).dialogNo),
@@ -190,7 +192,8 @@ class AccountHelper {
               app.storage.deleteUser(user.id).then((_) {
                 if (app.users.length == 0) {
                   DebugHelper().eraseData(context).then((_) {
-                    Navigator.of(context).pushAndRemoveUntil(
+                    Navigator.of(context, rootNavigator: true)
+                        .pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => LoginPage()),
                       (_) => false,
                     );
@@ -198,8 +201,10 @@ class AccountHelper {
                 } else {
                   if (app.selectedUser >= app.users.length)
                     app.selectedUser = app.users.length - 1;
-
                   app.sync.updateCallback();
+
+                  app.user.sync.allPending();
+
                   Navigator.of(context).pop(true);
                 }
               });
@@ -224,7 +229,7 @@ class AccountHelper {
       {"custom_profile_icon": ""},
     );
 
-    callback(() {});
+    if (callback != null) callback();
     app.sync.updateCallback();
   }
 }

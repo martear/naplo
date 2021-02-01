@@ -1,11 +1,12 @@
 import 'package:filcnaplo/data/models/evaluation.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/tile.dart';
+import 'package:flutter/material.dart';
 
 class GradeBuilder {
   List<GradeTile> gradeTiles = [];
 
-  void build({int sortBy}) {
+  void build({EvaluationType type, int sortBy}) {
     // sortBy
     // 0 date
     // 1 date R
@@ -14,20 +15,9 @@ class GradeBuilder {
     // 4 value
     // 5 value R
 
-    Map<String, int> evalTypes = {
-      "evkozi_jegy_ertekeles": 0,
-      "I_ne_jegy_ertekeles": 1,
-      "II_ne_jegy_ertekeles": 2,
-      "felevi_jegy_ertekeles": 3,
-      "III_ne_jegy_ertekeles": 4,
-      "IV_ne_jegy_ertekeles": 5,
-      "evvegi_jegy_ertekeles": 6,
-    };
-
     gradeTiles = [];
-    List<Evaluation> evaluations = app.user.sync.evaluation.data[0]
-        .where((evaluation) =>
-            evalTypes[evaluation.type.name] == app.selectedEvalPage)
+    List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
+        .where((evaluation) => evaluation.type == type)
         .toList();
 
     if (sortBy != null) {
@@ -74,7 +64,10 @@ class GradeBuilder {
     }
 
     evaluations.forEach(
-      (evaluation) => gradeTiles.add(GradeTile(evaluation)),
+      (evaluation) => gradeTiles.add(GradeTile(
+        evaluation,
+        padding: EdgeInsets.only(bottom: 4.0),
+      )),
     );
   }
 }

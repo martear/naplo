@@ -7,7 +7,7 @@ class EventBuilder {
 
   void build() {
     eventTiles = [];
-    List<Event> events = app.user.sync.event.data;
+    List<Event> events = app.user.sync.event.events;
 
     events.sort(
       (a, b) => -a.start.compareTo(b.start),

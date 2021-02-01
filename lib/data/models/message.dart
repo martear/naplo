@@ -12,6 +12,7 @@ class Message {
   String sender;
   String content;
   String subject;
+  MessageType type;
   List<Recipient> recipients;
   List<Attachment> attachments;
   Map json;
@@ -25,6 +26,7 @@ class Message {
     this.sender,
     this.content,
     this.subject,
+    this.type,
     this.recipients,
     this.attachments, {
     this.replyId,
@@ -34,8 +36,7 @@ class Message {
 
   factory Message.fromJson(Map json) {
     Map message = json["uzenet"];
-
-    int id = message["azonosito"] ?? 0;
+    int id = json["azonosito"];
     int messageId = message["azonosito"];
     int replyId = message["elozoUzenetAzonosito"];
     int conversationId = message["beszelgetesAzonosito"];
@@ -50,6 +51,15 @@ class Message {
 
     List<Recipient> recipients = [];
     List<Attachment> attachments = [];
+
+    MessageType type = () {
+      switch (json["tipus"]["kod"]) {
+        case "BEERKEZETT":
+          return MessageType.inbox;
+        case "ELKULDOTT":
+          return MessageType.sent;
+      }
+    }();
 
     message["cimzettLista"].forEach((recipient) {
       recipients.add(Recipient.fromJson(recipient));
@@ -68,6 +78,7 @@ class Message {
       sender,
       content,
       subject,
+      type,
       recipients,
       attachments,
       replyId: replyId,
@@ -88,3 +99,5 @@ class Message {
     return false;
   }
 }
+
+enum MessageType { inbox, sent, trash, draft }

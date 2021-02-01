@@ -2,44 +2,47 @@ import 'dart:convert';
 
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/homework.dart';
-//import 'package:filcnaplo/data/models/dummy.dart';
+import 'package:filcnaplo/data/models/dummy.dart';
 
 class HomeworkSync {
-  List<Homework> data = [];
+  List<Homework> homework = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
-      List<Homework> homeworks;
+      List<Homework> _homework;
       DateTime from = DateTime.fromMillisecondsSinceEpoch(1);
-      homeworks = await app.user.kreta.getHomeworks(from);
+      _homework = await app.user.kreta.getHomeworks(from);
 
-      if (homeworks == null) {
+      if (_homework == null) {
         await app.user.kreta.refreshLogin();
-        homeworks = await app.user.kreta.getHomeworks(from);
+        _homework = await app.user.kreta.getHomeworks(from);
       }
 
-      if (homeworks != null) {
-        data = homeworks;
+      if (_homework != null) {
+        homework = _homework;
 
         await app.user.storage.delete("kreta_homeworks");
 
-        await Future.forEach(homeworks, (homework) async {
-          if (homework.json != null) {
+        await Future.forEach(homework, (h) async {
+          if (h.json != null) {
             await app.user.storage.insert("kreta_homeworks", {
-              "json": jsonEncode(homework.json),
+              "json": jsonEncode(h.json),
             });
           }
         });
       }
 
-      return homeworks != null;
+      uiPending = true;
+
+      return _homework != null;
     } else {
-      //data = Dummy.homeworks;
+      homework = Dummy.homework;
       return true;
     }
   }
 
   delete() {
-    data = [];
+    homework = [];
   }
 }

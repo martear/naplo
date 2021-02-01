@@ -5,38 +5,27 @@ import 'package:filcnaplo/helpers/averages.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tinycolor/tinycolor.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:filcnaplo/ui/pages/evaluations/subjects/graph.dart';
 
 class StatsBlock extends StatelessWidget {
-  StatsBlock(this.values, this.average, this.title);
+  StatsBlock(this.values, this.average, this.titleTooltip, this.lastBoxTooltip);
 
   final List<String> values;
   final double average;
-  final String title;
+  final String titleTooltip;
+  final String lastBoxTooltip;
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: 25.0),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 14.0, bottom: 4.0),
-            child: Row(
-              children: [
-                Container(
-                  /* color: Colors.red, */
-                  child: Text(title,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0)),
-                ),
-              ],
-            ),
-          ),
           FittedBox(
             fit: BoxFit.fitWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 EvaluationBlock(
                   title: "5",
                   value: values[4],
@@ -59,7 +48,7 @@ class StatsBlock extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   EvaluationBlock(
                     title: "2",
                     value: values[1],
@@ -70,12 +59,38 @@ class StatsBlock extends StatelessWidget {
                     value: values[0],
                     color: app.theme.evalColors[0],
                   ),
-                  EvaluationBlock(
-                    value: average.toStringAsFixed(2),
-                    color:
-                        app.theme.evalColors[(average.round() - 1).clamp(0, 4)],
+                  Tooltip(
+                    message: lastBoxTooltip,
+                    child: EvaluationBlock(
+                      value: average.toStringAsFixed(2),
+                      color: getAverageColor(average),
+                    ),
                   ),
                 ]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StatisticsTitle extends StatelessWidget {
+  StatisticsTitle(this.icon, this.title);
+  final IconData icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 14.0, bottom: 4.0),
+      child: Row(
+        children: [
+          Icon(icon),
+          Container(
+            padding: EdgeInsets.only(left: 12),
+            child: Text(title,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -86,8 +101,8 @@ class StatsBlock extends StatelessWidget {
 class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Evaluation> evaluations = app.user.sync.evaluation.data[0]
-        .where((evaluation) => evaluation.type.name == "evkozi_jegy_ertekeles")
+    List<Evaluation> evaluations = app.user.sync.evaluation.evaluations
+        .where((evaluation) => evaluation.type == EvaluationType.midYear)
         .toList();
 
     List<String> grades = [
@@ -97,15 +112,12 @@ class StatisticsPage extends StatelessWidget {
       evaluations.where((e) => e.value.value == 4).length.toString(),
       evaluations.where((e) => e.value.value == 5).length.toString(),
     ];
-    var subjects = calculateSubjectsAverage().where((e) =>
-        !e.subject.category.id.contains("Magatartas") &&
-        !e.subject.category.id.contains("Szorgalom"));
+    var subjects = calculateSubjectsAverage();
+    /*!e.subject.category.id.contains("Magatartas") &&
+        !e.subject.category.id.contains("Szorgalom"));*/
 
-    count(int grade) {
-      return subjects
-          .where((e) => roundSubjectAverage(e.subject, e.average) == grade)
-          .length;
-    }
+    count(int grade) =>
+        subjects.where((e) => roundSubjAvg(e.average) == grade).length;
 
     List<int> subjectGrades = [
       count(1),
@@ -141,10 +153,31 @@ class StatisticsPage extends StatelessWidget {
       child: CupertinoScrollbar(
         child: ListView(
           physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            StatsBlock(grades, allAvg, I18n.of(context).evaluations),
-            StatsBlock(subjectGrades.map((e) => e.toString()).toList(),
-                subjectsAvg, I18n.of(context).evaluationsSubjectsAverage),
+          children: [
+            //Grades
+            StatisticsTitle(
+                FeatherIcons.bookmark, I18n.of(context).evaluationsYourGrades),
+            StatsBlock(grades, allAvg, I18n.of(context).evaluationsYourGrades,
+                I18n.of(context).tooltipStatisticsEvalsAvg),
+            //Grades graph
+            StatisticsTitle(FeatherIcons.trendingUp,
+                I18n.of(context).evaluationsYearlyGraph),
+            Container(
+                padding: EdgeInsets.only(left: 10, right: 25),
+                margin: EdgeInsets.only(top: 15, bottom: 30),
+                height: 200,
+                child: SubjectGraph(evaluations, dayThreshold: 2)),
+            //Subjects
+            Tooltip(
+              message: I18n.of(context).tooltipStatisticsSubjects,
+              child: StatisticsTitle(FeatherIcons.book,
+                  I18n.of(context).evaluationsSubjectsAverage),
+            ),
+            StatsBlock(
+                subjectGrades.map((e) => e.toString()).toList(),
+                subjectsAvg,
+                I18n.of(context).evaluationsSubjectsAverage,
+                I18n.of(context).tooltipStatisticsSubjectsAvg),
           ],
         ),
       ),
@@ -174,7 +207,7 @@ class EvaluationBlock extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
+        children: [
           title != null
               ? Container(
                   width: 42.0,
@@ -188,7 +221,8 @@ class EvaluationBlock extends StatelessWidget {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.quicksand(
+                    style: TextStyle(
+                      fontFamily: "GoogleSans",
                       color: textColor(color),
                       fontSize: 28.0,
                       height: 1.2,

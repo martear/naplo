@@ -1,8 +1,8 @@
 import 'package:filcnaplo/ui/cards/note/tile.dart';
 import 'package:flutter/material.dart';
-import 'package:filcnaplo/ui/card.dart';
+import 'package:filcnaplo/ui/cards/base.dart';
 import 'package:filcnaplo/data/models/note.dart';
-import 'package:filcnaplo/ui/pages/messages/note/view.dart';
+
 
 class NoteCard extends BaseCard {
   final Note note;
@@ -16,19 +16,7 @@ class NoteCard extends BaseCard {
     return BaseCard(
       key: key,
       compare: compare,
-      child: GestureDetector(
-        child: Container(
-          child: NoteTile(note),
-        ),
-        onTap: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (BuildContext context) => NoteView(note),
-          );
-        },
-      ),
+      child: NoteTile(note),
     );
   }
 }
