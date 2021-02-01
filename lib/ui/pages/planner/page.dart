@@ -45,6 +45,8 @@ class _PlannerPageState extends State<PlannerPage>
       vsync: this,
       length: 3,
     );
+
+    buildPage();
   }
 
   @override
@@ -57,7 +59,11 @@ class _PlannerPageState extends State<PlannerPage>
 
   @override
   Widget build(BuildContext context) {
-    buildPage();
+    if (app.user.sync.homework.uiPending || app.user.sync.exam.uiPending) {
+      app.user.sync.homework.uiPending = false;
+      app.user.sync.exam.uiPending = false;
+      buildPage();
+    }
 
     return Scaffold(
       body: NestedScrollView(

@@ -66,6 +66,12 @@ class _AbsencesPageState extends State<AbsencesPage>
 
   @override
   Widget build(BuildContext context) {
+    if (app.user.sync.absence.uiPending || app.user.sync.note.uiPending) {
+      app.user.sync.absence.uiPending = false;
+      app.user.sync.note.uiPending = false;
+      buildPage();
+    }
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, _) {

@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _feedBuilder.build();
+    if (homePending()) _feedBuilder.build();
 
     return Scaffold(
       body: Stack(
@@ -72,5 +72,24 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  bool homePending() {
+    if (app.user.sync.absence.uiPending ||
+        app.user.sync.note.uiPending ||
+        app.user.sync.messages.uiPending ||
+        app.user.sync.evaluation.uiPending ||
+        app.user.sync.event.uiPending ||
+        app.user.sync.exam.uiPending ||
+        app.user.sync.homework.uiPending) {
+      app.user.sync.absence.uiPending = false;
+      app.user.sync.note.uiPending = false;
+      app.user.sync.messages.uiPending = false;
+      app.user.sync.evaluation.uiPending = false;
+      app.user.sync.event.uiPending = false;
+      app.user.sync.exam.uiPending = false;
+      app.user.sync.homework.uiPending = false;
+    } else
+      return false;
   }
 }
