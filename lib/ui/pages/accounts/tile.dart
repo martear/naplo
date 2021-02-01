@@ -106,7 +106,7 @@ class _AccountTileState extends State<AccountTile> {
                             if (!app.debugUser) {
                               AccountHelper(user: widget.user)
                                   .deleteAccount(context);
-                              widget.onDelete(app.selectedUser);
+                              widget.onDelete();
                             } else
                               ScaffoldMessenger.of(context).showSnackBar(
                                   CustomSnackBar(
