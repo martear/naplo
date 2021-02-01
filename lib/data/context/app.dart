@@ -55,7 +55,7 @@ class AppContext {
   PageContext _pageContext = PageContext();
 
   void gotoPage(PageType page, {PageContext pageContext}) {
-    pageContext = pageContext ?? PageContext();
+    _pageContext = pageContext ?? PageContext();
 
     switch (page) {
       case PageType.home:
