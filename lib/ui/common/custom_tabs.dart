@@ -50,20 +50,23 @@ double _indexChangeProgress(TabController controller) {
 }
 
 class CustomTabIndicator extends StatelessWidget {
-  const CustomTabIndicator({
-    Key key,
-    @required this.backgroundColor,
-    @required this.borderColor,
-    @required this.size,
-    @required this.label,
-    @required this.controller,
-    @required this.index,
-    @required this.onTap,
-  })  : assert(backgroundColor != null),
+  const CustomTabIndicator(
+      {Key key,
+      @required this.backgroundColor,
+      @required this.borderColor,
+      @required this.size,
+      @required this.label,
+      @required this.controller,
+      @required this.index,
+      @required this.onTap,
+      @required this.highlightColor})
+      : assert(backgroundColor != null),
         assert(borderColor != null),
+        assert(highlightColor != null),
         assert(size != null),
         super(key: key);
 
+  final Color highlightColor;
   final Color backgroundColor;
   final TabController controller;
   final CustomLabel label;
@@ -90,40 +93,49 @@ class CustomTabIndicator extends StatelessWidget {
     }
 
     return Expanded(
-      child: InkWell(
-        customBorder: StadiumBorder(),
-        child: Padding(
-          padding: EdgeInsets.only(top: 3, bottom: 3),
+      child: Padding(
+        padding: EdgeInsets.all(4),
+        child: InkWell(
+          customBorder: StadiumBorder(),
           child: Container(
             key: _menuKey,
             padding: EdgeInsets.symmetric(horizontal: 4.0),
+            decoration: BoxDecoration(
+              color: highlightColor,
+              borderRadius: BorderRadius.circular(45.0),
+            ),
             child: CustomTabButton(
-                label.dropdown != null
-                    ? label.dropdown.values.values
-                        .elementAt(label.dropdown.initialValue ??
-                            0.clamp(0, label.dropdown.values.values.length))
-                        .replaceAll(". ", ".")
-                    : label.title,
-                dropdown: label.dropdown != null && items.length > 1,
-                color: backgroundColor),
+              label.dropdown != null
+                  ? label.dropdown.values.values
+                      .elementAt(label.dropdown.initialValue ??
+                          0.clamp(0, label.dropdown.values.values.length))
+                      .replaceAll(". ", ".")
+                  : label.title,
+              dropdown: label.dropdown != null && items.length > 1,
+              color: backgroundColor,
+            ),
           ),
+          onTap: () {
+            if (label.dropdown != null && controller.index == index) {
+              if (items.length > 1)
+                showMenu(
+                  context: context,
+                  position: () {
+                    Offset pos = _getPosition(_menuKey);
+                    return RelativeRect.fromLTRB(0, pos.dy, pos.dx, 0);
+                  }(),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  items: items,
+                  color: app.settings.theme.backgroundColor,
+                ).then((value) {
+                  if (value != null) label.dropdown.callback(value);
+                });
+            }
+            onTap(index);
+          },
         ),
-        onTap: () {
-          if (label.dropdown != null && controller.index == index) {
-            if (items.length > 1)
-              showMenu(
-                context: context,
-                position: () {
-                  Offset pos = _getPosition(_menuKey);
-                  return RelativeRect.fromLTRB(0, pos.dy, pos.dx, 0);
-                }(),
-                items: items,
-              ).then((value) {
-                if (value != null) label.dropdown.callback(value);
-              });
-          }
-          onTap(index);
-        },
       ),
     );
   }
@@ -138,6 +150,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
     this.color,
     this.selectedColor,
     this.onTap,
+    this.padding,
   })  : assert(indicatorSize != null && indicatorSize > 0.0),
         super(key: key);
 
@@ -147,6 +160,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   final Color color;
   final Color selectedColor;
   final onTap;
+  final EdgeInsetsGeometry padding;
 
   final Size preferredSize = Size.fromHeight(48.0);
 
@@ -155,34 +169,46 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
       TabController tabController,
       ColorTween selectedColorTween,
       ColorTween previousColorTween,
+      ColorTween selectedHighlightColorTween,
+      ColorTween previousHighLightColorTween,
       BuildContext context) {
     Color background;
+    Color highlight;
     Color borderColor = selectedColorTween.end;
 
     if (tabController.indexIsChanging) {
       final double t = 1.0 - _indexChangeProgress(tabController);
-      if (tabController.index == tabIndex)
+      if (tabController.index == tabIndex) {
         background = selectedColorTween.lerp(t);
-      else if (tabController.previousIndex == tabIndex)
+        highlight = selectedHighlightColorTween.lerp(t);
+      } else if (tabController.previousIndex == tabIndex) {
         background = previousColorTween.lerp(t);
-      else
+        highlight = previousHighLightColorTween.lerp(t);
+      } else {
         background = selectedColorTween.begin;
+        highlight = selectedHighlightColorTween.begin;
+      }
     } else {
       final double offset = tabController.offset;
       if (tabController.index == tabIndex) {
         background = selectedColorTween.lerp(1.0 - offset.abs());
+        highlight = selectedHighlightColorTween.lerp(1.0 - offset.abs());
         borderColor = app.settings.appColor;
       } else if (tabController.index == tabIndex - 1 && offset > 0.0) {
         background = selectedColorTween.lerp(offset);
+        highlight = selectedHighlightColorTween.lerp(offset);
       } else if (tabController.index == tabIndex + 1 && offset < 0.0) {
         background = selectedColorTween.lerp(-offset);
+        highlight = selectedHighlightColorTween.lerp(-offset);
       } else {
         background = selectedColorTween.begin;
+        highlight = selectedHighlightColorTween.begin;
       }
     }
 
     return CustomTabIndicator(
       backgroundColor: background,
+      highlightColor: highlight,
       borderColor: borderColor,
       size: indicatorSize,
       label: labels[tabIndex],
@@ -202,29 +228,40 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
 
     if (labels.length < 2) return Container();
 
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (BuildContext context, Widget child) {
-        return Row(
-          children: List<Widget>.generate(labels.length, (int tabIndex) {
-            final Color fixColor = color;
-            final Color fixSelectedColor =
-                selectedColor ?? app.settings.appColor;
-            final ColorTween selectedColorTween =
-                ColorTween(begin: fixColor, end: fixSelectedColor);
-            final ColorTween previousColorTween =
-                ColorTween(begin: fixSelectedColor, end: fixColor);
+    return Padding(
+      padding: padding ?? EdgeInsets.zero,
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (BuildContext context, Widget child) {
+          return Row(
+            children: List<Widget>.generate(labels.length, (int tabIndex) {
+              final Color fixColor = color;
+              final Color fixSelectedColor =
+                  selectedColor ?? app.settings.appColor;
+              final ColorTween selectedColorTween =
+                  ColorTween(begin: fixColor, end: fixSelectedColor);
+              final ColorTween previousColorTween =
+                  ColorTween(begin: fixSelectedColor, end: fixColor);
+              final ColorTween selectedHighlightColorTween = ColorTween(
+                  begin: Colors.transparent,
+                  end: fixSelectedColor.withOpacity(.1));
+              final ColorTween previousHighlightColorTween = ColorTween(
+                  begin: fixSelectedColor.withOpacity(.1),
+                  end: Colors.transparent);
 
-            return _buildTabIndicator(
-              tabIndex,
-              tabController,
-              selectedColorTween,
-              previousColorTween,
-              context,
-            );
-          }).toList(),
-        );
-      },
+              return _buildTabIndicator(
+                tabIndex,
+                tabController,
+                selectedColorTween,
+                previousColorTween,
+                selectedHighlightColorTween,
+                previousHighlightColorTween,
+                context,
+              );
+            }).toList(),
+          );
+        },
+      ),
     );
   }
 }

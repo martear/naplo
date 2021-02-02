@@ -17,75 +17,55 @@ class NoteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
-        ),
-        color: app.settings.theme.backgroundColor,
-      ),
-      margin: EdgeInsets.only(top: 64.0),
-      padding: EdgeInsets.only(top: 24.0),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
-                child: Text(
-                  note.title,
-                  style: TextStyle(
-                    fontSize: 24.0,
-                  ),
+    return Column(
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
+              child: Text(
+                note.title,
+                style: TextStyle(
+                  fontSize: 24.0,
                 ),
-              ),
-              ListTile(
-                leading: ProfileIcon(name: note.teacher),
-                title: Text(note.teacher),
-                subtitle: Text(formatDate(context, note.date)),
-                trailing: IconButton(
-                  icon: Icon(FeatherIcons.share2, color: app.settings.appColor),
-                  onPressed: () {
-                    Share.share(note.content);
-                  },
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: CupertinoScrollbar(
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
-                    child: app.settings.renderHtml
-                        ? Html(
-                            data: note.content,
-                            onLinkTap: (url) async {
-                              if (await canLaunch(url))
-                                await launch(url);
-                              else
-                                throw '[ERROR] MessageView.build: Invalid URL';
-                            },
-                          )
-                        : SelectableLinkify(
-                            text: escapeHtml(note.content),
-                            onOpen: (url) async {
-                              if (await canLaunch(url.url))
-                                await launch(url.url);
-                              else
-                                throw '[ERROR] MessageView.build: nvalid URL';
-                            },
-                          ),
-                  ),
-                ],
               ),
             ),
-          ),
-        ],
-      ),
+            ListTile(
+              leading: ProfileIcon(name: note.teacher),
+              title: Text(note.teacher),
+              subtitle: Text(formatDate(context, note.date)),
+              trailing: IconButton(
+                icon: Icon(FeatherIcons.share2, color: app.settings.appColor),
+                onPressed: () {
+                  Share.share(note.content);
+                },
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(12.0, 0, 12.0, 8.0),
+          child: app.settings.renderHtml
+              ? Html(
+                  data: note.content,
+                  onLinkTap: (url) async {
+                    if (await canLaunch(url))
+                      await launch(url);
+                    else
+                      throw '[ERROR] MessageView.build: Invalid URL';
+                  },
+                )
+              : SelectableLinkify(
+                  text: escapeHtml(note.content),
+                  onOpen: (url) async {
+                    if (await canLaunch(url.url))
+                      await launch(url.url);
+                    else
+                      throw '[ERROR] MessageView.build: nvalid URL';
+                  },
+                ),
+        ),
+      ],
     );
   }
 }

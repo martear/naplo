@@ -313,7 +313,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 6.0),
                     child: Text(
-                      (app.debugMode ? "Debug " : "") +
+                      (app.debugMode ? "(Debug) Dev Build " : "Dev Build ") +
                           "v" +
                           app.currentAppVersion,
                       style: TextStyle(color: Colors.white70),

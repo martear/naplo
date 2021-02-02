@@ -4,6 +4,7 @@ import 'package:filcnaplo/data/models/homework.dart';
 import 'package:filcnaplo/data/models/lesson.dart';
 import 'package:filcnaplo/data/models/exam.dart';
 import 'package:filcnaplo/generated/i18n.dart';
+import 'package:filcnaplo/ui/common/custom_bottom_sheet.dart';
 import 'package:filcnaplo/ui/common/custom_chip.dart';
 import 'package:filcnaplo/ui/pages/planner/exams/view.dart';
 import 'package:filcnaplo/ui/pages/planner/homeworks/view.dart';
@@ -11,6 +12,7 @@ import 'package:filcnaplo/ui/pages/planner/timetable/view.dart';
 import 'package:filcnaplo/utils/colors.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class LessonTile extends StatelessWidget {
   final Lesson lesson;
@@ -115,7 +117,7 @@ class LessonTile extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 5.0),
                 child: Wrap(
                   alignment: WrapAlignment.start,
-                  runSpacing: 1.0,
+                  runSpacing: 3.0,
                   children: [
                         homework != null
                             ? CustomChip(
@@ -124,12 +126,14 @@ class LessonTile extends StatelessWidget {
                                 icon: FeatherIcons.home,
                                 text: escapeHtml(homework.content)
                                     .replaceAll("\n", " "),
-                                onTap: () => showModalBottomSheet(
-                                  context: context,
-                                  backgroundColor: Colors.transparent,
-                                  isScrollControlled: true,
+                                onTap: () => showSlidingBottomSheet(
+                                  context,
                                   useRootNavigator: true,
-                                  builder: (context) => HomeworkView(homework),
+                                  builder: (BuildContext context) =>
+                                      CustomBottomSheet(
+                                    child: HomeworkView(homework),
+                                    padding: EdgeInsets.zero,
+                                  ),
                                 ),
                               )
                             : Container(),

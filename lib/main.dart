@@ -136,7 +136,7 @@ class _AppState extends State<App> {
                 device, supported);
           },
           onGenerateTitle: (BuildContext context) => I18n.of(context).appTitle,
-          title: 'Filc Napló',
+          title: 'Filc Napló Dev',
           theme: theme,
           home: app.firstStart
               ? WelcomePage()

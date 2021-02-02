@@ -4,6 +4,7 @@ import 'package:filcnaplo/data/models/school.dart';
 import 'package:filcnaplo/data/models/message.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/ui/cards/absence/tile.dart';
+import 'package:filcnaplo/ui/common/custom_bottom_sheet.dart';
 import 'package:filcnaplo/ui/pages/absences/absence/view.dart';
 import 'package:filcnaplo/ui/cards/evaluation/tile.dart';
 import 'package:filcnaplo/ui/pages/evaluations/grades/view.dart';
@@ -17,6 +18,7 @@ import 'package:filcnaplo/ui/cards/note/tile.dart';
 import 'package:filcnaplo/ui/pages/messages/note/view.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class SearchController {
   static String specialChars(String s) => s
@@ -118,35 +120,36 @@ class SearchController {
           child: GestureDetector(
             child: NoteTile(note),
             onTap: () {
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (BuildContext context) => NoteView(note),
+              showSlidingBottomSheet(
+                context,
+                useRootNavigator: true,
+                builder: (BuildContext context) =>
+                    CustomBottomSheet(child: NoteView(note)),
               );
             },
           ),
         )));
 
     // Absences
-    app.user.sync.absence.absences.forEach((absence) => searchables.add(Searchable(
-          text: searchString([
-            absence.teacher,
-            absence.subject.name,
-            absence.type.description,
-            absence.mode.description
-          ]),
-          child: GestureDetector(
-            child: AbsenceTile(absence),
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                builder: (BuildContext context) => AbsenceView(absence),
-              );
-            },
-          ),
-        )));
+    app.user.sync.absence.absences
+        .forEach((absence) => searchables.add(Searchable(
+              text: searchString([
+                absence.teacher,
+                absence.subject.name,
+                absence.type.description,
+                absence.mode.description
+              ]),
+              child: GestureDetector(
+                child: AbsenceTile(absence),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    builder: (BuildContext context) => AbsenceView(absence),
+                  );
+                },
+              ),
+            )));
 
     // Homeworks
     app.user.sync.homework.homework
@@ -156,11 +159,13 @@ class SearchController {
               child: GestureDetector(
                 child: HomeworkTile(homework),
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) => HomeworkView(homework),
+                  showSlidingBottomSheet(
+                    context,
+                    useRootNavigator: true,
+                    builder: (BuildContext context) => CustomBottomSheet(
+                      child: HomeworkView(homework),
+                      padding: EdgeInsets.zero,
+                    ),
                   );
                 },
               ),

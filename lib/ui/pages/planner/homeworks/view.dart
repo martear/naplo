@@ -24,16 +24,8 @@ class HomeworkView extends StatefulWidget {
 class _HomeworkViewState extends State<HomeworkView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-        color: app.settings.theme.backgroundColor,
-      ),
-      margin: EdgeInsets.only(top: 64.0),
-      padding: EdgeInsets.all(20),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,39 +65,32 @@ class _HomeworkViewState extends State<HomeworkView> {
 
           SizedBox(height: 12.0),
 
-          // Message content
-          Expanded(
-            child: ListView(
-              physics: BouncingScrollPhysics(),
-              children: [
-                app.settings.renderHtml
-                    ? Html(
-                        data: widget.homework.content,
-                        onLinkTap: (url) async {
-                          if (await canLaunch(url))
-                            await launch(url);
-                          else
-                            throw '[ERROR] HomeworkView.build: Invalid URL';
-                        },
-                      )
-                    : SelectableLinkify(
-                        text: escapeHtml(widget.homework.content),
-                        onOpen: (url) async {
-                          if (await canLaunch(url.url))
-                            await launch(url.url);
-                          else
-                            throw '[ERROR] HomeworkView.build: Invalid URL';
-                        },
-                      ),
-                widget.homework.attachments == []
-                    ? Container()
-                    : Column(
-                        children: widget.homework.attachments
-                            .map((attachment) => AttachmentTile(attachment))
-                            .toList())
-              ],
-            ),
-          ),
+          // Homework content
+          app.settings.renderHtml
+              ? Html(
+                  data: widget.homework.content,
+                  onLinkTap: (url) async {
+                    if (await canLaunch(url))
+                      await launch(url);
+                    else
+                      throw '[ERROR] HomeworkView.build: Invalid URL';
+                  },
+                )
+              : SelectableLinkify(
+                  text: escapeHtml(widget.homework.content),
+                  onOpen: (url) async {
+                    if (await canLaunch(url.url))
+                      await launch(url.url);
+                    else
+                      throw '[ERROR] HomeworkView.build: Invalid URL';
+                  },
+                ),
+          widget.homework.attachments == []
+              ? Container()
+              : Column(
+                  children: widget.homework.attachments
+                      .map((attachment) => AttachmentTile(attachment))
+                      .toList()),
         ],
       ),
     );

@@ -17,10 +17,12 @@ class CustomChip extends StatelessWidget {
         decoration: ShapeDecoration(
           shape: StadiumBorder(
             side: BorderSide(
-                color: color ?? app.settings.theme.accentColor, width: 1.2),
+              color: color ?? app.settings.theme.accentColor,
+              width: 1.2,
+            ),
           ),
         ),
-        margin: EdgeInsets.only(right: 5.0),
+        margin: EdgeInsets.only(right: 6.0),
         padding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -40,7 +42,9 @@ class CustomChip extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: color ?? app.settings.theme.accentColor),
+                        color: color ?? app.settings.theme.accentColor,
+                        fontSize: 12.0,
+                      ),
                     ),
                   )
                 : Container(),

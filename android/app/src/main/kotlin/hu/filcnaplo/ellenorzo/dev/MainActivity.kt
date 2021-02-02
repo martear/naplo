@@ -1,4 +1,4 @@
-package hu.filcnaplo.ellenorzo
+package hu.filcnaplo.ellenorzo.dev
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

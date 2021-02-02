@@ -1,8 +1,10 @@
+import 'package:filcnaplo/ui/common/custom_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/models/note.dart';
 import 'package:filcnaplo/ui/common/profile_icon.dart';
 import 'package:filcnaplo/ui/pages/messages/note/view.dart';
 import 'package:filcnaplo/utils/format.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class NoteTile extends StatelessWidget {
   final Note note;
@@ -42,12 +44,11 @@ class NoteTile extends StatelessWidget {
           ],
         ),
         onTap: () {
-          showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (context) => NoteView(note),
+          showSlidingBottomSheet(
+            context,
             useRootNavigator: true,
+            builder: (BuildContext context) =>
+                CustomBottomSheet(child: NoteView(note)),
           );
         },
       ),

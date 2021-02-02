@@ -7,7 +7,7 @@ then
 fi
 
 echo Uninstalling old version...
-adb uninstall "hu.filcnaplo.ellenorzo"
+adb uninstall "hu.filcnaplo.ellenorzo.dev"
 
 echo Installing new version...
 adb install build/app/outputs/apk/release/app-release.apk

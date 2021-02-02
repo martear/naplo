@@ -1,9 +1,8 @@
 import 'package:filcnaplo/ui/pages/home/builder.dart';
-import 'package:filcnaplo/ui/pages/search/bar.dart';
+import 'package:filcnaplo/ui/common/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:filcnaplo/data/context/app.dart';
-import 'package:filcnaplo/ui/pages/search/page.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,10 +63,7 @@ class _HomePageState extends State<HomePage> {
 
           // Search bar
           SearchBar(
-            openSearch: () => showDialog(
-              context: context,
-              builder: (context) => SearchPage(() => setState(() {})),
-            ),
+            callback: () => setState(() {}),
           )
         ],
       ),

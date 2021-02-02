@@ -1,9 +1,11 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:filcnaplo/data/context/app.dart';
 import 'package:filcnaplo/data/models/homework.dart';
+import 'package:filcnaplo/ui/common/custom_bottom_sheet.dart';
 import 'package:filcnaplo/ui/pages/planner/homeworks/view.dart';
 import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 class HomeworkTile extends StatelessWidget {
   final Homework homework;
@@ -41,12 +43,13 @@ class HomeworkTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               )
             : null,
-        onTap: () => showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          isScrollControlled: true,
+        onTap: () => showSlidingBottomSheet(
+          context,
           useRootNavigator: true,
-          builder: (context) => HomeworkView(homework),
+          builder: (BuildContext context) => CustomBottomSheet(
+            child: HomeworkView(homework),
+            padding: EdgeInsets.zero,
+          ),
         ),
       ),
     );

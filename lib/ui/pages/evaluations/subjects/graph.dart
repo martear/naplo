@@ -96,6 +96,7 @@ class _SubjectGraphState extends State<SubjectGraph> {
                     strokeWidth: 0,
                     color: app.settings.theme.backgroundColor,
                     radius: 10.0,
+                    strokeColor: Colors.transparent,
                   ),
                 ),
               ),
