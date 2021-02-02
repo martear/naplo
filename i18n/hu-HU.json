@@ -458,8 +458,8 @@
       "subjectsAvg": "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne."
     },
     "subjects": {
-      "failWarning": "Bukásra állsz!",
-      "almostFailWarning": "Majdnem bukásra állsz!"
+      "failWarning": "Átlag 2.0 alatt: Bukásra állsz ebből a tárgyból!",
+      "almostFailWarning": "Átlag 3.0 alatt: Majdnem bukásra állsz ebből a tárgyból!"
     }
   }
 }
