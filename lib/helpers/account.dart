@@ -201,8 +201,10 @@ class AccountHelper {
                 } else {
                   if (app.selectedUser >= app.users.length)
                     app.selectedUser = app.users.length - 1;
-
                   app.sync.updateCallback();
+
+                  app.user.sync.allPending();
+
                   Navigator.of(context).pop(true);
                 }
               });

@@ -42,21 +42,6 @@ class Dummy {
       "Test",
     ),
     Evaluation(
-      "100101110010",
-      DateTime.now(),
-      EvaluationValue(5, "Ötös", "Ötös", 100),
-      "Teszttanár",
-      "EzAzEnJegyem",
-      EvaluationType.thirdQ,
-      "",
-      Subject("0", null, "English"),
-      null,
-      Type("0", "Test", "Test"),
-      DateTime.now(),
-      DateTime.now(),
-      "Test",
-    ),
-    Evaluation(
       "123462",
       DateTime.now(),
       EvaluationValue(4, "Four", "Four", 100),
@@ -173,12 +158,6 @@ class Dummy {
       "Test Event",
       "This is a test event.",
     ),
-  ];
-
-  static List<Recipient> recipients = [
-    Recipient(0, "", "Test User 1", 0, null),
-    Recipient(1, "", "Test User 2", 0, null),
-    Recipient(2, "", "Test User 3", 0, null),
   ];
 
   static List<Exam> exams = [

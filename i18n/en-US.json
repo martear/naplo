@@ -458,8 +458,8 @@
       "subjectsAvg": "If your grades would be finalized now, this would be the average of them."
     },
     "subjects": {
-      "failWarning": "You're going to fail this subject!",
-      "almostFailWarning": "You're close to failing this subject!"
+      "failWarning": "Avg. below 2.0: You're going to fail this subject!",
+      "almostFailWarning": "Avg. below 3.0: You're close to failing this subject!"
     }
   }
 }

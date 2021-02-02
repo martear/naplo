@@ -260,11 +260,13 @@ class _LoginPageState extends State<LoginPage> {
                             print(
                                 "DEBUG: Users currently logged in: ${app.users.where((user) => user.loginState)}");
                           if (app.users
-                                  .where((user) => user.loginState)
-                                  .length >
-                              0) {
+                                      .where((user) => user.loginState)
+                                      .length >
+                                  0 &&
+                              !app.debugUser) {
                             app.sync.fullSync();
-                            Navigator.of(context, rootNavigator: true).pop();
+                            Navigator.of(context).pop(); //It turns out, you can pop twice!
+                            Navigator.of(context).pop();
                           } else {
                             Navigator.of(context, rootNavigator: true)
                                 .pushReplacement(MaterialPageRoute(

@@ -21,6 +21,9 @@ class _AccountPageState extends State<AccountPage> {
     app.sync.updateCallback();
     app.sync.fullSync();
     app.user.kreta.userAgent = app.settings.config.config.userAgent;
+
+    app.user.sync.allPending();
+
     Navigator.of(context).pop();
   }
 

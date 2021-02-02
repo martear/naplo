@@ -9,7 +9,7 @@
     "timetable": "Stundenplan",
     "homework": "Hausaufgaben",
     "notes": "Hinweise",
-    "messages": "Benachrichtigungen",
+    "messages": "Mitteilungen",
     "exams": "Prüfungen",
     "absences": "Abwesenheiten",
     "settings": "Einstellungen"
@@ -172,8 +172,8 @@
     "title": "Wandezeitung"
   },
   "message": {
-    "": "Benachrichtigung",
-    "title": "Benachrichtigungen",
+    "": "Mitteilungen",
+    "title": "Mitteilungen",
     "subject": "Gegenstand",
     "recipients": "Empfänger",
     "attachments": "Anhänge",
@@ -204,14 +204,14 @@
     "": "Statistik"
   },
   "absence": {
-    "": "Ausschreitung",
+    "": "abwesenheit",
     "title": "Ausschreitungen",
     "time": "Zeit der Abwesenheit",
     "mode": "Art der Abwesenheit",
     "all": "Menge aller Verspätungen: {count} Stunden",
     "parental": "Bescheinigungen durch den Eltern: {count}",
     "delays": "verspätung",
-    "absences": "abwesenheit",
+    "absences": "abwesenheiten",
     "misses": "fehlendes",
     "justification": "Art der Bescheinigung"
   },
@@ -458,8 +458,8 @@
       "subjectsAvg": "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen."
     },
     "subjects": {
-      "failWarning": "Du wirst dieses Fach nicht bestehen!",
-      "almostFailWarning": "Du bist kurz davor, dieses Fach nicht zu bestehen!"
+      "failWarning": "Dschn. unten 2.0: Du wirst dieses Fach nicht bestehen!",
+      "almostFailWarning": "Dschn. unten 3.0: Du bist kurz davor, dieses Fach nicht zu bestehen!"
     }
   }
 }

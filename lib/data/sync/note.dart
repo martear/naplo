@@ -6,6 +6,7 @@ import 'package:filcnaplo/data/models/dummy.dart';
 
 class NoteSync {
   List<Note> notes = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
@@ -30,7 +31,9 @@ class NoteSync {
           }
         });
       }
-      
+
+      uiPending = true;
+
       return _notes != null;
     } else {
       notes = Dummy.notes;

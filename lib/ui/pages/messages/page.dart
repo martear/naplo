@@ -29,7 +29,9 @@ class _MessagesPageState extends State<MessagesPage>
   EventBuilder _eventBuilder;
 
   _MessagesPageState() {
-    this._messageBuilder = MessageBuilder(() => setState(() {}));
+    this._messageBuilder = MessageBuilder(() => setState(() {
+          buildPage();
+        }));
     this._noteBuilder = NoteBuilder();
     this._eventBuilder = EventBuilder();
   }
@@ -41,6 +43,7 @@ class _MessagesPageState extends State<MessagesPage>
   TabController _tabController;
   MessageType selectedMessageType = MessageType.inbox;
   bool didPageChange;
+  List<Widget> messageTiles = [];
 
   @override
   void initState() {
@@ -51,6 +54,7 @@ class _MessagesPageState extends State<MessagesPage>
     didPageChange = false;
     _tabController.addListener(() => setState(() => didPageChange = true));
     super.initState();
+    buildPage();
   }
 
   @override
@@ -63,12 +67,14 @@ class _MessagesPageState extends State<MessagesPage>
 
   @override
   Widget build(BuildContext context) {
-    buildPage();
-
-    List<Widget> messageTiles = [];
-    messageTiles.addAll(_messageBuilder.messageTiles
-        .getSelectedMessages(selectedMessageType.index));
-    messageTiles.add(SizedBox(height: 100.0));
+    if (app.user.sync.messages.uiPending ||
+        app.user.sync.note.uiPending ||
+        app.user.sync.event.uiPending) {
+      app.user.sync.messages.uiPending = false;
+      app.user.sync.note.uiPending = false;
+      app.user.sync.event.uiPending = false;
+      buildPage();
+    }
 
     return Scaffold(
       floatingActionButton: _tabController.index == 0
@@ -76,12 +82,24 @@ class _MessagesPageState extends State<MessagesPage>
               child: Icon(Icons.edit, color: app.settings.appColor),
               backgroundColor: app.settings.theme.backgroundColor,
               onPressed: () {
-                messageContext = MessageContext();
+                if (!app.debugUser) {
+                  messageContext = MessageContext();
 
-                Navigator.of(context, rootNavigator: true)
-                    .push(MaterialPageRoute(
-                        builder: (context) => NewMessagePage()))
-                    .then((_) => setState(() {}));
+                  Navigator.of(context, rootNavigator: true)
+                      .push(MaterialPageRoute(
+                          builder: (context) => NewMessagePage()))
+                      .then((_) => setState(() {
+                            buildPage();
+                          }));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    CustomSnackBar(
+                      color: Colors.red,
+                      message:
+                          "Message writing is not available with the debug user.",
+                    ),
+                  );
+                }
               },
             )
           : null,
@@ -113,15 +131,19 @@ class _MessagesPageState extends State<MessagesPage>
                 color: app.settings.theme.textTheme.bodyText1.color,
                 onTap: (value) {
                   _tabController.animateTo(value);
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 },
                 labels: [
                   CustomLabel(
                     dropdown: CustomDropdown(
                         initialValue: selectedMessageType.index,
                         callback: (value) {
-                          setState(() =>
-                              selectedMessageType = MessageType.values[value]);
+                          setState(() {
+                            selectedMessageType = MessageType.values[value];
+                            buildPage();
+                          });
                         },
                         values: {
                           0: capital(I18n.of(context).messageDrawerInbox),
@@ -150,7 +172,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
 
@@ -201,7 +225,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: CupertinoScrollbar(
@@ -232,7 +258,9 @@ class _MessagesPageState extends State<MessagesPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: CupertinoScrollbar(
@@ -262,5 +290,11 @@ class _MessagesPageState extends State<MessagesPage>
     _messageBuilder.build();
     _noteBuilder.build();
     _eventBuilder.build();
+
+    messageTiles = [];
+
+    messageTiles.addAll(_messageBuilder.messageTiles
+        .getSelectedMessages(selectedMessageType.index));
+    messageTiles.add(SizedBox(height: 100.0));
   }
 }

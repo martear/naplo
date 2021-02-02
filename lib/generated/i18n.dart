@@ -714,10 +714,10 @@ class I18n implements WidgetsLocalizations {
   String get tooltipStatisticsSubjects => "Így állsz a tárgyaidból.";
   /// "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne."
   String get tooltipStatisticsSubjectsAvg => "Ha most zárnának le, a tárgyakra kapott jegyek átlaga ez lenne.";
-  /// "Bukásra állsz!"
-  String get tooltipSubjectsFailWarning => "Bukásra állsz!";
-  /// "Majdnem bukásra állsz!"
-  String get tooltipSubjectsAlmostFailWarning => "Majdnem bukásra állsz!";
+  /// "Átlag 2.0 alatt: Bukásra állsz ebből a tárgyból!"
+  String get tooltipSubjectsFailWarning => "Átlag 2.0 alatt: Bukásra állsz ebből a tárgyból!";
+  /// "Átlag 3.0 alatt: Majdnem bukásra állsz ebből a tárgyból!"
+  String get tooltipSubjectsAlmostFailWarning => "Átlag 3.0 alatt: Majdnem bukásra állsz ebből a tárgyból!";
 }
 
 class _I18n_hu_HU extends I18n {
@@ -1753,12 +1753,12 @@ class _I18n_en_US extends I18n {
   /// "If your grades would be finalized now, this would be the average of them."
   @override
   String get tooltipStatisticsSubjectsAvg => "If your grades would be finalized now, this would be the average of them.";
-  /// "You're going to fail this subject!"
+  /// "Avg. below 2.0: You're going to fail this subject!"
   @override
-  String get tooltipSubjectsFailWarning => "You're going to fail this subject!";
-  /// "You're close to failing this subject!"
+  String get tooltipSubjectsFailWarning => "Avg. below 2.0: You're going to fail this subject!";
+  /// "Avg. below 3.0: You're close to failing this subject!"
   @override
-  String get tooltipSubjectsAlmostFailWarning => "You're close to failing this subject!";
+  String get tooltipSubjectsAlmostFailWarning => "Avg. below 3.0: You're close to failing this subject!";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;
@@ -1788,9 +1788,9 @@ class _I18n_de_DE extends I18n {
   /// "Hinweise"
   @override
   String get drawerNotes => "Hinweise";
-  /// "Benachrichtigungen"
+  /// "Mitteilungen"
   @override
-  String get drawerMessages => "Benachrichtigungen";
+  String get drawerMessages => "Mitteilungen";
   /// "Prüfungen"
   @override
   String get drawerExams => "Prüfungen";
@@ -2163,12 +2163,12 @@ class _I18n_de_DE extends I18n {
   /// "Wandezeitung"
   @override
   String get eventTitle => "Wandezeitung";
-  /// "Benachrichtigung"
+  /// "Mitteilungen"
   @override
-  String get message => "Benachrichtigung";
-  /// "Benachrichtigungen"
+  String get message => "Mitteilungen";
+  /// "Mitteilungen"
   @override
-  String get messageTitle => "Benachrichtigungen";
+  String get messageTitle => "Mitteilungen";
   /// "Gegenstand"
   @override
   String get messageSubject => "Gegenstand";
@@ -2235,9 +2235,9 @@ class _I18n_de_DE extends I18n {
   /// "Statistik"
   @override
   String get statistics => "Statistik";
-  /// "Ausschreitung"
+  /// "abwesenheit"
   @override
-  String get absence => "Ausschreitung";
+  String get absence => "abwesenheit";
   /// "Ausschreitungen"
   @override
   String get absenceTitle => "Ausschreitungen";
@@ -2256,9 +2256,9 @@ class _I18n_de_DE extends I18n {
   /// "verspätung"
   @override
   String get absenceDelays => "verspätung";
-  /// "abwesenheit"
+  /// "abwesenheiten"
   @override
-  String get absenceAbsences => "abwesenheit";
+  String get absenceAbsences => "abwesenheiten";
   /// "fehlendes"
   @override
   String get absenceMisses => "fehlendes";
@@ -2790,12 +2790,12 @@ class _I18n_de_DE extends I18n {
   /// "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen."
   @override
   String get tooltipStatisticsSubjectsAvg => "Wenn deine Noten jetzt abgeschlossen wären, wäre dies der Durchschnitt von ihnen.";
-  /// "Du wirst dieses Fach nicht bestehen!"
+  /// "Dschn. unten 2.0: Du wirst dieses Fach nicht bestehen!"
   @override
-  String get tooltipSubjectsFailWarning => "Du wirst dieses Fach nicht bestehen!";
-  /// "Du bist kurz davor, dieses Fach nicht zu bestehen!"
+  String get tooltipSubjectsFailWarning => "Dschn. unten 2.0: Du wirst dieses Fach nicht bestehen!";
+  /// "Dschn. unten 3.0: Du bist kurz davor, dieses Fach nicht zu bestehen!"
   @override
-  String get tooltipSubjectsAlmostFailWarning => "Du bist kurz davor, dieses Fach nicht zu bestehen!";
+  String get tooltipSubjectsAlmostFailWarning => "Dschn. unten 3.0: Du bist kurz davor, dieses Fach nicht zu bestehen!";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;

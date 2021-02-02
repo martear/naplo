@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 8.0, left: 8.0),
+        padding: EdgeInsets.only(left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +25,7 @@ class SettingsPage extends StatelessWidget {
               leading: BackButton(color: app.settings.appColor),
               title: Text(
                 I18n.of(context).settingsTitle,
-                style: TextStyle(fontSize: 22.0),
+                //style: TextStyle(fontSize: 22.0),
               ),
               shadowColor: Colors.transparent,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,

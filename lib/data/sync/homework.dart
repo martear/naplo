@@ -6,6 +6,7 @@ import 'package:filcnaplo/data/models/dummy.dart';
 
 class HomeworkSync {
   List<Homework> homework = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
     if (!app.debugUser) {
@@ -31,6 +32,8 @@ class HomeworkSync {
           }
         });
       }
+
+      uiPending = true;
 
       return _homework != null;
     } else {

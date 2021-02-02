@@ -7,6 +7,7 @@ import 'package:filcnaplo/data/models/dummy.dart';
 class EvaluationSync {
   List<Evaluation> evaluations = [];
   List<dynamic> averages = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
     List<Evaluation> _evaluations;
@@ -40,6 +41,8 @@ class EvaluationSync {
           }
         });
       }
+      
+      uiPending = true;
 
       return _evaluations != null;
     } else {

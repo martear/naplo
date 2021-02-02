@@ -7,6 +7,7 @@ class MessageSync {
   List<Message> inbox = [];
   List<Message> sent = [];
   List<Message> trash = [];
+  bool uiPending = true;
 
   Future<bool> sync() async {
     List<Message> _inbox = [];
@@ -60,6 +61,8 @@ class MessageSync {
         if (_trash != null) trash = _trash;
         await saveLocally(trash, types[2]);
       }
+
+      uiPending = true;
 
       return success;
     } else {

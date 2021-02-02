@@ -28,6 +28,7 @@ class _EvaluationsPageState extends State<EvaluationsPage>
   GradeBuilder _gradeBuilder;
   SubjectBuilder _subjectBuilder;
   int evalSortBy = 0;
+  List<EvaluationType> types = [];
 
   _EvaluationsPageState() {
     this._gradeBuilder = GradeBuilder();
@@ -35,6 +36,12 @@ class _EvaluationsPageState extends State<EvaluationsPage>
   }
 
   void buildPage() {
+    app.user.sync.evaluation.evaluations.forEach((evaluation) {
+      if (!types.contains(evaluation.type)) {
+        types.add(evaluation.type);
+      }
+    });
+
     _gradeBuilder.build(sortBy: evalSortBy, type: selectedEvalType);
     _subjectBuilder.build();
   }
@@ -53,6 +60,9 @@ class _EvaluationsPageState extends State<EvaluationsPage>
       vsync: this,
       length: 3,
     );
+
+    buildPage();
+
     didPageChange = false;
     _tabController.addListener(() => setState(() => didPageChange = true));
     super.initState();
@@ -68,15 +78,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
 
   @override
   Widget build(BuildContext context) {
-    List<EvaluationType> types = [];
-
-    app.user.sync.evaluation.evaluations.forEach((evaluation) {
-      if (!types.contains(evaluation.type)) {
-        types.add(evaluation.type);
-      }
-    });
-
-    buildPage();
+    if (app.user.sync.evaluation.uiPending) {
+      app.user.sync.evaluation.uiPending = false;
+      buildPage();
+    }
 
     return Scaffold(
       floatingActionButton: _tabController.index == 0
@@ -88,7 +93,9 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                 bool changed = newVal != evalSortBy;
 
                 evalSortBy = newVal + (changed ? 0 : 1);
-                setState(() {});
+                setState(() {
+                  buildPage();
+                });
               },
             )
           : null,
@@ -147,8 +154,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                               return types.contains(type);
                             },
                             callback: (value) {
-                              setState(() => selectedEvalType =
-                                  EvaluationType.values[value]);
+                              setState(() {
+                                selectedEvalType = EvaluationType.values[value];
+                                buildPage();
+                              });
                             },
                             initialValue: selectedEvalType.index,
                           )
@@ -176,7 +185,10 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                     color: Colors.red,
                   ));
                 } else {
-                  if (mounted) setState(() {});
+                  if (mounted)
+                    setState(() {
+                      buildPage();
+                    });
                 }
               },
               child: _gradeBuilder.gradeTiles.length > 0
@@ -218,7 +230,9 @@ class _EvaluationsPageState extends State<EvaluationsPage>
                     color: Colors.red,
                   ));
                 } else {
-                  setState(() {});
+                  setState(() {
+                    buildPage();
+                  });
                 }
               },
               child: CupertinoScrollbar(
