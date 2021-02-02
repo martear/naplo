@@ -1,5 +1,6 @@
 import 'package:filcnaplo/generated/i18n.dart';
 import 'package:filcnaplo/ui/pages/news/builder.dart';
+import 'package:filcnaplo/utils/format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _NewsHistoryViewState extends State<NewsHistoryView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        title: Text(I18n.of(context).aboutNews),
+        title: Text(capital(I18n.of(context).aboutNews)),
       ),
       body: Container(
         padding: EdgeInsets.only(top: 6.0),
