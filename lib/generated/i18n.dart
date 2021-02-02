@@ -2235,9 +2235,9 @@ class _I18n_de_DE extends I18n {
   /// "Statistik"
   @override
   String get statistics => "Statistik";
-  /// "Ausschreitung"
+  /// "abwesenheit"
   @override
-  String get absence => "Ausschreitung";
+  String get absence => "abwesenheit";
   /// "Ausschreitungen"
   @override
   String get absenceTitle => "Ausschreitungen";
@@ -2256,9 +2256,9 @@ class _I18n_de_DE extends I18n {
   /// "verspätung"
   @override
   String get absenceDelays => "verspätung";
-  /// "abwesenheit"
+  /// "abwesenheiten"
   @override
-  String get absenceAbsences => "abwesenheit";
+  String get absenceAbsences => "abwesenheiten";
   /// "fehlendes"
   @override
   String get absenceMisses => "fehlendes";

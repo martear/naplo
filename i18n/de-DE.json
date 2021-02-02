@@ -204,14 +204,14 @@
     "": "Statistik"
   },
   "absence": {
-    "": "Ausschreitung",
+    "": "abwesenheit",
     "title": "Ausschreitungen",
     "time": "Zeit der Abwesenheit",
     "mode": "Art der Abwesenheit",
     "all": "Menge aller Verspätungen: {count} Stunden",
     "parental": "Bescheinigungen durch den Eltern: {count}",
     "delays": "verspätung",
-    "absences": "abwesenheit",
+    "absences": "abwesenheiten",
     "misses": "fehlendes",
     "justification": "Art der Bescheinigung"
   },
